@@ -163,7 +163,7 @@ $result = mysqli_query($conn, $query);
 								<h5 class="card-title fs-5"><b>Male Population</b> </h5>
 								<p class="card-text"><?php
 								include 'conn.php';
-								$query = "SELECT id FROM residents WHERE sex = 'Male' ORDER BY id";
+								$query = "SELECT id FROM residents";
 								$query_run = mysqli_query($conn, $query);
 								$row = mysqli_num_rows($query_run);
 								echo '<h2 class="fs-1"> '.$row.'</h2>';
