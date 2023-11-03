@@ -209,7 +209,7 @@ if (isset($_SESSION['user'])) {} else {
 							<tbody>
 								<?php
 								include 'conn.php';
-								$query = "SELECT * FROM residents ";
+								$query = "SELECT * FROM residents";
 								$query_run = mysqli_query($conn, $query);
 
 								if (mysqli_num_rows($query_run) > 0) {

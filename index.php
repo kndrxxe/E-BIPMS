@@ -16,7 +16,7 @@
   <!-- Custom styles -->
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .spinner-wrapper {
+    .spinner-wrapper 
       background-color: #000;
       position: fixed;
       top: 0;
