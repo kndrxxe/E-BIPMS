@@ -117,19 +117,19 @@ $result = mysqli_query($conn, $query);
 							<div class="accordion accordion-flush" id="accordionFlushExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-2 pb-2" type="button"
+										<button class="accordion-button collapsed fs-7 pt-2 pb-2 fs-6" type="button"
 											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
 											aria-expanded="false" aria-controls="flush-collapseOne">
 											Document Requests
 										</button>
 									</h2>
 									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse show"
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
-												<li class="nav-item fs-7" style="margin-left: -10px;">
-													<a class="nav-link text-dark bg-warning active shadow ml-5" style="margin-top: -40px"
+												<li class="nav-item fs-7" style="margin-left: -20px;">
+													<a class="nav-link" style="margin-top: -40px"
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>

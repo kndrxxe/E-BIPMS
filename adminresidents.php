@@ -78,12 +78,68 @@ if (isset($_SESSION['user'])) {} else {
 								Residents Profile
 							</a>
 						</li>
+						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="admindocument.php">
-								<span data-feather="file" class="align-text-bottom feather-48"></span>
-								Document Requests
-							</a>
+							<div class="accordion accordion-flush" id="accordionFlushExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header fs-7">
+										<button class="accordion-button collapsed fs-7 pt-2 pb-2" type="button"
+											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+											aria-expanded="false" aria-controls="flush-collapseOne">
+											Document Requests
+										</button>
+									</h2>
+									<hr class="mt-0 mb-0">
+									<div id="flush-collapseOne" class="accordion-collapse collapse show"
+										data-bs-parent="#accordionFlushExample">
+										<div class="accordion-body">
+											<ul class="nav flex-column pt-4">
+												<li class="nav-item fs-7" style="margin-left: -20px;">
+													<a class="nav-link" style="margin-top: -40px"
+														href="admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Clearance
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Indigency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Residency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Business Permit
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Cedula
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
 						</li>
+						<hr class="mt-0 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -96,7 +152,7 @@ if (isset($_SESSION['user'])) {} else {
 								Manage Users
 							</a>
 						</li>
-						<hr class="mt-5 mb-1">
+						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminlogout.php">
 								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
