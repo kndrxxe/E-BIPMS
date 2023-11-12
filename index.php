@@ -15,25 +15,6 @@
   <link rel="stylesheet" href="css/mdb.min.css" />
   <!-- Custom styles -->
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .spinner-wrapper 
-      background-color: #000;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all .5s ease;
-    }
-    .fade-out-animation {
-      opacity: 0;
-      visibility: hidden;
-    }
-  </style>
   <!-- FullCalendar scripts -->
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
   <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
@@ -60,14 +41,6 @@
   </script>
 </head>
 <body>
-  <!-- Loader -->
-  <div class="spinner-wrapper">
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border text-warning" style="width: 4rem; height: 4rem;" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  </div>
   <!--Main Navigation-->
   <header>
     <style>

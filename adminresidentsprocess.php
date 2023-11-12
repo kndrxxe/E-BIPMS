@@ -12,10 +12,11 @@ if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['l
   $house_no = $_POST['house_no'];
   $purok = $_POST['purok'];
   $civilstatus = $_POST['civilstatus'];
-  $occupation = $_POST['occupation'];  
+  $occupation = $_POST['occupation'];
+  $sex = $POST['sex'];  
   
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO residents(firstname, middlename, lastname, birthday, house_no, purok, civilstatus, occupation)VALUES('$firstname', '$middlename', '$lastname', '$birthday', '$house_no', '$purok', '$civilstatus', '$occupation')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO residents(firstname, middlename, lastname, birthday, house_no, purok, civilstatus, occupation, sex)VALUES('$firstname', '$middlename', '$lastname', '$birthday', '$house_no', '$purok', '$civilstatus', '$occupation', '$sex')") or die('Query Error');
 
   $_SESSION['successaddresident'] = "Resident added Successfully";
   header('Location: adminresidents.php');

@@ -173,7 +173,7 @@ $result = mysqli_query($conn, $query);
 									</div>
 								</div>
 						</li>
-						<hr class="mt-0 mb-1">
+						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -231,7 +231,7 @@ $result = mysqli_query($conn, $query);
 								<p class="card-text">
 									<?php
 									include 'conn.php';
-									$query = "SELECT id FROM residents";
+									$query = "SELECT id FROM residents WHERE sex='Female'";
 									$query_run = mysqli_query($conn, $query);
 									$row = mysqli_num_rows($query_run);
 									echo '<h2 class="fs-1"> ' . $row . '</h2>';
@@ -247,7 +247,7 @@ $result = mysqli_query($conn, $query);
 								<p class="card-text">
 									<?php
 									include 'conn.php';
-									$query = "SELECT id FROM residents";
+									$query = "SELECT id FROM residents WHERE sex='Male'";
 									$query_run = mysqli_query($conn, $query);
 									$row = mysqli_num_rows($query_run);
 									echo '<h2 class="fs-1"> ' . $row . '</h2>';

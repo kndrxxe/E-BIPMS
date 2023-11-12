@@ -84,8 +84,7 @@ if (isset($_SESSION['user'])) {} else {
 					</ul>
 				</div>
 			</nav>
-			<form class="needs-validation" action="adminupdateresidents
-			.php" method="POST" novalidate="">
+			<form class="needs-validation" action="adminupdateresidents.php" method="POST" novalidate="">
 				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<?php
@@ -191,7 +190,7 @@ if (isset($_SESSION['user'])) {} else {
 						</div>
 						<div class="row g-2">
 							<div class="form-floating col">
-								<select class="form-select form-select" name="civilstatus" value="<?php echo $row['civilstatus'] ?>" placeholder="Civil Status" required />
+								<select class="form-select form-select" name="civilstatus" value="<?php echo $row['civilstatus'] ?>" placeholder="Civil Status" required >
 									<option selected disabled> Choose from options</option>
 									<option value="Single"
 									<?php
@@ -218,8 +217,35 @@ if (isset($_SESSION['user'])) {} else {
 								<label for="civilstatus">Civil Status</label>
 							</div>
 							<div class="form-floating col">
-								<input type="text" class="form-control rounded" name="occupation" value="<?php echo $row['occupation']; ?>" placeholder="Occupation" required />
+								<input type="text" class="form-control rounded" name="occupation" value="<?php echo $row['occupation'] ?>" placeholder="Occupation" required />
 								<label for="firstname">Occupation</label>
+							</div>
+							<div class="form-floating col">
+								<select class="form-select form-select" name="sex" value="<?php echo $row['sex'] ?>" placeholder="Sex" required >
+									<option selected disabled> Choose from options</option>
+									<option value="Male" 
+									<?php
+									if ($row['sex'] == 'Male') {
+										echo "selected";
+									}
+									?>
+									>Male</option>
+									<option value="Female"
+									<?php
+									if ($row['sex'] == 'Female') {
+										echo "selected";
+									}
+									?>
+									>Female</option>
+									<option value="Prefer not to say"
+									<?php
+									if ($row['sex'] == 'Prefer not to say') {
+										echo "selected";
+									}
+									?>
+									>Prefer not to say</option>
+								</select>
+								<label for="sex">Sex</label>
 							</div>
 						</div>
 					</div>

@@ -90,7 +90,7 @@ if (isset($_SESSION['user'])) {} else {
 										</button>
 									</h2>
 									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse show"
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
