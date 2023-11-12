@@ -64,14 +64,23 @@ $result = mysqli_query($conn, $query);
 			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 			chart.draw(data, options);
 
-			var barchart_options = {
-				'title': 'Barangay Population per Purok',
-				legend: 'none'
-			};
-
-			var barchart = new google.visualization.BarChart(document.getElementById
-				('barchart_div')); barchart.draw(data, barchart_options);
 		} </script>
+		<style>
+		.accordion {
+			--bs-accordion-active-bg: #ffc107;
+			--bs-accordion-active-color: #212529;
+			--bs-accordion-btn-focus-box-shadow: none;
+		}
+
+		.accordion-button::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+			transition: all 0.5s;
+		}
+
+		.accordion-button:not(.collapsed)::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+		}
+	</style>
 
 </head>
 
@@ -114,17 +123,17 @@ $result = mysqli_query($conn, $query);
 						</li>
 						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
+							<div class="accordion accordion-flush" id="accordionFlushExample" >
 								<div class="accordion-item">
 									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-2 pb-2 fs-6" type="button"
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link" style="font-size:11pt;" type="button"
 											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
 											aria-expanded="false" aria-controls="flush-collapseOne">
 											Document Requests
 										</button>
 									</h2>
 									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
+									<div id="flush-collapseOne" class="accordion-collapse collapse" 
 										data-bs-parent="#accordionFlushExample">
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
@@ -203,7 +212,7 @@ $result = mysqli_query($conn, $query);
 					<h1 class="h2">Dashboard</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
-							<button type="button" class="btn btn-sm btn-outline-warning">Export</button>
+							<button type="button" class="btn btn-sm btn-outline-warning" >Export</button>
 						</div>
 					</div>
 				</div>
@@ -262,13 +271,6 @@ $result = mysqli_query($conn, $query);
 						<div class="card bg-white" style="width: 21rem;">
 							<div class="card-body">
 								<div id="chart_div" style="width:300px; height: 300px"></div>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card bg-white" style="width: 21rem;">
-							<div class="card-body">
-								<div id="barchart_div" style="width:300px; height:300px"></div>
 							</div>
 						</div>
 					</div>

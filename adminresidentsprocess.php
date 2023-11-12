@@ -13,7 +13,7 @@ if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['l
   $purok = $_POST['purok'];
   $civilstatus = $_POST['civilstatus'];
   $occupation = $_POST['occupation'];
-  $sex = $POST['sex'];  
+  $sex = $POST['sex'];
   
   include 'conn.php';
   mysqli_query($conn, "INSERT INTO residents(firstname, middlename, lastname, birthday, house_no, purok, civilstatus, occupation, sex)VALUES('$firstname', '$middlename', '$lastname', '$birthday', '$house_no', '$purok', '$civilstatus', '$occupation', '$sex')") or die('Query Error');

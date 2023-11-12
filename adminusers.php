@@ -32,6 +32,22 @@ if (isset($_SESSION['user'])) {} else {
 		} );
 	</script>
 	<script src="https://unpkg.com/feather-icons"></script>
+	<style>
+		.accordion {
+			--bs-accordion-active-bg: #ffc107;
+			--bs-accordion-active-color: #212529;
+			--bs-accordion-btn-focus-box-shadow: none;
+		}
+
+		.accordion-button::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+			transition: all 0.5s;
+		}
+
+		.accordion-button:not(.collapsed)::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+		}
+	</style>
 </head>
 <body>
 	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0 ">
@@ -71,7 +87,7 @@ if (isset($_SESSION['user'])) {} else {
 							<div class="accordion accordion-flush" id="accordionFlushExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-2 pb-2 fs-6" type="button"
+										<button class="accordion-button collapsed fs-7 pb-2 nav-link" style="font-size:11pt;" type="button"
 											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
 											aria-expanded="false" aria-controls="flush-collapseOne">
 											Document Requests
@@ -87,7 +103,7 @@ if (isset($_SESSION['user'])) {} else {
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Clearance <span class="badge bg-warning">4</span>
+														Brgy. Clearance
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">

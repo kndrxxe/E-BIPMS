@@ -11,7 +11,7 @@ $house_no = $_POST['house_no'];
 $purok = $_POST['purok'];
 $civilstatus = $_POST['civilstatus'];
 $occupation = $_POST['occupation']; 
-$sex = $POST['sex']; 
+$sex = $_POST['sex'];
 
 
 $query = "UPDATE residents SET firstname='$firstname', middlename='$middlename', lastname='$lastname', birthday='$birthday', house_no='$house_no', purok='$purok', civilstatus='$civilstatus', occupation='$occupation', sex='$sex' WHERE id=$id";
