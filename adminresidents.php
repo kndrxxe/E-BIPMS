@@ -343,9 +343,39 @@ if (isset($_SESSION['user'])) {
 													<a href="viewdocument.php?id=<?= $items['id']; ?>"
 														class="btn btn-success btn-sm" style="width: 40px;"><i
 															class="bi bi-eye"></i></a>
-													<a href="dropresident.php?id=<?= $items['id']; ?>"
-														class="btn btn-danger btn-sm" style="width: 40px;"><i
-															class="bi bi-trash"></i></a>
+													<button type="button" class="btn btn-danger btn-sm deletebtn"
+														style="width: 40px;" ><i class="bi bi-trash"></i></button>
+												</div>
+												<!-- Modal -->
+												<div class="modal fade" id="deletemodal" data-bs-backdrop="static"
+													data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+													aria-hidden="true">
+													<div class="modal-dialog modal-dialog-centered">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h1 class="modal-title fs-5" id="staticBackdropLabel">
+																	<i class="bi bi-exclamation-triangle-fill text-danger"
+																		width="24" height="24"></i>
+																	Warning
+																</h1>
+																<button type="button" class="btn-close" data-bs-dismiss="modal"
+																	aria-label="Close"></button>
+															</div>
+															<form action="dropresident.php" method="post">
+																<div class="modal-body">
+																	<input type="hidden" name="delete_id" id="delete_id">
+
+																	<h5>Are you sure, you want to delete this data?</h5>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-bs-dismiss="modal">Cancel</button>
+																	<button type="submit" name="deletedata"
+																		class="btn btn-danger">Delete</button>
+																</div>
+															</form>
+														</div>
+													</div>
 												</div>
 											</td>
 										</tr>
@@ -366,6 +396,26 @@ if (isset($_SESSION['user'])) {
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
+	<script>
+		$(document).ready(function () {
+
+			$('.deletebtn').on('click', function () {
+
+				$('#deletemodal').modal('show');
+
+				$tr = $(this).closest('tr');
+
+				var data = $tr.children("td").map(function () {
+					return $(this).text();
+				}).get();
+
+				console.log(data);
+
+				$('#delete_id').val(data[0]);
+
+			});
+		});
+	</script>
 </body>
 
 </html>

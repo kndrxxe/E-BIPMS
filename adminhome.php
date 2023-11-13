@@ -265,6 +265,22 @@ $result = mysqli_query($conn, $query);
 							</div>
 						</div>
 					</div>
+					<div class="col">
+						<div class="card bg-warning text-center text-dark" style="width: 21rem;">
+							<div class="card-body">
+								<h5 class="card-title fs-5"><b>Senior Citizens</b></h5>
+								<p class="card-text">
+									<?php
+									include 'conn.php';
+									$query = "SELECT id FROM residents WHERE sex='Male'";
+									$query_run = mysqli_query($conn, $query);
+									$row = mysqli_num_rows($query_run);
+									echo '<h2 class="fs-1"> ' . $row . '</h2>';
+									?>
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="d-flex flex-wrap row g-4 mb-3 gx-1">
 					<div class="col">

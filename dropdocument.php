@@ -1,7 +1,8 @@
 <?php
 session_start();
+if(isset($_POST['delete_id'])){
 
-$id = $_GET['id'];
+$id = $_POST['delete_id'];
  //connection
 include 'conn.php';
  //delete query
@@ -10,9 +11,10 @@ $query_run = mysqli_query($conn, $query);
 
 if ($query_run) {
   $_SESSION['deletesuccess'] = "Data Deleted Successfully!";
-  header('Location: userdocument.php');
+  header('Location: admindocument.php');
 } else {
   $_SESSION['deleteerror'] = "Data Deletion Error";
-  header('Location: userdocument.php');
+  header('Location: admindocument.php');
+}
 }
 ?>

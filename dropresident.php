@@ -1,7 +1,8 @@
 <?php
 session_start();
+if(isset($_POST['delete_id'])){
 
-$id = $_GET['id'];
+$id = $_POST['delete_id'];
  //connection
 include 'conn.php';
  //delete query
@@ -14,5 +15,6 @@ if ($query_run) {
 } else {
   $_SESSION['deleteerror'] = "Data Deletion Error";
   header('Location: adminresidents.php');
+}
 }
 ?>

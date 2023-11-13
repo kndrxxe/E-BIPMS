@@ -2,23 +2,26 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {} else {
+if (isset($_SESSION['user'])) {
+} else {
 	header('location: login.php');
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>E-BIPMS</title>
-	<link rel = "icon" href = "kanlurangbukal.png" type = "image/x-icon">
+	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="DataTables/datatables.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
 	<!-- Custom styles for this template -->
 	<link href="dashboard.css" rel="stylesheet">
@@ -28,9 +31,9 @@ if (isset($_SESSION['user'])) {} else {
 	<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready( function () {
+		$(document).ready(function () {
 			$('#myTable').DataTable();
-		} );
+		});
 	</script>
 	<style>
 		.accordion {
@@ -49,13 +52,16 @@ if (isset($_SESSION['user'])) {} else {
 		}
 	</style>
 </head>
+
 <body>
 	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0 ">
 		<a class="navbar-brand px-2 fs-6 text-dark">
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b>
 		</a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</header>
@@ -68,7 +74,9 @@ if (isset($_SESSION['user'])) {} else {
 							<img class="float-start" src="kanlurangbukal.png" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
-							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;"><?php echo $_SESSION['user']?></span>
+							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
+								<?php echo $_SESSION['user'] ?>
+							</span>
 						</a>
 						<li class="nav-item fs-7">
 							<a class="nav-link" aria-current="page" href="adminhome.php">
@@ -87,9 +95,10 @@ if (isset($_SESSION['user'])) {} else {
 							<div class="accordion accordion-flush" id="accordionFlushExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pb-2 nav-link" style="font-size:11pt;" type="button"
-											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-											aria-expanded="false" aria-controls="flush-collapseOne">
+										<button class="accordion-button collapsed fs-7 pb-2 nav-link"
+											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+											data-bs-target="#flush-collapseOne" aria-expanded="false"
+											aria-controls="flush-collapseOne">
 											Document Requests
 										</button>
 									</h2>
@@ -99,7 +108,8 @@ if (isset($_SESSION['user'])) {} else {
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link text-dark bg-warning active shadow" style="margin-top: -40px; margin-right: -20px;"
+													<a class="nav-link text-dark bg-warning active shadow"
+														style="margin-top: -40px; margin-right: -20px;"
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
@@ -167,16 +177,42 @@ if (isset($_SESSION['user'])) {} else {
 				</div>
 			</nav>
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">REQUESTS FOR BARANGAY CLEARANCE</h1>
 				</div>
+				<?php
+				if (isset($_SESSION['errorupdate'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['errorupdate']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['errorupdate']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['saveupdate'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['saveupdate']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['saveupdate']);
+				}
+				?>
 				<div class="table-responsive">
 					<table id="myTable" class="table table-striped table-hover table-md" style="width:100%">
 						<thead>
 							<tr>
 								<th scope="col">ID</th>
-								<th scope="col">Name</th>
-								<th scope="col">Type of Document</th>
+								<th scope="col">First Name</th>
+								<th scope="col">Middle Name</th>
+								<th scope="col">Last Name</th>
 								<th scope="col">Nature of Business</th>
 								<th scope="col">Status</th>
 								<th scope="col">Actions</th>
@@ -191,31 +227,147 @@ if (isset($_SESSION['user'])) {} else {
 								foreach ($query_run as $items) {
 									?>
 									<tr>
-										<td><?= $items['id']; ?></td>
-										<td><?= $items['firstname'] ." ". $items['lastname']; ?></td>
-										<td>Business Clearance</td>
-										<td><?= $items['nature']; ?></td>
 										<td>
-											<?php 
-											if($items['status'] == 0){ 
+											<?= $items['id']; ?>
+										</td>
+										<td>
+											<?= $items['firstname']; ?>
+										</td>
+										<td>
+											<?= $items['middlename']; ?>
+										</td>
+										<td>
+											<?= $items['lastname']; ?>
+										</td>
+										<td>
+											<?= $items['nature']; ?>
+										</td>
+										<td>
+											<?php
+											if ($items['status'] == 0) {
 												?>
 												<span class="badge bg-danger">PENDING
 												</span>
-												<?php 
-											}
-											else if($record['status'] == 1){ 
+												<?php
+											} else if ($items['status'] == 1) {
 												?>
-												<span class="badge bg-success">APPROVED
-												</span>
-												<?php 
-											} 
+													<span class="badge bg-success">APPROVED
+													</span>
+												<?php
+											}
 											?>
 										</td>
-										<td class="text-right">										
+										<td class="text-right">
 											<div class="btn-group me-2">
-												<a href="editpage.php?id=<?= $items['id']; ?>" class="btn btn-warning btn-sm" style="width: 40px;"><i class="bi bi-pencil-square"></i></a>
-												<a href="viewpage.php?id=<?= $items['id']; ?>" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 40px;"><i class="bi bi-eye"></i></a>
-												<a href="dropdocument.php?id=<?= $items['id']; ?>" class="btn btn-danger btn-sm" style="width: 40px;"><i class="bi bi-trash"></i></a>
+												<button type="button" class="btn btn-warning btn-sm editbtn"
+													style="width: 40px;"><i class="bi bi-pencil-square"></i></button>
+												<button type="button" class="btn btn-danger btn-sm deletebtn"
+													style="width: 40px;"><i class="bi bi-trash"></i></button>
+												<?php if ($items['status'] == 1):
+													?>
+													<a href="generateclearance.php?id=<?php echo $items['id']; ?>" class="btn btn-primary" style="width: 40px;">
+														<i class="bi bi-printer"></i></a>
+												<?php endif; ?>
+											</div>
+
+											<!-- Edit Modal -->
+											<div class="modal fade" id="editmodal" data-bs-backdrop="static"
+												data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+												aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h1 class="modal-title fs-5" id="staticBackdropLabel">
+																<i class="bi bi-pencil-square text-warning" width="24"
+																	height="24"></i>
+																Update Data
+															</h1>
+															<button type="button" class="btn-close" data-bs-dismiss="modal"
+																aria-label="Close"></button>
+														</div>
+
+														<form action="updatebarangayclearance.php" method="post">
+
+															<div class="modal-body">
+																<input type="hidden" name="update_id" id="update_id">
+
+																<div class="form-floating mb-2">
+																	<input type="text" name="firstname" id="firstname"
+																		class="form-control" readonly>
+																	<label for="firstname" class="form-label">First Name</label>
+																</div>
+
+																<div class="form-floating mb-2">
+																	<input type="text" name="middlename" id="middlename"
+																		class="form-control" readonly>
+																	<label for="middlename" class="form-label">Middle
+																		Name</label>
+																</div>
+
+																<div class="form-floating mb-2">
+																	<input type="text" name="lastname" id="lastname"
+																		class="form-control" readonly>
+																	<label for="lastname" class="form-label">Last Name</label>
+																</div>
+
+																<div class="form-floating mb-2">
+																	<input type="text" name="nature" id="nature"
+																		class="form-control" readonly>
+																	<label for="nature" class="form-label">Nature of
+																		Business</label>
+																</div>
+
+																<div class="form-floating mb-2">	
+																	<select class="form-select form-select-md" name="status" placeholder="Status" id="status"
+																		required>
+																		<option selected disabled>Choose from options</option>
+																		<option value="0">Pending</option>
+																		<option value="1">Approved</option>
+																	</select>
+																	<label for="status">Status</label>
+																</div>
+
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">Cancel</button>
+																<button type="submit" name="updatedata"
+																	class="btn btn-success">Update Data</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<!-- DELETE Modal -->
+											<div class="modal fade" id="deletemodal" data-bs-backdrop="static"
+												data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+												aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h1 class="modal-title fs-5" id="staticBackdropLabel">
+																<i class="bi bi-exclamation-triangle-fill text-danger"
+																	width="24" height="24"></i>
+																Warning
+															</h1>
+															<button type="button" class="btn-close" data-bs-dismiss="modal"
+																aria-label="Close"></button>
+														</div>
+														<form action="dropdocument.php" method="post">
+															<div class="modal-body">
+																<input type="hidden" name="delete_id" id="delete_id">
+
+																<h5>Are you sure, you want to delete this data?</h5>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">Cancel</button>
+																<button type="submit" name="deletedata"
+																	class="btn btn-danger">Delete</button>
+															</div>
+														</form>
+													</div>
+												</div>
 											</div>
 										</td>
 									</tr>
@@ -232,7 +384,53 @@ if (isset($_SESSION['user'])) {} else {
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="/DataTables/datatables.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
+		</script>
+	<script>
+		$(document).ready(function () {
+
+			$('.deletebtn').on('click', function () {
+
+				$('#deletemodal').modal('show');
+
+				$tr = $(this).closest('tr');
+
+				var data = $tr.children("td").map(function () {
+					return $(this).text();
+				}).get();
+
+				console.log(data);
+
+				$('#delete_id').val(data[0]);
+
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+
+			$('.editbtn').on('click', function () {
+
+				$('#editmodal').modal('show');
+
+				$tr = $(this).closest('tr');
+
+				var data = $tr.children("td").map(function () {
+					return $(this).text().trim();
+				}).get();
+
+				console.log(data);
+
+				$('#update_id').val(data[0]);
+				$('#firstname').val(data[1]);
+				$('#middlename').val(data[2]);
+				$('#lastname').val(data[3]);
+				$('#nature').val(data[4]);
+				$('#status').val(data[5]);
+			});
+		});
 	</script>
 </body>
+
 </html>
