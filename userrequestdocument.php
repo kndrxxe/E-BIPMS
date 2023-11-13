@@ -21,6 +21,22 @@ if (isset($_SESSION['user'])) {} else {
 	<link href="dashboard.css" rel="stylesheet">
 	<!--Load the AJAX API-->
 	<script src="https://unpkg.com/feather-icons"></script>
+	<style>
+		.accordion {
+			--bs-accordion-active-bg: #ffc107;
+			--bs-accordion-active-color: #212529;
+			--bs-accordion-btn-focus-box-shadow: none;
+		}
+
+		.accordion-button::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+			transition: all 0.5s;
+		}
+
+		.accordion-button:not(.collapsed)::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+		}
+	</style>
 </head>
 <body>
 	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0 ">
@@ -51,12 +67,69 @@ if (isset($_SESSION['user'])) {} else {
 									User Profile
 								</a>
 							</li>
-							<li class="nav-item fs-7">
-								<a class="nav-link" href="userdocument.php">
-									<span data-feather="file" class="align-text-bottom feather-48"></span>
-									Document Request
-								</a>
-							</li>
+							<hr class="mt-0 mb-0">
+						<li class="nav-item fs-7">
+							<div class="accordion accordion-flush" id="accordionFlushExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header fs-7">
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
+											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+											data-bs-target="#flush-collapseOne" aria-expanded="false"
+											aria-controls="flush-collapseOne">
+											Document Requests
+										</button>
+									</h2>
+									<hr class="mt-0 mb-0">
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
+										data-bs-parent="#accordionFlushExample">
+										<div class="accordion-body">
+											<ul class="nav flex-column pt-4">
+												<li class="nav-item fs-7" style="margin-left: -20px;">
+													<a class="nav-link" style="margin-top: -40px"
+														href="userdocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Clearance
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Indigency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Residency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Business Permit
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Cedula
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+						</li>
+						<hr class="mt-0 mb-0">
 							<li class="nav-item fs-7">
 								<a class="nav-link" href="">
 									<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
@@ -125,7 +198,7 @@ if (isset($_SESSION['user'])) {} else {
 							$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
 							$row=mysqli_fetch_array($query);
 							?>
-							<h1 style="text-transform: uppercase;" class="h2">REQUEST DOCUMENT</h1>
+							<h1 style="text-transform: uppercase;" class="h2">REQUEST BARANGAY CLEARANCE</h1>
 							<div class="btn-toolbar mb-2 mb-md-0">
 								<div class="btn-group me-2">
 									<button type="submit" class="btn btn-md btn-success"><i class="bi bi-check-circle"> </i>Request</button>
@@ -157,12 +230,12 @@ if (isset($_SESSION['user'])) {} else {
 								</div>
 								<div class="row g-2">
 									<div class="form-floating col">
-										<input type="text" class="form-control rounded" name="nature" placeholder="Nature of Business" required />
-										<label for="lastname">Nature of Business</label>
+										<input type="text" class="form-control rounded" name="purpose" placeholder="Purpose" required />
+										<label for="lastname">Purpose</label>
 									</div>
 									<div class="form-floating col">
-										<input type="date" class="form-control rounded" name="date_applied" placeholder="Date of Application" required />
-										<label for="date">Date of Application</label>
+										<input type="date" class="form-control rounded" name="issue_date" placeholder="Issuance Date" required />
+										<label for="date">Issuance Date</label>
 									</div>
 								</div>
 							</div>
