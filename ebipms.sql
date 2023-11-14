@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2023 at 07:47 AM
+-- Generation Time: Nov 14, 2023 at 05:22 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -53,10 +53,17 @@ CREATE TABLE `documents` (
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
-  `nature` varchar(100) NOT NULL,
-  `date_applied` varchar(100) NOT NULL,
+  `purpose` varchar(100) NOT NULL,
+  `issue_date` varchar(100) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `documents`
+--
+
+INSERT INTO `documents` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `purpose`, `issue_date`, `status`) VALUES
+(7, 'f8156547928e2e69b25aa1b50ec0830a', 'Jorina Erica', 'Azores', 'Orna', 'FOR EMPLOYMENT', '2023-11-13', 1);
 
 -- --------------------------------------------------------
 
@@ -73,8 +80,17 @@ CREATE TABLE `residents` (
   `house_no` varchar(100) NOT NULL,
   `purok` varchar(100) NOT NULL,
   `civilstatus` varchar(100) NOT NULL,
-  `occupation` varchar(100) NOT NULL
+  `occupation` varchar(100) NOT NULL,
+  `sex` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `residents`
+--
+
+INSERT INTO `residents` (`id`, `firstname`, `middlename`, `lastname`, `birthday`, `house_no`, `purok`, `civilstatus`, `occupation`, `sex`) VALUES
+(1, 'Jorina Erica', 'Azores', 'Orna', '2001-05-05', '001', 'Purok 2', 'Single', 'Call Center', 'Female'),
+(2, 'Cristine', 'Biscocho', 'Capili', '2001-12-08', '005', 'Purok 5', 'Single', 'SK Kagawad', 'Female');
 
 -- --------------------------------------------------------
 
@@ -94,16 +110,18 @@ CREATE TABLE `users` (
   `birthday` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `profile_picture` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `house_no`, `purok`, `sex`, `birthday`, `email`, `username`, `password`) VALUES
-(1, '', '', '', '', '', '', '', '', '', 'user', 'user'),
-(2, '89dad8022a3c4111b614898bc3907d0d', 'Kendrix', 'Britiller', 'Brosas', '050', 'Purok 1', 'Male', '2001-05-05', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f');
+INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `house_no`, `purok`, `sex`, `birthday`, `email`, `username`, `password`, `profile_picture`) VALUES
+(1, '', 'User', 'User', 'User', '', '', '', '', '', 'user', 'user', ''),
+(2, '89dad8022a3c4111b614898bc3907d0d', 'Kendrix', 'Britiller', 'Brosas', '050', 'Purok 1', 'Male', '2001-05-05', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', ''),
+(3, 'f8156547928e2e69b25aa1b50ec0830a', 'Jorina Erica', 'Azores', 'Orna', '050', 'Purok 1', 'Female', '2001-03-12', 'ornajorinaerica@gmail.com', 'jorinaorna', 'd41d8cd98f00b204e9800998ecf8427e', 'user_profile_pic/IMG20231012170833.jpg');
 
 --
 -- Indexes for dumped tables
@@ -149,19 +167,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `residents`
 --
 ALTER TABLE `residents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
