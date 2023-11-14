@@ -22,6 +22,22 @@ if (isset($_SESSION['user'])) {} else {
 	<link href="dashboard.css" rel="stylesheet">
 	<!--Load the AJAX API-->
 	<script src="https://unpkg.com/feather-icons"></script>
+	<style>
+		.accordion {
+			--bs-accordion-active-bg: #ffc107;
+			--bs-accordion-active-color: #212529;
+			--bs-accordion-btn-focus-box-shadow: none;
+		}
+
+		.accordion-button::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+			transition: all 0.5s;
+		}
+
+		.accordion-button:not(.collapsed)::after {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+		}
+	</style>
 </head>
 <body>
 	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0 ">
@@ -32,14 +48,27 @@ if (isset($_SESSION['user'])) {} else {
 				<span class="navbar-toggler-icon"></span>
 			</button>
 		</header>
+		<?php
+	include 'conn.php';
+	$id = $_SESSION['id'];
+	$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
+	$row=mysqli_fetch_array($query);
 
+	if ($row['profile_picture']) {
+		// Display the profile picture
+		$profile_picture = $row['profile_picture'];
+	} else {
+		// Use a default profile picture
+		$profile_picture = 'default-profile-pic.jpg';
+	}
+	?>
 		<div class="container-fluid">
 			<div class="row">
 				<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
 					<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 						<ul class="nav flex-column">
 							<a class="navbar-brand px-2 fs-6 bg-warning">
-								<img class="float-start rounded-circle" src="default-profile-pic.jpg" width="60">
+								<img class="float-start rounded-circle" src="<?php echo $profile_picture;?>" width="60">
 								<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 								<br>
 								<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
@@ -52,12 +81,69 @@ if (isset($_SESSION['user'])) {} else {
 									User Profile
 								</a>
 							</li>
-							<li class="nav-item fs-7">
-								<a class="nav-link" href="userdocument.php">
-									<span data-feather="file" class="align-text-bottom feather-48"></span>
-									Document Request
-								</a>
-							</li>
+							<hr class="mt-0 mb-0">
+						<li class="nav-item fs-7">
+							<div class="accordion accordion-flush" id="accordionFlushExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header fs-7">
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
+											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+											data-bs-target="#flush-collapseOne" aria-expanded="false"
+											aria-controls="flush-collapseOne">
+											Document Requests
+										</button>
+									</h2>
+									<hr class="mt-0 mb-0">
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
+										data-bs-parent="#accordionFlushExample">
+										<div class="accordion-body">
+											<ul class="nav flex-column pt-4">
+												<li class="nav-item fs-7" style="margin-left: -20px;">
+													<a class="nav-link" style="margin-top: -40px"
+														href="userdocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Clearance
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Indigency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Residency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Business Permit
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Cedula
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+						</li>
+						<hr class="mt-0 mb-0">
 							<li class="nav-item fs-7">
 								<a class="nav-link" href="">
 									<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
@@ -74,7 +160,7 @@ if (isset($_SESSION['user'])) {} else {
 						</ul>
 					</div>
 				</nav>
-				<form action="updateuserprofile.php" method="POST">
+				<form action="updateuserprofile.php" method="POST" enctype="multipart/form-data">
 					<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 						<style>
 							
@@ -130,7 +216,16 @@ if (isset($_SESSION['user'])) {} else {
 	$id = $_SESSION['id'];
 	$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
 	$row=mysqli_fetch_array($query);
+
+	if ($row['profile_picture']) {
+		// Display the profile picture
+		$profile_picture = $row['profile_picture'];
+	} else {
+		// Use a default profile picture
+		$profile_picture = 'default-profile-pic.jpg';
+	}
 	?>
+	
 	<h1 style="text-transform: uppercase;" class="h2">Edit Profile</h1>
 	<div class="btn-toolbar mb-2 mb-md-0">
 		<div class="btn-group me-2">
@@ -138,9 +233,17 @@ if (isset($_SESSION['user'])) {} else {
 		</div>
 	</div>
 </div>
+<form action="updateuserprofile.php" method="POST" enctype="multipart/form-data">
 <div class="text-center mb-3">
-	<img class="rounded-circle border border-2 border-warning" src="default-profile-pic.jpg" width="150">
+	<img class="rounded-circle border border-2 border-warning" src="<?php echo $profile_picture ?>" width="150">
+	
+	<div class="form-floating mt-2 mb-1" style="width: 80%; margin-left:auto; margin-right: auto">
+    <input type="file" class="form-control border-warning rounded" value="<?php echo $row['profile_picture'] ?>" id="profile_picture" name="profile_picture" accept="image/*" /> 
+	<button type="submit" class="btn btn-md btn-success mt-2"><i class="bi bi-upload"> </i>Upload</button>
+    <label for="profile_picture">Profile Picture</label>
 </div>
+</div>
+</form>
 <div class="d-flex flex-wrap row g-4 mb-3 gx-1 p-3  text-start">
 	<div class="row g-2">
 		<div class="form-floating">
@@ -254,6 +357,7 @@ if (isset($_SESSION['user'])) {} else {
 			<input type="email" class="form-control border-warning rounded" name="email" placeholder="E-mail" value="<?php echo $row['email'] ?>"/>
 			<label for="birthday">E-mail Address</label>
 		</div>
+		<h1 style="text-transform: uppercase;" class="h2">Change Credentials</h1>
 		<div class="form-floating mb-2">
 			<input type="text" class="form-control border-warning rounded" name="username" placeholder="Username" value="<?php echo $row['username'] ?>" />
 			<label for="username">User Name</label>

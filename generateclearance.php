@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require('fpdf/fpdf.php');
 include 'conn.php';
 

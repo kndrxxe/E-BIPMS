@@ -54,14 +54,27 @@ if (isset($_SESSION['user'])) {
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</header>
+	<?php
+	include 'conn.php';
+	$id = $_SESSION['id'];
+	$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
+	$row=mysqli_fetch_array($query);
 
+	if ($row['profile_picture']) {
+		// Display the profile picture
+		$profile_picture = $row['profile_picture'];
+	} else {
+		// Use a default profile picture
+		$profile_picture = 'default-profile-pic.jpg';
+	}
+	?>
 	<div class="container-fluid">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
 				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
-							<img class="float-start rounded-circle" src="default-profile-pic.jpg" width="60">
+							<img class="float-start rounded-circle" src="<?php echo $profile_picture?>" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
 							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
@@ -195,7 +208,21 @@ if (isset($_SESSION['user'])) {
 					unset($_SESSION['saveuserupdate']);
 				}
 				?>
-				<img class="float-end rounded-circle" src="default-profile-pic.jpg" width="150">
+				<?php
+	include 'conn.php';
+	$id = $_SESSION['id'];
+	$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
+	$row=mysqli_fetch_array($query);
+
+	if ($row['profile_picture']) {
+		// Display the profile picture
+		$profile_picture = $row['profile_picture'];
+	} else {
+		// Use a default profile picture
+		$profile_picture = 'default-profile-pic.jpg';
+	}
+	?>
+				<img class="float-end rounded-circle" src="<?php echo $profile_picture; ?>" width="150">
 				<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-start">
 					<h1 style="text-transform: uppercase;"><b>
 							<?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>

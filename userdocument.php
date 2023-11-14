@@ -230,7 +230,6 @@ if (isset($_SESSION['user'])) {} else {
 									<tr>
 										<td><?= $items['id']; ?></td>
 										<td><?= $items['firstname'] ." ". $items['middlename'] . " " . $items['lastname']; ?></td>
-										<td><?= $items['nature']; ?></td>
 										<td><?= $items['issue_date']; ?></td>
 										<td><?= $items['purpose']; ?></td>
 										<td><?php 
