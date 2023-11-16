@@ -23,7 +23,34 @@ $result = mysqli_query($conn, $query);
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 	<link rel="stylesheet" href="css/style.css">
+	<link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+      href="/css/app-wa-02670e9412103b5852dcbe140d278c49.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-light.css"
+      >
 	<!-- Custom styles for this template -->
 	<link href="dashboard.css" rel="stylesheet">
 	<!--Load the AJAX API-->
@@ -64,8 +91,12 @@ $result = mysqli_query($conn, $query);
 			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 			chart.draw(data, options);
 
-		} </script>
-		<style>
+		} 
+		$(window).resize(function(){
+			drawChart();
+	});
+		</script>
+	<style>
 		.accordion {
 			--bs-accordion-active-bg: #ffc107;
 			--bs-accordion-active-color: #212529;
@@ -122,17 +153,18 @@ $result = mysqli_query($conn, $query);
 						</li>
 						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<div class="accordion accordion-flush" id="accordionFlushExample" >
+							<div class="accordion accordion-flush" id="accordionFlushExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link" style="font-size:11pt;" type="button"
-											data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-											aria-expanded="false" aria-controls="flush-collapseOne">
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
+											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+											data-bs-target="#flush-collapseOne" aria-expanded="false"
+											aria-controls="flush-collapseOne">
 											Document Requests
 										</button>
 									</h2>
 									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse" 
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
@@ -211,96 +243,111 @@ $result = mysqli_query($conn, $query);
 					<h1 class="h2">Dashboard</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
-							<button type="button" class="btn btn-sm btn-outline-warning" >Export</button>
+							<button type="button" class="btn btn-sm btn-outline-warning">Export</button>
 						</div>
 					</div>
 				</div>
-				<div class="d-flex flex-wrap row g-4 mb-3 gx-1">
-					<div class="col">
-						<div class="card bg-warning text-center text-dark" style="width: 21rem;">
-							<div class="card-body">
-								<h5 class="card-title fs-5"><b>Total Population</b></h5>
-								<p class="card-text">
-									<?php
-									include 'conn.php';
-									$query = "SELECT id FROM residents";
-									$query_run = mysqli_query($conn, $query);
-									$row = mysqli_num_rows($query_run);
-									echo '<h2 class="fs-1"> ' . $row . '</h2>';
-									?>
-								</p>
+				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-people" style="font-size: 3.5rem; margin-right: 50px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5"><b>Total Population</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$query = "SELECT id FROM residents";
+										$query_run = mysqli_query($conn, $query);
+										$row = mysqli_num_rows($query_run);
+										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col">
-						<div class="card bg-warning text-center text-dark" style="width: 21rem;">
-							<div class="card-body">
-								<h5 class="card-title fs-5"><b>Male Population</b> </h5>
-								<p class="card-text">
-									<?php
-									include 'conn.php';
-									$query = "SELECT id FROM residents WHERE sex='Female'";
-									$query_run = mysqli_query($conn, $query);
-									$row = mysqli_num_rows($query_run);
-									echo '<h2 class="fs-1"> ' . $row . '</h2>';
-									?>
-								</p>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-mars" style="font-size: 3.5rem; margin-right: 75px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end"><b>Male Population</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$query = "SELECT id FROM residents WHERE sex = 'Male'";
+										$query_run = mysqli_query($conn, $query);
+										$row = mysqli_num_rows($query_run);
+										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col">
-						<div class="card bg-warning text-center text-dark" style="width: 21rem;">
-							<div class="card-body">
-								<h5 class="card-title fs-5"><b>Female Population</b></h5>
-								<p class="card-text">
-									<?php
-									include 'conn.php';
-									$query = "SELECT id FROM residents WHERE sex='Male'";
-									$query_run = mysqli_query($conn, $query);
-									$row = mysqli_num_rows($query_run);
-									echo '<h2 class="fs-1"> ' . $row . '</h2>';
-									?>
-								</p>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-venus" style="font-size: 3.5rem; margin-right: 55px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end "><b>Female Population</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$query = "SELECT id FROM residents WHERE sex = 'Female'";
+										$query_run = mysqli_query($conn, $query);
+										$row = mysqli_num_rows($query_run);
+										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col">
-						<div class="card bg-warning text-center text-dark" style="width: 21rem;">
-							<div class="card-body">
-								<h5 class="card-title fs-5"><b>Senior Citizens</b></h5>
-								<p class="card-text">
-									<?php
-									include 'conn.php';
-									$query = "SELECT id FROM residents WHERE sex='Male'";
-									$query_run = mysqli_query($conn, $query);
-									$row = mysqli_num_rows($query_run);
-									echo '<h2 class="fs-1"> ' . $row . '</h2>';
-									?>
-								</p>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-person-cane" style="font-size: 3.5rem; margin-right: 90px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end"><b>Senior Citizens</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$query = "SELECT id FROM residents WHERE sex = 'Female'";
+										$query_run = mysqli_query($conn, $query);
+										$row = mysqli_num_rows($query_run);
+										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="d-flex flex-wrap row g-4 mb-3 gx-1">
-					<div class="col">
+				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
+					<div class="col-auto">
 						<div class="card bg-white" style="width: 21rem;">
 							<div class="card-body">
 								<div id="chart_div" style="width:300px; height: 300px"></div>
 							</div>
 						</div>
 					</div>
-					<div class="col">
-					</div>
 				</div>
 				<h2>NEWLY ADDED RESIDENT</h2>
 				<div class="table-responsive">
-					<table class="table table-striped table-hover table-md">
+					<table class="table table-md">
 						<thead>
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col">First Name</th>
 								<th scope="col">Last Name</th>
 								<th scope="col">Purok</th>
+								<th scope="col">Sex</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -312,7 +359,7 @@ $result = mysqli_query($conn, $query);
 							if (mysqli_num_rows($query_run) > 0) {
 								foreach ($query_run as $items) {
 									?>
-									<tr>
+									<tr class="animate__animated animate__bounceIn">
 										<td>
 											<?= $items['id']; ?>
 										</td>
@@ -324,6 +371,9 @@ $result = mysqli_query($conn, $query);
 										</td>
 										<td>
 											<?= $items['purok']; ?>
+										</td>
+										<td>
+											<?= $items['sex']; ?>
 										</td>
 									</tr>
 									<?php

@@ -84,6 +84,34 @@ if (isset($_SESSION['user'])) {
 		.accordion-button:not(.collapsed)::after {
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 		}
+
+		button.dt-button,
+		div.dt-button,
+		a.dt-button,
+		input.dt-button {
+			border-radius: 5px;
+			color: black;
+			background-color: #ffc107;
+		}
+		div.dataTables_wrapper div.dataTables_filter input {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+		}
+
+		div.dataTables_wrapper div.dataTables_filter input:focus {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+			box-shadow: none;
+		}
+
+		button.dt-button:hover:not(.disabled),
+		div.dt-button:hover:not(.disabled),
+		a.dt-button:hover:not(.disabled),
+		input.dt-button:hover:not(.disabled) {
+			border: 1px solid #666;
+			background-color: black;
+			color: white;
+		}
 	</style>
 </head>
 
@@ -344,7 +372,7 @@ if (isset($_SESSION['user'])) {
 														class="btn btn-success btn-sm" style="width: 40px;"><i
 															class="bi bi-eye"></i></a>
 													<button type="button" class="btn btn-danger btn-sm deletebtn"
-														style="width: 40px;" ><i class="bi bi-trash"></i></button>
+														style="width: 40px;"><i class="bi bi-trash"></i></button>
 												</div>
 												<!-- Modal -->
 												<div class="modal fade" id="deletemodal" data-bs-backdrop="static"

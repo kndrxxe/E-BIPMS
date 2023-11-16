@@ -50,6 +50,26 @@ if (isset($_SESSION['user'])) {
 		.accordion-button:not(.collapsed)::after {
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 		}
+		div.dataTables_wrapper div.dataTables_filter input {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+		}
+
+		div.dataTables_wrapper div.dataTables_filter input:focus {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+			box-shadow: none;
+		}
+		div.dataTables_wrapper div.dataTables_length select {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+		}
+		div.dataTables_wrapper div.dataTables_length select:focus {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+			box-shadow: none;
+		}
+
 	</style>
 </head>
 
@@ -206,14 +226,14 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<div class="table-responsive">
-					<table id="myTable" class="table table-striped table-hover table-md" style="width:100%">
+					<table id="myTable" class="table table-md" style="width:100%">
 						<thead>
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col">First Name</th>
 								<th scope="col">Middle Name</th>
 								<th scope="col">Last Name</th>
-								<th scope="col">Nature of Business</th>
+								<th scope="col">Purpose</th>
 								<th scope="col">Status</th>
 								<th scope="col">Actions</th>
 							</tr>
@@ -240,7 +260,7 @@ if (isset($_SESSION['user'])) {
 											<?= $items['lastname']; ?>
 										</td>
 										<td>
-											<?= $items['nature']; ?>
+											<?= $items['purpose']; ?>
 										</td>
 										<td>
 											<?php
@@ -311,10 +331,9 @@ if (isset($_SESSION['user'])) {
 																</div>
 
 																<div class="form-floating mb-2">
-																	<input type="text" name="nature" id="nature"
+																	<input type="text" name="purpose" id="purpose"
 																		class="form-control" readonly>
-																	<label for="nature" class="form-label">Nature of
-																		Business</label>
+																	<label for="purpose" class="form-label">Purpose</label>
 																</div>
 
 																<div class="form-floating mb-2">	
@@ -324,7 +343,7 @@ if (isset($_SESSION['user'])) {
 																		<option value="0">Pending</option>
 																		<option value="1">Approved</option>
 																	</select>
-																	<label for="status">Status</label>
+																	<label for="status">Status</label>	
 																</div>
 
 															</div>
@@ -426,7 +445,7 @@ if (isset($_SESSION['user'])) {
 				$('#firstname').val(data[1]);
 				$('#middlename').val(data[2]);
 				$('#lastname').val(data[3]);
-				$('#nature').val(data[4]);
+				$('#purpose').val(data[4]);
 				$('#status').val(data[5]);
 			});
 		});
