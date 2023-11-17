@@ -17,7 +17,7 @@ if ($query_run) {
         {
             // Logo
             $this->Image('kanlurangbukal.png', 30, 10, 25);
-            // Arial bold 15
+            // Arial bold 12
             $this->SetFont('Arial', 'B', 12);
             // Title
             $this->Cell(0, 15, 'Republic of the Philippines', 0, 1, 'C');
@@ -119,16 +119,16 @@ if ($query_run) {
             $this->MultiCell(0, 30, 'BARANGAY CLEARANCE', 0, 'C');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(75, 70);
-            $this->Cell(70, 0, "Ito'y nagpapatunay na si G./Gng. ___________________________,", 0, 'J');
+            $this->Cell(70, 0, "Ito'y nagpapatunay na si G./Gng./Bb. _________________________,", 0, 'J');
             $this->SetXY(135, 69);
             $this->SetFont('Arial', 'B', 12);
-            $this->MultiCell(70, 0, $data["firstname"] . " " . $data["middlename"] . " " . $data["lastname"]  , 0, 'C');
+            $this->MultiCell(80, 0, $data["firstname"] . " " . $data["middlename"] . " " . $data["lastname"], 0, 'C');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 75);
             $this->MultiCell(0, 8, '____ taong gulang, na naninirahan sa Purok ____ Barangay Kanlurang Bukal Liliw, Laguna, ay napatunayan na siya ay walang anumang kinasangkutan na kahit anong krimen o kasong nakatala dito sa Barangay.', 0, 'J');
-            $this->SetXY(-270, 78);
+            $this->SetXY(70, 123);
             $this->SetFont('Arial', 'B', 12);
-            //$this->MultiCell(0, 0, $data[''], 0, 'C');
+            $this->MultiCell(0, 0, $data["purpose"], 0, 'C');
             $this->SetXY(-100, 78);
             $this->SetFont('Arial', 'B', 12);
             //$this->MultiCell(0, 0, $data[''], 0, 'C');
@@ -137,7 +137,12 @@ if ($query_run) {
             $this->Cell(70, 0, 'Ibinigay sa kanyang kahilingan upang ito ay magamit bilang legal na', 0, 'J');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 120);
-            $this->MultiCell(0, 8, 'batayan sa ______________________________ ngayong ika _______', 0, 'J');
+            $this->MultiCell(0, 8, 'batayan sa ______________________________ ngayong ika _______ ng ', 0, 'J');
+            $this->SetFont('Arial', 'B', 12);
+            $this->SetXY(75, 131);
+            $issuanceDate = $data['issue_date']; // Assuming 'issuance' is the key for the issuance date in your data array
+            $dayOfIssuance = date('d', strtotime($issuanceDate)); // Convert the issuance date to a timestamp and get the day
+            $this->Cell(70, 0, $dayOfIssuance, 0, 'J'); // Add the day of issuance
 
 
 
