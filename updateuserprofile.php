@@ -22,66 +22,68 @@ $email = $_POST['email'];
 $username = $_POST['username'];
 $password = md5($_POST['password']);
 $upload_file = ''; // Initialize the variable
-function cropImage($sourceFile, $destFile, $cropSize) {
+function cropImage($sourceFile, $destFile, $cropSize)
+{
   list($sourceWidth, $sourceHeight, $sourceType) = getimagesize($sourceFile);
 
-    // Calculate the crop size
-    $cropSize = min($sourceWidth, $sourceHeight);
+  // Calculate the crop size
+  $cropSize = min($sourceWidth, $sourceHeight);
 
-    $offsetX = ($sourceWidth - $cropSize) / 2;
-$offsetY = ($sourceHeight - $cropSize) / 2;
+  $offsetX = ($sourceWidth - $cropSize) / 2;
+  $offsetY = ($sourceHeight - $cropSize) / 2;
 
-// Create a new true color image
-$destImage = imagecreatetruecolor($cropSize, $cropSize);
+  // Create a new true color image
+  $destImage = imagecreatetruecolor($cropSize, $cropSize);
 
-// Copy and resize part of an image with resampling
+  // Copy and resize part of an image with resampling
 
-    // Create a new image from file 
-    switch ($sourceType) {
-        case IMAGETYPE_GIF:
-            $sourceImage = imagecreatefromgif($sourceFile);
-            break;
-        case IMAGETYPE_JPEG:
-            $sourceImage = imagecreatefromjpeg($sourceFile);
-            break;
-        case IMAGETYPE_PNG:
-            $sourceImage = imagecreatefrompng($sourceFile);
-            break;
-        default:
-            return false;
-    }
-    
-    // Copy and resize part of an image with resampling
-    imagecopyresampled($destImage, $sourceImage, 0, 0, $offsetX, $offsetY, $cropSize, $cropSize, $cropSize, $cropSize);
+  // Create a new image from file 
+  switch ($sourceType) {
+    case IMAGETYPE_GIF:
+      $sourceImage = imagecreatefromgif($sourceFile);
+      break;
+    case IMAGETYPE_JPEG:
+      $sourceImage = imagecreatefromjpeg($sourceFile);
+      break;
+    case IMAGETYPE_PNG:
+      $sourceImage = imagecreatefrompng($sourceFile);
+      break;
+    default:
+      return false;
+  }
 
-    // Output image to file 
-    switch ($sourceType) {
-        case IMAGETYPE_GIF:
-            imagegif($destImage, $destFile);
-            break;
-        case IMAGETYPE_JPEG:
-            imagejpeg($destImage, $destFile);
-            break;
-        case IMAGETYPE_PNG:
-            imagepng($destImage, $destFile);
-            break;
-        default:
-            return false;
-    }
+  // Copy and resize part of an image with resampling
+  imagecopyresampled($destImage, $sourceImage, 0, 0, $offsetX, $offsetY, $cropSize, $cropSize, $cropSize, $cropSize);
 
-    // Free up memory
-    imagedestroy($sourceImage);
-    imagedestroy($destImage);
+  // Output image to file 
+  switch ($sourceType) {
+    case IMAGETYPE_GIF:
+      imagegif($destImage, $destFile);
+      break;
+    case IMAGETYPE_JPEG:
+      imagejpeg($destImage, $destFile);
+      break;
+    case IMAGETYPE_PNG:
+      imagepng($destImage, $destFile);
+      break;
+    default:
+      return false;
+  }
 
-    return true;
+  // Free up memory
+  imagedestroy($sourceImage);
+  imagedestroy($destImage);
+
+  return true;
 }
 
-function correctImageOrientation($filename) {
+function correctImageOrientation($filename)
+{
   if (function_exists('exif_read_data')) {
     $exif = exif_read_data($filename);
-    if($exif && isset($exif['Orientation'])) {
+    if ($exif && isset($exif['Orientation'])) {
       $orientation = $exif['Orientation'];
-      if($orientation != 1){
+      if ($orientation != 1) {
         $img = imagecreatefromjpeg($filename);
         $deg = 0;
         switch ($orientation) {
@@ -96,7 +98,7 @@ function correctImageOrientation($filename) {
             break;
         }
         if ($deg) {
-          $img = imagerotate($img, $deg, 0);        
+          $img = imagerotate($img, $deg, 0);
         }
         // then rewrite the rotated image back to the disk as $filename 
         imagejpeg($img, $filename, 95);

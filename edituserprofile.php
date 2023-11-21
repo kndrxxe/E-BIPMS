@@ -73,7 +73,8 @@ if (isset($_SESSION['user'])) {
 				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
-							<img class="float-start rounded-circle border border-2 border-dark" src="<?php echo $profile_picture; ?>" width="60">
+							<img class="float-start rounded-circle border border-2 border-dark"
+								src="<?php echo $profile_picture; ?>" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
 							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
@@ -243,7 +244,7 @@ if (isset($_SESSION['user'])) {
 						<div class="btn-toolbar mb-2 mb-md-0">
 							<div class="btn-group me-2">
 								<button type="submit" class="btn btn-md btn-success"><i class="bi bi-check-circle">
-									</i>Save Changes</button>
+									</i>Save</button>
 							</div>
 						</div>
 					</div>
@@ -251,7 +252,6 @@ if (isset($_SESSION['user'])) {
 						<div class="text-center mb-3">
 							<img class="rounded-circle border border-2 border-warning"
 								src="<?php echo $profile_picture ?>" width="250">
-
 							<div class="form-floating mt-2 mb-1"
 								style="width: 80%; margin-left:auto; margin-right: auto">
 								<input type="file" class="form-control border-warning rounded"
@@ -260,9 +260,17 @@ if (isset($_SESSION['user'])) {
 								<button type="submit" class="btn btn-md btn-success mt-2"><i class="bi bi-upload">
 									</i>Upload</button>
 								<label for="profile_picture">Profile Picture</label>
+
 							</div>
 						</div>
 					</form>
+					<div class="d-flex justify-content-center">
+						<form action="delete_profile_picture.php" method="POST">
+							<input type="hidden" name="id" value="<?php echo $id; ?>">
+							<button type="submit" class="btn btn-danger mt-0"><i class="bi bi-trash">
+								</i>Delete Picture</button>
+						</form>
+					</div>
 					<div class="d-flex flex-wrap row g-4 mb-3 gx-1 p-3  text-start">
 						<div class="row g-2">
 							<div class="form-floating">
@@ -491,7 +499,10 @@ if (isset($_SESSION['user'])) {
 								<label class="form-label" for="email">Email Address</label>
 							</div>
 						</div>
+
 						<div class="row g-2">
+							<h1 style="text-transform: uppercase;" class="h2">CHANGE CREDENTIAL</h1>
+							<hr class="text-secondary">
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="username" id="username"
 									value="<?php echo $row['username'] ?>" required />
@@ -501,12 +512,10 @@ if (isset($_SESSION['user'])) {
 						<div class="row g-2">
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="password" id="password"
-									value="<?php echo $row['password'] ?>" required />
+									required />
 								<label class="form-label" for="password">Password</label>
 							</div>
-						</div>
-					</div>
-							<div class="text-start" id="message">
+							<div class="text-start MT-0" id="message">
 								<p><b>Password must contain the following:</b></p>
 								<p id="length" class="invalid"><b>8</b> up to <b>32</b> characters</b></p>
 								<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -515,9 +524,11 @@ if (isset($_SESSION['user'])) {
 							</div>
 						</div>
 					</div>
-				</main>
-			</form>
 		</div>
+	</div>
+	</main>
+	</form>
+	</div>
 	</div>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
@@ -532,8 +543,7 @@ if (isset($_SESSION['user'])) {
 			} else {
 				x.type = "password";
 			}
-		}
-	</script>
+		}	</script>
 	<script>
 		var myInput = document.getElementById("password");
 		var letter = document.getElementById("letter");
@@ -591,12 +601,10 @@ if (isset($_SESSION['user'])) {
 				length.classList.remove("valid");
 				length.classList.add("invalid");
 			}
-		}
-	</script>
+		}	</script>
 	<script>
 		var x = document.getElementById("password").maxLength;
-		document.getElementById("demo").innerHTML = x;
-	</script>
+		document.getElementById("demo").innerHTML = x;	</script>
 	<script>
 		document.addEventListener('DOMContentLoaded', (event) => {
 			document.getElementById('birthday').addEventListener('input', function (e) {
@@ -609,8 +617,7 @@ if (isset($_SESSION['user'])) {
 				}
 				document.getElementById('age').value = age;
 			});
-		});
-	</script>
+		});	</script>
 	<script>
 		window.onload = function () {
 			var specialGroupDiv = document.getElementById('specialGroupDiv');
@@ -650,8 +657,7 @@ if (isset($_SESSION['user'])) {
 					});
 				}
 			});
-		};
-	</script>
+		};	</script>
 </body>
 
 </html>
