@@ -93,6 +93,7 @@ if (isset($_SESSION['user'])) {
 			color: black;
 			background-color: #ffc107;
 		}
+
 		div.dataTables_wrapper div.dataTables_filter input {
 			border-radius: 5px;
 			border: 1px solid #ffc107;
@@ -326,6 +327,7 @@ if (isset($_SESSION['user'])) {
 						<table id="myTable" class="table table-striped" style="width:100%">
 							<thead>
 								<tr>
+									<th scope="col"></th>
 									<th scope="col">ID</th>
 									<th scope="col">First Name</th>
 									<th scope="col">Middle Name</th>
@@ -338,13 +340,21 @@ if (isset($_SESSION['user'])) {
 							<tbody>
 								<?php
 								include 'conn.php';
-								$query = "SELECT * FROM residents";
+								$query = "SELECT * FROM users";
 								$query_run = mysqli_query($conn, $query);
-
 								if (mysqli_num_rows($query_run) > 0) {
 									foreach ($query_run as $items) {
 										?>
 										<tr>
+											<td style="display: block; margin-left: auto; margin-right: auto;">
+												<?php
+												if (!empty($items['profile_picture'])) {
+													echo '<img class="rounded-circle border border-warning" src="' . $items['profile_picture'] . '" alt="Profile Picture" width="80">';
+												} else {
+													echo '<img class="rounded-circle border border-warning" src="default-profile-pic.jpg" alt="Profile Picture" width="80">';
+												}
+												?>
+											</td>
 											<td>
 												<?= $items['id']; ?>
 											</td>
@@ -365,9 +375,7 @@ if (isset($_SESSION['user'])) {
 											</td>
 											<td class="text-right">
 												<div class="btn-group me-2">
-													<a href="admineditresidents.php?id=<?= $items['id']; ?>"
-														class="btn btn-warning btn-sm" style="width: 40px;"><i
-															class="bi bi-pencil"></i></a>
+
 													<a href="viewdocument.php?id=<?= $items['id']; ?>"
 														class="btn btn-success btn-sm" style="width: 40px;"><i
 															class="bi bi-eye"></i></a>

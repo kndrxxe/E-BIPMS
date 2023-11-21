@@ -9,7 +9,7 @@ if (isset($_SESSION['user'])) {
 ?>
 <?php
 include 'conn.php';
-$query = "SELECT purok, count(*) as number FROM residents GROUP BY purok";
+$query = "SELECT purok, count(*) as number FROM users GROUP BY purok";
 $result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
@@ -23,79 +23,23 @@ $result = mysqli_query($conn, $query);
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<link rel="stylesheet" href="css/style.css">
-	<link
-      rel="stylesheet"
-      data-purpose="Layout StyleSheet"
-      title="Web Awesome"
-      href="/css/app-wa-02670e9412103b5852dcbe140d278c49.css?vsn=d"
-    >
+	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
+		href="/css/app-wa-02670e9412103b5852dcbe140d278c49.css?vsn=d">
 
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css"
-      >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
 
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-solid.css"
-      >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-solid.css">
 
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-regular.css"
-      >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-regular.css">
 
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-light.css"
-      >
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-light.css">
 	<!-- Custom styles for this template -->
 	<link href="dashboard.css" rel="stylesheet">
 	<!--Load the AJAX API-->
 	<script src="https://unpkg.com/feather-icons"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-
-		// Load the Visualization API and the corechart package.
-		google.charts.load('current', { 'packages': ['corechart'] });
-
-		// Set a callback to run when the Google Visualization API is loaded.
-		google.charts.setOnLoadCallback(drawChart);
-
-		// Callback that creates and populates a data table,
-		// instantiates the pie chart, passes in the data and
-		// draws it.
-		function drawChart() {
-
-			// Create the data table.
-			var data = new google.visualization.arrayToDataTable([
-				['Purok', 'Number'],
-				<?php
-				while ($row = mysqli_fetch_array($result)) {
-					echo "['" . $row["purok"] . "', " . $row["number"] . "],";
-				}
-				?>
-			]);
-
-			// Set chart options
-			var options = {
-				'title': 'Barangay Population per Purok',
-				legend: 'none',
-				is3D: true,
-				pieSliceText: 'percent',
-
-			};
-
-			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-			chart.draw(data, options);
-
-		} 
-		$(window).resize(function(){
-			drawChart();
-	});
-		</script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 	<style>
 		.accordion {
 			--bs-accordion-active-bg: #ffc107;
@@ -213,7 +157,7 @@ $result = mysqli_query($conn, $query);
 									</div>
 								</div>
 						</li>
-						<hr class="mt-0 mb-0">
+
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -240,7 +184,7 @@ $result = mysqli_query($conn, $query);
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">Dashboard</h1>
+					<h1 class="h2">DASHBOARD</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
 							<button type="button" class="btn btn-sm btn-outline-warning">Export</button>
@@ -249,16 +193,18 @@ $result = mysqli_query($conn, $query);
 				</div>
 				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
 					<div class="col-auto">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
 								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-people" style="font-size: 3.5rem; margin-right: 50px;"></i>
+								<i class="fa-sharp fa-regular fa-people"
+									style="font-size: 3.5rem; margin-right: 50px;"></i>
 								<div class="text-left ml-auto">
 									<h5 class="card-title fs-5"><b>Total Population</b></h5>
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM residents";
+										$query = "SELECT id FROM users";
 										$query_run = mysqli_query($conn, $query);
 										$row = mysqli_num_rows($query_run);
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
@@ -269,16 +215,18 @@ $result = mysqli_query($conn, $query);
 						</div>
 					</div>
 					<div class="col-auto">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
 								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-mars" style="font-size: 3.5rem; margin-right: 75px;"></i>
+								<i class="fa-sharp fa-regular fa-mars"
+									style="font-size: 3.5rem; margin-right: 75px;"></i>
 								<div class="text-left ml-auto">
 									<h5 class="card-title fs-5 text-end"><b>Male Population</b></h5>
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM residents WHERE sex = 'Male'";
+										$query = "SELECT id FROM users WHERE sex = 'Male'";
 										$query_run = mysqli_query($conn, $query);
 										$row = mysqli_num_rows($query_run);
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
@@ -289,16 +237,18 @@ $result = mysqli_query($conn, $query);
 						</div>
 					</div>
 					<div class="col-auto">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
 								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-venus" style="font-size: 3.5rem; margin-right: 55px;"></i>
+								<i class="fa-sharp fa-regular fa-venus"
+									style="font-size: 3.5rem; margin-right: 55px;"></i>
 								<div class="text-left ml-auto">
 									<h5 class="card-title fs-5 text-end "><b>Female Population</b></h5>
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM residents WHERE sex = 'Female'";
+										$query = "SELECT id FROM users WHERE sex = 'Female'";
 										$query_run = mysqli_query($conn, $query);
 										$row = mysqli_num_rows($query_run);
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
@@ -309,16 +259,18 @@ $result = mysqli_query($conn, $query);
 						</div>
 					</div>
 					<div class="col-auto">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp" style="width: 21rem;">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
 								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-person-cane" style="font-size: 3.5rem; margin-right: 90px;"></i>
+								<i class="fa-sharp fa-regular fa-person-cane"
+									style="font-size: 3.5rem; margin-right: 90px;"></i>
 								<div class="text-left ml-auto">
 									<h5 class="card-title fs-5 text-end"><b>Senior Citizens</b></h5>
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM residents WHERE sex = 'Female'";
+										$query = "SELECT id FROM users WHERE sex = 'Female'";
 										$query_run = mysqli_query($conn, $query);
 										$row = mysqli_num_rows($query_run);
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
@@ -329,13 +281,14 @@ $result = mysqli_query($conn, $query);
 						</div>
 					</div>
 				</div>
-				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
-					<div class="col-auto">
-						<div class="card bg-white" style="width: 21rem;">
-							<div class="card-body">
-								<div id="chart_div" style="width:300px; height: 300px"></div>
-							</div>
-						</div>
+				<div class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3">
+					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 350px; margin-left:auto; margin-right:auto;">
+						<canvas id="populationPerPurok"></canvas>
+					</div>
+					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 700px; margin-left:auto; margin-right:auto;">
+						<canvas id="populationPerBarangay"></canvas>
 					</div>
 				</div>
 				<h2>NEWLY ADDED RESIDENT</h2>
@@ -353,7 +306,7 @@ $result = mysqli_query($conn, $query);
 						<tbody>
 							<?php
 							include 'conn.php';
-							$query = "SELECT * FROM residents LIMIT 5";
+							$query = "SELECT * FROM users LIMIT 5";
 							$query_run = mysqli_query($conn, $query);
 
 							if (mysqli_num_rows($query_run) > 0) {
@@ -393,15 +346,67 @@ $result = mysqli_query($conn, $query);
 		</div>
 	</div>
 
+	<?php
+	include 'conn.php';
+	$query = "SELECT purok, COUNT(*) as count FROM users GROUP BY purok";
+	$query_run = mysqli_query($conn, $query);
+	$labels = array();
+	$data = array();
+	while ($row = mysqli_fetch_assoc($query_run)) {
+		$labels[] = $row['purok'];
+		$data[] = $row['count'];
+	}
+	?>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
-		integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG"
-		crossorigin="anonymous"></script>
 	<script src="dashboard.js"></script>
+	<script>
+		var ctx1 = document.getElementById('populationPerPurok').getContext('2d');
+		const myChart1 = new Chart(ctx1, {
+			type: 'doughnut',
+			data: {
+				labels: <?php echo json_encode($labels); ?>,
+				datasets: [{
+					label: 'Population',
+					data: <?php echo json_encode($data); ?>,
+					borderWidth: 2
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'Population per Purok',
+					}
+				}
+			}
+		});
+		var ctx2 = document.getElementById('populationPerBarangay').getContext('2d');
+		const myChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: {
+				labels: <?php echo json_encode($labels); ?>,
+				datasets: [{
+					label: 'Population',
+					data: <?php echo json_encode($data); ?>,
+					borderWidth: 2
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'Population per Barangay',
+					}
+				}
+			}
+		});
+	</script>
 </body>
 
 </html>

@@ -57,8 +57,8 @@ if (isset($_SESSION['user'])) {
 	<?php
 	include 'conn.php';
 	$id = $_SESSION['id'];
-	$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
-	$row=mysqli_fetch_array($query);
+	$query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
+	$row = mysqli_fetch_array($query);
 
 	if ($row['profile_picture']) {
 		// Display the profile picture
@@ -74,7 +74,7 @@ if (isset($_SESSION['user'])) {
 				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
-							<img class="float-start rounded-circle" src="<?php echo $profile_picture?>" width="60">
+							<img class="float-start rounded-circle border border-2 border-dark" src="<?php echo $profile_picture ?>" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
 							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
@@ -153,7 +153,7 @@ if (isset($_SESSION['user'])) {
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="">
 								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
-								Feedback
+								Report Incident
 							</a>
 						</li>
 						<hr class="mt-5 mb-1">
@@ -209,43 +209,55 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<?php
-	include 'conn.php';
-	$id = $_SESSION['id'];
-	$query=mysqli_query($conn,"SELECT * FROM users where id='$id'")or die(mysqli_error());
-	$row=mysqli_fetch_array($query);
+				include 'conn.php';
+				$id = $_SESSION['id'];
+				$query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
+				$row = mysqli_fetch_array($query);
 
-	if ($row['profile_picture']) {
-		// Display the profile picture
-		$profile_picture = $row['profile_picture'];
-	} else {
-		// Use a default profile picture
-		$profile_picture = 'default-profile-pic.jpg';
-	}
-	?>
-				<img class="float-end rounded-circle" src="<?php echo $profile_picture; ?>" width="150">
-				<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-start">
-					<h1 style="text-transform: uppercase;"><b>
-							<?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
-						</b></h1>
-					<h4 class="mt-0" style="text-transform: uppercase;"><b>Sex: </b>
-						<?php echo $row['sex']; ?>
-					</h4>
-					<h4 class="mt-0" style="text-transform: uppercase;"><b>BIRTHDAY:</b>
-						<?php
-						$newDate = date("F d, Y", strtotime($row['birthday']));
-						echo $newDate; ?>
-					</h4>
-					<h4 class="mt-0" style="text-transform: uppercase;"><b>AGE:</b>
-						<?php
-						$dateOfBirth = $row['birthday'];
-						$dob = new DateTime($dateOfBirth);
-						$now = new DateTime();
-						$diff = $now->diff($dob);
-						echo $diff->y ?>
-					</h4>
-					<h4 class="mt-0" style="text-transform: uppercase;"><b>ADDRESS:</b>
-						<?php echo $row['purok'] . ', ' . $row['house_no'] . ' ' . 'KANLURANG BUKAL'; ?>
-					</h4>
+				if ($row['profile_picture']) {
+					// Display the profile picture
+					$profile_picture = $row['profile_picture'];
+				} else {
+					// Use a default profile picture
+					$profile_picture = 'default-profile-pic.jpg';
+				}
+				?>
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="text-center mb-3">
+							<img class="rounded-circle border border-2 border-warning"
+								src="<?php echo $profile_picture ?>" width="250">
+						</div>
+					</div>
+					<!-- This empty column will push the information to the right on large screens -->
+					<div class="col-lg-7">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 style="text-transform: uppercase; font-size: 25pt;"><b>
+									<?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
+								</b>
+								<hr class="mt-2 mb-0">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;"><b>ADDRESS:</b>
+								<?php echo $row['house_no'] . ', ' . $row['purok'] . ' ' . 'KANLURANG BUKAL'; ?>
+							</h4>
+							<h4 class="mt-0" style="text-transform: uppercase;"><b>Sex: </b>
+								<?php echo $row['sex']; ?>
+							</h4>
+							<h4 class="mt-0" style="text-transform: uppercase;"><b>BIRTHDAY:</b>
+								<?php
+								$newDate = date("F d, Y", strtotime($row['birthday']));
+								echo $newDate; ?>
+							</h4>
+							<h4 class="mt-0" style="text-transform: uppercase;"><b>AGE:</b>
+								<?php
+								$dateOfBirth = $row['birthday'];
+								$dob = new DateTime($dateOfBirth);
+								$now = new DateTime();
+								$diff = $now->diff($dob);
+								echo $diff->y ?>
+							</h4>
+						</div>
+					</div>
 				</div>
 			</main>
 		</div>

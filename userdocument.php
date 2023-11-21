@@ -47,13 +47,27 @@ if (isset($_SESSION['user'])) {} else {
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</header>
+	<?php
+	include 'conn.php';
+	$id = $_SESSION['id'];
+	$query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
+	$row = mysqli_fetch_array($query);
+
+	if ($row['profile_picture']) {
+		// Display the profile picture
+		$profile_picture = $row['profile_picture'];
+	} else {
+		// Use a default profile picture
+		$profile_picture = 'default-profile-pic.jpg';
+	}
+	?>
 	<div class="container-fluid">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
 				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
-							<img class="float-start rounded-circle" src="default-profile-pic.jpg" width="60">
+							<img class="float-start rounded-circle border border-2 border-dark" src="<?php echo $profile_picture ?>" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
 							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;"><?php echo $_SESSION['name']?></span>
@@ -130,7 +144,7 @@ if (isset($_SESSION['user'])) {} else {
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="">
 								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
-								Feedback
+								Report Incident
 							</a>
 						</li>
 						<hr class="mt-5 mb-1">
@@ -145,7 +159,7 @@ if (isset($_SESSION['user'])) {} else {
 			</nav>
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">DOCUMENT REQUESTS</h1>
+					<h1 class="h2">REQUESTS FOR BARANGAY CLEARANCE</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
 							<a href="userrequestdocument.php" class="btn btn-md btn-warning"><i class="bi bi-plus-circle"> </i>Request Document</a>

@@ -6,10 +6,18 @@ $id = $_POST['id'];
 $firstname = $_POST['firstname'];
 $middlename = $_POST['middlename'];
 $lastname = $_POST['lastname'];
-$house_no = $_POST['house_no'];
-$purok = $_POST['purok'];
 $sex = $_POST['sex'];
 $birthday = $_POST['birthday'];
+$age = $_POST['age'];
+$house_no = $_POST['house_no'];
+$purok = $_POST['purok'];
+$civilstatus = $_POST['civilstatus'];
+$voter = $_POST['voter'];
+$is_special_group = isset($_POST['is_special_group']) ? '1' : '0';
+$specialgroup = $is_special_group == '1' ? $_POST['specialgroup'] : NULL;
+$members = $_POST['members'];
+$housingstatus = $_POST['housingstatus'];
+$phonenumber = $_POST['phonenumber'];
 $email = $_POST['email'];
 $username = $_POST['username'];
 $password = md5($_POST['password']);
@@ -136,7 +144,7 @@ if (isset($_FILES['profile_picture'])) {
   echo 'No file uploaded.';
 }
 
-$query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname',  house_no='$house_no', purok='$purok', sex='$sex', birthday='$birthday', email='$email', username='$username', password='$password'";
+$query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', sex='$sex', birthday='$birthday', age='$age', house_no='$house_no', purok='$purok', civilstatus='$civilstatus', voter='$voter', is_special_group='$is_special_group' ,specialgroup='$specialgroup', members='$members', housingstatus='$housingstatus', phonenumber='$phonenumber', email='$email', username='$username', password='$password'";
 if ($upload_file !== '') {
   $query .= ", profile_picture='$upload_file'";
 }

@@ -8,7 +8,8 @@ if (isset($_SESSION['id'])) {
 } else {
 
   if (isset($_POST['username']) && isset($_POST['password'])) {
-    function validate($data) {
+    function validate($data)
+    {
       $data = trim($data);
       $data = stripcslashes($data);
       $data = htmlspecialchars($data);
@@ -28,8 +29,7 @@ if (isset($_SESSION['id'])) {
       $_SESSION['name'] = $row['firstname'];
       header("Location:userhome.php");
       exit();
-    }
-    else {
+    } else {
       $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
     }
   }
@@ -37,12 +37,13 @@ if (isset($_SESSION['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>User Login</title>
-  <link rel = "icon" href="kanlurangbukal.png" type = "image/x-icon">
+  <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
   <!-- Google Fonts Roboto -->
@@ -53,25 +54,15 @@ if (isset($_SESSION['id'])) {
   <!-- Custom styles -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
   <!--Main Navigation-->
   <header>
     <style>
-      #intro {
-        background-image: url(https://adrian8124.files.wordpress.com/2016/08/img_0679.jpg);
-        height: 100vh;
-      }
-
-      /* Height for devices larger than 576px */
-      @media (min-width: 992px) {
-        #intro {
-          margin-top: -58.59px;
-        }
-      }
-
       .navbar .nav-link {
         color: #fff !important;
       }
+
       .form-control input[type="text"] {
         margin-bottom: 10px;
       }
@@ -79,83 +70,60 @@ if (isset($_SESSION['id'])) {
       .form-control input[type="password"] {
         margin-bottom: 10px;
       }
+
       .checkbox {
         width: 17px;
         height: 17px;
-
         margin-left: -20px;
       }
+
       .checkbox:checked {
-        accent-color: orange; !important;
+        accent-color: orange;
+        !important;
       }
-      .checkbox-label{
+
+      .checkbox-label {
         font-size: 17px;
       }
+      
     </style>
 
     <!-- Navbar -->
-    <nav
-    class="navbar navbar-expand-lg navbar-dark d-none sticky d-lg-block"
-    style="z-index: 2000"
-    >
-    <div class="container-fluid">
-      <!-- Navbar brand -->
-      <a href="index.php" 
-      class="navbar-brand nav-link"
-      >
-      <img src="kanlurangbukal.png" width="30" />
-      <b>E-BIPMS KANLURANG BUKAL</b>
-    </a>
-    <button
-    class="navbar-toggler"
-    type="button"
-    data-mdb-toggle="collapse"
-    data-mdb-target="#navbarExample01"
-    aria-controls="navbarExample01"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    >
-    <i class="fas fa-bars"></i>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarExample01">
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item active">
-        <a
-        class="nav-link font-weight-bold"
-        href="index.php"
-        >Home</a
-        >
-      </li>
-      <li class="nav-item active">
-        <a
-        class="nav-link font-weight-bold"
-        href="#announce"
-        >Announcement</a
-        >
-      </li>
-    </ul>
-  </div>
-</div>
-</nav>
-<!-- Navbar -->
-
-<!-- Background image -->
-<div id="intro" class="bg-image shadow-2-strong">
-  <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 2000">
+      <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a href="index.php" class="navbar-brand nav-link">
+          <img src="kanlurangbukal.png" width="30" />
+          <b>E-BIPMS</b>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="index.php">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-xl-5 col-md-8">
-          <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center" action="userlogin.php" method="POST" novalidate="">
+        <div class="d-flex col-xl-5 col-md-8 col-12 mt-5 mb-5">
+          <form class="forms needs-validation bg-white rounded shadow-5-strong p-3 text-center" action="userlogin.php"
+            method="POST" novalidate="">
             <h3 class="mb-3 fw-normal display-5">LOGIN</h3>
             <?php
-            if(isset($_SESSION['loginstatus']))
-            {
+            if (isset($_SESSION['loginstatus'])) {
               ?>
               <div class="alert alert-danger text-center" role="alert">
                 <i class="bi bi-exclamation-triangle-fill" width="24" height="24"></i>
-                <?= $_SESSION['loginstatus']; ?>  
+                <?= $_SESSION['loginstatus']; ?>
               </div>
-              <?php 
+              <?php
               unset($_SESSION['loginstatus']);
             }
             ?>
@@ -163,7 +131,7 @@ if (isset($_SESSION['id'])) {
             <div class="row g-2 mb-3">
               <div class="col-12 mb-2">
                 <div class="form-outline mb-2">
-                  <input type="text" class="form-control form-control-lg" name="username" id="username" required/>
+                  <input type="text" class="form-control form-control-lg" name="username" id="username" required />
                   <label class="form-label" for="username">Username</label>
                   <div class="invalid-feedback">
                     Username is required!
@@ -174,7 +142,7 @@ if (isset($_SESSION['id'])) {
               <!-- Password input -->
               <div class="col-12">
                 <div class="form-outline">
-                  <input type="password" class="form-control form-control-lg" name="password" id="password" required/>
+                  <input type="password" class="form-control form-control-lg" name="password" id="password" required />
                   <label class="form-label" for="password">Password</label>
                   <div class="invalid-feedback">
                     Password is required!
@@ -188,9 +156,9 @@ if (isset($_SESSION['id'])) {
               <div class="col d-flex justify-content-center">
                 <!-- Checkbox -->
                 <div class="col d-flex justify-content-start">
-                  <div class="form-check">
-                    <input class="checkbox" type="checkbox" onclick="myFunction()"/>
-                    <label class="checkbox-label">
+                  <div class="form-check d-flex align-items-center">
+                    <input class="checkbox" type="checkbox" onclick="myFunction()" />
+                    <label class="checkbox-label" style="font-size: 10pt; margin-left:5px;">
                       Show Password
                     </label>
                   </div>
@@ -199,71 +167,68 @@ if (isset($_SESSION['id'])) {
 
               <div class="col">
                 <!-- Simple link -->
-                <a class="text-warning" href="#!">Forgot password?</a>
+                <a class="text-warning float-end" style="font-size: 10pt" href="#!">Forgot password?</a>
               </div>
             </div>
             <!-- Submit button -->
             <button type="submit" class="btn btn-warning btn-block">LOG IN</button>
             <div class="col mt-3">
-              <a class="btn btn-warning btn-block" href="adminlogin.php"><i class="bi bi-arrow-right-circle"></i> LOG IN AS ADMIN</a>
+              <a class="btn btn-warning btn-block" href="adminlogin.php"><i class="bi bi-arrow-right-circle"></i>
+                LOG IN AS ADMIN</a>
             </div>
             <div class="col mt-3">
-              <!-- Simple link -->
               Not yet registered? <a class="text-warning" href="userregister.php"><b>Register</b></a>
             </div>
-          </div>
+        </div>
         </form>
       </div>
     </div>
-  </div>
-</div>
-</div>
-<!-- Background image -->
-</header>
-<!--Main Navigation-->
+    </div>
+  </header>
+  <!--Main Navigation-->
 
-<!--Footer-->
-<footer class="bg-warning text-lg-start">
-  <!-- Copyright -->
-  <div class="text-center p-3 text-light">
-    © 2023 Copyright
-  </div>
-  <!-- Copyright -->
-</footer>
-<!--Footer-->
-<!-- MDB -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
-<!-- Custom scripts -->
-<script>
-  function myFunction() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
+  <!-- For the footer -->
+  <footer class="bg-warning text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3 text-light">
+      © 2023 Copyright
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- MDB -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Custom scripts -->
+  <script>
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
-  }
-</script>
-<script >
+  </script>
+  <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (() => {
-    'use strict'
+    (() => {
+      'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+      // Loop over them and prevent submission
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
-</script>
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+  </script>
 </body>
+
 </html>
