@@ -458,7 +458,7 @@ if (isset($_SESSION['user'])) {
 						</div>
 						<div class="row g-2">
 							<div class="form-floating col">
-								<input type="text" class="form-control form-control-lg" name="members" id="members"
+								<input type="text" class="form-control" name="members" id="members"
 									value="<?php echo $row['members'] ?>" required />
 								<label class="form-label" for="members">No. of Family Members</label>
 							</div>
