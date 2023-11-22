@@ -61,7 +61,7 @@ if (isset($_SESSION['user'])) {
 								.css('font-size', '14pt');
 						},
 						exportOptions: {
-							columns: [3, 1, 2, 4, 5]
+							columns: [2, 3, 4, 5, 6]
 						}
 					}
 				]
