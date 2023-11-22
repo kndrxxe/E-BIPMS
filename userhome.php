@@ -235,7 +235,7 @@ if (isset($_SESSION['user'])) {
 							<h1 style="text-transform: uppercase; font-size: 25pt;"><b>
 									<?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
 								</b>
-								<hr class="mt-2 mb-0">
+								<hr class="mt-2 mb-0 text-secondary">
 							</h1>
 							<h4 class="mt-0" style="text-transform: uppercase;"><b>ADDRESS:</b>
 								<?php echo $row['house_no'] . ', ' . $row['purok'] . ' ' . 'KANLURANG BUKAL'; ?>
