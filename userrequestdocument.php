@@ -154,6 +154,12 @@ if (isset($_SESSION['user'])) {
 								Report Incident
 							</a>
 						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="userevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
+							</a>
+						</li>
 						<hr class="mt-5 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="userlogout.php">

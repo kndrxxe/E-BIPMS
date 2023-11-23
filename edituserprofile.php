@@ -313,8 +313,9 @@ if (isset($_SESSION['user'])) {
 								<label for="sex">Sex</label>
 							</div>
 							<div class="form-floating col">
-								<input type="date" class="form-control rounded" name="birthday" id="birthday"
-									value="<?php echo $row['birthday'] ?>" placeholder="Birth Date" required />
+								<input type="date" class="form-control rounded" name="birthday" max="9999-12-31"
+									id="birthday" value="<?php echo $row['birthday'] ?>" placeholder="Birth Date"
+									required />
 								<label for="birthday">Birth Date</label>
 							</div>
 							<div class="form-floating col">
@@ -470,9 +471,12 @@ if (isset($_SESSION['user'])) {
 										echo 'selected'; ?>>
 										Owned</option>
 									<option value="Rented" <?php if ($row['housingstatus'] == 'Rented')
-										echo 'selected'; ?>>Rented</option>
+										echo 'selected'; ?>>
+										Rented
+									</option>
 									<option value="Living with Relatives" <?php if ($row['housingstatus'] == 'Living with Relatives')
-										echo 'selected'; ?>>Living with Relatives</option>
+										echo 'selected'; ?>>Living with Relatives
+									</option>
 									<option value="Living with Friends" <?php if ($row['housingstatus'] == 'Living with Friends')
 										echo 'selected'; ?>>Living with Friends</option>
 									<option value="Living with Others" <?php if ($row['housingstatus'] == 'Living with Others')
@@ -497,30 +501,6 @@ if (isset($_SESSION['user'])) {
 								<input type="email" class="form-control rounded" name="email" id="email"
 									value="<?php echo $row['email'] ?>" required />
 								<label class="form-label" for="email">Email Address</label>
-							</div>
-						</div>
-
-						<div class="row g-2">
-							<h1 style="text-transform: uppercase;" class="h2">CHANGE CREDENTIAL</h1>
-							<hr class="text-secondary">
-							<div class="form-floating col">
-								<input type="text" class="form-control rounded" name="username" id="username"
-									value="<?php echo $row['username'] ?>" required />
-								<label class="form-label" for="username">Username</label>
-							</div>
-						</div>
-						<div class="row g-2">
-							<div class="form-floating col">
-								<input type="text" class="form-control rounded" name="password" id="password"
-									required />
-								<label class="form-label" for="password">Password</label>
-							</div>
-							<div class="text-start MT-0" id="message">
-								<p><b>Password must contain the following:</b></p>
-								<p id="length" class="invalid"><b>8</b> up to <b>32</b> characters</b></p>
-								<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-								<p id="capital" class="invalid">A <b>uppercase</b> letter</p>
-								<p id="number" class="invalid">A <b>number</b></p>
 							</div>
 						</div>
 					</div>
@@ -610,14 +590,20 @@ if (isset($_SESSION['user'])) {
 			document.getElementById('birthday').addEventListener('input', function (e) {
 				var birthdate = new Date(e.target.value);
 				var today = new Date();
-				var age = today.getFullYear() - birthdate.getFullYear();
-				var m = today.getMonth() - birthdate.getMonth();
-				if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
-					age--;
+				var age;
+				if (!isNaN(birthdate.getTime())) { // Check if birthdate is a valid date
+					age = today.getFullYear() - birthdate.getFullYear();
+					var m = today.getMonth() - birthdate.getMonth();
+					if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+						age--;
+					}
+				} else {
+					age = '';
 				}
 				document.getElementById('age').value = age;
 			});
-		});	</script>
+		});	
+	</script>
 	<script>
 		window.onload = function () {
 			var specialGroupDiv = document.getElementById('specialGroupDiv');

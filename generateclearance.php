@@ -137,12 +137,12 @@ if ($query_run) {
             $this->Cell(70, 0, 'Ibinigay sa kanyang kahilingan upang ito ay magamit bilang legal na', 0, 'J');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 120);
-            $this->MultiCell(0, 8, 'batayan sa ______________________________ ngayong ika _______ ng ', 0, 'J');
+            $this->MultiCell(0, 8, 'batayan sa ______________________________ ngayong ika _______ ng Nobyembre 2023', 0, 'J');
             $this->SetFont('Arial', 'B', 12);
             $this->SetXY(75, 131);
-            $issuanceDate = $data['issue_date']; // Assuming 'issuance' is the key for the issuance date in your data array
-            $dayOfIssuance = date('d', strtotime($issuanceDate)); // Convert the issuance date to a timestamp and get the day
-            $this->Cell(70, 0, $dayOfIssuance, 0, 'J'); // Add the day of issuance
+            $issuanceDate = $data['issue_date'];
+            $dayOfIssuance = date('d', strtotime($issuanceDate));
+            $this->Cell(70, 0, $dayOfIssuance, 0, 'J'); 
 
 
 
@@ -154,6 +154,8 @@ if ($query_run) {
 
 // Usage example
 $pdf = new BarangayClearancePDF('P', 'mm', 'Letter');
+$title = $data["firstname"] . " " . $data["lastname"] . " | " . " Barangay Clearance";
+$pdf->SetTitle($title);
 $pdf->AddFont('BrushScriptRegularSWFTE', '', 'brtswfte.php');
 $pdf->AliasNbPages();
 $pdf->AddPage();

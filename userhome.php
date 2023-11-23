@@ -74,7 +74,8 @@ if (isset($_SESSION['user'])) {
 				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
-							<img class="float-start rounded-circle border border-2 border-dark" src="<?php echo $profile_picture ?>" width="60">
+							<img class="float-start rounded-circle border border-2 border-dark"
+								src="<?php echo $profile_picture ?>" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
 							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
@@ -156,6 +157,12 @@ if (isset($_SESSION['user'])) {
 								Report Incident
 							</a>
 						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="userevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
+							</a>
+						</li>
 						<hr class="mt-5 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="userlogout.php">
@@ -226,7 +233,7 @@ if (isset($_SESSION['user'])) {
 					<div class="col-lg-4">
 						<div class="text-center mb-3">
 							<img class="rounded-circle border border-2 border-warning"
-								src="<?php echo $profile_picture ?>" width="250">
+								src="<?php echo $profile_picture ?>" width="200">
 						</div>
 					</div>
 					<!-- This empty column will push the information to the right on large screens -->
@@ -249,27 +256,27 @@ if (isset($_SESSION['user'])) {
 								echo $newDate; ?>
 							</h4>
 							<h4 class="mt-0" style="text-transform: uppercase;"><b>AGE:</b>
-								<?php
-								$dateOfBirth = $row['birthday'];
-								$dob = new DateTime($dateOfBirth);
-								$now = new DateTime();
-								$diff = $now->diff($dob);
-								echo $diff->y ?>
+								<?php echo $row['age']; ?>
 							</h4>
 						</div>
 					</div>
 				</div>
+				<hr class="mt-0 mb-0 text-secondary">
+
 			</main>
 		</div>
 	</div>
+	
 	<script>feather.replace()</script>
-	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js">
+
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
-		integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG"
-		crossorigin="anonymous"></script>
+		integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous">
+		</script>
 </body>
 
 </html>

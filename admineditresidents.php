@@ -171,6 +171,12 @@ if (isset($_SESSION['user'])) {
 								Manage Users
 							</a>
 						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
+							</a>
+						</li>
 						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminlogout.php">

@@ -15,7 +15,7 @@ if (isset($_SESSION['user'])) {
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-BIPMS</title>
+	<title>Barangay Officials | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -69,8 +69,8 @@ if (isset($_SESSION['user'])) {
 						</a>
 						<li class="nav-item fs-7">
 							<a class="nav-link" aria-current="page" href="adminhome.php">
-								<span data-feather="home" class="align-text-bottom feather-48"></span>
-								Home
+								<span data-feather="activity" class="align-text-bottom feather-48"></span>
+								Dashboard
 							</a>
 						</li>
 						<li class="nav-item fs-7">
@@ -152,6 +152,12 @@ if (isset($_SESSION['user'])) {
 							<a class="nav-link" href="adminusers.php">
 								<span data-feather="layers" class="align-text-bottom feather-48"></span>
 								Manage Users
+							</a>
+						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
 							</a>
 						</li>
 						<hr class="mt-2 mb-1">

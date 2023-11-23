@@ -176,7 +176,8 @@ session_start();
               </div>
               <div class="col-5 mb-2">
                 <div class="form-outline">
-                  <input type="date" class="form-control form-control-lg" name="birthday" id="birthday" required />
+                  <input type="date" class="form-control form-control-lg" name="birthday" max="9999-12-31" id="birthday"
+                    required />
                   <label class="form-label" for="birthday">Birth Date</label>
                 </div>
               </div>
@@ -433,10 +434,15 @@ session_start();
       document.getElementById('birthday').addEventListener('input', function (e) {
         var birthdate = new Date(e.target.value);
         var today = new Date();
-        var age = today.getFullYear() - birthdate.getFullYear();
-        var m = today.getMonth() - birthdate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
-          age--;
+        var age;
+        if (!isNaN(birthdate.getTime())) { // Check if birthdate is a valid date
+          age = today.getFullYear() - birthdate.getFullYear();
+          var m = today.getMonth() - birthdate.getMonth();
+          if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+          }
+        } else {
+          age = '';
         }
         document.getElementById('age').value = age;
       });

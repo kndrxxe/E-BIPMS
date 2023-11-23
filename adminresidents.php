@@ -14,7 +14,7 @@ if (isset($_SESSION['user'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-BIPMS</title>
+	<title>Residents Profile | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<!--Bootstrap Icons -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -144,8 +144,8 @@ if (isset($_SESSION['user'])) {
 						</a>
 						<li class="nav-item fs-7">
 							<a class="nav-link" aria-current="page" href="adminhome.php">
-								<span data-feather="home" class="align-text-bottom feather-48"></span>
-								Home
+								<span data-feather="activity" class="align-text-bottom feather-48"></span>
+								Dashboard
 							</a>
 						</li>
 						<li class="nav-item fs-7">

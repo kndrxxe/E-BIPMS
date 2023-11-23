@@ -18,25 +18,8 @@
   <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
   <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
   <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js'></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        selectable: true,
-        editable: false,
-        headerToolbar: {
-          start: 'title', // will normally be on the left. if RTL, will be on the right
-          center: '',
-          end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
-        }
-      });
-      calendar.setOption('height', 600);
-      calendar.setOption('aspectRatio', 1.8);
-      calendar.render();
-    });
-
-  </script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.8/index.global.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.8/index.global.min.js'></script>
 </head>
 
 <body>
@@ -71,6 +54,7 @@
           margin-top: -58.59px;
         }
       }
+
       .navbar .nav-link {
         color: #fff !important;
       }
@@ -131,13 +115,8 @@
 
         <!-- Single item -->
         <div class="carousel-item">
-          <div class="mask" style="
-  background: linear-gradient(
-    45deg,
-    rgba(29, 236, 197, 0.7),
-    rgba(91, 14, 214, 0.7) 100%
-  );
-  ">
+          <div class="mask"
+            style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.7),rgba(91, 14, 214, 0.7) 100%);">
             <div class="d-flex justify-content-center align-items-center h-100">
               <div class="text-white text-center">
                 <h1>GET TO KNOW MORE ABOUT BARANGAY KANLURANG BUKAL</h2>
@@ -257,6 +236,44 @@
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <!-- Custom scripts -->
   <script type="text/javascript" src="js/script.js"></script>
+  <?php
+  include 'conn.php';
+  $query = "SELECT eventName as title, CONCAT(eventDateStart, ' ', eventTimeStart) as start, CONCAT(eventDateEnd, ' ', eventTimeEnd) as end, eventColor as color FROM events";
+  $query_run = mysqli_query($conn, $query);
+  $events = array();
+  while ($row = mysqli_fetch_assoc($query_run)) {
+    $events[] = $row;
+  }
+  ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: <?php echo json_encode($events); ?>, 
+        selectable: true,
+        editable: false,
+        nowIndicator: true,
+        buttonText: {
+          today: 'Today',
+          month: 'Month',
+          week: 'Week',
+          day: 'Day',
+          list: 'List',
+          prev: 'Prev',
+          next: 'Next'
+        },
+        headerToolbar: {
+          start: 'dayGridMonth,listWeek,timeGridWeek', // will normally be on the left. if RTL, will be on the right
+          center: 'title',
+          end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+        },
+      });
+      calendar.setOption('height', 600);
+      calendar.setOption('aspectRatio', 1.8);
+      calendar.render();
+    });
+  </script>
 </body>
 
 </html>

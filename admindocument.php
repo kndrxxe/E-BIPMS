@@ -14,7 +14,7 @@ if (isset($_SESSION['user'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-BIPMS</title>
+	<title>Request for Barangay Clearance | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -50,6 +50,7 @@ if (isset($_SESSION['user'])) {
 		.accordion-button:not(.collapsed)::after {
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 		}
+
 		div.dataTables_wrapper div.dataTables_filter input {
 			border-radius: 5px;
 			border: 1px solid #ffc107;
@@ -60,16 +61,17 @@ if (isset($_SESSION['user'])) {
 			border: 1px solid #ffc107;
 			box-shadow: none;
 		}
+
 		div.dataTables_wrapper div.dataTables_length select {
 			border-radius: 5px;
 			border: 1px solid #ffc107;
 		}
+
 		div.dataTables_wrapper div.dataTables_length select:focus {
 			border-radius: 5px;
 			border: 1px solid #ffc107;
 			box-shadow: none;
 		}
-
 	</style>
 </head>
 
@@ -100,8 +102,8 @@ if (isset($_SESSION['user'])) {
 						</a>
 						<li class="nav-item fs-7">
 							<a class="nav-link" aria-current="page" href="adminhome.php">
-								<span data-feather="home" class="align-text-bottom feather-48"></span>
-								Home
+								<span data-feather="activity" class="align-text-bottom feather-48"></span>
+								Dashboard
 							</a>
 						</li>
 						<li class="nav-item fs-7">
@@ -285,7 +287,8 @@ if (isset($_SESSION['user'])) {
 													style="width: 40px;"><i class="bi bi-trash"></i></button>
 												<?php if ($items['status'] == 1):
 													?>
-													<a href="generateclearance.php?id=<?php echo $items['id']; ?>" class="btn btn-primary" style="width: 40px;">
+													<a href="generateclearance.php?id=<?php echo $items['id']; ?>" target="_blank"
+														class="btn btn-primary" style="width: 40px;">
 														<i class="bi bi-printer"></i></a>
 												<?php endif; ?>
 											</div>
@@ -336,14 +339,14 @@ if (isset($_SESSION['user'])) {
 																	<label for="purpose" class="form-label">Purpose</label>
 																</div>
 
-																<div class="form-floating mb-2">	
-																	<select class="form-select form-select-md" name="status" placeholder="Status" id="status"
-																		required>
+																<div class="form-floating mb-2">
+																	<select class="form-select form-select-md" name="status"
+																		placeholder="Status" id="status" required>
 																		<option selected disabled>Choose from options</option>
 																		<option value="0">Pending</option>
 																		<option value="1">Approved</option>
 																	</select>
-																	<label for="status">Status</label>	
+																	<label for="status">Status</label>
 																</div>
 
 															</div>
@@ -447,6 +450,9 @@ if (isset($_SESSION['user'])) {
 				$('#lastname').val(data[3]);
 				$('#purpose').val(data[4]);
 				$('#status').val(data[5]);
+
+				var status = $('#status').val();
+				console.log('Selected status: ' + status);
 			});
 		});
 	</script>
