@@ -226,8 +226,8 @@ if (isset($_SESSION['user'])) {
 						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">ADD NEW RESIDENT</h1>
 						<div class="btn-toolbar mb-2 mb-md-0">
-							<div class="btn-group me-2">
-								<button type="submit" class="btn btn-md btn-warning"><i class="bi bi-plus-circle">
+							<div class="btn-group me-1">
+								<button type="submit" class="btn btn-md btn-warning"><i class="bi bi-person-fill-add">
 									</i>Add Resident</button>
 							</div>
 						</div>
@@ -356,7 +356,8 @@ if (isset($_SESSION['user'])) {
 						</div>
 						<div class="row g-2">
 							<div class="form-floating col">
-								<input type="number" class="form-control" name="members" id="members" required />
+								<input type="number" class="form-control" name="members" id="members" min="0" max="99"
+									placeholder="No. of Family Members" required />
 								<label class="form-label" for="members">No. of Family Members</label>
 							</div>
 							<div class="form-floating col">
@@ -390,29 +391,6 @@ if (isset($_SESSION['user'])) {
 							<div class="form-floating col">
 								<input type="email" class="form-control rounded" name="email" id="email" required />
 								<label class="form-label" for="email">Email Address</label>
-							</div>
-						</div>
-						<div class="row g-2">
-							<h1 style="text-transform: uppercase;" class="h2">CHANGE CREDENTIAL</h1>
-							<hr class="text-secondary">
-							<div class="form-floating col">
-								<input type="text" class="form-control rounded" name="username" id="username"
-									required />
-								<label class="form-label" for="username">Username</label>
-							</div>
-						</div>
-						<div class="row g-2">
-							<div class="form-floating col">
-								<input type="password" class="form-control rounded" name="password" id="password"
-									required />
-								<label class="form-label" for="password">Password</label>
-							</div>
-							<div class="text-start MT-0" id="message">
-								<p><b>Password must contain the following:</b></p>
-								<p id="length" class="invalid"><b>8</b> up to <b>32</b> characters</b></p>
-								<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-								<p id="capital" class="invalid">A <b>uppercase</b> letter</p>
-								<p id="number" class="invalid">A <b>number</b></p>
 							</div>
 						</div>
 					</div>

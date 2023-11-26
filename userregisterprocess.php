@@ -16,15 +16,16 @@ if (empty($_POST['email']) || empty($_POST['username']) || empty($_POST['passwor
   $purok = $_POST['purok'];
   $civilstatus = $_POST['civilstatus'];
   $voter = $_POST['voter'];
-  $specialgroup = $_POST['specialgroup'];
+  $specialgroup = isset($_POST['specialgroup']) ? $_POST['specialgroup'] : '';
   $members = $_POST['members'];
   $housingstatus = $_POST['housingstatus'];
+  $phonenumber= $_POST['phonenumber'];
   $email = $_POST['email'];
   $username = $_POST['username'];
-  $password = $_POST['password'];  
+  $password = md5($_POST['password']);  
   
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, email, username, password)VALUES('$uid','$userID', '$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$email', '$username', '$password')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, phonenumber, email, username, password)VALUES('$uid', '$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$phonenumber', '$email', '$username', '$password')") or die('Query Error');
 
   header('Location: userlogin.php');
 }

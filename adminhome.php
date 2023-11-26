@@ -157,7 +157,6 @@ $result = mysqli_query($conn, $query);
 									</div>
 								</div>
 						</li>
-
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -192,8 +191,8 @@ $result = mysqli_query($conn, $query);
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">DASHBOARD</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-2">
-							<button type="button" class="btn btn-sm btn-outline-warning">Export</button>
+						<div class="btn-group me-1">
+							<button type="button" class="btn btn-md btn-outline-warning">Export</button>
 						</div>
 					</div>
 				</div>
@@ -276,7 +275,7 @@ $result = mysqli_query($conn, $query);
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM users WHERE sex = 'Female'";
+										$query = "SELECT id FROM users WHERE specialgroup = 'Senior Citizen'";
 										$query_run = mysqli_query($conn, $query);
 										$row = mysqli_num_rows($query_run);
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
@@ -287,14 +286,15 @@ $result = mysqli_query($conn, $query);
 						</div>
 					</div>
 				</div>
-				<div class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3">
-					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3"
+				<div
+					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">
+					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3 animate__animated animate__fadeInUp"
 						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 350px; margin-left:auto; margin-right:auto;">
 						<canvas id="populationPerPurok"></canvas>
 					</div>
-					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3"
+					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3 animate__animated animate__fadeInUp"
 						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 700px; margin-left:auto; margin-right:auto;">
-						<canvas id="populationPerBarangay"></canvas>
+						<canvas id="voterPerPurok"></canvas>
 					</div>
 				</div>
 				<h2>NEWLY ADDED RESIDENT</h2>
@@ -318,7 +318,7 @@ $result = mysqli_query($conn, $query);
 							if (mysqli_num_rows($query_run) > 0) {
 								foreach ($query_run as $items) {
 									?>
-									<tr class="animate__animated animate__bounceIn">
+									<tr>
 										<td>
 											<?= $items['id']; ?>
 										</td>
@@ -363,6 +363,15 @@ $result = mysqli_query($conn, $query);
 		$data[] = $row['count'];
 	}
 	?>
+	<?php
+	include 'conn.php';
+	$query = "SELECT voter, COUNT(*) as count FROM users GROUP BY voter";
+	$query_run = mysqli_query($conn, $query);
+	$data = array();
+	while ($row = mysqli_fetch_assoc($query_run)) {
+		$data[$row['voter']] = $row['count'];
+	}
+	?>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -391,16 +400,21 @@ $result = mysqli_query($conn, $query);
 				}
 			}
 		});
-		var ctx2 = document.getElementById('populationPerBarangay').getContext('2d');
+		var ctx2 = document.getElementById('voterPerPurok').getContext('2d');
 		const myChart2 = new Chart(ctx2, {
 			type: 'line',
 			data: {
-				labels: <?php echo json_encode($labels); ?>,
+				labels: ['Yes', 'No'],
 				datasets: [{
-					label: 'Population',
+					label: 'Yes',
 					data: <?php echo json_encode($data); ?>,
 					borderWidth: 2
-				}]
+				}, {
+					label: 'No',
+					data: <?php echo json_encode($data); ?>,
+					borderWidth: 2
+				}
+				]
 			},
 			options: {
 				responsive: true,

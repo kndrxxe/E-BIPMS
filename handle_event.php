@@ -1,23 +1,23 @@
 <?php
 session_start();
 
-if (empty($_POST['eventName'])) {
-  $_SESSION['eventError'] = 'Event adding failed!, Please try again';
+if (empty($_POST['eventname'])) {
+  $_SESSION['eventerror'] = 'Event adding failed!, Please try again';
   header('Location: adminevents.php');
 } else {
-    $eventName = $_POST['eventName'];
-    $eventDateStart = $_POST['eventDateStart'];
-    $eventDateEnd = $_POST['eventDateEnd'];
-    $eventTimeStart = $_POST['eventTimeStart'];
-    $eventTimeEnd= $_POST['eventTimeEnd'];
-    $eventLocation = $_POST['eventLocation'];
-    $eventDescription = $_POST['eventDescription'];  
-    $eventColor = $_POST['eventColor'];
+    $eventname = $_POST['eventname'];
+    $eventdatestart = $_POST['eventdatestart'];
+    $eventdateend = $_POST['eventdateend'];
+    $eventtimestart = $_POST['eventtimestart'];
+    $eventtimeend= $_POST['eventtimeend'];
+    $eventlocation = $_POST['eventlocation'];
+    $eventdescription = $_POST['eventdescription'];  
+    $eventcolor = $_POST['eventcolor'];
   
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO events(eventName, eventDateStart, eventDateEnd, eventTimeStart, eventTimeEnd, eventLocation, eventDescription, eventColor)VALUES('$eventName', '$eventDateStart', '$eventDateEnd', '$eventTimeStart', '$eventTimeEnd', '$eventLocation', '$eventDescription', '$eventColor')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO events(eventname, eventdatestart, eventdateend, eventtimestart, eventtimeend, eventlocation, eventdescription, eventcolor)VALUES('$eventname', '$eventdatestart', '$eventdateend', '$eventtimestart', '$eventtimeend', '$eventlocation', '$eventdescription', '$eventcolor')") or die('Query Error');
   
-  $_SESSION['eventSuccess'] = 'Event added successfully!';
+  $_SESSION['eventsuccess'] = 'Event added successfully!';
   header('Location: adminevents.php');
 }
 ?>

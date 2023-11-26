@@ -155,7 +155,7 @@ session_start();
               <div class="col-4">
                 <div class="form-outline">
                   <input type="text" class="form-control form-control-lg" name="middlename" id="middlename" />
-                  <label class="form-label" for="middlename">Middle Name</label>
+                  <label class="form-label" for="middlename">Middle Name (optional)</label>
                 </div>
               </div>
               <div class="col-4 mb-2">
@@ -253,7 +253,7 @@ session_start();
                 </div>
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="housingstatus" placeholder="housingstatus">
+                <select class="form-select form-select-lg rounded-2" name="housingstatus" placeholder="housingstatus" required>
                   <option selected disabled>Housing Status</option>
                   <option value="Owned">Owned</option>
                   <option value="Rented">Rented</option>

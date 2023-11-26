@@ -2,24 +2,27 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {} else {
+if (isset($_SESSION['user'])) {
+} else {
 	header('location: login.php');
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>E-BIPMS</title>
-	<link rel = "icon" href = "kanlurangbukal.png" type = "image/x-icon">
+	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	<!-- Custom styles for this template -->
 	<link href="dashboard.css" rel="stylesheet">
 	<script src="https://unpkg.com/feather-icons"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
 		.accordion {
 			--bs-accordion-active-bg: #ffc107;
@@ -37,13 +40,16 @@ if (isset($_SESSION['user'])) {} else {
 		}
 	</style>
 </head>
+
 <body>
 	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0 ">
 		<a class="navbar-brand px-2 fs-6 text-dark">
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b>
 		</a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</header>
@@ -67,10 +73,13 @@ if (isset($_SESSION['user'])) {} else {
 				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
-							<img class="float-start rounded-circle border border-2 border-dark" src="<?php echo $profile_picture ?>" width="60">
+							<img class="float-start rounded-circle border border-2 border-dark"
+								src="<?php echo $profile_picture ?>" width="60">
 							<span class="fs-4 px-2 text-dark"><b>WELCOME</b></span>
 							<br>
-							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;"><?php echo $_SESSION['name']?></span>
+							<span class="fs-6 px-2 text-dark" style="text-transform: uppercase;">
+								<?php echo $_SESSION['name'] ?>
+							</span>
 						</a>
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="userhome.php">
@@ -104,24 +113,21 @@ if (isset($_SESSION['user'])) {} else {
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href=" ">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Business Permit
@@ -129,7 +135,7 @@ if (isset($_SESSION['user'])) {} else {
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
+														href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula
@@ -164,63 +170,123 @@ if (isset($_SESSION['user'])) {} else {
 				</div>
 			</nav>
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">REQUESTS FOR BARANGAY CLEARANCE</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
-							<a href="userrequestdocument.php" class="btn btn-md btn-warning"><i class="bi bi-plus-circle"> </i>Request Document</a>
+							<button type="button" class="btn btn-md btn-warning addbtn" data-bs-toggle="modal"
+								data-bs-target="#requestBarangayClearance"><i class="bi bi-file-earmark-text">
+								</i>Request Document
+							</button>
+						</div>
+					</div>
+					<div class="modal fade" id="requestBarangayClearance" tabindex="-1"
+						aria-labelledby="requestBarangayClearanceLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="requestBarangayClearanceLabel">Request Barangay
+										Clearance</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form class="forms needs-validation" method="POST" action="userprocessdocument.php"
+										novalidate="">
+										<div class="form-floating">
+											<input type="hidden" class="form-control" name="userID"
+												value="<?php echo $row['userID'] ?>" />
+										</div>
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control" name="status" value="0" />
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control rounded" name="firstname"
+												placeholder="First Name" value="<?php echo $row['firstname'] ?>"
+												readonly />
+											<label for="firstname">First Name</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control rounded" name="middlename"
+												placeholder="Middle Name" value="<?php echo $row['middlename'] ?>"
+												readonly />
+											<label for="middlename">Middle Name</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control rounded" name="lastname"
+												placeholder="Last Name" value="<?php echo $row['lastname'] ?>"
+												readonly />
+											<label for="lastname">Last Name</label>
+										</div>
+
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control rounded" name="purpose"
+												placeholder="Purpose" required />
+											<label for="lastname">Purpose</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input type="date" class="form-control rounded" name="issue_date"
+												placeholder="Issuance Date" required />
+											<label for="date">Issuance Date</label>
+										</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-warning"> <i class="bi bi-check2-circle">
+										</i>Request</button>
+								</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 				<?php
-				if(isset($_SESSION['requesterror']))
-				{
+				if (isset($_SESSION['requesterror'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
 						<?= $_SESSION['requesterror']; ?>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-					<?php 
+					<?php
 					unset($_SESSION['requesterror']);
 				}
 				?>
 				<?php
-				if(isset($_SESSION['requestsuccess']))
-				{
+				if (isset($_SESSION['requestsuccess'])) {
 					?>
 					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
 						<?= $_SESSION['requestsuccess']; ?>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-					<?php 
+					<?php
 					unset($_SESSION['requestsuccess']);
 				}
 				?>
 				<?php
-				if(isset($_SESSION['deleteerror']))
-				{
+				if (isset($_SESSION['deleteerror'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
 						<?= $_SESSION['deleteerror']; ?>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-					<?php 
+					<?php
 					unset($_SESSION['deleteerror']);
 				}
 				?>
 				<?php
-				if(isset($_SESSION['deletesuccess']))
-				{
+				if (isset($_SESSION['deletesuccess'])) {
 					?>
 					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
 						<?= $_SESSION['deletesuccess']; ?>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-					<?php 
+					<?php
 					unset($_SESSION['deletesuccess']);
 				}
 				?>
@@ -232,6 +298,7 @@ if (isset($_SESSION['user'])) {} else {
 								<th scope="col">Name</th>
 								<th scope="col">Issuance Date</th>
 								<th scope="col">Purpose</th>
+								<th scope="col">Date Requested</th>
 								<th scope="col">Status</th>
 								<th scope="col">Actions</th>
 							</tr>
@@ -248,44 +315,100 @@ if (isset($_SESSION['user'])) {} else {
 								foreach ($query_run as $items) {
 									?>
 									<tr>
-										<td><?= $items['id']; ?></td>
-										<td><?= $items['firstname'] ." ". $items['middlename'] . " " . $items['lastname']; ?></td>
-										<td><?= $items['issue_date']; ?></td>
-										<td><?= $items['purpose']; ?></td>
-										<td><?php 
-										if($items['status'] == 0){ 
+										<td>
+											<?= $items['id']; ?>
+										</td>
+										<td>
+											<?= $items['firstname'] . " " . $items['middlename'] . " " . $items['lastname']; ?>
+										</td>
+										<td>
+											<?= $items['issue_date']; ?>
+										</td>
+										<td>
+											<?= $items['purpose']; ?>
+										</td>
+										<td>
+											<?= $items['date_requested']; ?>
+										</td>
+										<td>
+											<?php
+											if ($items['status'] == 0) {
+												?>
+												<span class="badge bg-danger">PENDING
+												</span>
+												<?php
+											} else if ($items['status'] == 1) {
+												?>
+													<span class="badge bg-success">APPROVED
+													</span>
+												<?php
+											}
 											?>
-											<span class="badge bg-danger">PENDING
-											</span>
-											<?php 
-										}
-										else if($items['status'] == 1){ 
-											?>
-											<span class="badge bg-success">APPROVED
-											</span>
-											<?php 
-										} 
-									?></td>
-									<td class="text-right">										
-										<div class="btn-group me-2">
-											<a href="dropdocument.php?id=<?= $items['id']; ?>" class="btn btn-danger btn-sm" style="width: 40px;"><i class="bi bi-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<?php
+										</td>
+										<td class="text-right">
+											<div class="btn-group me-2">
+												<button type="button" class="btn btn-danger btn-sm deletebtn"
+													style="width: 40px;"><i class="bi bi-trash"></i></button>
+											</div>
+										</td>
+									</tr>
+									<?php
+								}
 							}
-						}
-						?>
-					</tbody>
-				</table>
-			</div>
-		</main>
+							?>
+						</tbody>
+					</table>
+					<!-- DELETE Modal -->
+					<div class="modal fade" id="deletemodal" data-bs-backdrop="static" data-bs-keyboard="false"
+						tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="staticBackdropLabel">
+										<i class="bi bi-exclamation-triangle-fill text-danger" width="24"
+											height="24"></i>
+										Warning
+									</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<form action="userdropdocument.php" method="post">
+									<div class="modal-body">
+										<input type="hidden" name="delete_id" id="delete_id">
+										<h5>Are you sure you want to delete this request?</h5>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Cancel</button>
+										<button type="submit" name="deletedata" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
 	</div>
-</div>
-<script>feather.replace()</script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="/DataTables/datatables.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
-</script>
+	<script>feather.replace()</script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="/DataTables/datatables.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
+		</script>
+	<script>
+		$(document).ready(function () {
+			$('.deletebtn').on('click', function () {
+				$('#deletemodal').modal('show');
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function () {
+					return $(this).text();
+				}).get();
+				console.log(data);
+				$('#delete_id').val(data[0]);
+			});
+		});
+	</script>
 </body>
+
 </html>

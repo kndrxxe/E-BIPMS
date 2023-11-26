@@ -15,7 +15,7 @@ if (empty($_POST['firstname']) || empty($_POST['lastname'])) {
   $issue_date = $_POST['issue_date'];
 
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO documents(userID, status, firstname, middlename, lastname, purpose, issue_date)VALUES('$userID','$status', '$firstname', '$middlename', '$lastname', '$purpose', '$issue_date')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO documents(userID, status, firstname, middlename, lastname, purpose, issue_date, date_requested)VALUES('$userID','$status', '$firstname', '$middlename', '$lastname', '$purpose', '$issue_date', CURDATE())") or die('Query Error');
   
   $_SESSION['requestsuccess'] = "Request successfully sent";
   header('Location: userdocument.php');

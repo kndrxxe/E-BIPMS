@@ -10,11 +10,11 @@ $query = "DELETE FROM documents WHERE id = $id";
 $query_run = mysqli_query($conn, $query);
 
 if ($query_run) {
-  $_SESSION['deletesuccess'] = "Data Deleted Successfully!";
-  header('Location: admindocument.php');
+  $_SESSION['deletesuccess'] = "Request Deleted Successfully!";
+  header('Location: userdocument.php');
 } else {
-  $_SESSION['deleteerror'] = "Data Deletion Error";
-  header('Location: admindocument.php');
+  $_SESSION['deleteerror'] = "Request Deletion Error";
+  header('Location: userdocument.php');
 }
 }
 ?>

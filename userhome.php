@@ -114,24 +114,21 @@ if (isset($_SESSION['user'])) {
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href=" ">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Business Permit
@@ -139,7 +136,7 @@ if (isset($_SESSION['user'])) {
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
+														href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula
@@ -266,7 +263,7 @@ if (isset($_SESSION['user'])) {
 			</main>
 		</div>
 	</div>
-	
+
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js">
 

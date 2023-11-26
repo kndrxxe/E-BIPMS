@@ -171,29 +171,57 @@ if (isset($_SESSION['user'])) {
 				</div>
 
 			</nav>
-
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">BARANGAY OFFICIALS</h1>
 				</div>
-				<div class="d-flex flex-wrap mb-3 row g-2 justify-content-center">
-					<div class="col-auto">
-						<div class="card" style="width: 21rem;">
-							<img class="mx-auto d-block mt-3" src="kanlurangbukal.png" width="50%" alt="...">
-							<div class="card-body">
-								<p class="card-text text-center fs-5"><strong>HENRY DULLER</strong><br>BARANGAY CHAIRMAN
-								</p>
-								<div class="text-center">
-									<a href="editpage.php?id=<?= $items['id']; ?>" class="btn btn-warning btn-sm f"
-										style="width: 70px;"><i class="bi bi-pencil-square"></i> Edit</a>
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
+					<?php
+					include 'conn.php';
+					$query = "SELECT * FROM officials WHERE position='Barangay Chairman'";
+					$query_run = mysqli_query($conn, $query);
+					while ($items = mysqli_fetch_array($query_run)) {
+						echo '<div class="col-auto">';
+						echo '<div class="card" style="width: 20rem;">';
+						echo '<div class="card-body">';
+						echo '<h3 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['lastName'] . '</strong>' . '</h3>';
+						echo '<h4 class="text-center mt-0" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
+						echo '<div class="text-center mt-3">';
+						echo '<a href="editpage.php?id=' . $items['id'] . '" class="btn btn-warning btn-sm f" style="width: 70px;"><i class="bi bi-pencil-square"></i> Edit</a>';
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+					}
+					?>
 				</div>
-			</main>
+				
+				<div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
+					
+					<?php
+					include 'conn.php';
+					$query = "SELECT * FROM officials WHERE position='Barangay Councilor'";
+					$query_run = mysqli_query($conn, $query);
+					while ($items = mysqli_fetch_array($query_run)) {
+						echo '<div class="col-auto">';
+						echo '<div class="card" style="width: 20rem;">';
+						echo '<div class="card-body">';
+						echo '<h3 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['lastName'] . '</strong>' . '</h3>';
+						echo '<h5 class="text-center text-secondary" style="text-transform: uppercase; margin-top:-10px;">' . $items['committee'] . '</h5>';
+						echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">' . $items['position'] . '</h5>';
+						echo '<div class="text-center mt-3">';
+						echo '<a href="editpage.php?id=' . $items['id'] . '" class="btn btn-warning btn-sm f" style="width: 70px;"><i class="bi bi-pencil-square"></i> Edit</a>';
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+					}
+					?>
+				</div>
 		</div>
+		</main>
+	</div>
 	</div>
 
 	<script>feather.replace()</script>

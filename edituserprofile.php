@@ -113,24 +113,21 @@ if (isset($_SESSION['user'])) {
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href=" ">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+													<a class="nav-link" style="margin-top: -15px" href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Business Permit
@@ -138,7 +135,7 @@ if (isset($_SESSION['user'])) {
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
+														href="">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula
@@ -154,6 +151,12 @@ if (isset($_SESSION['user'])) {
 							<a class="nav-link" href="">
 								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
 								Report Incident
+							</a>
+						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="userevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
 							</a>
 						</li>
 						<hr class="mt-5 mb-1">
@@ -405,8 +408,8 @@ if (isset($_SESSION['user'])) {
 								<label for="civilstatus">Civil Status</label>
 							</div>
 							<div class="form-floating col">
-								<select class="form-select form-select" name="voter" placeholder="Registered Voter"
-									value="<?php echo $row['voter'] ?>" required>
+								<select class="form-select form-select" name="voter" value="<?php echo $row['voter'] ?>"
+									placeholder="Registered Voter" required>
 									<option selected disabled>Choose from options</option>
 									<option value="Yes" <?php
 									if ($row['voter'] == 'Yes') {
@@ -464,15 +467,14 @@ if (isset($_SESSION['user'])) {
 								<label class="form-label" for="members">No. of Family Members</label>
 							</div>
 							<div class="form-floating col">
-								<select class="form-select form-select" name="housingstatus"
-									value="<?php echo $row['housingstatus'] ?>" placeholder="housingstatus">
+								<select class="form-select form-select" name="housingstatus" placeholder="housingstatus"
+									required>
 									<option selected disabled>Choose from options</option>
 									<option value="Owned" <?php if ($row['housingstatus'] == 'Owned')
 										echo 'selected'; ?>>
 										Owned</option>
 									<option value="Rented" <?php if ($row['housingstatus'] == 'Rented')
-										echo 'selected'; ?>>
-										Rented
+										echo 'selected'; ?>>Rented
 									</option>
 									<option value="Living with Relatives" <?php if ($row['housingstatus'] == 'Living with Relatives')
 										echo 'selected'; ?>>Living with Relatives
@@ -515,76 +517,6 @@ if (isset($_SESSION['user'])) {
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
-	<script>
-		function myFunction() {
-			var x = document.getElementById("password");
-			if (x.type === "password") {
-				x.type = "text";
-			} else {
-				x.type = "password";
-			}
-		}	</script>
-	<script>
-		var myInput = document.getElementById("password");
-		var letter = document.getElementById("letter");
-		var capital = document.getElementById("capital");
-		var number = document.getElementById("number");
-		var length = document.getElementById("length");
-
-		// When the user clicks on the password field, show the message box
-		myInput.onfocus = function () {
-			document.getElementById("message").style.display = "block";
-		}
-
-		// When the user clicks outside of the password field, hide the message box
-		myInput.onblur = function () {
-			document.getElementById("message").style.display = "none";
-		}
-
-		// When the user starts to type something inside the password field
-		myInput.onkeyup = function () {
-			// Validate lowercase letters
-			var lowerCaseLetters = /[a-z]/g;
-			if (myInput.value.match(lowerCaseLetters)) {
-				letter.classList.remove("invalid");
-				letter.classList.add("valid");
-			} else {
-				letter.classList.remove("valid");
-				letter.classList.add("invalid");
-			}
-
-			// Validate capital letters
-			var upperCaseLetters = /[A-Z]/g;
-			if (myInput.value.match(upperCaseLetters)) {
-				capital.classList.remove("invalid");
-				capital.classList.add("valid");
-			} else {
-				capital.classList.remove("valid");
-				capital.classList.add("invalid");
-			}
-
-			// Validate numbers
-			var numbers = /[0-9]/g;
-			if (myInput.value.match(numbers)) {
-				number.classList.remove("invalid");
-				number.classList.add("valid");
-			} else {
-				number.classList.remove("valid");
-				number.classList.add("invalid");
-			}
-
-			// Validate length
-			if (myInput.value.length >= 8) {
-				length.classList.remove("invalid");
-				length.classList.add("valid");
-			} else {
-				length.classList.remove("valid");
-				length.classList.add("invalid");
-			}
-		}	</script>
-	<script>
-		var x = document.getElementById("password").maxLength;
-		document.getElementById("demo").innerHTML = x;	</script>
 	<script>
 		document.addEventListener('DOMContentLoaded', (event) => {
 			document.getElementById('birthday').addEventListener('input', function (e) {

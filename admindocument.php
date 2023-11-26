@@ -188,6 +188,12 @@ if (isset($_SESSION['user'])) {
 								Manage Users
 							</a>
 						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
+							</a>
+						</li>
 						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminlogout.php">
@@ -227,6 +233,30 @@ if (isset($_SESSION['user'])) {
 					unset($_SESSION['saveupdate']);
 				}
 				?>
+				<?php
+				if (isset($_SESSION['deleteerror'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['deleteerror']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['deleteerror']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['deletesuccess'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['deletesuccess']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['deletesuccess']);
+				}
+				?>
 				<div class="table-responsive">
 					<table id="myTable" class="table table-md" style="width:100%">
 						<thead>
@@ -236,6 +266,8 @@ if (isset($_SESSION['user'])) {
 								<th scope="col">Middle Name</th>
 								<th scope="col">Last Name</th>
 								<th scope="col">Purpose</th>
+								<th scope="col">Date of Issuance</th>
+								<th scope="col">Date Requested</th>
 								<th scope="col">Status</th>
 								<th scope="col">Actions</th>
 							</tr>
@@ -263,6 +295,12 @@ if (isset($_SESSION['user'])) {
 										</td>
 										<td>
 											<?= $items['purpose']; ?>
+										</td>
+										<td>
+											<?= $items['issue_date']; ?>
+										</td>
+										<td>
+											<?= $items['date_requested']; ?>
 										</td>
 										<td>
 											<?php
@@ -301,8 +339,7 @@ if (isset($_SESSION['user'])) {
 													<div class="modal-content">
 														<div class="modal-header">
 															<h1 class="modal-title fs-5" id="staticBackdropLabel">
-																<i class="bi bi-pencil-square text-warning" width="24"
-																	height="24"></i>
+																<i class="bi bi-pencil-square"></i>
 																Update Data
 															</h1>
 															<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -338,13 +375,22 @@ if (isset($_SESSION['user'])) {
 																		class="form-control" readonly>
 																	<label for="purpose" class="form-label">Purpose</label>
 																</div>
-
+																<div class="form-floating mb-2">
+																	<input type="text" name="issue_date" id="issueDate"
+																		class="form-control" readonly>
+																	<label for="issue_date" class="form-label">Date of Issuance</label>
+																</div>
+																<div class="form-floating mb-2">
+																	<input type="text" name="date_requested" id="dateRequested"
+																		class="form-control" readonly>
+																	<label for="date_requested" class="form-label">Date Requested</label>
+																</div>
 																<div class="form-floating mb-2">
 																	<select class="form-select form-select-md" name="status"
-																		placeholder="Status" id="status" required>
+																		placeholder="Status" id="viewStatus" required>
 																		<option selected disabled>Choose from options</option>
 																		<option value="0">Pending</option>
-																		<option value="1">Approved</option>
+																		<option value="1">Approve</option>
 																	</select>
 																	<label for="status">Status</label>
 																</div>
@@ -354,7 +400,8 @@ if (isset($_SESSION['user'])) {
 																<button type="button" class="btn btn-secondary"
 																	data-bs-dismiss="modal">Cancel</button>
 																<button type="submit" name="updatedata"
-																	class="btn btn-success">Update Data</button>
+																	class="btn btn-warning"><i class="bi bi-pencil-square"></i>
+																	Update Data</button>
 															</div>
 														</form>
 													</div>
@@ -375,11 +422,11 @@ if (isset($_SESSION['user'])) {
 															<button type="button" class="btn-close" data-bs-dismiss="modal"
 																aria-label="Close"></button>
 														</div>
-														<form action="dropdocument.php" method="post">
+														<form action="admindropdocument.php" method="post">
 															<div class="modal-body">
 																<input type="hidden" name="delete_id" id="delete_id">
 
-																<h5>Are you sure, you want to delete this data?</h5>
+																<h5>Are you sure, you want to delete this request?</h5>
 															</div>
 															<div class="modal-footer">
 																<button type="button" class="btn btn-secondary"
@@ -449,10 +496,9 @@ if (isset($_SESSION['user'])) {
 				$('#middlename').val(data[2]);
 				$('#lastname').val(data[3]);
 				$('#purpose').val(data[4]);
-				$('#status').val(data[5]);
-
-				var status = $('#status').val();
-				console.log('Selected status: ' + status);
+				$('#issueDate').val(data[5]);
+				$('#dateRequested').val(data[6]);
+				$('#viewStatus').val(data[7]);
 			});
 		});
 	</script>

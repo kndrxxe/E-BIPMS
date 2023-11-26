@@ -208,8 +208,14 @@ if (isset($_SESSION['user'])) {
 								while ($row = mysqli_fetch_array($result)) {
 									?>
 									<tr>
-										<td><img class="float-center rounded-circle" src="default-profile-pic.jpg"
-												width="60"></td>
+										<td>
+											<?php
+											if (!empty($row['profile_picture'])) {
+												echo '<img class="rounded-circle border border-warning" src="' . $row['profile_picture'] . '" alt="Profile Picture" width="80">';
+											} else {
+												echo '<img class="rounded-circle border border-warning" src="default-profile-pic.jpg" alt="Profile Picture" width="80">';
+											}
+											?>
 										<td>
 											<?php echo $row['id']; ?>
 										</td>
@@ -224,12 +230,6 @@ if (isset($_SESSION['user'])) {
 												<a href="edituser.php?id=<?php echo $row['id']; ?>"
 													class="btn btn-warning btn-sm" style="width: 40px;"><i
 														class="bi bi-pencil-square"></i></a>
-												<a href="viewuser.php?id=<?php echo $row['id']; ?>"
-													class="btn btn-success btn-sm" style="width: 40px;"><i
-														class="bi bi-eye"></i></a>
-												<a href="deleteuser.php?id=<?php echo $row['id']; ?>"
-													class="btn btn-danger btn-sm" style="width: 40px;"><i
-														class="bi bi-trash"></i></a>
 											</div>
 										</td>
 									</tr>

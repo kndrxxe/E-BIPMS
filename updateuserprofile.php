@@ -19,8 +19,6 @@ $members = $_POST['members'];
 $housingstatus = $_POST['housingstatus'];
 $phonenumber = $_POST['phonenumber'];
 $email = $_POST['email'];
-$username = $_POST['username'];
-$password = md5($_POST['password']);
 $upload_file = ''; // Initialize the variable
 function cropImage($sourceFile, $destFile, $cropSize)
 {
@@ -146,7 +144,7 @@ if (isset($_FILES['profile_picture'])) {
   echo 'No file uploaded.';
 }
 
-$query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', sex='$sex', birthday='$birthday', age='$age', house_no='$house_no', purok='$purok', civilstatus='$civilstatus', voter='$voter', is_special_group='$is_special_group' ,specialgroup='$specialgroup', members='$members', housingstatus='$housingstatus', phonenumber='$phonenumber', email='$email', username='$username', password='$password'";
+$query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', sex='$sex', birthday='$birthday', age='$age', house_no='$house_no', purok='$purok', civilstatus='$civilstatus', voter='$voter', is_special_group='$is_special_group' ,specialgroup='$specialgroup', members='$members', housingstatus='$housingstatus', phonenumber='$phonenumber', email='$email'";
 if ($upload_file !== '') {
   $query .= ", profile_picture='$upload_file'";
 }
