@@ -8,7 +8,8 @@ if (isset($_SESSION['id'])) {
 } else {
 
   if (isset($_POST['username']) && isset($_POST['password'])) {
-    function validate($data) {
+    function validate($data)
+    {
       $data = trim($data);
       $data = stripcslashes($data);
       $data = htmlspecialchars($data);
@@ -26,8 +27,7 @@ if (isset($_SESSION['id'])) {
       $_SESSION['name'] = $row['firstname'];
       header("Location:adminhome.php");
       exit();
-    }
-    else {
+    } else {
       $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
     }
   }
@@ -35,12 +35,13 @@ if (isset($_SESSION['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Admin Login</title>
-  <link rel = "icon" href="kanlurangbukal.png" type = "image/x-icon">
+  <title>Admin Login | EBIPMS</title>
+  <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
   <!-- Google Fonts Roboto -->
@@ -51,6 +52,7 @@ if (isset($_SESSION['id'])) {
   <!-- Custom styles -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
   <!--Main Navigation-->
   <header>
@@ -70,6 +72,7 @@ if (isset($_SESSION['id'])) {
       .navbar .nav-link {
         color: #fff !important;
       }
+
       .form-control input[type="text"] {
         margin-bottom: 10px;
       }
@@ -77,176 +80,162 @@ if (isset($_SESSION['id'])) {
       .form-control input[type="password"] {
         margin-bottom: 10px;
       }
+
       .checkbox {
         width: 17px;
         height: 17px;
 
         margin-left: -20px;
       }
+
       .checkbox:checked {
-        accent-color: orange; !important;
+        accent-color: orange;
+        !important;
       }
-      .checkbox-label{
+
+      .checkbox-label {
         font-size: 17px;
       }
     </style>
 
     <!-- Navbar -->
-    <nav
-    class="navbar navbar-expand-lg navbar-dark d-none sticky d-lg-block"
-    style="z-index: 2000"
-    >
-    <div class="container-fluid">
-      <!-- Navbar brand -->
-      <a href="index.php" 
-      class="navbar-brand nav-link"
-      >
-      <img src="kanlurangbukal.png" width="30" />
-      <b>E-BIPMS KANLURANG BUKAL</b>
-    </a>
-    <button
-    class="navbar-toggler"
-    type="button"
-    data-mdb-toggle="collapse"
-    data-mdb-target="#navbarExample01"
-    aria-controls="navbarExample01"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    >
-    <i class="fas fa-bars"></i>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarExample01">
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item active">
-        <a
-        class="nav-link font-weight-bold"
-        href="index.php"
-        >Home</a
-        >
-      </li>
-      <li class="nav-item active">
-        <a
-        class="nav-link font-weight-bold"
-        href="#announce"
-        >Announcement</a
-        >
-      </li>
-    </ul>
-  </div>
-</div>
-</nav>
-<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark d-none sticky d-lg-block" style="z-index: 2000">
+      <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a href="index.php" class="navbar-brand nav-link">
+          <img src="kanlurangbukal.png" width="30" />
+          <b>E-BIPMS</b>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="index.php">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="#announce">Announcement</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
 
-<!-- Background image -->
-<div id="intro" class="bg-image shadow-2-strong">
-  <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-xl-5 col-md-8">
-          <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center" action="adminlogin.php" method="POST" novalidate="">
-            <h3 class="mb-3 fw-normal display-5">ADMIN LOGIN</h3>
-            <?php
-            if(isset($_SESSION['loginstatus']))
-            {
-              ?>
-              <div class="alert alert-danger text-center" role="alert">
-                <i class="bi bi-exclamation-triangle-fill" width="24" height="24"></i>
-                <?= $_SESSION['loginstatus']; ?>  
-              </div>
-              <?php 
-              unset($_SESSION['loginstatus']);
-            }
-            ?>
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <input type="text" class="form-control form-control-lg" name="username" id="username" required/>
-              <label class="form-label" for="username">Username</label>
-              <div class="invalid-feedback">
-                Username is required!
-              </div>
-            </div>
-
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-              <input type="password" class="form-control form-control-lg" name="password" id="password" required/>
-              <label class="form-label" for="password">Password</label>
-              <div class="invalid-feedback">
-                Password is required!
-              </div>
-            </div>
-
-            <!-- 2 column grid layout for inline styling -->
-            <div class="mb-2">
-              <div class="col d-flex">
-                <!-- Checkbox -->
-                <div class="col d-flex justify-content-start">
-                  <div class="form-check">
-                    <input class="checkbox" type="checkbox" onclick="myFunction()"/>
-                    <label class="checkbox-label">
-                      Show Password
-                    </label>
+    <!-- Background image -->
+    <div id="intro" class="bg-image shadow-2-strong">
+      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-md-8">
+              <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center"
+                action="adminlogin.php" method="POST" novalidate="">
+                <h3 class="mb-3 fw-normal display-5">ADMIN LOGIN</h3>
+                <?php
+                if (isset($_SESSION['loginstatus'])) {
+                  ?>
+                  <div class="alert alert-danger text-center" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+                    <?= $_SESSION['loginstatus']; ?>
+                  </div>
+                  <?php
+                  unset($_SESSION['loginstatus']);
+                }
+                ?>
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="text" class="form-control form-control-lg" name="username" id="username" required />
+                  <label class="form-label" for="username">Username</label>
+                  <div class="invalid-feedback">
+                    Username is required!
                   </div>
                 </div>
-            </div>
 
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-warning btn-block">LOG IN</button>
-            <div class="col mt-3">
-              <a class="btn btn-warning btn-block" href="userlogin.php"><i class="bi bi-arrow-left-circle"></i> LOG IN AS USER</a>
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" class="form-control form-control-lg" name="password" id="password" required />
+                  <label class="form-label" for="password">Password</label>
+                  <div class="invalid-feedback">
+                    Password is required!
+                  </div>
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+                <div class="mb-2">
+                  <div class="col d-flex">
+                    <!-- Checkbox -->
+                    <div class="col d-flex justify-content-start">
+                      <div class="form-check">
+                        <input class="checkbox" type="checkbox" onclick="myFunction()" />
+                        <label class="checkbox-label">
+                          Show Password
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Submit button -->
+                  <button type="submit" class="btn btn-warning btn-block">LOG IN</button>
+                  <div class="col mt-3">
+                    <a class="btn btn-warning btn-block" href="userlogin.php"><i class="bi bi-arrow-left-circle"></i>
+                      LOG IN AS USER</a>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-<!-- Background image -->
-</header>
-<!--Main Navigation-->
+    <!-- Background image -->
+  </header>
+  <!--Main Navigation-->
 
-<!--Footer-->
-<footer class="bg-warning text-lg-start">
-  <!-- Copyright -->
-  <div class="text-center p-3 text-light">
-    © 2023 Copyright
-  </div>
-  <!-- Copyright -->
-</footer>
-<!--Footer-->
-<!-- MDB -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
-<!-- Custom scripts -->
-<script>
-  function myFunction() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
+  <!--Footer-->
+  <footer class="bg-warning text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3 text-light">
+      © 2023 Copyright
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!--Footer-->
+  <!-- MDB -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Custom scripts -->
+  <script>
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
-  }
-</script>
-<script >
+  </script>
+  <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (() => {
-    'use strict'
+    (() => {
+      'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+      // Loop over them and prevent submission
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
-</script>
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+  </script>
 </body>
+
 </html>

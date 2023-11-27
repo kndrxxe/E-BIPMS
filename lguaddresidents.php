@@ -59,21 +59,6 @@ if (isset($_SESSION['user'])) {
 		content: "✖";
 	}
 
-	.accordion {
-		--bs-accordion-active-bg: #ffc107;
-		--bs-accordion-active-color: #212529;
-		--bs-accordion-btn-focus-box-shadow: none;
-	}
-
-	.accordion-button::after {
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
-		transition: all 0.5s;
-	}
-
-	.accordion-button:not(.collapsed)::after {
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
-	}
-
 	.checkbox {
 		width: 17px;
 		height: 17px;
@@ -118,101 +103,26 @@ if (isset($_SESSION['user'])) {
 							</span>
 						</a>
 						<li class="nav-item fs-7">
-							<a class="nav-link" aria-current="page" href="adminhome.php">
+							<a class="nav-link" aria-current="page" href="lguhome.php">
 								<span data-feather="activity" class="align-text-bottom feather-48"></span>
 								Dashboard
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminresidents.php">
+							<a class="nav-link" href="lguresidents.php">
 								<span data-feather="user" class="align-text-bottom feather-48"></span>
 								Residents Profile
 							</a>
 						</li>
-						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
-											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											Document Requests
-										</button>
-									</h2>
-									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<ul class="nav flex-column pt-4">
-												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link" style="margin-top: -40px"
-														href="admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Brgy. Clearance
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Brgy. Indigency
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Brgy. Residency
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Business Permit
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Cedula
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-						</li>
-						<hr class="mt-0 mb-0">
-						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminofficials.php">
-								<span data-feather="users" class="align-text-bottom feather-48"></span>
-								Barangay Officials
-							</a>
-						</li>
-						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminusers.php">
-								<span data-feather="layers" class="align-text-bottom feather-48"></span>
-								Manage Users
-							</a>
-						</li>
-						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminevents.php">
+							<a class="nav-link" href="lguevents.php">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 							</a>
 						</li>
 						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminlogout.php">
+							<a class="nav-link" href="lgulogout.php">
 								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
 								Logout
 							</a>
@@ -220,7 +130,7 @@ if (isset($_SESSION['user'])) {
 					</ul>
 				</div>
 			</nav>
-			<form class="needs-validation" action="adminresidentsprocess.php" method="POST" novalidate="">
+			<form class="needs-validation" action="lguresidentsprocess.php" method="POST" novalidate="">
 				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 					<div
 						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

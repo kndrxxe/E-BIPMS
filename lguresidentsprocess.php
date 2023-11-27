@@ -3,7 +3,7 @@ session_start();
 
 if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['lastname'])) {
   $_SESSION['erroraddresident'] = "Unable to add resident, Please try again.";
-  header('Location: adminresidents.php');
+  header('Location: lguresidents.php');
 } else {
   $uid = md5(uniqid(rand()));
   $firstname = $_POST['firstname'];
@@ -26,6 +26,6 @@ if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['l
   mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, phonenumber ,email)VALUES('$uid','$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$phonenumber', '$email')") or die('Query Error');
 
   $_SESSION['successaddresident'] = "Resident added Successfully";
-  header('Location: adminresidents.php');
+  header('Location: lguresidents.php');
 }
 ?>

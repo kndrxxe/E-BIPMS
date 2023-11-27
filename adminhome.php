@@ -4,7 +4,7 @@ session_start();
 include 'conn.php';
 if (isset($_SESSION['user'])) {
 } else {
-	header('location: login.php');
+	header('location: userlogin.php');
 }
 ?>
 <?php
@@ -64,7 +64,7 @@ $result = mysqli_query($conn, $query);
 		<a class="navbar-brand px-2 fs-6 text-dark">
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b></a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
 			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -125,7 +125,7 @@ $result = mysqli_query($conn, $query);
 														href=" admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Indigency
+														Brgy. Indigency 
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -275,7 +275,7 @@ $result = mysqli_query($conn, $query);
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM users WHERE specialgroup = 'Senior Citizen'";
+										$query = "SELECT id FROM users WHERE specialgroup = 'Senior Citizens'";
 										$query_run = mysqli_query($conn, $query);
 										$row = mysqli_num_rows($query_run);
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
@@ -295,6 +295,13 @@ $result = mysqli_query($conn, $query);
 					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3 animate__animated animate__fadeInUp"
 						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 700px; margin-left:auto; margin-right:auto;">
 						<canvas id="voterPerPurok"></canvas>
+					</div>
+				</div>
+				<div
+					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">
+					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3 animate__animated animate__fadeInUp"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 600px; margin-left:auto; margin-right:auto;">
+						<canvas id="ageGroup"></canvas>
 					</div>
 				</div>
 				<h2>NEWLY ADDED RESIDENT</h2>
@@ -354,23 +361,52 @@ $result = mysqli_query($conn, $query);
 
 	<?php
 	include 'conn.php';
-	$query = "SELECT purok, COUNT(*) as count FROM users GROUP BY purok";
+	$query = "SELECT purok, COUNT(*) as people FROM users GROUP BY purok";
 	$query_run = mysqli_query($conn, $query);
 	$labels = array();
 	$data = array();
 	while ($row = mysqli_fetch_assoc($query_run)) {
 		$labels[] = $row['purok'];
-		$data[] = $row['count'];
+		$data[] = $row['people'];
 	}
 	?>
 	<?php
 	include 'conn.php';
-	$query = "SELECT voter, COUNT(*) as count FROM users GROUP BY voter";
+	$query = "SELECT purok, voter, COUNT(*) as count FROM users WHERE voter IN ('Yes', 'No') GROUP BY purok, voter";
 	$query_run = mysqli_query($conn, $query);
-	$data = array();
+	$dataYes = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	$dataNo = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
 	while ($row = mysqli_fetch_assoc($query_run)) {
-		$data[$row['voter']] = $row['count'];
+		if ($row['voter'] === 'Yes') {
+			$voterYes[$row['purok']] = $row['count'];
+		} else {
+			$voterNo[$row['purok']] = $row['count'];
+		}
 	}
+	?>
+	<?php
+	include 'conn.php';
+	$query = "SELECT FLOOR(DATEDIFF(CURDATE(), birthday) / 365) as age, COUNT(*) as count FROM users GROUP BY age";
+	$query_run = mysqli_query($conn, $query);
+	$dataList = array_fill_keys(['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70'], 0);
+	while ($row = mysqli_fetch_assoc($query_run)) {
+		if ($row['age'] >= 0 && $row['age'] <= 10) {
+			$dataList['0-10'] += $row['count'];
+		} elseif ($row['age'] >= 11 && $row['age'] <= 20) {
+			$dataList['11-20'] += $row['count'];
+		} elseif ($row['age'] >= 21 && $row['age'] <= 30) {
+			$dataList['21-30'] += $row['count'];
+		} elseif ($row['age'] >= 31 && $row['age'] <= 40) {
+			$dataList['31-40'] += $row['count'];
+		} elseif ($row['age'] >= 41 && $row['age'] <= 50) {
+			$dataList['41-50'] += $row['count'];
+		} elseif ($row['age'] >= 51 && $row['age'] <= 60) {
+			$dataList['51-60'] += $row['count'];
+		} elseif ($row['age'] >= 61 && $row['age'] <= 70) {
+			$dataList['61-70'] += $row['count'];
+		}
+	}
+	$data_values = array_values($dataList);
 	?>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
@@ -402,26 +438,47 @@ $result = mysqli_query($conn, $query);
 		});
 		var ctx2 = document.getElementById('voterPerPurok').getContext('2d');
 		const myChart2 = new Chart(ctx2, {
-			type: 'line',
+			type: 'bar',
 			data: {
-				labels: ['Yes', 'No'],
+				labels: ['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'],
 				datasets: [{
-					label: 'Yes',
-					data: <?php echo json_encode($data); ?>,
+					label: 'Registered Voter',
+					data: <?php echo json_encode($voterYes); ?>, // Use different PHP variable for 'Yes' data
 					borderWidth: 2
 				}, {
-					label: 'No',
-					data: <?php echo json_encode($data); ?>,
+					label: 'Unregistered Voter',
+					data: <?php echo json_encode($voterNo); ?>, // Use different PHP variable for 'No' data
 					borderWidth: 2
-				}
-				]
+				}]
 			},
 			options: {
 				responsive: true,
 				plugins: {
 					title: {
 						display: true,
-						text: 'Population per Barangay',
+						text: 'Voter per Purok',
+					}
+				}
+			}
+		});
+		var ctx3 = document.getElementById('ageGroup').getContext('2d');
+		const myChart3 = new Chart(ctx3, {
+			type: 'bar',
+			data: {
+				labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70'],
+				datasets: [{
+					label: 'Age Group',
+					data: <?php echo json_encode($data_values); ?>,
+					borderWidth: 2,
+				}]
+			},
+			options: {
+				indexAxis: 'y',
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'Age Group',
 					}
 				}
 			}

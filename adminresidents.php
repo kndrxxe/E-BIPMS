@@ -138,13 +138,12 @@ if (isset($_SESSION['user'])) {
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b>
 		</a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
 			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</header>
-
 	<div class="container-fluid">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
@@ -267,9 +266,9 @@ if (isset($_SESSION['user'])) {
 					<h1 class="h2">LIST OF RESIDENTS</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-1">
-							<a href="adminaddresidents.php" class="btn btn-md btn-warning"><i
+							<!-- <a href="adminaddresidents.php" class="btn btn-md btn-warning"><i
 									class="bi bi-person-fill-add">
-								</i>Add New Resident</a>
+								</i>Add New Resident</a> -->
 						</div>
 					</div>
 				</div>
@@ -402,9 +401,9 @@ if (isset($_SESSION['user'])) {
 														data-bs-target="#viewModal<?= $items['id']; ?>">
 														<i class="bi bi-eye"></i>
 													</button>
-													<button type="button" class="btn btn-danger btn-sm deletebtn"
+													<!--<button type="button" class="btn btn-danger btn-sm deletebtn"
 														style="width: 40px;"><i class="bi bi-trash"></i>
-													</button>
+													</button> -->
 												</div>
 												<!-- View Modal -->
 												<div class="modal fade" id="viewModal<?= $items['id']; ?>" tabindex="-1"

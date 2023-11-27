@@ -230,6 +230,9 @@ if (isset($_SESSION['user'])) {
 												placeholder="Issuance Date" required />
 											<label for="date">Issuance Date</label>
 										</div>
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control" name="isPaid" value="0" />
+										</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
@@ -290,6 +293,30 @@ if (isset($_SESSION['user'])) {
 					unset($_SESSION['deletesuccess']);
 				}
 				?>
+				<?php
+				if (isset($_SESSION['paymenterror'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['paymenterror']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['paymenterror']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['paymentsuccessfull'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['paymentsuccessfull']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['paymentsuccessfull']);
+				}
+				?>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover table-md" style="width:100%">
 						<thead>
@@ -300,6 +327,7 @@ if (isset($_SESSION['user'])) {
 								<th scope="col">Purpose</th>
 								<th scope="col">Date Requested</th>
 								<th scope="col">Status</th>
+								<th scope="col">Payment Status</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -345,12 +373,56 @@ if (isset($_SESSION['user'])) {
 											}
 											?>
 										</td>
+										<td>
+											<?php if ($items['isPaid'] == 0):
+												?>
+												<button type="button" data-bs-target="#updatePayment" class="btn btn-danger editbtn"
+													style="width: 90px; font-size:10pt">
+													PAY NOW</button>
+											<?php elseif ($items['isPaid'] == 1): ?>
+												<button class="btn btn-success" style="width: 90px; font-size:10pt" disabled>
+													PAID</button>
+											<?php endif; ?>
+										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
 												<button type="button" class="btn btn-danger btn-sm deletebtn"
 													style="width: 40px;"><i class="bi bi-trash"></i></button>
 											</div>
 										</td>
+										<div class="modal fade" id="updatePayment" tabindex="-1"
+											aria-labelledby="updatePaymentModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="updatePaymentModalLabel"><i
+																class="bi bi-calendar-event"></i> Send Proof of Payment</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<form class="forms needs-validation" method="POST"
+															action="userclearancepayment.php" enctype="multipart/form-data"
+															novalidate="">
+															<input type="hidden" name="id" value="<?php echo $items['id'] ?>" id="update_id">
+															<input type="hidden" name="isPaid" id="isPaid">
+
+															<div class="form-floating">
+																<input type="file" class="form-control" id="paymentProof"
+																	name="proof" required>
+																<label for="proof">Upload Proof of Payment</label>
+															</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Close</button>
+														<button type="submit" name="updateevent" class="btn btn-warning"><i
+																class="bi bi-currency-dollar"></i> Pay Now</button>
+													</div>
+													</form>
+												</div>
+											</div>
+										</div>
 									</tr>
 									<?php
 								}
@@ -380,7 +452,8 @@ if (isset($_SESSION['user'])) {
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" name="deletedata" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+										<button type="submit" name="deletedata" class="btn btn-danger"><i
+												class="bi bi-trash"></i> Delete</button>
 									</div>
 								</form>
 							</div>
@@ -397,6 +470,24 @@ if (isset($_SESSION['user'])) {
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
 	<script>
+			(() => {
+				'use strict'
+
+				const forms = document.querySelectorAll('.needs-validation')
+
+				Array.from(forms).forEach(form => {
+					form.addEventListener('submit', event => {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+						}
+
+						form.classList.add('was-validated')
+					}, false)
+				})
+			})()
+	</script>
+	<script>
 		$(document).ready(function () {
 			$('.deletebtn').on('click', function () {
 				$('#deletemodal').modal('show');
@@ -406,6 +497,24 @@ if (isset($_SESSION['user'])) {
 				}).get();
 				console.log(data);
 				$('#delete_id').val(data[0]);
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.editbtn').on('click', function () {
+
+				$('#updatePayment').modal('show');
+
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function () {
+					return $(this).text().trim();
+				}).get();
+
+				console.log(data);
+
+				$('#update_id').val(data[0]);
+				$('#isPaid').val(1);
 			});
 		});
 	</script>

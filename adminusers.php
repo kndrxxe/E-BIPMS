@@ -203,7 +203,7 @@ if (isset($_SESSION['user'])) {
 							<tbody>
 								<?php
 								include 'conn.php';
-								$query = 'SELECT * FROM users';
+								$query = 'SELECT * FROM users WHERE username IS NOT NULL AND username <> ""';
 								$result = mysqli_query($conn, $query);
 								while ($row = mysqli_fetch_array($result)) {
 									?>

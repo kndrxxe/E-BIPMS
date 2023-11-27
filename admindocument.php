@@ -269,6 +269,7 @@ if (isset($_SESSION['user'])) {
 								<th scope="col">Date of Issuance</th>
 								<th scope="col">Date Requested</th>
 								<th scope="col">Status</th>
+								<th scope="col">Payment Status</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -317,12 +318,29 @@ if (isset($_SESSION['user'])) {
 											}
 											?>
 										</td>
+										<td>
+											<?php if ($items['isPaid'] == 0):
+												?>
+												<span class="badge bg-danger">
+													NOT PAID
+												</span>
+											<?php elseif ($items['isPaid'] == 1): ?>
+												<span class="badge bg-success">
+													PAID
+												</span>
+											<?php endif; ?>
+										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
 												<button type="button" class="btn btn-warning btn-sm editbtn"
 													style="width: 40px;"><i class="bi bi-pencil-square"></i></button>
 												<button type="button" class="btn btn-danger btn-sm deletebtn"
 													style="width: 40px;"><i class="bi bi-trash"></i></button>
+												<?php if ($items['isPaid'] == 1): ?>
+													<?php $imagePath = $items['proof']; ?>
+													<a class="btn btn-success viewbtn" data-proof="<?= $imagePath; ?>"
+														style="width: 40px;"><i class="bi bi-eye"></i></a>
+												<?php endif; ?>
 												<?php if ($items['status'] == 1):
 													?>
 													<a href="generateclearance.php?id=<?php echo $items['id']; ?>" target="_blank"
@@ -330,7 +348,28 @@ if (isset($_SESSION['user'])) {
 														<i class="bi bi-printer"></i></a>
 												<?php endif; ?>
 											</div>
-
+											<!-- View Modal -->
+											<div class="modal fade" id="viewPaymentModal" tabindex="-1"
+												aria-labelledby="viewPaymentModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered modal-lg">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="viewPaymentModalLabel">Proof of Payment
+															</h5>
+															<button type="button" class="btn-close" data-bs-dismiss="modal"
+																aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															<img id="paymentProofImage" src="" alt="Proof of Payment"
+																class="img-fluid">
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
 											<!-- Edit Modal -->
 											<div class="modal fade" id="editmodal" data-bs-backdrop="static"
 												data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -378,12 +417,14 @@ if (isset($_SESSION['user'])) {
 																<div class="form-floating mb-2">
 																	<input type="text" name="issue_date" id="issueDate"
 																		class="form-control" readonly>
-																	<label for="issue_date" class="form-label">Date of Issuance</label>
+																	<label for="issue_date" class="form-label">Date of
+																		Issuance</label>
 																</div>
 																<div class="form-floating mb-2">
 																	<input type="text" name="date_requested" id="dateRequested"
 																		class="form-control" readonly>
-																	<label for="date_requested" class="form-label">Date Requested</label>
+																	<label for="date_requested" class="form-label">Date
+																		Requested</label>
 																</div>
 																<div class="form-floating mb-2">
 																	<select class="form-select form-select-md" name="status"
@@ -452,7 +493,6 @@ if (isset($_SESSION['user'])) {
 	</div>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="/DataTables/datatables.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
@@ -502,6 +542,21 @@ if (isset($_SESSION['user'])) {
 			});
 		});
 	</script>
+	<script>
+		$(document).ready(function () {
+			$('.viewbtn').on('click', function () {
+				// Get the image path from the data-proof attribute
+				var proof = $(this).data('proof');
+
+				// Set the src attribute of the paymentProofImage to the image path
+				$('#paymentProofImage').attr('src', proof);
+
+				// Show the viewPaymentModal
+				$('#viewPaymentModal').modal('show');
+			});
+		});
+	</script>
+
 </body>
 
 </html>
