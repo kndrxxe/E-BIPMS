@@ -1,8 +1,13 @@
 <?php
 session_start();
 
-require('fpdf/fpdf.php');
 include 'conn.php';
+if (isset($_SESSION['user'])) {
+} else {
+	header('location: login.php');
+}
+
+require('fpdf/fpdf.php');
 
 $id = $_GET['id'];
 $query = "SELECT * FROM documents WHERE id='$id'";
