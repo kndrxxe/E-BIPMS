@@ -396,15 +396,17 @@ if (isset($_SESSION['user'])) {
 													style="width: 90px; font-size:10pt">
 													PAY NOW</button>
 											<?php elseif ($items['isPaid'] == 1): ?>
-												<button class="btn btn-success" style="width: 90px; font-size:10pt" disabled>
-													PAID</button>
+												<span class="badge bg-success">PAID
+													</span>
 											<?php endif; ?>
 										</td>
 										<td class="text-right">
+											<?php if ($items['status'] == 1): ?>
 											<div class="btn-group me-2">
 												<button type="button" class="btn btn-danger btn-sm deletebtn"
-													style="width: 40px;"><i class="bi bi-trash"></i></button>
+													style="width: 40px;" disabled><i class="bi bi-trash"></i></button>
 											</div>
+											<?php endif; ?>
 										</td>
 										<div class="modal fade" id="updatePayment" tabindex="-1"
 											aria-labelledby="updatePaymentModalLabel" aria-hidden="true">
