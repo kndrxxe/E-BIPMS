@@ -110,6 +110,19 @@ if (isset($_SESSION['user'])) {
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
+														<?php
+														include 'conn.php';
+														$query = "SELECT id FROM documents WHERE status = 1";
+														$query_run = mysqli_query($conn, $query);
+														$row = mysqli_num_rows($query_run);
+														if ($row > 0) {
+															?>
+															<span class="badge rounded-pill text-bg-warning text-end">
+																<?php echo $row ?>
+															</span>
+															<?php
+														}
+														?>
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -220,8 +233,8 @@ if (isset($_SESSION['user'])) {
 											<label for="lastname">Last Name</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="email"value="<?php echo $row['email']?>"
-												readonly />
+											<input type="hidden" class="form-control rounded" name="email"
+												value="<?php echo $row['email'] ?>" readonly />
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="purpose"
@@ -407,7 +420,8 @@ if (isset($_SESSION['user'])) {
 														<form class="forms needs-validation" method="POST"
 															action="userclearancepayment.php" enctype="multipart/form-data"
 															novalidate="">
-															<input type="hidden" name="id" value="<?php echo $items['id'] ?>" id="update_id">
+															<input type="hidden" name="id" value="<?php echo $items['id'] ?>"
+																id="update_id">
 															<input type="hidden" name="isPaid" id="isPaid">
 
 															<div class="form-floating">
