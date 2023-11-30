@@ -168,11 +168,19 @@ if ($query_run) {
             ];
             $filipinoMonth = $monthNames[$monthOfIssuance];
             $this->Cell(70, 0, $filipinoMonth, 0, 'J');
-            $this->SetXY(119, 132);
+            $this->SetXY(118, 132);
             $issuanceDate = $data['issue_date'];
             $yearOfIssuance = date('Y', strtotime($issuanceDate));
             $this->Cell(70, 0, $yearOfIssuance, 0, 'J');
-
+            $this->SetFont('Arial', 'BU', 12);
+            $this->SetXY(153, 200);
+            $this->Cell(0, 8, 'HON. HENRY O. DULLER', 0, '');
+            $this->SetFont('Arial', '', 12);
+            $this->SetXY(157, 207);
+            $this->Cell(0, 8, 'PUNONG BARANGAY', 0, 'J');
+            $this->SetFont('Arial', 'B', 12);
+            $this->SetXY(100, 250);
+            $this->Cell(0, 8, '<<NOT VALID WITHOUT DRY SEAL>>', 0, 'J');
 
 
             // Output PDF
