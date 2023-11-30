@@ -25,8 +25,6 @@ $result = mysqli_query($conn, $query);
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
-		href="/css/app-wa-02670e9412103b5852dcbe140d278c49.css?vsn=d">
 
 	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
 
@@ -374,8 +372,8 @@ $result = mysqli_query($conn, $query);
 	include 'conn.php';
 	$query = "SELECT purok, voter, COUNT(*) as count FROM users WHERE voter IN ('Yes', 'No') GROUP BY purok, voter";
 	$query_run = mysqli_query($conn, $query);
-	$dataYes = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
-	$dataNo = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	$voterYes = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	$voterNo = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
 	while ($row = mysqli_fetch_assoc($query_run)) {
 		if ($row['voter'] === 'Yes') {
 			$voterYes[$row['purok']] = $row['count'];
