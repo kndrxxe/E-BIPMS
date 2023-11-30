@@ -210,6 +210,30 @@ if (isset($_SESSION['user'])) {
 					<h1 class="h2">REQUESTS FOR BARANGAY CLEARANCE</h1>
 				</div>
 				<?php
+				if (isset($_SESSION['emailerror'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['emailerror']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['emailerror']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['emailsent'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['emailsent']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['emailsent']);
+				}
+				?>
+				<?php
 				if (isset($_SESSION['errorupdate'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
@@ -347,11 +371,17 @@ if (isset($_SESSION['user'])) {
 														class="btn btn-primary" style="width: 40px;">
 														<i class="bi bi-printer"></i></a>
 												<?php endif; ?>
+												<?php if ($items['status'] == 1):
+													?>
+													<a href="sendemailnotification.php?id=<?php echo $items['id']; ?>"
+														class="btn btn-warning" style="width: 40px;">
+														<i class="bi bi-bell"></i></a>
+												<?php endif; ?>
 											</div>
 											<!-- View Modal -->
 											<div class="modal fade" id="viewPaymentModal" tabindex="-1"
 												aria-labelledby="viewPaymentModalLabel" aria-hidden="true">
-												<div class="modal-dialog modal-dialog-centered modal-lg">
+												<div class="modal-dialog modal-dialog-centered modal-md">
 													<div class="modal-content">
 														<div class="modal-header">
 															<h5 class="modal-title" id="viewPaymentModalLabel">Proof of Payment
@@ -362,10 +392,6 @@ if (isset($_SESSION['user'])) {
 														<div class="modal-body">
 															<img id="paymentProofImage" src="" alt="Proof of Payment"
 																class="img-fluid">
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary"
-																data-bs-dismiss="modal">Close</button>
 														</div>
 													</div>
 												</div>

@@ -187,7 +187,7 @@ if (isset($_SESSION['user'])) {
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="requestBarangayClearanceLabel">Request Barangay
-										Clearance</h5>
+										Clearance (₱50.00)</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
 								</div>
@@ -219,7 +219,10 @@ if (isset($_SESSION['user'])) {
 												readonly />
 											<label for="lastname">Last Name</label>
 										</div>
-
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control rounded" name="email"value="<?php echo $row['email']?>"
+												readonly />
+										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="purpose"
 												placeholder="Purpose" required />
