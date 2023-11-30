@@ -102,6 +102,19 @@ if (isset($_SESSION['user'])) {
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
+														<?php
+														include 'conn.php';
+														$query = "SELECT id FROM documents WHERE status = 0";
+														$query_run = mysqli_query($conn, $query);
+														$row = mysqli_num_rows($query_run);
+														if ($row > 0) {
+															?>
+															<span class="badge rounded-pill text-bg-warning text-end">
+																<?php echo $row ?>
+															</span>
+															<?php
+														}
+														?>
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -196,9 +209,9 @@ if (isset($_SESSION['user'])) {
 					}
 					?>
 				</div>
-				
+
 				<div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
-					
+
 					<?php
 					include 'conn.php';
 					$query = "SELECT * FROM officials WHERE position='Barangay Councilor'";

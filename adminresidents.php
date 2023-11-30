@@ -138,8 +138,8 @@ if (isset($_SESSION['user'])) {
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b>
 		</a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
-			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button"
+			data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -192,6 +192,19 @@ if (isset($_SESSION['user'])) {
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
+														<?php
+														include 'conn.php';
+														$query = "SELECT id FROM documents WHERE status = 0";
+														$query_run = mysqli_query($conn, $query);
+														$row = mysqli_num_rows($query_run);
+														if ($row > 0) {
+															?>
+															<span class="badge rounded-pill text-bg-warning text-end">
+																<?php echo $row ?>
+															</span>
+															<?php
+														}
+														?>
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
