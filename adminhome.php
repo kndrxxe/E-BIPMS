@@ -6,11 +6,11 @@ if (isset($_SESSION['user'])) {
 } else {
 	header('location: userlogin.php');
 }
-?>
-<?php
-include 'conn.php';
+
 $query = "SELECT purok, count(*) as number FROM users GROUP BY purok";
-$result = mysqli_query($conn, $query);
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,9 +118,13 @@ $result = mysqli_query($conn, $query);
 														Brgy. Clearance
 														<?php
 														include 'conn.php';
-														$query = "SELECT id FROM documents WHERE status = 0";
-														$query_run = mysqli_query($conn, $query);
-														$row = mysqli_num_rows($query_run);
+														$status = 0;
+														$query = "SELECT id FROM documents WHERE status = ?";
+														$stmt = $conn->prepare($query);
+														$stmt->bind_param("i", $status);
+														$stmt->execute();
+														$result = $stmt->get_result();
+														$row = $result->num_rows;
 														if ($row > 0) {
 															?>
 															<span class="badge rounded-pill text-bg-warning text-end">
@@ -221,8 +225,10 @@ $result = mysqli_query($conn, $query);
 										<?php
 										include 'conn.php';
 										$query = "SELECT id FROM users";
-										$query_run = mysqli_query($conn, $query);
-										$row = mysqli_num_rows($query_run);
+										$stmt = $conn->prepare($query);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
 										?>
 									</p>
@@ -242,9 +248,13 @@ $result = mysqli_query($conn, $query);
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM users WHERE sex = 'Male'";
-										$query_run = mysqli_query($conn, $query);
-										$row = mysqli_num_rows($query_run);
+										$sex = 'Male';
+										$query = "SELECT id FROM users WHERE sex = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $sex);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
 										?>
 									</p>
@@ -264,9 +274,13 @@ $result = mysqli_query($conn, $query);
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM users WHERE sex = 'Female'";
-										$query_run = mysqli_query($conn, $query);
-										$row = mysqli_num_rows($query_run);
+										$sex = 'Female';
+										$query = "SELECT id FROM users WHERE sex = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $sex);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
 										?>
 									</p>
@@ -286,9 +300,13 @@ $result = mysqli_query($conn, $query);
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$query = "SELECT id FROM users WHERE specialgroup = 'Senior Citizens'";
-										$query_run = mysqli_query($conn, $query);
-										$row = mysqli_num_rows($query_run);
+										$specialgroup = 'Senior Citizens';
+										$query = "SELECT id FROM users WHERE specialgroup = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $specialgroup);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
 										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
 										?>
 									</p>
@@ -331,11 +349,13 @@ $result = mysqli_query($conn, $query);
 							<?php
 							include 'conn.php';
 							$query = "SELECT * FROM users LIMIT 5";
-							$query_run = mysqli_query($conn, $query);
+							$stmt = $conn->prepare($query);
+							$stmt->execute();
+							$result = $stmt->get_result();
 
-							if (mysqli_num_rows($query_run) > 0) {
-								foreach ($query_run as $items) {
-									?>
+							if ($result->num_rows > 0) {
+								while ($items = $result->fetch_assoc()) {
+							?>
 									<tr>
 										<td>
 											<?= $items['id']; ?>
@@ -353,14 +373,14 @@ $result = mysqli_query($conn, $query);
 											<?= $items['sex']; ?>
 										</td>
 									</tr>
-									<?php
+							<?php
 								}
 							} else {
-								?>
+							?>
 								<tr>
 									<td colspan="4">No Records Found</td>
 								</tr>
-								<?php
+							<?php
 							}
 							?>
 						</tbody>
@@ -373,10 +393,12 @@ $result = mysqli_query($conn, $query);
 	<?php
 	include 'conn.php';
 	$query = "SELECT purok, COUNT(*) as people FROM users GROUP BY purok";
-	$query_run = mysqli_query($conn, $query);
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+	$result = $stmt->get_result();
 	$labels = array();
 	$data = array();
-	while ($row = mysqli_fetch_assoc($query_run)) {
+	while ($row = $result->fetch_assoc()) {
 		$labels[] = $row['purok'];
 		$data[] = $row['people'];
 	}
@@ -384,10 +406,12 @@ $result = mysqli_query($conn, $query);
 	<?php
 	include 'conn.php';
 	$query = "SELECT purok, voter, COUNT(*) as count FROM users WHERE voter IN ('Yes', 'No') GROUP BY purok, voter";
-	$query_run = mysqli_query($conn, $query);
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+	$result = $stmt->get_result();
 	$voterYes = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
 	$voterNo = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
-	while ($row = mysqli_fetch_assoc($query_run)) {
+	while ($row = $result->fetch_assoc()) {
 		if ($row['voter'] === 'Yes') {
 			$voterYes[$row['purok']] = $row['count'];
 		} else {
@@ -398,9 +422,11 @@ $result = mysqli_query($conn, $query);
 	<?php
 	include 'conn.php';
 	$query = "SELECT FLOOR(DATEDIFF(CURDATE(), birthday) / 365) as age, COUNT(*) as count FROM users GROUP BY age";
-	$query_run = mysqli_query($conn, $query);
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+	$result = $stmt->get_result();
 	$dataList = array_fill_keys(['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70'], 0);
-	while ($row = mysqli_fetch_assoc($query_run)) {
+	while ($row = $result->fetch_assoc()) {
 		if ($row['age'] >= 0 && $row['age'] <= 10) {
 			$dataList['0-10'] += $row['count'];
 		} elseif ($row['age'] >= 11 && $row['age'] <= 20) {

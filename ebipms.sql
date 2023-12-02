@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2023 at 06:41 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Nov 30, 2023 at 06:43 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `userID` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
@@ -53,13 +53,21 @@ CREATE TABLE `documents` (
   `firstname` varchar(100) NOT NULL,
   `middlename` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `purpose` varchar(100) NOT NULL,
   `issue_date` varchar(100) NOT NULL,
   `date_requested` varchar(100) NOT NULL,
   `status` int(11) NOT NULL,
   `isPaid` int(11) NOT NULL,
   `proof` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `documents`
+--
+
+INSERT INTO `documents` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `purpose`, `issue_date`, `date_requested`, `status`, `isPaid`, `proof`) VALUES
+(23, '7d5fe05bdef8e5f797b228d80f766d9b', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', 'Scholarship', '2023-12-04', '2023-12-01', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -77,7 +85,7 @@ CREATE TABLE `events` (
   `eventlocation` varchar(255) DEFAULT NULL,
   `eventdescription` text DEFAULT NULL,
   `eventcolor` varchar(7) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -89,7 +97,7 @@ CREATE TABLE `localgovernment` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `localgovernment`
@@ -114,15 +122,15 @@ CREATE TABLE `officials` (
   `termStartYear` int(11) NOT NULL,
   `termEndYear` int(11) NOT NULL,
   `type` enum('Barangay','SK') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `officials`
 --
 
 INSERT INTO `officials` (`id`, `firstName`, `middleName`, `lastName`, `position`, `committee`, `termStartYear`, `termEndYear`, `type`) VALUES
-(1, 'Henry', 'Borlaza', 'Duller', 'Barangay Chairman', '', 2023, 2025, 'Barangay'),
-(2, 'Almer', 'Dela Cruz', 'Britiller', 'Barangay Councilor', 'Health', 2023, 2025, 'Barangay');
+(1, 'Henry', 'O.', 'Duller', 'Barangay Chairman', '', 2023, 2025, 'Barangay'),
+(2, 'Almer', 'A.', 'Britiller', 'Barangay Councilor', 'Health', 2023, 2025, 'Barangay');
 
 -- --------------------------------------------------------
 
@@ -141,7 +149,7 @@ CREATE TABLE `residents` (
   `civilstatus` varchar(100) NOT NULL,
   `occupation` varchar(100) NOT NULL,
   `sex` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -171,15 +179,15 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `profile_picture` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `phonenumber`, `email`, `username`, `password`, `profile_picture`) VALUES
-(10, 'f52573d7a0bd61791339e56dc91da33f', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 1, 'Out of School Youth', 5, 'Owned', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'b84a08c1e4c098ad826e724d0430e4f3', ''),
-(12, 'c433fb3450e4fd2e8c6a3288cf7cbcba', 'Florencia', 'Flores', 'Arvesu', 'Female', '1965-05-02', 58, '050', 'Purok 5', 'Widowed', 'No', 0, '', 6, 'Owned', '+639669892726', 'florenciaflores@gmail.com', '', '', '');
+(1, '7d5fe05bdef8e5f797b228d80f766d9b', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'b84a08c1e4c098ad826e724d0430e4f3', ''),
+(2, '3ce356e969c193f4054fc3861881800f', 'Joselyn', 'Britiller', 'Brosas', 'Female', '1977-04-27', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 5, 'Owned', '+639213023468', 'brosasjoselyn79@gmail.com', 'brosasjoselyn', '553be41d43bb23e121c0fbe7939c4276', '');
 
 --
 -- Indexes for dumped tables
@@ -243,7 +251,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -273,7 +281,7 @@ ALTER TABLE `residents`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

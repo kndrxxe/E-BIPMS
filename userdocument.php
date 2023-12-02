@@ -112,13 +112,14 @@ if (isset($_SESSION['user'])) {
 														Brgy. Clearance
 														<?php
 														include 'conn.php';
-														$query = "SELECT id FROM documents WHERE status = 1";
+														$uid = $_SESSION['uid'];
+														$query = "SELECT id FROM documents where userID='$uid' and status='1'";
 														$query_run = mysqli_query($conn, $query);
-														$row = mysqli_num_rows($query_run);
-														if ($row > 0) {
+														$count = mysqli_num_rows($query_run);
+														if ($count > 0) {
 															?>
 															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
+																<?php echo $count ?>
 															</span>
 															<?php
 														}
@@ -405,29 +406,9 @@ if (isset($_SESSION['user'])) {
 												<div class="btn-group me-2">
 													<button type="button" class="btn btn-danger btn-sm deletebtn"
 														style="width: 40px;" disabled><i class="bi bi-trash"></i></button>
-													<button type="button" class="btn btn-success btn-sm viewbtn"
-														style="width: 40px;"><i class="bi bi-eye"></i></button>
 												</div>
 											<?php endif; ?>
 										</td>
-										<!-- VIEW Modal -->
-										<div class="modal fade" id="viewDocument" tabindex="-1"
-											aria-labelledby="viewDocumentLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered modal-md">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="viewPaymentModalLabel">Proof of Payment
-														</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal"
-															aria-label="Close"></button>
-													</div>
-													<div class="modal-body">
-														<embed id="paymentProofPDF" src="" type="application/pdf" width="100%"
-															height="600px" />
-													</div>
-												</div>
-											</div>
-										</div>
 										<!-- UPDATE Modal -->
 										<div class="modal fade" id="updatePayment" tabindex="-1"
 											aria-labelledby="updatePaymentModalLabel" aria-hidden="true">
@@ -554,33 +535,6 @@ if (isset($_SESSION['user'])) {
 
 				$('#update_id').val(data[0]);
 				$('#isPaid').val(1);
-			});
-		});
-	</script>
-	<script>
-		$(document).ready(function () {
-			$('.viewbtn').on('click', function () {
-				// Get the ID from the data-id attribute
-				var id = $(this).data('id');
-
-				$.ajax({
-					url: 'generateclearance.php',
-					type: 'post',
-					data: { id: id }, // Pass the ID to the server-side script
-					success: function (response) {
-						console.log(response);
-
-						// Set the src attribute of the paymentProofPDF to the PDF URL
-						$('#paymentProofPDF').attr('src', response + "#toolbar=0");
-
-						// Show the modal
-						$('#viewDocument').modal('show');
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						// Handle any errors
-						console.log(textStatus, errorThrown);
-					}
-				});
 			});
 		});
 	</script>

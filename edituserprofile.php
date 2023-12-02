@@ -112,7 +112,8 @@ if (isset($_SESSION['user'])) {
 														Brgy. Clearance
 														<?php
 														include 'conn.php';
-														$query = "SELECT id FROM documents WHERE status = 1";
+														$uid = $_SESSION['uid'];
+														$query = "SELECT id FROM documents where userID='$uid' and status='1'";
 														$query_run = mysqli_query($conn, $query);
 														$row = mysqli_num_rows($query_run);
 														if ($row > 0) {

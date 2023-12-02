@@ -198,7 +198,7 @@ if (isset($_SESSION['user'])) {
 						echo '<div class="col-auto">';
 						echo '<div class="card" style="width: 20rem;">';
 						echo '<div class="card-body">';
-						echo '<h3 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['lastName'] . '</strong>' . '</h3>';
+						echo '<h3 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['middleName'] . ' ' . $items['lastName'] . '</strong>' . '</h3>';
 						echo '<h4 class="text-center mt-0" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
 						echo '<div class="text-center mt-3">';
 						echo '<a href="editpage.php?id=' . $items['id'] . '" class="btn btn-warning btn-sm f" style="width: 70px;"><i class="bi bi-pencil-square"></i> Edit</a>';

@@ -194,15 +194,19 @@ if (isset($_SESSION['user'])) {
 														Brgy. Clearance
 														<?php
 														include 'conn.php';
-														$query = "SELECT id FROM documents WHERE status = 0";
-														$query_run = mysqli_query($conn, $query);
-														$row = mysqli_num_rows($query_run);
+														$status = 0;
+														$query = "SELECT id FROM documents WHERE status = ?";
+														$stmt = $conn->prepare($query);
+														$stmt->bind_param("i", $status);
+														$stmt->execute();
+														$result = $stmt->get_result();
+														$row = $result->num_rows;
 														if ($row > 0) {
-															?>
+														?>
 															<span class="badge rounded-pill text-bg-warning text-end">
 																<?php echo $row ?>
 															</span>
-															<?php
+														<?php
 														}
 														?>
 													</a>

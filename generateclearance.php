@@ -4,17 +4,19 @@ session_start();
 include 'conn.php';
 if (isset($_SESSION['user'])) {
 } else {
-	header('location: login.php');
+    header('location: login.php');
 }
 
 require('fpdf/fpdf.php');
 
 $id = $_GET['id'];
-$query = "SELECT * FROM documents WHERE id='$id'";
-$query_run = mysqli_query($conn, $query);
+$query = "SELECT * FROM documents WHERE id=?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id); // "i" indicates that $id is an integer
 
-if ($query_run) {
-    $data = mysqli_fetch_assoc($query_run);
+if ($stmt->execute()) {
+    $result = $stmt->get_result();
+    $data = $result->fetch_assoc();
     class BarangayClearancePDF extends FPDF
     {
         // Page header
@@ -22,6 +24,7 @@ if ($query_run) {
         {
             // Logo
             $this->Image('kanlurangbukal.png', 22, 10, 25);
+            $this->Image('kanlurangbukal-opacity.png', 13, 60, 190, 190); // A4 size
             // Arial bold 12
             $this->SetFont('Arial', 'B', 12);
             // Title
@@ -35,7 +38,7 @@ if ($query_run) {
             $this->Ln(-5);
             $this->SetTextColor(255, 192, 0);
             $this->SetFont('Arial', 'B', 15);
-            $this->Cell(0, 15, 'BARANGAY KANLURANG BUKAL', 0, 1, 'C');
+            $this->Cell(0, 15, 'BARANGAY KANLURAN BUKAL', 0, 1, 'C');
             $this->SetFont('BrushScriptRegularSWFTE', '', 20);
             $this->Ln(-8);
             $this->SetTextColor(0, 0, 0);
@@ -77,19 +80,19 @@ if ($query_run) {
             $this->Cell(50, 0, 'CCA', 0, 1, 'C');
             $this->Ln(14);
             $this->SetFont('Arial', 'B', 12);
-            $this->Cell(50, 0, 'Hon. Almer A. Britiller', 0, 1, 'C');
+            $this->Cell(50, 0, 'Hon. Mark Dufer L. Agapay', 0, 1, 'C');
             $this->Ln(6);
             $this->SetFont('Arial', 'I', 12);
             $this->Cell(50, 0, 'Health', 0, 1, 'C');
             $this->Ln(14);
             $this->SetFont('Arial', 'B', 12);
-            $this->Cell(50, 0, 'Hon. Victorio C. Britiller', 0, 1, 'C');
+            $this->Cell(50, 0, 'Hon. Ruby P. Borlaza', 0, 1, 'C');
             $this->Ln(6);
             $this->SetFont('Arial', 'I', 12);
             $this->Cell(50, 0, 'Women and Children', 0, 1, 'C');
             $this->Ln(14);
             $this->SetFont('Arial', 'B', 12);
-            $this->Cell(50, 0, 'Hon. Ricardo B. Agapay', 0, 1, 'C');
+            $this->Cell(50, 0, 'Mario A. Reyes', 0, 1, 'C');
             $this->Ln(6);
             $this->SetFont('Arial', 'I', 12);
             $this->Cell(50, 0, 'Education', 0, 1, 'C');
@@ -113,7 +116,7 @@ if ($query_run) {
             $this->Cell(50, 0, 'Barangay Secretary', 0, 1, 'C');
             $this->Ln(14);
             $this->SetFont('Arial', 'B', 10);
-            $this->Cell(50, 0, 'Mercelita C. Coligado', 0, 1, 'C');
+            $this->Cell(50, 0, 'Menalyn M. Reyes', 0, 1, 'C');
             $this->Ln(6);
             $this->SetFont('Arial', 'I', 10);
             $this->Cell(50, 0, 'Barangay Treasurer', 0, 1, 'C');
@@ -125,10 +128,10 @@ if ($query_run) {
             $this->MultiCell(0, 30, 'BARANGAY CLEARANCE', 0, 'C');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(75, 70);
-            $this->Cell(70, 0, "Ito'y nagpapatunay na si G./Gng./Bb. _________________________,", 0, 'J');
-            $this->SetXY(135, 69);
+            $this->Cell(70, 0, "Ito'y nagpapatunay na si ___________________________________,", 0, 'J');
+            $this->SetXY(125, 69);
             $this->SetFont('Arial', 'B', 12);
-            $this->MultiCell(80, 0, $data["firstname"] . " " . $data["middlename"] . " " . $data["lastname"], 0, 'C');
+            $this->MultiCell(80, 0, strtoupper($data["firstname"] . " " . $data["middlename"] . " " . $data["lastname"]), 0, 'C');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 75);
             $this->MultiCell(0, 8, '____ taong gulang, na naninirahan sa Purok ____ Barangay Kanlurang Bukal Liliw, Laguna, ay napatunayan na siya ay walang anumang kinasangkutan na kahit anong krimen o kasong nakatala dito sa Barangay.', 0, 'J');
@@ -143,13 +146,13 @@ if ($query_run) {
             $this->Cell(70, 0, 'Ibinigay sa kanyang kahilingan upang ito ay magamit bilang legal na', 0, 'J');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 120);
-            $this->MultiCell(0, 8, 'batayan sa ______________________________ ngayong ika _______ ng ', 0, 'J');
+            $this->MultiCell(0, 8, 'batayan sa ______________________________ ngayong ika _______ ng ___________________', 0, 'J');
             $this->SetFont('Arial', 'B', 12);
-            $this->SetXY(75, 131);
+            $this->SetXY(76, 131);
             $issuanceDate = $data['issue_date'];
             $dayOfIssuance = date('d', strtotime($issuanceDate));
             $this->Cell(70, 0, $dayOfIssuance, 0, 'J');
-            $this->SetXY(94, 132);
+            $this->SetXY(105, 131);
             $issuanceDate = $data['issue_date'];
             $monthOfIssuance = date('F', strtotime($issuanceDate));
             $monthNames = [
@@ -168,7 +171,7 @@ if ($query_run) {
             ];
             $filipinoMonth = $monthNames[$monthOfIssuance];
             $this->Cell(70, 0, $filipinoMonth, 0, 'J');
-            $this->SetXY(118, 132);
+            $this->SetXY(140, 132);
             $issuanceDate = $data['issue_date'];
             $yearOfIssuance = date('Y', strtotime($issuanceDate));
             $this->Cell(70, 0, $yearOfIssuance, 0, 'J');

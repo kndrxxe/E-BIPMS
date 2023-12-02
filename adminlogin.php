@@ -3,34 +3,40 @@ session_start();
 
 include_once 'conn.php';
 if (isset($_SESSION['id'])) {
-  header("Location: adminhome.php");
-  exit();
+    header("Location: adminhome.php");
+    exit();
 } else {
 
-  if (isset($_POST['username']) && isset($_POST['password'])) {
-    function validate($data)
-    {
-      $data = trim($data);
-      $data = stripcslashes($data);
-      $data = htmlspecialchars($data);
-      return $data;
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        function validate($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        $username = validate($_POST['username']);
+        $password = validate($_POST['password']);
+
+        // Use prepared statements
+        $sql = "SELECT * FROM admin WHERE username=? AND password=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+            $row = $result->fetch_assoc();
+            $_SESSION['id'] = $row['id'];
+            $_SESSION['user'] = $row['username'];
+            $_SESSION['name'] = $row['firstname'];
+            header("Location:adminhome.php");
+            exit();
+        } else {
+            $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
+        }
     }
-    $username = validate($_POST['username']);
-    $password = validate($_POST['password']);
-    $sql = "SELECT * FROM admin WHERE username='$username' AND password ='$password'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-      // output data of each row
-      $row = $result->fetch_assoc();
-      $_SESSION['id'] = $row['id'];
-      $_SESSION['user'] = $row['username'];
-      $_SESSION['name'] = $row['firstname'];
-      header("Location:adminhome.php");
-      exit();
-    } else {
-      $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
-    }
-  }
 }
 ?>
 <!DOCTYPE html>
