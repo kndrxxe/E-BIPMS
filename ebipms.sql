@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 06:43 PM
+-- Generation Time: Dec 02, 2023 at 04:16 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -67,7 +67,7 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `purpose`, `issue_date`, `date_requested`, `status`, `isPaid`, `proof`) VALUES
-(23, '7d5fe05bdef8e5f797b228d80f766d9b', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', 'Scholarship', '2023-12-04', '2023-12-01', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
+(26, '0cfa6111a70bc02ff9d9c7853f027cfb', 'honeylette', 'j.', 'villanueva', 'honeylettevillanueva928@gmail.com', 'Scholarship', '2023-12-06', '2023-12-01', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -86,6 +86,13 @@ CREATE TABLE `events` (
   `eventdescription` text DEFAULT NULL,
   `eventcolor` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `eventname`, `eventdatestart`, `eventdateend`, `eventtimestart`, `eventtimeend`, `eventlocation`, `eventdescription`, `eventcolor`) VALUES
+(8, 'Anti Rabies Vaccination', '2023-12-01', '2023-12-04', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#ff4d00');
 
 -- --------------------------------------------------------
 
@@ -186,8 +193,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `phonenumber`, `email`, `username`, `password`, `profile_picture`) VALUES
-(1, '7d5fe05bdef8e5f797b228d80f766d9b', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'b84a08c1e4c098ad826e724d0430e4f3', ''),
-(2, '3ce356e969c193f4054fc3861881800f', 'Joselyn', 'Britiller', 'Brosas', 'Female', '1977-04-27', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 5, 'Owned', '+639213023468', 'brosasjoselyn79@gmail.com', 'brosasjoselyn', '553be41d43bb23e121c0fbe7939c4276', '');
+(3, '0cfa6111a70bc02ff9d9c7853f027cfb', 'honeylette', 'j.', 'villanueva', 'Female', '1985-09-13', 38, '442', 'Purok 3', 'Single', 'Yes', 0, '', 6, 'Owned', '+639978478603', 'honeylettevillanueva928@gmail.com', 'leth', '5b4537dcdc44ad6cd55f3a3f3ff557c8', '');
 
 --
 -- Indexes for dumped tables
@@ -251,13 +257,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `localgovernment`
@@ -281,7 +287,7 @@ ALTER TABLE `residents`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
