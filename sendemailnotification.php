@@ -44,7 +44,7 @@ if ($result) {
   <body>
     <header style="background-color: #ffc107; padding: 10px">
       <a style="font-size: 20px; color: black; font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: column; align-items: center;">
-        <img src="https://lh3.googleusercontent.com/pw/ADCreHfTWI6ilCZ7fRVgpcsKBAYVWUH4XZ4LY2qAyTH-pLF_48VVAvIb-8zfB6SrU1G7GREabpCKF88T7aRbL2npFbblyNIHMZya4qMrkcM8Q6eiPdKl6hfX8AiPn30z7lfOm_Hma0VKW9jujK5cdyE0-W6yFfVeiJqwItW1DUdkpdn5Jg-D8WUsz1Ce9Kz7SeZ6FEBqSZoM4IKnkT02MxMBy9QgVy6KnKkg8sI9dWU9URYJWdtD5y7oSwvpuBafTsqDlGTjHgU04oXx86bz0UpljEYg0eINb5j4O1WcF0viVIZIsGHqX2iV__USepHR4lurOsnUoWj8zOPGqhX3JhPT8XGPZsmoTmeMUZzqza9IIsHGWT1jhqg_kVhNF3zDOyOHGVMnJB5ypBinnpKnl3JWeD6K8E9_qj_6pVJvUJXXj9ijtx5vdgr1HHXz1J_2XzeFAIiGOKPcYg6_XDazp22yfa2VAj0SwV8v_ewiZtjc2F4DRr8n1kMF_Lz11HlhluJBeZGe_IBCvR99x91oZgOJBfnBnQHvCGHDWNioztIVdw_P4jaPi9t_RCVjHALlnuimaS3_TnRfd7KWG3mNVyPr7RcauZxMQI6YSzhanhp-C--byUnp3cfSYvO29pmnvRdzaDA_9CMRH899cnyctf_Dl2VGsV1AfIVngJll1sABlqXKtTpmAjhdf9cIBQdhLyR2XDOiqn9jfkt-DBmDt1nsDSd0595KrHthe2fkU6s9YAapK9DQu3X4tWPKMh6P1tSxLSxTAFD9Gwj1TgcUiAPWex3I7ZJgBNrQFvLeyL48OPWmukq0OhcU6NDgIcUwoPoiSCtAEKuo66Ly5cDHHegm27msxDwYDKfztchWkcb6NSXbY18g52PHM3AEp4Wu-a4FBKj_=w924-h924-s-no-gm?authuser=0" width="50"/>
+        <img src="https://previews.dropbox.com/p/thumb/ACGuII26Bp-Xxdz0LP4khNeu7xffZLmmNhpj2iYZyLokBK9ir2oNaDrWNo06kBldZMEIDfbfXoKCG0hiAvwIC4-7AzaWHHB0ygHzQFAIj6mUbZcvejHmAn53EF3jvLc8-skuCf-IQaW5C_2wcXmj7mIaob4JBRFSVM04wL-uETHRZ9F4UOxerrsKY4KlYpWIjeR6GngoUxax-gT4JW94NbIlMHw1TevSDdFAQJY3l2Q-af93IG32L2A_EoXoLxlYn1zm1DHLHP5vum_y5UJA2jzvYDySszmSay3jNODiWfEG-FBkKGVK350FtHWjXboleDydSvZMp11CbvZi9JXJjO0C/p.png" width="50"/>
         <b>E-BIPMS KANLURANG BUKAL</b>
       </a>
     </header>

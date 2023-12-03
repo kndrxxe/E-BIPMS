@@ -85,7 +85,13 @@ if (isset($_SESSION['id'])) {
       .checkbox-label {
         font-size: 17px;
       }
-      
+
+      footer.bg-warning {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
     </style>
 
     <!-- Navbar -->
@@ -112,8 +118,8 @@ if (isset($_SESSION['id'])) {
     <!-- Navbar -->
     <div class="container">
       <div class="row justify-content-center">
-        <div class="d-flex col-xl-5 col-md-8 col-12 mt-5 mb-5">
-          <form class="forms needs-validation bg-white rounded shadow-5-strong p-3 text-center" action="userlogin.php"
+        <div class="col-xl-5 col-md-7 mt-5 mb-5">
+          <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 mt-2 text-center" action="userlogin.php"
             method="POST" novalidate="">
             <h3 class="mb-3 fw-normal display-5">LOGIN</h3>
             <?php
@@ -127,10 +133,32 @@ if (isset($_SESSION['id'])) {
               unset($_SESSION['loginstatus']);
             }
             ?>
+            <?php
+            if (isset($_SESSION['registerverified'])) {
+              ?>
+              <div class="alert alert-success text-center" role="alert">
+                <i class="bi bi-check-circle-fill" width="24" height="24"></i>
+                <?= $_SESSION['registerverified']; ?>
+              </div>
+              <?php
+              unset($_SESSION['registerverified']);
+            }
+            ?>
+            <?php
+            if (isset($_SESSION['forgotstatussuccess'])) {
+              ?>
+              <div class="alert alert-success text-center" role="alert">
+                <i class="bi bi-check-circle-fill" width="24" height="24"></i>
+                <?= $_SESSION['forgotstatussuccess']; ?>
+              </div>
+              <?php
+              unset($_SESSION['forgotstatussuccess']);
+            }
+            ?>
             <!-- Email input -->
-            <div class="row g-2 mb-3">
+            <div class="row g-1 mb-2">
               <div class="col-12 mb-2">
-                <div class="form-outline mb-2">
+                <div class="form-outline">
                   <input type="text" class="form-control form-control-lg" name="username" id="username" required />
                   <label class="form-label" for="username">Username</label>
                   <div class="invalid-feedback">
@@ -140,7 +168,7 @@ if (isset($_SESSION['id'])) {
               </div>
 
               <!-- Password input -->
-              <div class="col-12">
+              <div class="col-12 mb-2">
                 <div class="form-outline">
                   <input type="password" class="form-control form-control-lg" name="password" id="password" required />
                   <label class="form-label" for="password">Password</label>
@@ -152,7 +180,7 @@ if (isset($_SESSION['id'])) {
             </div>
 
             <!-- 2 column grid layout for inline styling -->
-            <div class="row mb-4">
+            <div class="row mb-3">
               <div class="col d-flex justify-content-center">
                 <!-- Checkbox -->
                 <div class="col d-flex justify-content-start">
@@ -167,7 +195,7 @@ if (isset($_SESSION['id'])) {
 
               <div class="col">
                 <!-- Simple link -->
-                <a class="text-warning float-end" style="font-size: 10pt" href="#!">Forgot password?</a>
+                <a class="text-warning float-end" style="font-size: 10pt" href="forgotpassword.php">Forgot password?</a>
               </div>
             </div>
             <!-- Submit button -->
@@ -186,18 +214,12 @@ if (isset($_SESSION['id'])) {
     </div>
   </header>
   <!--Main Navigation-->
-
-  <!-- For the footer -->
   <footer class="bg-warning text-lg-start">
-    <!-- Copyright -->
     <div class="text-center p-3 text-light">
       © 2023 Copyright
     </div>
-    <!-- Copyright -->
   </footer>
-  <!-- MDB -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- Custom scripts -->
   <script>
     function myFunction() {
       var x = document.getElementById("password");
@@ -209,14 +231,9 @@ if (isset($_SESSION['id'])) {
     }
   </script>
   <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
       'use strict'
-
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
       const forms = document.querySelectorAll('.needs-validation')
-
-      // Loop over them and prevent submission
       Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
           if (!form.checkValidity()) {

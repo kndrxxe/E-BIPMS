@@ -3,40 +3,40 @@ session_start();
 
 include_once 'conn.php';
 if (isset($_SESSION['id'])) {
-    header("Location: adminhome.php");
-    exit();
+  header("Location: adminhome.php");
+  exit();
 } else {
 
-    if (isset($_POST['username']) && isset($_POST['password'])) {
-        function validate($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        $username = validate($_POST['username']);
-        $password = validate($_POST['password']);
-
-        // Use prepared statements
-        $sql = "SELECT * FROM admin WHERE username=? AND password=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $username, $password);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            // output data of each row
-            $row = $result->fetch_assoc();
-            $_SESSION['id'] = $row['id'];
-            $_SESSION['user'] = $row['username'];
-            $_SESSION['name'] = $row['firstname'];
-            header("Location:adminhome.php");
-            exit();
-        } else {
-            $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
-        }
+  if (isset($_POST['username']) && isset($_POST['password'])) {
+    function validate($data)
+    {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
     }
+    $username = validate($_POST['username']);
+    $password = validate($_POST['password']);
+
+    // Use prepared statements
+    $sql = "SELECT * FROM admin WHERE username=? AND password=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+      // output data of each row
+      $row = $result->fetch_assoc();
+      $_SESSION['id'] = $row['id'];
+      $_SESSION['user'] = $row['username'];
+      $_SESSION['name'] = $row['firstname'];
+      header("Location:adminhome.php");
+      exit();
+    } else {
+      $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
+    }
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -102,6 +102,7 @@ if (isset($_SESSION['id'])) {
       .checkbox-label {
         font-size: 17px;
       }
+      
     </style>
 
     <!-- Navbar -->
@@ -150,32 +151,39 @@ if (isset($_SESSION['id'])) {
                   unset($_SESSION['loginstatus']);
                 }
                 ?>
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                  <input type="text" class="form-control form-control-lg" name="username" id="username" required />
-                  <label class="form-label" for="username">Username</label>
-                  <div class="invalid-feedback">
-                    Username is required!
+                <!-- Username input -->
+                <div class="row g-1 mb-2">
+                  <div class="col-12 mb-2">
+                    <div class="form-outline">
+                      <input type="text" class="form-control form-control-lg" name="username" id="username" required />
+                      <label class="form-label" for="username">Username</label>
+                      <div class="invalid-feedback">
+                        Username is required!
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Password input -->
-                <div class="form-outline mb-4">
-                  <input type="password" class="form-control form-control-lg" name="password" id="password" required />
-                  <label class="form-label" for="password">Password</label>
-                  <div class="invalid-feedback">
-                    Password is required!
+                  <!-- Password input -->
+                  <div class="col-12 mb-2">
+                    <div class="form-outline">
+                      <input type="password" class="form-control form-control-lg" name="password" id="password"
+                        required />
+                      <label class="form-label" for="password">Password</label>
+                      <div class="invalid-feedback">
+                        Password is required!
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <!-- 2 column grid layout for inline styling -->
-                <div class="mb-2">
-                  <div class="col d-flex">
+                <div class="mb-3">
+                  <div class="col d-flex justify-content-center">
                     <!-- Checkbox -->
                     <div class="col d-flex justify-content-start">
-                      <div class="form-check">
+                      <div class="form-check d-flex align-items-center">
                         <input class="checkbox" type="checkbox" onclick="myFunction()" />
-                        <label class="checkbox-label">
+                        <label class="checkbox-label" style="font-size: 10pt; margin-left:5px;">
                           Show Password
                         </label>
                       </div>
@@ -183,7 +191,7 @@ if (isset($_SESSION['id'])) {
                   </div>
 
                   <!-- Submit button -->
-                  <button type="submit" class="btn btn-warning btn-block">LOG IN</button>
+                  <button type="submit" class="btn btn-warning btn-block mt-3">LOG IN</button>
                   <div class="col mt-3">
                     <a class="btn btn-warning btn-block" href="userlogin.php"><i class="bi bi-arrow-left-circle"></i>
                       LOG IN AS USER</a>

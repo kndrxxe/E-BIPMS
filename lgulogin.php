@@ -145,49 +145,52 @@ if (isset($_SESSION['id'])) {
                                     unset($_SESSION['loginstatus']);
                                 }
                                 ?>
-                                <!-- Email input -->
-                                <div class="form-outline mb-4">
-                                    <input type="text" class="form-control form-control-lg" name="username"
-                                        id="username" required />
-                                    <label class="form-label" for="username">Username</label>
-                                    <div class="invalid-feedback">
-                                        Username is required!
-                                    </div>
-                                </div>
-
-                                <!-- Password input -->
-                                <div class="form-outline mb-4">
-                                    <input type="password" class="form-control form-control-lg" name="password"
-                                        id="password" required />
-                                    <label class="form-label" for="password">Password</label>
-                                    <div class="invalid-feedback">
-                                        Password is required!
-                                    </div>
-                                </div>
-
-                                <!-- 2 column grid layout for inline styling -->
-                                <div class="mb-2">
-                                    <div class="col d-flex">
-                                        <!-- Checkbox -->
-                                        <div class="col d-flex justify-content-start">
-                                            <div class="form-check">
-                                                <input class="checkbox" type="checkbox" onclick="myFunction()" />
-                                                <label class="checkbox-label">
-                                                    Show Password
-                                                </label>
+                                <!-- Username input -->
+                                <div class="row g-1 mb-2">
+                                    <div class="col-12 mb-2">
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control form-control-lg" name="username"
+                                                id="username" required />
+                                            <label class="form-label" for="username">Username</label>
+                                            <div class="invalid-feedback">
+                                                Username is required!
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Submit button -->
-                                    <button type="submit" class="btn btn-warning btn-block mt-4">LOG IN</button>
+
+                                    <!-- Password input -->
+                                    <div class="col-12 mb-2">
+                                        <div class="form-outline">
+                                            <input type="password" class="form-control form-control-lg" name="password"
+                                                id="password" required />
+                                            <label class="form-label" for="password">Password</label>
+                                            <div class="invalid-feedback">
+                                                Password is required!
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
+                                <div class="col d-flex justify-content-center">
+                                    <div class="col d-flex justify-content-start">
+                                        <div class="form-check d-flex align-items-center">
+                                            <input class="checkbox" type="checkbox" onclick="myFunction()" />
+                                            <label class="checkbox-label" style="font-size: 10pt; margin-left:5px;">
+                                                Show Password
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-warning btn-block mt-3">LOG IN</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Background image -->
     </header>
     <!--Main Navigation-->

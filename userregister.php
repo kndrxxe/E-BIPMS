@@ -79,7 +79,6 @@ session_start();
       .checkbox {
         width: 17px;
         height: 17px;
-
         margin-left: -20px;
       }
 
@@ -130,7 +129,7 @@ session_start();
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-7 col-md-7 mt-5 mb-5">
-          <form class="forms needs-validation bg-white rounded shadow-5-strong p-3 text-center" autocomplete="off"
+          <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center" autocomplete="off"
             action="userregisterprocess.php" method="POST" novalidate="">
             <h3 class="mb-3 fw-normal display-5">REGISTER</h3>
             <?php
@@ -308,9 +307,8 @@ session_start();
                 <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
                 <p id="number" class="invalid">A <b>number</b></p>
               </div>
-            </div>
             <!-- Submit button -->
-            <button type="submit" class="btn btn-warning btn-block">REGISTER</button>
+            <button type="submit" name="register" class="btn btn-warning btn-block">REGISTER</button>
             <div class="col mt-3">
               <!-- Simple link -->
               Already have an account? <a class="text-warning" href="userlogin.php"><b>Log In</b></a>
