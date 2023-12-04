@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <link rel="icon" href="kanlurangbukal.png" type="image/x-icon" />
-  <title>E-BIPMS KANLURANG BUKAL</title>
+  <title>Home | EBIPMS</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" />
   <!-- MDB -->
@@ -79,6 +79,9 @@
             </li>
             <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="#announce">Announcement</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
             </li>
           </ul>
         </div>

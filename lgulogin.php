@@ -99,7 +99,7 @@ if (isset($_SESSION['id'])) {
         </style>
 
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark d-none sticky d-lg-block" style="z-index: 2000">
+        <nav class="navbar navbar-expand-lg navbar-dark sticky bg-dark" style="z-index: 2000">
             <div class="container-fluid">
                 <!-- Navbar brand -->
                 <a href="index.php" class="navbar-brand nav-link">
@@ -115,9 +115,6 @@ if (isset($_SESSION['id'])) {
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item active">
                             <a class="nav-link font-weight-bold" href="index.php">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="#announce">Announcement</a>
                         </li>
                     </ul>
                 </div>

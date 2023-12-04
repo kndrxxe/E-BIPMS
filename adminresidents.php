@@ -202,11 +202,11 @@ if (isset($_SESSION['user'])) {
 														$result = $stmt->get_result();
 														$row = $result->num_rows;
 														if ($row > 0) {
-														?>
+															?>
 															<span class="badge rounded-pill text-bg-warning text-end">
 																<?php echo $row ?>
 															</span>
-														<?php
+															<?php
 														}
 														?>
 													</a>
@@ -588,7 +588,7 @@ if (isset($_SESSION['user'])) {
 																	</select>
 																	<label for="specialGroup">Special Group</label>
 																</div>
-																<div class="row g-2 mb-1">
+																<div class="row g-2 mb-2">
 																	<div class="form-floating col">
 																		<input type="number" class="form-control" name="members"
 																			id="members" min="0" max="99"
@@ -621,6 +621,33 @@ if (isset($_SESSION['user'])) {
 																				Others</option>
 																		</select>
 																		<label for="housingstatus">Housing Status</label>
+																	</div>
+																</div>
+																<div class="row g-2">
+																	<div class="form-floating col">
+																		<select class="form-select form-select"
+																			name="employmentstatus"
+																			value="<?php echo $items['employmentstatus'] ?>"
+																			placeholder="employmentstatus" disabled>
+																			<option selected disabled>Choose from options
+																			</option>
+																			<option value="Employed" <?php if ($items['employmentstatus'] == 'Employed')
+																				echo 'selected'; ?>>Employed
+																			</option>
+																			<option value="Unemployed" <?php if ($items['employmentstatus'] == 'Unemployed')
+																				echo 'selected'; ?>>Unemployed
+																			</option>
+																			<option value="Self-Employed" <?php if ($items['employmentstatus'] == 'Self-Employed')
+																				echo 'selected'; ?>>Self-Employed
+																			</option>
+																			<option value="Retired" <?php if ($items['employmentstatus'] == 'Retired')
+																				echo 'selected'; ?>>Retired
+																			</option>
+																			<option value="Student" <?php if ($items['employmentstatus'] == 'Student')
+																				echo 'selected'; ?>>Student
+																			</option>
+																		</select>
+																		<label for="employmentstatus">Employment Status</label>
 																	</div>
 																</div>
 																<div class="row g-2 mb-2">

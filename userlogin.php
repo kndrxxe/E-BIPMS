@@ -18,17 +18,21 @@ if (isset($_SESSION['id'])) {
     $username = validate($_POST['username']);
     $password = validate($_POST['password']);
     $password = md5($password);
-    $sql = "SELECT * FROM users WHERE username='$username' AND password ='$password'";
+    $sql = "SELECT * FROM users WHERE username='$username' AND password ='$password' AND status = 1";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       // output data of each row
       $row = $result->fetch_assoc();
-      $_SESSION['id'] = $row['id'];
-      $_SESSION['uid'] = $row['userID'];
-      $_SESSION['user'] = $row['username'];
-      $_SESSION['name'] = $row['firstname'];
-      header("Location:userhome.php");
-      exit();
+      if ($row['status'] == 0) {
+        $_SESSION['loginstatus'] = "Your account is not yet verified. Please contact the admin.";
+      } else {
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['uid'] = $row['userID'];
+        $_SESSION['user'] = $row['username'];
+        $_SESSION['name'] = $row['firstname'];
+        header("Location:userhome.php");
+        exit();
+      }
     } else {
       $_SESSION['loginstatus'] = "The Username/Password you entered is incorrect. Please try again.";
     }
@@ -119,8 +123,8 @@ if (isset($_SESSION['id'])) {
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-5 col-md-7 mt-5 mb-5">
-          <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 mt-2 text-center" action="userlogin.php"
-            method="POST" novalidate="">
+          <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 mt-2 text-center"
+            action="userlogin.php" method="POST" novalidate="">
             <h3 class="mb-3 fw-normal display-5">LOGIN</h3>
             <?php
             if (isset($_SESSION['loginstatus'])) {

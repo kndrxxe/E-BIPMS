@@ -268,26 +268,19 @@ if (isset($_SESSION['user'])) {
 					<form action="updateuserprofile.php" method="POST" enctype="multipart/form-data">
 						<div class="text-center mb-3">
 							<img class="rounded-circle border border-2 border-warning"
-								src="<?php echo $profile_picture ?>" width="250">
-							<div class="form-floating mt-2 mb-1"
-								style="width: 80%; margin-left:auto; margin-right: auto">
+								src="<?php echo !empty($profile_picture) ? $profile_picture : 'default.jpg' ?>" width="250">
+							<div class="form-floating mt-3 mb-1 col-12 col-md-7 col-lg-5 mx-auto"
+								style="margin-left:auto; margin-right: auto">
 								<input type="file" class="form-control border-warning rounded"
 									value="<?php echo $row['profile_picture'] ?>" id="profile_picture"
 									name="profile_picture" accept="image/*" />
 								<button type="submit" class="btn btn-md btn-success mt-2"><i class="bi bi-upload">
 									</i>Upload</button>
+								<a href="delete_profile_picture.php?id=<?php echo $row['id'] ?>" class="btn btn-danger btn-md edit-btn mt-2 rounded"><i class="bi bi-trash"></i> Delete Photo</a>
 								<label for="profile_picture">Profile Picture</label>
-
 							</div>
 						</div>
 					</form>
-					<div class="d-flex justify-content-center">
-						<form action="delete_profile_picture.php" method="POST">
-							<input type="hidden" name="id" value="<?php echo $id; ?>">
-							<button type="submit" class="btn btn-danger mt-0"><i class="bi bi-trash">
-								</i>Delete Picture</button>
-						</form>
-					</div>
 					<div class="d-flex flex-wrap row g-4 mb-3 gx-1 p-3  text-start">
 						<div class="row g-2">
 							<div class="form-floating">
@@ -499,6 +492,31 @@ if (isset($_SESSION['user'])) {
 										echo 'selected'; ?>>Living with Others</option>
 								</select>
 								<label for="housingstatus">Housing Status</label>
+							</div>
+						</div>
+						<div class="row g-2">
+							<div class="form-floating col">
+								<select class="form-select form-select" name="employmentstatus"
+									value="<?php echo $row['employmentstatus'] ?>" placeholder="employmentstatus"
+									required>
+									<option selected disabled>Choose from options</option>
+									<option value="Employed" <?php if ($row['employmentstatus'] == 'Employed')
+										echo 'selected'; ?>>Employed
+									</option>
+									<option value="Unemployed" <?php if ($row['employmentstatus'] == 'Unemployed')
+										echo 'selected'; ?>>Unemployed
+									</option>
+									<option value="Self-Employed" <?php if ($row['employmentstatus'] == 'Self-Employed')
+										echo 'selected'; ?>>Self-Employed
+									</option>
+									<option value="Retired" <?php if ($row['employmentstatus'] == 'Retired')
+										echo 'selected'; ?>>Retired
+									</option>
+									<option value="Student" <?php if ($row['employmentstatus'] == 'Student')
+										echo 'selected'; ?>>Student
+									</option>
+								</select>
+								<label for="employmentstatus">Employment Status</label>
 							</div>
 						</div>
 						<div class="row g-2">

@@ -17,6 +17,7 @@ $is_special_group = isset($_POST['is_special_group']) ? '1' : '0';
 $specialgroup = $is_special_group == '1' ? $_POST['specialgroup'] : NULL;
 $members = $_POST['members'];
 $housingstatus = $_POST['housingstatus'];
+$employmentstatus = $_POST['employmentstatus'];
 $phonenumber = $_POST['phonenumber'];
 $email = $_POST['email'];
 $upload_file = ''; // Initialize the variable
@@ -144,7 +145,7 @@ if (isset($_FILES['profile_picture'])) {
   echo 'No file uploaded.';
 }
 
-$query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', sex='$sex', birthday='$birthday', age='$age', house_no='$house_no', purok='$purok', civilstatus='$civilstatus', voter='$voter', is_special_group='$is_special_group' ,specialgroup='$specialgroup', members='$members', housingstatus='$housingstatus', phonenumber='$phonenumber', email='$email'";
+$query = "UPDATE users SET firstname='$firstname', middlename='$middlename', lastname='$lastname', sex='$sex', birthday='$birthday', age='$age', house_no='$house_no', purok='$purok', civilstatus='$civilstatus', voter='$voter', is_special_group='$is_special_group' ,specialgroup='$specialgroup', members='$members', housingstatus='$housingstatus', employmentstatus='$employmentstatus', phonenumber='$phonenumber', email='$email'";
 if ($upload_file !== '') {
   $query .= ", profile_picture='$upload_file'";
 }

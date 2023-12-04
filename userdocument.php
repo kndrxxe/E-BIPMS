@@ -238,6 +238,22 @@ if (isset($_SESSION['user'])) {
 												value="<?php echo $row['email'] ?>" readonly />
 										</div>
 										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control rounded" name="birthday"
+												value="<?php echo $row['birthday'] ?>" readonly />
+										</div>
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control rounded" name="civilstatus"
+												value="<?php echo $row['civilstatus'] ?>" readonly />
+										</div>
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control rounded" name="sex"
+												value="<?php echo $row['sex'] ?>" readonly />
+										</div>
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control rounded" name="purok"
+												value="<?php echo $row['purok'] ?>" readonly />
+										</div>
+										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="purpose"
 												placeholder="Purpose" required />
 											<label for="lastname">Purpose</label>
@@ -402,10 +418,10 @@ if (isset($_SESSION['user'])) {
 											<?php endif; ?>
 										</td>
 										<td class="text-right">
-											<?php if ($items['status'] == 1): ?>
+											<?php if ($items['isPaid'] == 0): ?>
 												<div class="btn-group me-2">
 													<button type="button" class="btn btn-danger btn-sm deletebtn"
-														style="width: 40px;" disabled><i class="bi bi-trash"></i></button>
+														style="width: 40px;"><i class="bi bi-trash"></i></button>
 												</div>
 											<?php endif; ?>
 										</td>
@@ -473,8 +489,8 @@ if (isset($_SESSION['user'])) {
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" name="deletedata" class="btn btn-danger"><i
-												class="bi bi-trash"></i> Delete</button>
+										<button type="submit" name="deletedata" class="btn btn-danger">
+											<i class="bi bi-trash"></i> Delete</button>
 									</div>
 								</form>
 							</div>

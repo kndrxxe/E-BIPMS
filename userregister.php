@@ -143,6 +143,17 @@ session_start();
               unset($_SESSION['registrationerror']);
             }
             ?>
+            <?php
+            if (isset($_SESSION['registerstatus'])) {
+              ?>
+              <div class="alert alert-danger text-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+                <?= $_SESSION['registerstatus']; ?>
+              </div>
+              <?php
+              unset($_SESSION['registerstatus']);
+            }
+            ?>
             <!-- 2 column grid layout for inline styling -->
             <div class="row g-2 mb-4">
               <div class="col-4 mb-2">
@@ -252,13 +263,25 @@ session_start();
                 </div>
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="housingstatus" placeholder="housingstatus" required>
+                <select class="form-select form-select-lg rounded-2" name="housingstatus" placeholder="housingstatus"
+                  required>
                   <option selected disabled>Housing Status</option>
                   <option value="Owned">Owned</option>
                   <option value="Rented">Rented</option>
                   <option value="Living with Relatives">Living with Relatives</option>
                   <option value="Living with Friends">Living with Friends</option>
                   <option value="Living with Others">Living with Others</option>
+                </select>
+              </div>
+              <div class="col-12 mb-2">
+                <select class="form-select form-select-lg rounded-2" name="employmentstatus" placeholder="employmentstatus"
+                  required>
+                  <option selected disabled>Employment Status</option>
+                  <option value="Employed">Employed</option>
+                  <option value="Unemployed">Unemployed</option>
+                  <option value="Self-Employed">Self-Employed</option>
+                  <option value="Retired">Retired</option>
+                  <option value="Student">Student</option>
                 </select>
               </div>
               <div class="col-12 mb-2">
@@ -307,12 +330,12 @@ session_start();
                 <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
                 <p id="number" class="invalid">A <b>number</b></p>
               </div>
-            <!-- Submit button -->
-            <button type="submit" name="register" class="btn btn-warning btn-block">REGISTER</button>
-            <div class="col mt-3">
-              <!-- Simple link -->
-              Already have an account? <a class="text-warning" href="userlogin.php"><b>Log In</b></a>
-            </div>
+              <!-- Submit button -->
+              <button type="submit" name="register" class="btn btn-warning btn-block">REGISTER</button>
+              <div class="col mt-3">
+                <!-- Simple link -->
+                Already have an account? <a class="text-warning" href="userlogin.php"><b>Log In</b></a>
+              </div>
           </form>
         </div>
       </div>

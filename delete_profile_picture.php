@@ -1,12 +1,19 @@
 <?php
 session_start();
-include 'conn.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+require 'conn.php'; // replace with your database connection file
 
-    $query = "UPDATE users SET profile_picture='' WHERE id=$id";
-    $query_run = mysqli_query($conn, $query);
+$id = $_GET['id'];
 
-    header('Location: edituserprofile.php');
+$sql = "UPDATE users SET profile_picture = '' WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+
+if ($stmt->execute()) {
+    $_SESSION['message'] = "Profile picture deleted successfully";
+} else {
+    $_SESSION['message'] = "Error deleting profile picture: " . $conn->error;
 }
+
+header('Location: edituserprofile.php');
+exit();
 ?>
