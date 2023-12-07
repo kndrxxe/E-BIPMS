@@ -223,6 +223,58 @@ $result = $stmt->get_result();
 							</div>
 						</div>
 					</div>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-wheelchair"
+									style="font-size: 3.5rem; margin-right: 190px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end"><b>PWD</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$specialgroup = 'PWD';
+										$query = "SELECT id FROM users WHERE specialgroup = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $specialgroup);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
+										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-person-breastfeeding"
+									style="font-size: 3.8rem; margin-right: 120px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end"><b>Solo Parent</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$specialgroup = 'Solo Parent';
+										$query = "SELECT id FROM users WHERE specialgroup = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $specialgroup);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
+										echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div
 					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">

@@ -19,13 +19,15 @@ if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['l
   $specialgroup = isset($_POST['specialgroup']) ? $_POST['specialgroup'] : '';
   $members = $_POST['members'];
   $housingstatus = $_POST['housingstatus'];
+  $employmentstatus = $_POST['employmentstatus'];
   $phonenumber = $_POST['phonenumber'];
   $email = $_POST['email'];
+  $isEditable = $_POST['isEditable'];
 
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, phonenumber ,email)VALUES('$uid','$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$phonenumber', '$email')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, employmentstatus, phonenumber)VALUES('$uid','$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$employmentstatus', '$phonenumber')") or die('Query Error');
 
   $_SESSION['successaddresident'] = "Resident added Successfully";
-  header('Location: lguresidents.php');
+  header('Location: adminresidents.php');
 }
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 07:46 PM
+-- Generation Time: Dec 07, 2023 at 04:21 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -71,7 +71,7 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `birthday`, `civilstatus`, `sex`, `purok`, `purpose`, `issue_date`, `date_requested`, `status`, `isPaid`, `proof`) VALUES
-(5, 'c3c6a2775fb54b9923e58a573834f640', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Employment', '2023-12-09', '2023-12-05', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
+(1, '13761cec229d024f7dbea855ba067d47', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Employment', '2023-12-08', '2023-12-07', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -88,8 +88,19 @@ CREATE TABLE `events` (
   `eventtimeend` time NOT NULL,
   `eventlocation` varchar(255) DEFAULT NULL,
   `eventdescription` text DEFAULT NULL,
-  `eventcolor` varchar(7) NOT NULL
+  `eventcolor` varchar(7) NOT NULL,
+  `status` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `eventname`, `eventdatestart`, `eventdateend`, `eventtimestart`, `eventtimeend`, `eventlocation`, `eventdescription`, `eventcolor`, `status`) VALUES
+(3, 'Anti Rabies Vaccination', '2023-12-06', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#000000', 1),
+(4, 'Implantation', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Implantation', '#00ffbf', 1),
+(5, 'Flu Vaccination', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Town Plaza', 'Flu Vaccination', '#ffd500', 1),
+(6, 'Anti Rabies Vaccination', '2023-12-11', '2023-12-15', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#ffa200', 1);
 
 -- --------------------------------------------------------
 
@@ -134,7 +145,7 @@ CREATE TABLE `officials` (
 --
 
 INSERT INTO `officials` (`id`, `firstName`, `middleName`, `lastName`, `position`, `committee`, `termStartYear`, `termEndYear`, `type`, `picture`) VALUES
-(1, 'Henry', 'O.', 'Duller', 'Barangay Chairman', '', 2023, 2025, 'Barangay', 'officials/398238302_346559034616907_3135784122412411176_n.jpg'),
+(1, 'Henry', 'O.', 'Duller', 'Barangay Chairperson', '', 2023, 2025, 'Barangay', 'officials/1661497184343.jfif'),
 (2, 'Almer', 'A.', 'Britiller', 'Barangay Councilor', 'Infrastracture', 2023, 2025, 'Barangay', ''),
 (3, 'Ronald', 'B.', 'Britiller', 'Barangay Councilor', 'Agriculture', 2023, 2025, 'Barangay', ''),
 (4, 'Jerome', 'M.', 'Borgonia', 'Barangay Councilor', 'Health', 2023, 2025, 'Barangay', ''),
@@ -143,7 +154,8 @@ INSERT INTO `officials` (`id`, `firstName`, `middleName`, `lastName`, `position`
 (7, 'Paul Joseph ', 'R.', 'Britiller', 'Barangay Councilor', 'CCA', 2023, 2025, 'Barangay', ''),
 (8, 'Mark Dufer', 'L.', 'Agapay', 'Barangay Councilor', 'Education', 2023, 2025, 'Barangay', ''),
 (9, 'Honeylette', 'J.', 'Villanueva', 'Barangay Secretary', '', 2023, 2025, 'Barangay', ''),
-(10, 'Menalyn', 'M.', 'Reyes', 'Barangay Treasurer', '', 2023, 2025, 'Barangay', '');
+(10, 'Menalyn', 'M.', 'Reyes', 'Barangay Treasurer', '', 2023, 2025, 'Barangay', ''),
+(11, 'Claire', 'B.', 'Trillana', 'SK Chairperson', '', 2023, 2025, 'SK', '');
 
 -- --------------------------------------------------------
 
@@ -188,20 +200,24 @@ CREATE TABLE `users` (
   `members` int(11) NOT NULL,
   `housingstatus` varchar(100) NOT NULL,
   `employmentstatus` varchar(100) NOT NULL,
+  `yearsliving` varchar(100) NOT NULL,
   `phonenumber` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `profile_picture` varchar(255) NOT NULL,
-  `status` text NOT NULL
+  `proof` varchar(255) NOT NULL,
+  `status` text NOT NULL,
+  `isEditable` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `employmentstatus`, `phonenumber`, `email`, `username`, `password`, `profile_picture`, `status`) VALUES
-(28, 'c3c6a2775fb54b9923e58a573834f640', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 0, '', 5, 'Owned', 'Student', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', 'user_profile_pic/1661497184343.jfif', '1');
+INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `employmentstatus`, `yearsliving`, `phonenumber`, `email`, `username`, `password`, `profile_picture`, `proof`, `status`, `isEditable`) VALUES
+(1, '13761cec229d024f7dbea855ba067d47', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 1, 'Senior Citizen', 5, 'Owned', 'Student', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', 'user_profile_pic/1661497184343.jfif', '', '1', 0),
+(2, 'f1865d6668a109bf3b5db592f53594b5', 'Rizalina', 'Miguel', 'Santos', 'Female', '1979-04-05', 44, '039', 'Purok 3', 'Married', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639728286267', '', '', '', '', '', '', 0);
 
 --
 -- Indexes for dumped tables
@@ -265,13 +281,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `localgovernment`
@@ -283,7 +299,7 @@ ALTER TABLE `localgovernment`
 -- AUTO_INCREMENT for table `officials`
 --
 ALTER TABLE `officials`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `residents`
@@ -295,7 +311,7 @@ ALTER TABLE `residents`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

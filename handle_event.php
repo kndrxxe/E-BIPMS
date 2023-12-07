@@ -13,9 +13,10 @@ if (empty($_POST['eventname'])) {
     $eventlocation = $_POST['eventlocation'];
     $eventdescription = $_POST['eventdescription'];  
     $eventcolor = $_POST['eventcolor'];
+    $status = $_POST['status'];
   
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO events(eventname, eventdatestart, eventdateend, eventtimestart, eventtimeend, eventlocation, eventdescription, eventcolor)VALUES('$eventname', '$eventdatestart', '$eventdateend', '$eventtimestart', '$eventtimeend', '$eventlocation', '$eventdescription', '$eventcolor')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO events(eventname, eventdatestart, eventdateend, eventtimestart, eventtimeend, eventlocation, eventdescription, eventcolor, status)VALUES('$eventname', '$eventdatestart', '$eventdateend', '$eventtimestart', '$eventtimeend', '$eventlocation', '$eventdescription', '$eventcolor', '$status')") or die('Query Error');
   
   $_SESSION['eventsuccess'] = 'Event added successfully!';
   header('Location: adminevents.php');

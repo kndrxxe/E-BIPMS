@@ -59,7 +59,7 @@
                 <div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
                     <?php
                     include 'conn.php';
-                    $query = "SELECT * FROM officials WHERE position='Barangay Chairman'";
+                    $query = "SELECT * FROM officials WHERE position='Barangay Chairperson'";
                     $query_run = mysqli_query($conn, $query);
                     while ($items = mysqli_fetch_array($query_run)) {
                         if ($items['picture']) {

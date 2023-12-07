@@ -25,6 +25,7 @@ session_start();
       line-height: 1;
     }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -172,9 +173,6 @@ session_start();
                 <div class="form-outline">
                   <input type="text" class="form-control form-control-lg" name="lastname" id="lastname" required />
                   <label class="form-label" for="lastname">Last Name</label>
-                  <div class="invalid-feedback">
-                    Last Name required!
-                  </div>
                 </div>
               </div>
               <div class="col-5 mb-2">
@@ -236,7 +234,7 @@ session_start();
               <div class="col-12 d-flex justify-content-start mt-0 mb-0">
                 <div class="form-check d-flex align-items-center">
                   <input type="hidden" id="specialGroupCheckboxHidden" name="is_special_group" value="0" />
-                  <input class="checkbox" type="checkbox" id="specialGroupCheckbox" value=1 />
+                  <input class="checkbox" type="checkbox" name="is_special_group" id="specialGroupCheckbox" value=1 />
                   <label class="checkbox-label text-start" id="specialGroupLabel"
                     style="font-size: 10pt; margin-left:5px; color:#6c757d;">
                     Are you belong to a special group?
@@ -274,8 +272,8 @@ session_start();
                 </select>
               </div>
               <div class="col-12 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="employmentstatus" placeholder="employmentstatus"
-                  required>
+                <select class="form-select form-select-lg rounded-2" name="employmentstatus"
+                  placeholder="employmentstatus" required>
                   <option selected disabled>Employment Status</option>
                   <option value="Employed">Employed</option>
                   <option value="Unemployed">Unemployed</option>
@@ -313,6 +311,19 @@ session_start();
                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 up to more characters"
                     maxlength="32" required />
                   <label class="form-label" for="password">Password</label>
+                </div>
+              </div>
+
+              <div class="col-12 mb-2">
+                <div class="form-outline">
+                  <input type="password" class="form-control form-control-lg" name="confirm_password"
+                    id="confirm_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 up to more characters"
+                    maxlength="32" required />
+                  <label class="form-label" for="confirm_password">Confirm Password</label>
+                  <div class="invalid-feedback">
+                    Passwords do not match
+                  </div>
                 </div>
               </div>
               <div class="col d-flex justify-content-start">
@@ -364,10 +375,15 @@ session_start();
       } else {
         x.type = "password";
       }
+      var y = document.getElementById("confirm_password");
+      if (y.type === "password") {
+        y.type = "text";
+      } else {
+        y.type = "password";
+      }
     }
   </script>
   <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
       'use strict'
 
@@ -376,6 +392,21 @@ session_start();
 
       // Loop over them and prevent submission
       Array.from(forms).forEach(form => {
+        const password = form.querySelector('input[name="password"]');
+        const confirmPassword = form.querySelector('input[name="confirm_password"]');
+
+        // Add event listener to input event of password and confirm password fields
+        password.addEventListener('input', validatePasswords);
+        confirmPassword.addEventListener('input', validatePasswords);
+
+        function validatePasswords() {
+          if (password.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity('Passwords do not match');
+          } else {
+            confirmPassword.setCustomValidity('');
+          }
+        }
+
         form.addEventListener('submit', event => {
           if (!form.checkValidity()) {
             event.preventDefault()
@@ -485,6 +516,23 @@ session_start();
         }
       });
     };
+  </script>
+  <script>
+    $('#yearsliving').change(function () {
+      var selectedOption = $(this).val();
+
+      if (selectedOption == 'Below 6 months') {
+        $('#input1').show();
+        $('#label1').show();
+        $('#input2').hide();
+        $('#label2').hide();
+      } else if (selectedOption == '6 months and above') {
+        $('#input1').hide();
+        $('#label1').hide();
+        $('#input2').show();
+        $('#label2').show();
+      }
+    });
   </script>
 
 </body>

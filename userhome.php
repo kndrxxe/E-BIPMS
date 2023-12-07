@@ -172,6 +172,20 @@ if (isset($_SESSION['user'])) {
 							<a class="nav-link" href="userevents.php">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
+								<?php
+								include 'conn.php';
+								$uid = $_SESSION['uid'];
+								$query = "SELECT * FROM events where status='1'";
+								$query_run = mysqli_query($conn, $query);
+								$row = mysqli_num_rows($query_run);
+								if ($row > 0) {
+									?>
+									<span class="badge rounded-pill text-bg-warning text-end">
+										<?php echo $row ?>
+									</span>
+									<?php
+								}
+								?>
 							</a>
 						</li>
 						<hr class="mt-5 mb-1">

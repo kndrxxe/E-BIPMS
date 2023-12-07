@@ -196,13 +196,13 @@ if (isset($_SESSION['user'])) {
 					$row = mysqli_fetch_assoc($result);
 					$count = $row['count'];
 
-					if ($count < 10) {
+					if ($count < 14) {
 						?>
 						<div class="btn-toolbar mb-2 mb-md-0">
 							<div class="btn-group me-1">
 								<button class="btn btn-md btn-warning" data-bs-toggle="modal"
 									data-bs-target="#addOfficialModal">
-									<i class="bi bi-person-fill-add"></i>Add Barangay Official
+									<i class="bi bi-person-fill-add"></i> Add Barangay Official
 								</button>
 							</div>
 						</div>
@@ -251,7 +251,9 @@ if (isset($_SESSION['user'])) {
 										<select class="form-select form-select" name="position" placeholder="Position"
 											required>
 											<option selected disabled> Choose from options</option>
-											<option value="Barangay Chairman">Barangay Chairman
+											<option value="Barangay Chairperson">Barangay Chairperson
+											</option>
+											<option value="SK Chairperson">SK Chairperson
 											</option>
 											<option value="Barangay Councilor">
 												Barangay Councilor</option>
@@ -384,7 +386,7 @@ if (isset($_SESSION['user'])) {
 				<div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
 					<?php
 					include 'conn.php';
-					$query = "SELECT * FROM officials WHERE position='Barangay Chairman'";
+					$query = "SELECT * FROM officials WHERE position='Barangay Chairperson'";
 					$query_run = mysqli_query($conn, $query);
 					while ($items = mysqli_fetch_array($query_run)) {
 						if ($items['picture']) {
@@ -450,7 +452,9 @@ if (isset($_SESSION['user'])) {
 										<select class="form-select form-select" name="position" placeholder="Position"
 											id="updateposition" required>
 											<option selected disabled> Choose from options</option>
-											<option value="Barangay Chairman">Barangay Chairman
+											<option value="Barangay Chairperson">Barangay Chairperson
+											</option>
+											<option value="SK Chairperson">SK Chairperson
 											</option>
 											<option value="Barangay Councilor">
 												Barangay Councilor</option>
@@ -506,7 +510,7 @@ if (isset($_SESSION['user'])) {
 				<div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
 					<?php
 					include 'conn.php';
-					$query = "SELECT * FROM officials WHERE position='Barangay Councilor'";
+					$query = "SELECT * FROM officials WHERE position='Barangay Councilor' or position='SK Chairperson'";
 					$query_run = mysqli_query($conn, $query);
 					while ($items = mysqli_fetch_array($query_run)) {
 						if ($items['picture']) {

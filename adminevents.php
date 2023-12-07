@@ -274,6 +274,7 @@ $result = mysqli_query($conn, $query);
                                                 placeholder="Event Name" required>
                                             <label for="eventname" class="form-label">Event Name</label>
                                         </div>
+                                        <input type="hidden" name="status" value="1">
                                         <div class="form-floating mb-3">
                                             <input type="date" class="form-control" max="9999-12-31"
                                                 name="eventdatestart" id="eventdatestart" required>

@@ -17,6 +17,7 @@ if (isset($_POST["register"])) {
   $purok = $_POST['purok'];
   $civilstatus = $_POST['civilstatus'];
   $voter = $_POST['voter'];
+  $is_special_group = $_POST['is_special_group'];
   $specialgroup = isset($_POST['specialgroup']) ? $_POST['specialgroup'] : '';
   $members = $_POST['members'];
   $housingstatus = $_POST['housingstatus'];

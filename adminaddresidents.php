@@ -103,26 +103,119 @@ if (isset($_SESSION['user'])) {
 							</span>
 						</a>
 						<li class="nav-item fs-7">
-							<a class="nav-link" aria-current="page" href="lguhome.php">
+							<a class="nav-link" aria-current="page" href="adminhome.php">
 								<span data-feather="activity" class="align-text-bottom feather-48"></span>
 								Dashboard
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="lguresidents.php">
+							<a class="nav-link" href="adminresidents.php">
 								<span data-feather="user" class="align-text-bottom feather-48"></span>
 								Residents Profile
 							</a>
 						</li>
+						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="lguevents.php">
+							<div class="accordion accordion-flush" id="accordionFlushExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header fs-7">
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
+											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+											data-bs-target="#flush-collapseOne" aria-expanded="false"
+											aria-controls="flush-collapseOne">
+											Document Requests
+										</button>
+									</h2>
+									<hr class="mt-0 mb-0">
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
+										data-bs-parent="#accordionFlushExample">
+										<div class="accordion-body">
+											<ul class="nav flex-column pt-4">
+												<li class="nav-item fs-7" style="margin-left: -20px;">
+													<a class="nav-link" style="margin-top: -40px"
+														href="admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Clearance
+														<?php
+														include 'conn.php';
+														$status = 0;
+														$query = "SELECT id FROM documents WHERE status = ?";
+														$stmt = $conn->prepare($query);
+														$stmt->bind_param("i", $status);
+														$stmt->execute();
+														$result = $stmt->get_result();
+														$row = $result->num_rows;
+														if ($row > 0) {
+															?>
+															<span class="badge rounded-pill text-bg-warning text-end">
+																<?php echo $row ?>
+															</span>
+															<?php
+														}
+														?>
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Indigency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Residency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Business Permit
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+														href=" admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Cedula
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+						</li>
+						<hr class="mt-0 mb-1">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminofficials.php">
+								<span data-feather="users" class="align-text-bottom feather-48"></span>
+								Barangay Officials
+							</a>
+						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminusers.php">
+								<span data-feather="layers" class="align-text-bottom feather-48"></span>
+								Manage Users
+							</a>
+						</li>
+
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminevents.php">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 							</a>
 						</li>
 						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="lgulogout.php">
+							<a class="nav-link" href="adminlogout.php">
 								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
 								Logout
 							</a>
@@ -130,7 +223,7 @@ if (isset($_SESSION['user'])) {
 					</ul>
 				</div>
 			</nav>
-			<form class="needs-validation" action="lguresidentsprocess.php" method="POST" novalidate="">
+			<form class="needs-validation" action="adminresidentsprocess.php" method="POST" novalidate="">
 				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 					<div
 						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -150,6 +243,7 @@ if (isset($_SESSION['user'])) {
 						<div class="row g-2">
 							<div class="form-floating">
 								<input type="hidden" class="form-control" name="id" />
+								<input type="hidden" class="form-control" name="isEditable" value="1" />
 							</div>
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="firstname"
@@ -219,7 +313,7 @@ if (isset($_SESSION['user'])) {
 						<div class="row g-2">
 							<div class="form-floating col">
 								<select class="form-select form-select" name="civilstatus"
-									value="<?php echo $row['civilstatus'] ?>" placeholder="Civil Status" required>
+									placeholder="Civil Status" required>
 									<option selected disabled>Choose from options</option>
 									<option value="Single"> Single</option>
 									<option value="Married"> Married</option>
@@ -229,7 +323,7 @@ if (isset($_SESSION['user'])) {
 							</div>
 							<div class="form-floating col">
 								<select class="form-select form-select" name="voter" placeholder="Registered Voter"
-									value="<?php echo $row['voter'] ?>" required>
+									required>
 									<option selected disabled>Choose from options</option>
 									<option value="Yes">Yes</option>
 									<option value="No">No</option>
@@ -289,18 +383,31 @@ if (isset($_SESSION['user'])) {
 						</div>
 						<div class="row g-2">
 							<div class="form-floating col">
+								<select class="form-select form-select" name="employmentstatus"
+									placeholder="employmentstatus" required>
+									<option selected disabled>Choose from options</option>
+									<option value="Employed">Employed
+									</option>
+									<option value="Unemployed">Unemployed
+									</option>
+									<option value="Self-Employed">Self-Employed
+									</option>
+									<option value="Retired">Retired
+									</option>
+									<option value="Student">Student
+									</option>
+								</select>
+								<label for="employmentstatus">Employment Status</label>
+							</div>
+						</div>
+						<div class="row g-2">
+							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="phonenumber" id="phonenumber"
 									pattern="\+63[0-9]{10}" maxlength="13" value="+63" required
 									oninput="this.value = this.value.replace(/[^0-9+]/g, ''); if (this.value.length < 3) this.value = '+63';"
 									onfocus="if(this.value === '') { this.value = '+63'; }"
 									style="background-image: url('philippines-flag-icon-32.png'); background-repeat: no-repeat; background-position: 10px center; margin-left: 0px; padding-left: 45px; margin-top: 15px; padding-top: 10px;" />
 								<label class="form-label" for="phonenumber">Phone Number</label>
-							</div>
-						</div>
-						<div class="row g-2">
-							<div class="form-floating col">
-								<input type="email" class="form-control rounded" name="email" id="email" required />
-								<label class="form-label" for="email">Email Address</label>
 							</div>
 						</div>
 					</div>

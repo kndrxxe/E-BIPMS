@@ -174,13 +174,6 @@ if (isset($_SESSION['user'])) {
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">LIST OF RESIDENTS</h1>
-                    <!--<div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-1">
-                            <a href="lguaddresidents.php" class="btn btn-md btn-warning"><i
-                                    class="bi bi-person-fill-add">
-                                </i>Add New Resident</a>
-                        </div>
-                    </div>-->
                 </div>
                 <?php
                 if (isset($_SESSION['erroraddresident'])) {

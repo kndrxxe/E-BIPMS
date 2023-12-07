@@ -2,7 +2,7 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if(isset($_SESSION['user'])) {
 } else {
 	header('location: login.php');
 }
@@ -201,7 +201,7 @@ if (isset($_SESSION['user'])) {
 														$stmt->execute();
 														$result = $stmt->get_result();
 														$row = $result->num_rows;
-														if ($row > 0) {
+														if($row > 0) {
 															?>
 															<span class="badge rounded-pill text-bg-warning text-end">
 																<?php echo $row ?>
@@ -283,14 +283,14 @@ if (isset($_SESSION['user'])) {
 					<h1 class="h2">LIST OF RESIDENTS</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-1">
-							<!-- <a href="adminaddresidents.php" class="btn btn-md btn-warning"><i
+							<a href="adminaddresidents.php" class="btn btn-md btn-warning"><i
 									class="bi bi-person-fill-add">
-								</i>Add New Resident</a> -->
+								</i>Add New Resident</a>
 						</div>
 					</div>
 				</div>
 				<?php
-				if (isset($_SESSION['erroraddresident'])) {
+				if(isset($_SESSION['erroraddresident'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
@@ -302,7 +302,7 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<?php
-				if (isset($_SESSION['successaddresident'])) {
+				if(isset($_SESSION['successaddresident'])) {
 					?>
 					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
@@ -314,7 +314,7 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<?php
-				if (isset($_SESSION['errorupdate'])) {
+				if(isset($_SESSION['errorupdate'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
@@ -326,7 +326,7 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<?php
-				if (isset($_SESSION['saveupdate'])) {
+				if(isset($_SESSION['saveupdate'])) {
 					?>
 					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
@@ -338,7 +338,7 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<?php
-				if (isset($_SESSION['deleteerror'])) {
+				if(isset($_SESSION['deleteerror'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
@@ -350,7 +350,7 @@ if (isset($_SESSION['user'])) {
 				}
 				?>
 				<?php
-				if (isset($_SESSION['deletesuccess'])) {
+				if(isset($_SESSION['deletesuccess'])) {
 					?>
 					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
@@ -381,14 +381,14 @@ if (isset($_SESSION['user'])) {
 								include 'conn.php';
 								$query = "SELECT * FROM users";
 								$query_run = mysqli_query($conn, $query);
-								if (mysqli_num_rows($query_run) > 0) {
-									foreach ($query_run as $items) {
+								if(mysqli_num_rows($query_run) > 0) {
+									foreach($query_run as $items) {
 										?>
 										<tr>
 											<td style="display: block; margin-left: auto; margin-right: auto;">
 												<?php
-												if (!empty($items['profile_picture'])) {
-													echo '<img class="rounded-circle border border-warning" src="' . $items['profile_picture'] . '" alt="Profile Picture" width="80">';
+												if(!empty($items['profile_picture'])) {
+													echo '<img class="rounded-circle border border-warning" src="'.$items['profile_picture'].'" alt="Profile Picture" width="80">';
 												} else {
 													echo '<img class="rounded-circle border border-warning" src="default-profile-pic.jpg" alt="Profile Picture" width="80">';
 												}
@@ -418,6 +418,12 @@ if (isset($_SESSION['user'])) {
 														data-bs-target="#viewModal<?= $items['id']; ?>">
 														<i class="bi bi-eye"></i>
 													</button>
+													<?php if($items['isEditable'] == 1): ?>
+														<a href="admineditresidents.php?id=<?= $items['id']; ?>"
+															class="btn btn-primary">
+															<i class="bi bi-pencil"></i>
+														</a>
+													<?php endif; ?>
 													<!--<button type="button" class="btn btn-danger btn-sm deletebtn"
 														style="width: 40px;"><i class="bi bi-trash"></i>
 													</button> -->
@@ -436,8 +442,8 @@ if (isset($_SESSION['user'])) {
 															<div class="modal-body">
 																<div class="col text-center">
 																	<?php
-																	if (!empty($items['profile_picture'])) {
-																		echo '<img class="rounded-circle border border-warning mb-2" src="' . $items['profile_picture'] . '" alt="Profile Picture" width="150">';
+																	if(!empty($items['profile_picture'])) {
+																		echo '<img class="rounded-circle border border-warning mb-2" src="'.$items['profile_picture'].'" alt="Profile Picture" width="150">';
 																	} else {
 																		echo '<img class="rounded-circle border border-warning mb-2" src="default-profile-pic.jpg" alt="Profile Picture" width="150">';
 																	}
@@ -554,7 +560,7 @@ if (isset($_SESSION['user'])) {
 																	<div class="form-check d-flex align-items-center">
 																		<input class="checkbox" type="checkbox"
 																			id="specialGroupCheckbox" name="is_special_group"
-																			value="1" <?php if ($items['is_special_group'] == '1')
+																			value="1" <?php if($items['is_special_group'] == '1')
 																				echo 'checked'; ?> disabled />
 																		<label class="checkbox-label text-start"
 																			id="specialGroupLabel"
@@ -569,21 +575,21 @@ if (isset($_SESSION['user'])) {
 																		name="specialgroup" placeholder="specialgroup" disabled>
 																		<option selected disabled>Choose from options
 																		</option>
-																		<option value="PWD" <?php if ($items['specialgroup'] == 'PWD')
+																		<option value="PWD" <?php if($items['specialgroup'] == 'PWD')
 																			echo 'selected'; ?>>
 																			PWD
 																		</option>
-																		<option value="Senior Citizen" <?php if ($items['specialgroup'] == 'Senior Citizen')
+																		<option value="Senior Citizen" <?php if($items['specialgroup'] == 'Senior Citizen')
 																			echo 'selected'; ?>>Senior Citizen</option>
-																		<option value="Solo Parent" <?php if ($items['specialgroup'] == 'Solo Parent')
+																		<option value="Solo Parent" <?php if($items['specialgroup'] == 'Solo Parent')
 																			echo 'selected'; ?>>Solo Parent</option>
-																		<option value="Indigenous People" <?php if ($items['specialgroup'] == 'Indigenous People')
+																		<option value="Indigenous People" <?php if($items['specialgroup'] == 'Indigenous People')
 																			echo 'selected'; ?>>Indigenous People</option>
-																		<option value="Out of School Youth" <?php if ($items['specialgroup'] == 'Out of School Youth')
+																		<option value="Out of School Youth" <?php if($items['specialgroup'] == 'Out of School Youth')
 																			echo 'selected'; ?>>Out of School Youth</option>
-																		<option value="Pregnant" <?php if ($items['specialgroup'] == 'Pregnant')
+																		<option value="Pregnant" <?php if($items['specialgroup'] == 'Pregnant')
 																			echo 'selected'; ?>>Pregnant</option>
-																		<option value="Lactating" <?php if ($items['specialgroup'] == 'Lactating')
+																		<option value="Lactating" <?php if($items['specialgroup'] == 'Lactating')
 																			echo 'selected'; ?>>Lactating</option>
 																	</select>
 																	<label for="specialGroup">Special Group</label>
@@ -603,20 +609,20 @@ if (isset($_SESSION['user'])) {
 																			disabled>
 																			<option selected disabled>Choose from options
 																			</option>
-																			<option value="Owned" <?php if ($items['housingstatus'] == 'Owned')
+																			<option value="Owned" <?php if($items['housingstatus'] == 'Owned')
 																				echo 'selected'; ?>>Owned</option>
-																			<option value="Rented" <?php if ($items['housingstatus'] == 'Rented')
+																			<option value="Rented" <?php if($items['housingstatus'] == 'Rented')
 																				echo 'selected'; ?>>
 																				Rented
 																			</option>
-																			<option value="Living with Relatives" <?php if ($items['housingstatus'] == 'Living with Relatives')
+																			<option value="Living with Relatives" <?php if($items['housingstatus'] == 'Living with Relatives')
 																				echo 'selected'; ?>>Living with
 																				Relatives
 																			</option>
-																			<option value="Living with Friends" <?php if ($items['housingstatus'] == 'Living with Friends')
+																			<option value="Living with Friends" <?php if($items['housingstatus'] == 'Living with Friends')
 																				echo 'selected'; ?>>Living with
 																				Friends</option>
-																			<option value="Living with Others" <?php if ($items['housingstatus'] == 'Living with Others')
+																			<option value="Living with Others" <?php if($items['housingstatus'] == 'Living with Others')
 																				echo 'selected'; ?>>Living with
 																				Others</option>
 																		</select>
@@ -631,19 +637,19 @@ if (isset($_SESSION['user'])) {
 																			placeholder="employmentstatus" disabled>
 																			<option selected disabled>Choose from options
 																			</option>
-																			<option value="Employed" <?php if ($items['employmentstatus'] == 'Employed')
+																			<option value="Employed" <?php if($items['employmentstatus'] == 'Employed')
 																				echo 'selected'; ?>>Employed
 																			</option>
-																			<option value="Unemployed" <?php if ($items['employmentstatus'] == 'Unemployed')
+																			<option value="Unemployed" <?php if($items['employmentstatus'] == 'Unemployed')
 																				echo 'selected'; ?>>Unemployed
 																			</option>
-																			<option value="Self-Employed" <?php if ($items['employmentstatus'] == 'Self-Employed')
+																			<option value="Self-Employed" <?php if($items['employmentstatus'] == 'Self-Employed')
 																				echo 'selected'; ?>>Self-Employed
 																			</option>
-																			<option value="Retired" <?php if ($items['employmentstatus'] == 'Retired')
+																			<option value="Retired" <?php if($items['employmentstatus'] == 'Retired')
 																				echo 'selected'; ?>>Retired
 																			</option>
-																			<option value="Student" <?php if ($items['employmentstatus'] == 'Student')
+																			<option value="Student" <?php if($items['employmentstatus'] == 'Student')
 																				echo 'selected'; ?>>Student
 																			</option>
 																		</select>
