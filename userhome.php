@@ -25,6 +25,7 @@ if (isset($_SESSION['user'])) {
 	<link href="dashboard.css" rel="stylesheet">
 	<!--Load the AJAX API-->
 	<script src="https://unpkg.com/feather-icons"></script>
+
 	<style>
 		.accordion {
 			--bs-accordion-active-bg: #ffc107;
@@ -180,7 +181,7 @@ if (isset($_SESSION['user'])) {
 								$row = mysqli_num_rows($query_run);
 								if ($row > 0) {
 									?>
-									<span class="badge rounded-pill text-bg-warning text-end">
+									<span class="badge rounded-pill text-bg-warning text-end" id="counterBadge">
 										<?php echo $row ?>
 									</span>
 									<?php
@@ -298,6 +299,23 @@ if (isset($_SESSION['user'])) {
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
 		integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous">
 		</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('#counterBadge').on('click', function () {
+				$.ajax({
+					url: 'reset_counter.php',
+					type: 'POST',
+					success: function () {
+						$('#counterBadge').text('1');
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.error(textStatus, errorThrown);
+					}
+				});
+			});
+		});
+	</script>
 </body>
 
 </html>

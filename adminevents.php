@@ -232,7 +232,7 @@ $result = mysqli_query($conn, $query);
                                 <span data-feather="calendar" class="align-text-bottom feather-48"></span>
                                 Events
                             </a>
-                        </li>
+                        </li>   
                         <hr class="mt-2 mb-1">
                         <li class="nav-item fs-7">
                             <a class="nav-link" href="adminlogout.php">

@@ -28,7 +28,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark sticky bg-dark" style="z-index: 2000">
             <div class="container-fluid">
                 <!-- Navbar brand -->
-                <a class="navbar-brand nav-link">
+                <a class="navbar-brand nav-link" href="index.php">
                     <img src="kanlurangbukal.png" width="30" />
                     <b>E-BIPMS</b>
                 </a>
@@ -42,6 +42,9 @@
                         <li class="nav-item active">
                             <a class="nav-link font-weight-bold" href="index.php">Home</a>
                         </li>
+                        <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="index.php#announce">Announcement</a>
+            </li>
                         <li class="nav-item active">
                             <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
                         </li>
@@ -70,7 +73,7 @@
                             $picture = 'default-profile-pic.jpg';
                         }
                         echo '<div class="col-auto">';
-                        echo '<div class="card" style="width: 22rem;">';
+                        echo '<div class="card" style="width: 21rem;">';
                         echo '<div class="card-body">';
                         echo '<div class="col text-center">';
                         if (!empty($picture)) {
@@ -103,7 +106,7 @@
                             $picture = 'default-profile-pic.jpg';
                         }
                         echo '<div class="col-auto">';
-                        echo '<div class="card" style="width: 22rem;">';
+                        echo '<div class="card" style="width: 21rem;">';
                         echo '<div class="card-body">';
                         echo '<div class="col text-center">';
                         if (!empty($picture)) {
@@ -136,7 +139,7 @@
                             $picture = 'default-profile-pic.jpg';
                         }
                         echo '<div class="col-auto">';
-                        echo '<div class="card" style="width: 22rem;">';
+                        echo '<div class="card" style="width: 21rem;">';
                         echo '<div class="card-body">';
                         echo '<div class="col text-center">';
                         if (!empty($picture)) {

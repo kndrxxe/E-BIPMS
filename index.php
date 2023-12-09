@@ -64,7 +64,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky bg-dark" style="z-index: 2000">
       <div class="container-fluid">
         <!-- Navbar brand -->
-        <a class="navbar-brand nav-link">
+        <a class="navbar-brand nav-link" href="index.php">
           <img src="kanlurangbukal.png" width="30" />
           <b>E-BIPMS</b>
         </a>
@@ -227,14 +227,73 @@
   </main>
   <!--Main layout-->
 
-  <!--Footer-->
-  <footer class="bg-warning text-lg-start">
-    <!-- Copyright -->
-    <div class="text-center text-light p-3">
-      © 2023 Copyright
+  <!-- Footer -->
+<footer class="text-center text-lg-start bg-dark text-light pt-1">
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+          <img src="kanlurangbukal.png" width="50" />
+            E-BIPMS KANLURANG BUKAL
+          </h6>
+          <p class="text-justify">
+            A system that aims to provide a convenient way for the barangay officials to monitor the residents of the barangay and to provide a convenient way for the residents to request barangay services.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="index.php" class="text-reset">Home</a>
+          </p>
+          <p>
+            <a href="#announce" class="text-reset">Announcement</a>
+          </p>
+          <p>
+            <a href="officials.php" class="text-reset">Officials</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Help</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            ebipmskanlurangbukal@gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
     </div>
-    <!-- Copyright -->
-  </footer>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
   <!-- MDB -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <!-- Custom scripts -->

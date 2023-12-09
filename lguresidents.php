@@ -143,30 +143,36 @@ if (isset($_SESSION['user'])) {
                             </span>
                         </a>
                         <li class="nav-item fs-7">
-                            <a class="nav-link" aria-current="page" href="lguhome.php">
-                                <span data-feather="activity" class="align-text-bottom feather-48"></span>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item fs-7">
-                            <a class="nav-link text-dark bg-warning active shadow">
-                                <span data-feather="user" class="align-text-bottom feather-48"></span>
-                                Residents Profile
-                            </a>
-                        </li>
-                        <li class="nav-item fs-7">
-                            <a class="nav-link" href="lguevents.php">
-                                <span data-feather="calendar" class="align-text-bottom feather-48"></span>
-                                Events
-                            </a>
-                        </li>
-                        <hr class="mt-2 mb-1">
-                        <li class="nav-item fs-7">
-                            <a class="nav-link" href="lgulogout.php">
-                                <span data-feather="log-out" class="align-text-bottom feather-48"></span>
-                                Logout
-                            </a>
-                        </li>
+							<a class="nav-link" aria-current="page" href="lguhome.php">
+								<span data-feather="activity" class="align-text-bottom feather-48"></span>
+								Dashboard
+							</a>
+						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link text-dark bg-warning active shadow" href="lguresidents.php">
+								<span data-feather="user" class="align-text-bottom feather-48"></span>
+								Residents Profile
+							</a>
+						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="lguevents.php">
+								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
+								Events
+							</a>
+						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="lgujobs.php">
+								<span data-feather="briefcase" class="align-text-bottom feather-48"></span>
+								Jobs and Services
+							</a>
+						</li>
+						<hr class="mt-2 mb-1">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminlogout.php">
+								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
+								Logout
+							</a>
+						</li>
                     </ul>
                 </div>
             </nav>

@@ -171,6 +171,20 @@ if (isset($_SESSION['user'])) {
 							<a class="nav-link" href="userevents.php">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
+								<?php
+								include 'conn.php';
+								$uid = $_SESSION['uid'];
+								$query = "SELECT * FROM events where status='1'";
+								$query_run = mysqli_query($conn, $query);
+								$items = mysqli_num_rows($query_run);
+								if ($row > 0) {
+									?>
+									<span class="badge rounded-pill text-bg-warning text-end">
+										<?php echo $items ?>
+									</span>
+									<?php
+								}
+								?>
 							</a>
 						</li>
 						<hr class="mt-5 mb-1">
@@ -425,6 +439,7 @@ if (isset($_SESSION['user'])) {
 												</div>
 											<?php endif; ?>
 										</td>
+
 										<!-- UPDATE Modal -->
 										<div class="modal fade" id="updatePayment" tabindex="-1"
 											aria-labelledby="updatePaymentModalLabel" aria-hidden="true">

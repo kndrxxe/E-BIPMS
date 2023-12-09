@@ -420,7 +420,7 @@ if(isset($_SESSION['user'])) {
 													</button>
 													<?php if($items['isEditable'] == 1): ?>
 														<a href="admineditresidents.php?id=<?= $items['id']; ?>"
-															class="btn btn-primary">
+															class="btn btn-warning">
 															<i class="bi bi-pencil"></i>
 														</a>
 													<?php endif; ?>

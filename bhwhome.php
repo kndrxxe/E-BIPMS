@@ -88,111 +88,20 @@ $result = $stmt->get_result();
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminresidents.php">
+							<a class="nav-link" href="bhwresidents.php">
 								<span data-feather="user" class="align-text-bottom feather-48"></span>
 								Residents Profile
 							</a>
 						</li>
-						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
-											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											Document Requests
-										</button>
-									</h2>
-									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<ul class="nav flex-column pt-4">
-												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link" style="margin-top: -40px"
-														href="admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Brgy. Clearance
-														<?php
-														include 'conn.php';
-														$status = 0;
-														$query = "SELECT id FROM documents WHERE status = ?";
-														$stmt = $conn->prepare($query);
-														$stmt->bind_param("i", $status);
-														$stmt->execute();
-														$result = $stmt->get_result();
-														$row = $result->num_rows;
-														if ($row > 0) {
-															?>
-															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
-															</span>
-															<?php
-														}
-														?>
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Brgy. Indigency
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Brgy. Residency
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Business Permit
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Cedula
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-						</li>
-						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminofficials.php">
-								<span data-feather="users" class="align-text-bottom feather-48"></span>
-								Barangay Officials
-							</a>
-						</li>
-						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminusers.php">
-								<span data-feather="layers" class="align-text-bottom feather-48"></span>
-								Manage Users
-							</a>
-						</li>
-						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminevents.php">
+							<a class="nav-link" href="bhwevents.php">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 							</a>
 						</li>
 						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="adminlogout.php">
+							<a class="nav-link" href="bhwlogout.php">
 								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
 								Logout
 							</a>
@@ -205,11 +114,6 @@ $result = $stmt->get_result();
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">DASHBOARD</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-1">
-							<button type="button" class="btn btn-md btn-outline-warning">Export</button>
-						</div>
-					</div>
 				</div>
 				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
 					<div class="col-auto">
@@ -300,7 +204,7 @@ $result = $stmt->get_result();
 									<p class="card-text">
 										<?php
 										include 'conn.php';
-										$specialgroup = 'Senior Citizen';
+										$specialgroup = 'Senior Citizens';
 										$query = "SELECT id FROM users WHERE specialgroup = ?";
 										$stmt = $conn->prepare($query);
 										$stmt->bind_param("s", $specialgroup);
@@ -346,7 +250,7 @@ $result = $stmt->get_result();
 							<div class="card-icon d-flex align-items-center justify-content-start"
 								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
 								<i class="fa-sharp fa-regular fa-person-breastfeeding"
-									style="font-size: 3.5rem; margin-right: 120px;"></i>
+									style="font-size: 3.8rem; margin-right: 120px;"></i>
 								<div class="text-left ml-auto">
 									<h5 class="card-title fs-5 text-end"><b>Solo Parent</b></h5>
 									<p class="card-text">
@@ -494,12 +398,12 @@ $result = $stmt->get_result();
 		} elseif ($row['age'] >= 61 && $row['age'] <= 70) {
 			$dataList['61-70'] += $row['count'];
 		} elseif ($row['age'] >= 71 && $row['age'] <= 80) {
-			$dataList['71-80'] += $row['count'];
-		} elseif ($row['age'] >= 81 && $row['age'] <= 90) {
-			$dataList['81-90'] += $row['count'];
-		} elseif ($row['age'] >= 91 && $row['age'] <= 100) {
-			$dataList['91-100'] += $row['count'];
-		}
+            $dataList['71-80'] += $row['count'];
+        } elseif ($row['age'] >= 81 && $row['age'] <= 90) {
+            $dataList['81-90'] += $row['count'];
+        } elseif ($row['age'] >= 91 && $row['age'] <= 100) {
+            $dataList['91-100'] += $row['count'];
+        }
 	}
 	$data_values = array_values($dataList);
 	?>

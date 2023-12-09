@@ -99,6 +99,12 @@ $result = $stmt->get_result();
 								Events
 							</a>
 						</li>
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="lgujobs.php">
+								<span data-feather="briefcase" class="align-text-bottom feather-48"></span>
+								Jobs and Services
+							</a>
+						</li>
 						<hr class="mt-2 mb-1">
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminlogout.php">
@@ -114,11 +120,6 @@ $result = $stmt->get_result();
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">DASHBOARD</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-1">
-							<button type="button" class="btn btn-md btn-outline-warning">Export</button>
-						</div>
-					</div>
 				</div>
 				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
 					<div class="col-auto">
@@ -255,7 +256,7 @@ $result = $stmt->get_result();
 							<div class="card-icon d-flex align-items-center justify-content-start"
 								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
 								<i class="fa-sharp fa-regular fa-person-breastfeeding"
-									style="font-size: 3.8rem; margin-right: 120px;"></i>
+									style="font-size: 3.5rem; margin-right: 120px;"></i>
 								<div class="text-left ml-auto">
 									<h5 class="card-title fs-5 text-end"><b>Solo Parent</b></h5>
 									<p class="card-text">
@@ -275,23 +276,53 @@ $result = $stmt->get_result();
 							</div>
 						</div>
 					</div>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-person-pregnant"
+									style="font-size: 3.5rem; margin-right: 150px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end"><b>Pregnant</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$specialgroup = 'Pregnant';
+										$query = "SELECT id FROM users WHERE specialgroup = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $specialgroup);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
+										echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div
 					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">
-					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3 animate__animated animate__fadeInUp"
-						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 350px; margin-left:auto; margin-right:auto;">
-						<canvas id="populationPerPurok"></canvas>
+					<div class="col-auto col-sm-6 col-md-5 pb-2 rounded p-3 animate__animated animate__fadeInUp"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 400px; margin-left:auto; margin-right:auto;">
+						<canvas id="populationPerPurok" width="500" height="300"></canvas>
 					</div>
 					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3 animate__animated animate__fadeInUp"
-						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 700px; margin-left:auto; margin-right:auto;">
-						<canvas id="voterPerPurok"></canvas>
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 800px; margin-left:auto; margin-right:auto;">
+						<canvas id="voterPerPurok" width="500" height="250"></canvas>
 					</div>
 				</div>
 				<div
 					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">
 					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3 animate__animated animate__fadeInUp"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width: 100%; max-width: 600px; margin-left:auto; margin-right:auto;">
+						<canvas id="ageGroup" width="400" height="200"></canvas>
+					</div>
+					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3 animate__animated animate__fadeInUp"
 						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 600px; margin-left:auto; margin-right:auto;">
-						<canvas id="ageGroup"></canvas>
+						<canvas id="employmentStatusPerPurok" width="400" height="200"></canvas>
 					</div>
 				</div>
 				<h2>NEWLY ADDED RESIDENT</h2>
@@ -309,7 +340,7 @@ $result = $stmt->get_result();
 						<tbody>
 							<?php
 							include 'conn.php';
-							$query = "SELECT * FROM users LIMIT 5";
+							$query = "SELECT * FROM users ORDER BY id DESC LIMIT 5";
 							$stmt = $conn->prepare($query);
 							$stmt->execute();
 							$result = $stmt->get_result();
@@ -386,7 +417,7 @@ $result = $stmt->get_result();
 	$stmt = $conn->prepare($query);
 	$stmt->execute();
 	$result = $stmt->get_result();
-	$dataList = array_fill_keys(['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70'], 0);
+	$dataList = array_fill_keys(['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'], 0);
 	while ($row = $result->fetch_assoc()) {
 		if ($row['age'] >= 0 && $row['age'] <= 10) {
 			$dataList['0-10'] += $row['count'];
@@ -402,9 +433,31 @@ $result = $stmt->get_result();
 			$dataList['51-60'] += $row['count'];
 		} elseif ($row['age'] >= 61 && $row['age'] <= 70) {
 			$dataList['61-70'] += $row['count'];
+		} elseif ($row['age'] >= 71 && $row['age'] <= 80) {
+			$dataList['71-80'] += $row['count'];
+		} elseif ($row['age'] >= 81 && $row['age'] <= 90) {
+			$dataList['81-90'] += $row['count'];
+		} elseif ($row['age'] >= 91 && $row['age'] <= 100) {
+			$dataList['91-100'] += $row['count'];
 		}
 	}
 	$data_values = array_values($dataList);
+	?>
+	<?php
+	include 'conn.php';
+	$query = "SELECT purok, employmentstatus, COUNT(*) as count FROM users WHERE employmentstatus IN ('Employed', 'Unemployed') GROUP BY purok, employmentstatus";
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$employed = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	$unemployed = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	while ($row = $result->fetch_assoc()) {
+		if ($row['employmentstatus'] === 'Employed') {
+			$employed[$row['purok']] = $row['count'];
+		} else {
+			$unemployed[$row['purok']] = $row['count'];
+		}
+	}
 	?>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
@@ -463,7 +516,8 @@ $result = $stmt->get_result();
 		const myChart3 = new Chart(ctx3, {
 			type: 'bar',
 			data: {
-				labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70'],
+				labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90',
+					'91-100'],
 				datasets: [{
 					label: 'Age Group',
 					data: <?php echo json_encode($data_values); ?>,
@@ -477,6 +531,31 @@ $result = $stmt->get_result();
 					title: {
 						display: true,
 						text: 'Age Group',
+					}
+				}
+			}
+		});
+		var ctx4 = document.getElementById('employmentStatusPerPurok').getContext('2d');
+		const myChart4 = new Chart(ctx4, {
+			type: 'bar',
+			data: {
+				labels: ['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'],
+				datasets: [{
+					label: 'Employed',
+					data: <?php echo json_encode($employed); ?>, // Use different PHP variable for 'Yes' data
+					borderWidth: 2
+				}, {
+					label: 'Unemployed',
+					data: <?php echo json_encode($unemployed); ?>, // Use different PHP variable for 'No' data
+					borderWidth: 2
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'Employment Status per Purok',
 					}
 				}
 			}

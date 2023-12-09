@@ -25,7 +25,7 @@ if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['l
   $isEditable = $_POST['isEditable'];
 
   include 'conn.php';
-  mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, employmentstatus, phonenumber)VALUES('$uid','$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$employmentstatus', '$phonenumber')") or die('Query Error');
+  mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, specialgroup, members, housingstatus, employmentstatus, phonenumber, isEditable)VALUES('$uid','$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$specialgroup', '$members', '$housingstatus', '$employmentstatus', '$phonenumber', '$isEditable')") or die('Query Error');
 
   $_SESSION['successaddresident'] = "Resident added Successfully";
   header('Location: adminresidents.php');

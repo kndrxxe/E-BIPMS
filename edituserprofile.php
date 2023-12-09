@@ -268,7 +268,8 @@ if (isset($_SESSION['user'])) {
 					<form action="updateuserprofile.php" method="POST" enctype="multipart/form-data">
 						<div class="text-center mb-3">
 							<img class="rounded-circle border border-2 border-warning"
-								src="<?php echo !empty($profile_picture) ? $profile_picture : 'default.jpg' ?>" width="250">
+								src="<?php echo !empty($profile_picture) ? $profile_picture : 'default.jpg' ?>"
+								width="250">
 							<div class="form-floating mt-3 mb-1 col-12 col-md-7 col-lg-5 mx-auto"
 								style="margin-left:auto; margin-right: auto">
 								<input type="file" class="form-control border-warning rounded"
@@ -276,7 +277,9 @@ if (isset($_SESSION['user'])) {
 									name="profile_picture" accept="image/*" />
 								<button type="submit" class="btn btn-md btn-success mt-2"><i class="bi bi-upload">
 									</i>Upload</button>
-								<a href="delete_profile_picture.php?id=<?php echo $row['id'] ?>" class="btn btn-danger btn-md edit-btn mt-2 rounded"><i class="bi bi-trash"></i> Delete Photo</a>
+								<a href="delete_profile_picture.php?id=<?php echo $row['id'] ?>"
+									class="btn btn-danger btn-md edit-btn mt-2 rounded"><i class="bi bi-trash"></i>
+									Delete Photo</a>
 								<label for="profile_picture">Profile Picture</label>
 							</div>
 						</div>
@@ -288,17 +291,20 @@ if (isset($_SESSION['user'])) {
 							</div>
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="firstname"
-									value="<?php echo $row['firstname'] ?>" placeholder="First Name" required />
+									value="<?php echo $row['firstname'] ?>" placeholder="First Name" required
+									 />
 								<label for="firstname">First Name</label>
 							</div>
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="middlename"
-									value="<?php echo $row['middlename'] ?>" placeholder="Middle Name" required />
+									value="<?php echo $row['middlename'] ?>" placeholder="Middle Name" required 
+									 />
 								<label for="middlename">Middle Name</label>
 							</div>
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="lastname"
-									value="<?php echo $row['lastname'] ?>" placeholder="Last Name" required />
+									value="<?php echo $row['lastname'] ?>" placeholder="Last Name" required 
+									 />
 								<label for="lastname">Last Name</label>
 							</div>
 						</div>
@@ -336,7 +342,7 @@ if (isset($_SESSION['user'])) {
 						</div>
 						<div class="row g-2">
 							<div class="form-floating col">
-								<input type="text" class="form-control rounded" name="house_no"
+								<input type="text" class="form-control rounded" name="house_no" maxlength="4"
 									placeholder="House No. (optional)" value="<?php echo $row['house_no'] ?>"
 									required />
 								<label for="house_no">House No.</label>
@@ -470,7 +476,7 @@ if (isset($_SESSION['user'])) {
 						<div class="row g-2">
 							<div class="form-floating col">
 								<input type="text" class="form-control" name="members" id="members"
-									value="<?php echo $row['members'] ?>" required />
+									value="<?php echo $row['members'] ?>" maxlength="2" required />
 								<label class="form-label" for="members">No. of Family Members</label>
 							</div>
 							<div class="form-floating col">
@@ -608,6 +614,23 @@ if (isset($_SESSION['user'])) {
 				}
 			});
 		};	</script>
+	<script>
+		document.querySelector('[name="firstname"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="middlename"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="lastname"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="house_no"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+		document.querySelector('[name="members"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+	</script>
 </body>
 
 </html>
