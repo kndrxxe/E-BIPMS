@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2023 at 04:21 AM
+-- Generation Time: Dec 09, 2023 at 02:38 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
-  `userID` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -38,8 +37,27 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `userID`, `username`, `password`) VALUES
-(1, '', 'admin', 'admin');
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bhw`
+--
+
+CREATE TABLE `bhw` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bhw`
+--
+
+INSERT INTO `bhw` (`id`, `username`, `password`) VALUES
+(1, 'bhwuser', 'bhwuser123');
 
 -- --------------------------------------------------------
 
@@ -71,7 +89,7 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `birthday`, `civilstatus`, `sex`, `purok`, `purpose`, `issue_date`, `date_requested`, `status`, `isPaid`, `proof`) VALUES
-(1, '13761cec229d024f7dbea855ba067d47', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Employment', '2023-12-08', '2023-12-07', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
+(1, '0c90d6f1ed7fdce9a4a06accd1384150', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Employment', '2023-12-13', '2023-12-08', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -97,10 +115,35 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `eventname`, `eventdatestart`, `eventdateend`, `eventtimestart`, `eventtimeend`, `eventlocation`, `eventdescription`, `eventcolor`, `status`) VALUES
-(3, 'Anti Rabies Vaccination', '2023-12-06', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#000000', 1),
-(4, 'Implantation', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Implantation', '#00ffbf', 1),
-(5, 'Flu Vaccination', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Town Plaza', 'Flu Vaccination', '#ffd500', 1),
-(6, 'Anti Rabies Vaccination', '2023-12-11', '2023-12-15', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#ffa200', 1);
+(3, 'Anti Rabies Vaccination', '2023-12-06', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#000000', 0),
+(4, 'Implantation', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Implantation', '#00ffbf', 0),
+(5, 'Flu Vaccination', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Town Plaza', 'Flu Vaccination', '#ffd500', 0),
+(6, 'Anti Rabies Vaccination', '2023-12-11', '2023-12-15', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#ffa200', 0),
+(7, 'Flu Vaccination', '2023-12-13', '2023-12-16', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Flu Vaccination', '#ff4d00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` int(11) NOT NULL,
+  `companyname` varchar(255) NOT NULL,
+  `jobtitle` varchar(255) NOT NULL,
+  `jobdescription` varchar(255) NOT NULL,
+  `joblocation` varchar(255) NOT NULL,
+  `jobrequirements` varchar(255) NOT NULL,
+  `isFeatured` tinyint(2) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `companyname`, `jobtitle`, `jobdescription`, `joblocation`, `jobrequirements`, `isFeatured`, `image`) VALUES
+(1, 'Canon Business Machines Philippines Inc.', 'Production Operator', '<p style=\"text-align: justify;\">To be successful as a production worker you should be able to work on the production line with consistent speed and accuracy. An outstanding production worker should be able to maintain production standards and work towards', 'Tanauan City, Batangas', '<ul>\r\n<li>High school diploma/GED.</li>\r\n<li>Previous experience working in a factory is beneficial.</li>\r\n<li>Experience operating manufacturing machinery.</li>\r\n<li>Able to work as part of a team.</li>\r\n<li>Good communication skills.</li>\r\n<li>Basic mat', 1, '');
 
 -- --------------------------------------------------------
 
@@ -216,8 +259,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `employmentstatus`, `yearsliving`, `phonenumber`, `email`, `username`, `password`, `profile_picture`, `proof`, `status`, `isEditable`) VALUES
-(1, '13761cec229d024f7dbea855ba067d47', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 1, 'Senior Citizen', 5, 'Owned', 'Student', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', 'user_profile_pic/1661497184343.jfif', '', '1', 0),
-(2, 'f1865d6668a109bf3b5db592f53594b5', 'Rizalina', 'Miguel', 'Santos', 'Female', '1979-04-05', 44, '039', 'Purok 3', 'Married', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639728286267', '', '', '', '', '', '', 0);
+(1, '0c90d6f1ed7fdce9a4a06accd1384150', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 1, 'Solo Parent', 5, 'Owned', 'Student', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', 'user_profile_pic/1661497184343.jfif', '', '1', 0),
+(2, 'dc55ec844fa5c6e3cb3873c9452875d1', 'Marie', 'Jose', 'Chan', 'Female', '1977-05-04', 46, '002', 'Purok 3', 'Widowed', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639567855411', '', '', '', '', '', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -227,8 +270,13 @@ INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `userID` (`userID`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bhw`
+--
+ALTER TABLE `bhw`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `documents`
@@ -240,6 +288,12 @@ ALTER TABLE `documents`
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -278,6 +332,12 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `bhw`
+--
+ALTER TABLE `bhw`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
@@ -287,7 +347,13 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `localgovernment`
