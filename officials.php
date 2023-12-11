@@ -46,7 +46,7 @@
                             <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="officials">Officials</a>
+                            <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link font-weight-bold" href="contact">Contact</a>
@@ -219,7 +219,7 @@
                             <a href="index#announce" class="text-reset">Announcement</a>
                         </p>
                         <p>
-                            <a href="officials" class="text-reset">Officials</a>
+                            <a href="officials.php" class="text-reset">Officials</a>
                         </p>
                         <p>
                             <a href="contact" class="text-reset">Contact</a>

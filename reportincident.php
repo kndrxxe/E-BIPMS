@@ -105,8 +105,7 @@ if (isset($_SESSION['user'])) {
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link" style="margin-top: -40px"
-														href="userdocument">
+													<a class="nav-link" style="margin-top: -40px" href="userdocument">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
@@ -200,12 +199,13 @@ if (isset($_SESSION['user'])) {
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">REQUESTS FOR BARANGAY CLEARANCE</h1>
+					<h1 class="h2">REPORT INCIDENT</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
 							<button type="button" class="btn btn-md btn-warning addbtn" data-bs-toggle="modal"
-								data-bs-target="#requestBarangayClearance"><i class="bi bi-file-earmark-text">
-								</i>Request Document
+								data-bs-target="#requestBarangayClearance"><i class="bi bi-flag-fill">
+								</i>
+								Report Incident
 							</button>
 						</div>
 					</div>
@@ -443,63 +443,6 @@ if (isset($_SESSION['user'])) {
 												</div>
 											<?php endif; ?>
 										</td>
-
-										<!-- UPDATE Modal -->
-										<div class="modal fade" id="updatePayment" tabindex="-1"
-											aria-labelledby="updatePaymentModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="updatePaymentModalLabel"><i
-																class="bi bi-cash"></i> Mode of Payment</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal"
-															aria-label="Close"></button>
-													</div>
-													<div class="modal-body">
-														<form class="forms needs-validation" method="POST"
-															action="userclearancepayment.php" enctype="multipart/form-data"
-															novalidate="">
-															<input type="hidden" name="id" value="<?php echo $items['id'] ?>"
-																id="update_id">
-															<input type="hidden" name="isPaid" id="isPaid">
-															<div class="row g-2">
-																<div class="col">
-																	<div class="card">
-																		<div
-																			class="card-body d-flex justify-content-center align-items-center flex-column p-0">
-																			<img class="pt-4" src="gcash_logo.png" width="100px" alt="">
-																			<p style="font-size: 20px; margin-bottom:2px">09664179718</p>
-																			<input class="mb-2" type="radio" name="paymentmethod" value="GCASH" required>
-																		</div>
-																	</div>
-																</div>
-																<div class="col">
-																	<div class="card">
-																		<div
-																			class="card-body d-flex justify-content-center align-items-center flex-column p-0">
-																			<img class="pt-4" src="maya_logo.png" width="80px" alt="">
-																			<p style="font-size: 20px; margin-bottom:2px">09664179718</p>
-																			<input class="mb-2" type="radio" name="paymentmethod" value="MAYA" required>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="form-floating mt-1">
-																<input type="file" class="form-control" id="paymentProof"
-																	name="proof" required>
-																<label for="proof">Proof of Payment</label>
-															</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-bs-dismiss="modal">Close</button>
-														<button type="submit" name="updateevent" class="btn btn-warning"><i
-																class="bi bi-cash"></i> Pay Now</button>
-													</div>
-													</form>
-												</div>
-											</div>
-										</div>
 									</tr>
 									<?php
 								}
