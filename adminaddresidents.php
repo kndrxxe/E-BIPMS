@@ -237,7 +237,7 @@ if (isset($_SESSION['user'])) {
 					</div>
 					<div class="text-center mb-3">
 						<img class="rounded-circle border border-2 border-warning" src="default-profile-pic.jpg"
-							width="150">
+							width="250">
 					</div>
 					<div class="d-flex flex-wrap row g-4 mb-3 gx-1 p-3  text-start">
 						<div class="row g-2">
@@ -587,6 +587,23 @@ if (isset($_SESSION['user'])) {
 				}
 			});
 		};
+	</script>
+		  <script>
+		document.querySelector('[name="firstname"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="middlename"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="lastname"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="house_no"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+		document.querySelector('[name="members"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
 	</script>
 </body>
 

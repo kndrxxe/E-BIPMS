@@ -15,7 +15,7 @@ if (isset($_SESSION['user'])) {
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-BIPMS</title>
+	<title>Edit User Profile | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@ if (isset($_SESSION['user'])) {
 		<a class="navbar-brand px-2 fs-6 text-dark">
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b></a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
 			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -162,7 +162,7 @@ if (isset($_SESSION['user'])) {
 						</li>
 						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="">
+							<a class="nav-link" href="reportincident.php">
 								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
 								Report Incident
 							</a>

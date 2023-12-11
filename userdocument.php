@@ -14,7 +14,7 @@ if (isset($_SESSION['user'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-BIPMS</title>
+	<title>Request Barangay Clearance | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,8 +47,8 @@ if (isset($_SESSION['user'])) {
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b>
 		</a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button"
+			data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -162,7 +162,7 @@ if (isset($_SESSION['user'])) {
 						</li>
 						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="">
+							<a class="nav-link" href="reportincident.php">
 								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
 								Report Incident
 							</a>
@@ -200,7 +200,7 @@ if (isset($_SESSION['user'])) {
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">REQUESTS FOR BARANGAY CLEARANCE</h1>
+					<h1 class="h2">REQUEST BARANGAY CLEARANCE</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
 							<button type="button" class="btn btn-md btn-warning addbtn" data-bs-toggle="modal"
@@ -250,6 +250,10 @@ if (isset($_SESSION['user'])) {
 										<div class="form-floating mb-3">
 											<input type="hidden" class="form-control rounded" name="email"
 												value="<?php echo $row['email'] ?>" readonly />
+										</div>
+										<div class="form-floating mb-3">
+											<input type="hidden" class="form-control rounded" name="phonenumber"
+												value="<?php echo $row['phonenumber'] ?>" readonly />
 										</div>
 										<div class="form-floating mb-3">
 											<input type="hidden" class="form-control rounded" name="birthday"
@@ -447,7 +451,7 @@ if (isset($_SESSION['user'])) {
 												<div class="modal-content">
 													<div class="modal-header">
 														<h5 class="modal-title" id="updatePaymentModalLabel"><i
-																class="bi bi-calendar-event"></i> Send Proof of Payment</h5>
+																class="bi bi-cash"></i> Mode of Payment</h5>
 														<button type="button" class="btn-close" data-bs-dismiss="modal"
 															aria-label="Close"></button>
 													</div>
@@ -458,18 +462,39 @@ if (isset($_SESSION['user'])) {
 															<input type="hidden" name="id" value="<?php echo $items['id'] ?>"
 																id="update_id">
 															<input type="hidden" name="isPaid" id="isPaid">
-
-															<div class="form-floating">
+															<div class="row g-2">
+																<div class="col">
+																	<div class="card">
+																		<div
+																			class="card-body d-flex justify-content-center align-items-center flex-column p-0">
+																			<img class="pt-4" src="gcash_logo.png" width="100px" alt="">
+																			<p style="font-size: 20px; margin-bottom:2px">09664179718</p>
+																			<input class="mb-2" type="radio" name="paymentmethod" value="GCASH" required>
+																		</div>
+																	</div>
+																</div>
+																<div class="col">
+																	<div class="card">
+																		<div
+																			class="card-body d-flex justify-content-center align-items-center flex-column p-0">
+																			<img class="pt-4" src="maya_logo.png" width="80px" alt="">
+																			<p style="font-size: 20px; margin-bottom:2px">09664179718</p>
+																			<input class="mb-2" type="radio" name="paymentmethod" value="MAYA" required>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="form-floating mt-1">
 																<input type="file" class="form-control" id="paymentProof"
 																	name="proof" required>
-																<label for="proof">Upload Proof of Payment</label>
+																<label for="proof">Proof of Payment</label>
 															</div>
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary"
 															data-bs-dismiss="modal">Close</button>
 														<button type="submit" name="updateevent" class="btn btn-warning"><i
-																class="bi bi-currency-dollar"></i> Pay Now</button>
+																class="bi bi-cash"></i> Pay Now</button>
 													</div>
 													</form>
 												</div>

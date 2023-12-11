@@ -117,7 +117,26 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarExample01">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-              <a class="nav-link font-weight-bold" href="index.php">Home</a>
+              <a class="nav-link font-weight-bold" href="index">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="officials">Officials</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="contact">Contact</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+                aria-expanded="false">
+                Login
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="adminlogin"><i class="fa fa-user"></i> Login as Admin</a></li>
+                <li><a class="dropdown-item" href="lgulogin"><i class="fa fa-user"></i> Login as LGU</a></li>
+                <li><a class="dropdown-item" href="bhwlogin"><i class="fa fa-user"></i> Login as BHW</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -224,7 +243,7 @@ session_start();
                 </select>
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="voter" placeholder="Registered Voter"
+                <select class="form-select form-select-lg rounded-2" name="voter" id="voter" placeholder="Registered Voter"
                   required>
                   <option selected disabled>Registered Voter</option>
                   <option value="Yes">Yes</option>
@@ -234,7 +253,7 @@ session_start();
               <div class="col-12 d-flex justify-content-start mt-0 mb-0">
                 <div class="form-check d-flex align-items-center">
                   <input type="hidden" id="specialGroupCheckboxHidden" name="is_special_group" value="0" />
-                  <input class="checkbox" type="checkbox" name="is_special_group" id="specialGroupCheckbox" value=1 />
+                  <input class="checkbox" type="checkbox" name="is_special_group" id="specialGroupCheckbox" value="1" />
                   <label class="checkbox-label text-start" id="specialGroupLabel"
                     style="font-size: 10pt; margin-left:5px; color:#6c757d;">
                     Are you belong to a special group?
@@ -256,12 +275,12 @@ session_start();
               </div>
               <div class="col-6 mb-2">
                 <div class="form-outline">
-                  <input type="text" class="form-control form-control-lg" name="members" id="members" required />
+                  <input type="text" class="form-control form-control-lg" name="members" id="members" maxlength="2" required />
                   <label class="form-label" for="members">No. of Family Members</label>
                 </div>
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="housingstatus" placeholder="housingstatus"
+                <select class="form-select form-select-lg rounded-2" name="housingstatus" id="housingstatus" placeholder="housingstatus"
                   required>
                   <option selected disabled>Housing Status</option>
                   <option value="Owned">Owned</option>
@@ -272,7 +291,7 @@ session_start();
                 </select>
               </div>
               <div class="col-12 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="employmentstatus"
+                <select class="form-select form-select-lg rounded-2" id="employmentstatus" name="employmentstatus"
                   placeholder="employmentstatus" required>
                   <option selected disabled>Employment Status</option>
                   <option value="Employed">Employed</option>
@@ -342,7 +361,7 @@ session_start();
                 <p id="number" class="invalid">A <b>number</b></p>
               </div>
               <!-- Submit button -->
-              <button type="submit" name="register" class="btn btn-warning btn-block">REGISTER</button>
+              <button type="submit" name="register" id="submitBtn" class="btn btn-warning btn-block">REGISTER</button>
               <div class="col mt-3">
                 <!-- Simple link -->
                 Already have an account? <a class="text-warning" href="userlogin.php"><b>Log In</b></a>
@@ -355,15 +374,74 @@ session_start();
   </header>
   <!--Main Navigation-->
 
-  <!--Footer-->
-  <footer class="bg-warning text-lg-start">
+  <!-- Footer -->
+  <footer class="text-center text-lg-start bg-dark text-light pt-1">
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <img src="kanlurangbukal.png" width="50" />
+              E-BIPMS KANLURANG BUKAL
+            </h6>
+            <p class="text-justify">
+              A system that aims to provide a convenient way for the barangay officials to monitor the
+              residents of the barangay and to provide a convenient way for the residents to request
+              barangay services.
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="index" class="text-reset">Home</a>
+            </p>
+            <p>
+              <a href="index#announce" class="text-reset">Announcement</a>
+            </p>
+            <p>
+              <a href="officials" class="text-reset">Officials</a>
+            </p>
+            <p>
+              <a href="contact" class="text-reset">Contact</a>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              ebipmskanlurangbukal@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
     <!-- Copyright -->
-    <div class="text-center p-3 text-light">
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
       © 2023 Copyright
     </div>
     <!-- Copyright -->
   </footer>
-  <!--Footer-->
+  <!-- Footer -->
   <!-- MDB -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <!-- Custom scripts -->
@@ -501,39 +579,83 @@ session_start();
     });
   </script>
   <script>
-    window.onload = function () {
-      document.getElementById('specialGroupDiv').style.display = 'none';
+  window.onload = function () {
+			var specialGroupDiv = document.getElementById('specialGroupDiv');
+			var specialGroupLabel = document.getElementById('specialGroupLabel');
+			var specialGroupCheckbox = document.getElementById('specialGroupCheckbox');
 
-      document.getElementById('specialGroupCheckbox').addEventListener('change', function () {
-        var specialGroupDiv = document.getElementById('specialGroupDiv');
-        var specialGroupLabel = document.getElementById('specialGroupLabel');
-        if (this.checked) {
-          specialGroupDiv.style.display = 'block';
-          specialGroupLabel.style.color = '#212529';
+			// Check the status of the checkbox on page load
+			if (specialGroupCheckbox.checked) {
+				specialGroupDiv.style.display = 'block';
+				specialGroupLabel.style.color = '#212529';
+			} else {
+				specialGroupDiv.style.display = 'none';
+				specialGroupLabel.style.color = '#6c757d';
+			}
+
+			specialGroupCheckbox.addEventListener('change', function () {
+				if (this.checked) {
+					specialGroupDiv.style.display = 'block';
+					specialGroupLabel.style.color = '#212529';
+				} else {
+					specialGroupDiv.style.display = 'none';
+					specialGroupLabel.style.color = '#6c757d';
+
+					// Send AJAX request to remove the selected option from the database
+					$.ajax({
+						url: 'remove_specialgroup.php', // The URL of the PHP script that updates the database
+						type: 'POST',
+						data: {
+							id: $('#id').val() // The ID of the record to update
+						},
+						success: function (data) {
+							console.log('Special group removed successfully');
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							console.log('Error removing special group: ' + textStatus + ' ' + errorThrown);
+						}
+					});
+				}
+			});
+		};	</script>
+  <script>
+    $(document).ready(function () {
+      $('#submitBtn').attr('disabled', 'disabled'); // Initially disable the button
+
+      $('#firstname, #middlename, #lastname, #sex, #birthday, #age, #purok, #civilstatus, #voter, #members, #housingstatus, #employmentstatus, #phonenumber, #emailaddress, #username, #password, #confirm_password').on('keyup', function () {
+        let empty = false;
+
+        $('#firstname, #middlename, #lastname, #sex, #birthday, #age, #purok, #civilstatus, #voter, #members, #housingstatus, #employmentstatus, #phonenumber, #emailaddress, #username, #password, #confirm_password').each(function () {
+          if ($(this).val() == '') {
+            empty = true;
+          }
+        });
+
+        if (empty) {
+          $('#submitBtn').attr('disabled', 'disabled');
         } else {
-          specialGroupDiv.style.display = 'none';
-          specialGroupLabel.style.color = '#6c757d';
+          $('#submitBtn').removeAttr('disabled');
         }
       });
-    };
-  </script>
-  <script>
-    $('#yearsliving').change(function () {
-      var selectedOption = $(this).val();
-
-      if (selectedOption == 'Below 6 months') {
-        $('#input1').show();
-        $('#label1').show();
-        $('#input2').hide();
-        $('#label2').hide();
-      } else if (selectedOption == '6 months and above') {
-        $('#input1').hide();
-        $('#label1').hide();
-        $('#input2').show();
-        $('#label2').show();
-      }
     });
   </script>
+  <script>
+		document.querySelector('[name="firstname"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="middlename"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="lastname"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[0-9]/g, '');
+		});
+		document.querySelector('[name="house_no"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+		document.querySelector('[name="members"]').addEventListener('input', function (e) {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+	</script>
 
 </body>
 

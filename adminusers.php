@@ -50,6 +50,101 @@ if (isset($_SESSION['user'])) {
 		.accordion-button:not(.collapsed)::after {
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 		}
+
+		div.dataTables_wrapper div.dataTables_filter input {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+		}
+
+		div.dataTables_wrapper div.dataTables_filter input:focus {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+			box-shadow: none;
+		}
+
+		.pagination .page-item.active .page-link {
+			background-color: #ffc107;
+			border-color: #ffc107;
+			color: black
+		}
+
+		.pagination .page-link {
+			margin-bottom: 10px;
+		}
+
+		div.dataTables_wrapper div.dataTables_length label {
+			margin-bottom: 10px;
+		}
+
+		div.dataTables_wrapper div.dataTables_length select {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+		}
+
+		div.dataTables_wrapper div.dataTables_length select:focus {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+			box-shadow: none;
+		}
+
+		.pagination .page-item.active .page-link {
+			background-color: #ffc107;
+			border-color: #ffc107;
+			color: black
+		}
+
+		.pagination .page-link {
+			margin-bottom: 10px;
+		}
+
+		#message {
+			display: none;
+			position: relative;
+		}
+
+		#message p {
+                margin: 5px 0 0 0;
+                font-size: 15px;
+            }
+
+		/* Add a green text color and a checkmark when the requirements are right */
+		.valid {
+			color: green;
+		}
+
+		.valid:before {
+			position: relative;
+			padding-left: 10px;
+			left: -10px;
+			content: "✔";
+		}
+
+		/* Add a red text color and an "x" icon when the requirements are wrong */
+		.invalid {
+			color: red;
+		}
+
+		.invalid:before {
+			position: relative;
+			padding-left: 10px;
+			left: -10px;
+			content: "✖";
+		}
+
+		.checkbox {
+			width: 17px;
+			height: 17px;
+			margin-left: -20px;
+		}
+
+		.checkbox:checked {
+			accent-color: orange;
+			!important;
+		}
+
+		.checkbox-label {
+			font-size: 17px;
+		}
 	</style>
 </head>
 
@@ -201,6 +296,30 @@ if (isset($_SESSION['user'])) {
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">MANAGE USERS</h1>
 				</div>
+				<?php
+				if (isset($_SESSION['updateerror'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['updateerror']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['updateerror']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['updatesuccess'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['updatesuccess']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['updatesuccess']);
+				}
+				?>
 				<div class="table-responsive">
 					<div class="data_table">
 						<table id="myTable" class="table table-striped table-hover" style="width:100%">
@@ -219,6 +338,8 @@ if (isset($_SESSION['user'])) {
 								$query = 'SELECT * FROM users WHERE username IS NOT NULL AND username <> ""';
 								$result = mysqli_query($conn, $query);
 								while ($row = mysqli_fetch_array($result)) {
+									$id = $row['id'];
+									$hash = hash('sha256', $id);
 									?>
 									<tr>
 										<td>
@@ -240,9 +361,12 @@ if (isset($_SESSION['user'])) {
 										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
-												<a href="edituser.php?id=<?php echo $row['id']; ?>"
-													class="btn btn-warning btn-sm" style="width: 40px;"><i
-														class="bi bi-pencil-square"></i></a>
+												<button type="button" class="btn btn-success btn-sm editbtn"
+													data-bs-target="#editUsernameModal" style="width: 40px;"><i
+														class="bi bi-person-fill-gear"></i></button>
+												<button type="button" class="btn btn-primary btn-sm editpassbtn"
+													data-bs-target="#editPasswordModal" style="width: 40px;"><i
+														class="bi bi-key-fill"></i></button>
 											</div>
 										</td>
 									</tr>
@@ -251,6 +375,85 @@ if (isset($_SESSION['user'])) {
 								?>
 							</tbody>
 						</table>
+						<!-- Edit Username Modal -->
+						<div class="modal fade" id="editUsernameModal" tabindex="-1"
+							aria-labelledby="editUsernameModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="editUsernameModalLabel"><i
+												class="bi bi-person-fill-gear"></i> Edit Username</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form class="forms needs-validation" method="POST" action="updateuser.php"
+											novalidate="">
+											<input type="hidden" name="update_id" id="update_id">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="username"
+													id="editUsername" required>
+												<label for="username" class="form-label">Username</label>
+											</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="submit" name="updateusername" class="btn btn-warning"><i
+												class="bi bi-person-fill-gear"></i> Update User</button>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- Edit Password Modal -->
+						<div class="modal fade" id="editPasswordModal" tabindex="-1"
+							aria-labelledby="editPasswordModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="editPasswordModalLabel"><i
+												class="bi bi-key-fill"></i> Change Password</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form class="forms needs-validation" method="POST" action="updatepassword.php"
+											novalidate="">
+											<input type="hidden" name="updatepassword_id" id="updatepassword_id">
+											<div class="form-floating mb-2">
+												<input type="password" class="form-control" name="password"
+													id="editPassword" required>
+												<label for="password" class="form-label">Password</label>
+											</div>
+											<div class="col d-flex justify-content-start mb-2">
+												<div class="form-check d-flex align-items-center">
+													<input class="checkbox" type="checkbox" onclick="myFunction()" />
+													<label class="checkbox-label"
+														style="font-size: 10pt; margin-left:5px;">
+														Show Password
+													</label>
+												</div>
+											</div>
+											<div class="text-start" id="message">
+												<p><b>Password must contain the following:</b></p>
+												<p id="length" class="invalid"><b>8</b> up to <b>32</b> characters</b>
+												</p>
+												<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+												<p id="capital" class="invalid">A <b>uppercase</b> letter</p>
+												<p id="number" class="invalid">A <b>number</b></p>
+											</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="submit" name="updatepassword" class="btn btn-warning">
+											<i class="bi bi-key-fill"></i> Change Password</button>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</main>
@@ -266,6 +469,130 @@ if (isset($_SESSION['user'])) {
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
 		</script>
+	<script>
+		$(document).ready(function () {
+			$('.editbtn').on('click', function () {
+
+				$('#editUsernameModal').modal('show');
+
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function () {
+					return $(this).text().trim();
+				}).get();
+
+				console.log(data);
+
+				$('#update_id').val(data[1]);
+				$('#editUsername').val(data[3]);
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.editpassbtn').on('click', function () {
+
+				$('#editPasswordModal').modal('show');
+
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function () {
+					return $(this).text().trim();
+				}).get();
+
+				console.log(data);
+
+				$('#updatepassword_id').val(data[1]);
+			});
+		});
+	</script>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("editPassword");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
+	<script>
+		(() => {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			const forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.from(forms).forEach(form => {
+				form.addEventListener('submit', event => {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
+
+					form.classList.add('was-validated')
+				}, false)
+			})
+		})()
+	</script>
+	<script>
+		var myInput = document.getElementById("editPassword");
+		var letter = document.getElementById("letter");
+		var capital = document.getElementById("capital");
+		var number = document.getElementById("number");
+		var length = document.getElementById("length");
+
+		// When the user clicks on the password field, show the message box
+		myInput.onfocus = function () {
+			document.getElementById("message").style.display = "block";
+		}
+
+		// When the user clicks outside of the password field, hide the message box
+		myInput.onblur = function () {
+			document.getElementById("message").style.display = "none";
+		}
+
+		// When the user starts to type something inside the password field
+		myInput.onkeyup = function () {
+			// Validate lowercase letters
+			var lowerCaseLetters = /[a-z]/g;
+			if (myInput.value.match(lowerCaseLetters)) {
+				letter.classList.remove("invalid");
+				letter.classList.add("valid");
+			} else {
+				letter.classList.remove("valid");
+				letter.classList.add("invalid");
+			}
+
+			// Validate capital letters
+			var upperCaseLetters = /[A-Z]/g;
+			if (myInput.value.match(upperCaseLetters)) {
+				capital.classList.remove("invalid");
+				capital.classList.add("valid");
+			} else {
+				capital.classList.remove("valid");
+				capital.classList.add("invalid");
+			}
+
+			// Validate numbers
+			var numbers = /[0-9]/g;
+			if (myInput.value.match(numbers)) {
+				number.classList.remove("invalid");
+				number.classList.add("valid");
+			} else {
+				number.classList.remove("valid");
+				number.classList.add("invalid");
+			}
+
+			// Validate length
+			if (myInput.value.length >= 8) {
+				length.classList.remove("invalid");
+				length.classList.add("valid");
+			} else {
+				length.classList.remove("valid");
+				length.classList.add("invalid");
+			}
+		}
+	</script>
 </body>
 
 </html>

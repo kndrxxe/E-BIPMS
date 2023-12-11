@@ -58,6 +58,10 @@
       .navbar .nav-link {
         color: #fff !important;
       }
+
+      .dropdown-menu {
+        display: ;
+      }
     </style>
 
     <!-- Navbar -->
@@ -75,13 +79,27 @@
         <div class="collapse navbar-collapse" id="navbarExample01">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-              <a class="nav-link font-weight-bold" href="index.php">Home</a>
+              <a class="nav-link font-weight-bold" href="index">Home</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="#announce">Announcement</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
+              <a class="nav-link font-weight-bold" href="officials">Officials</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="contact">Contact</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                Login
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                <li><a class="dropdown-item" href="adminlogin"><i class="fa fa-user"></i> Login as Admin</a></li>
+                <li><a class="dropdown-item" href="lgulogin"><i class="fa fa-user"></i> Login as LGU</a></li>
+                <li><a class="dropdown-item" href="bhwlogin"><i class="fa fa-user"></i> Login as BHW</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -228,72 +246,72 @@
   <!--Main layout-->
 
   <!-- Footer -->
-<footer class="text-center text-lg-start bg-dark text-light pt-1">
+  <footer class="text-center text-lg-start bg-dark text-light pt-1">
 
-  <!-- Section: Links  -->
-  <section class="">
-    <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
-      <div class="row mt-3">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4">
-          <img src="kanlurangbukal.png" width="50" />
-            E-BIPMS KANLURANG BUKAL
-          </h6>
-          <p class="text-justify">
-            A system that aims to provide a convenient way for the barangay officials to monitor the residents of the barangay and to provide a convenient way for the residents to request barangay services.
-          </p>
-        </div>
-        <!-- Grid column -->
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <img src="kanlurangbukal.png" width="50" />
+              E-BIPMS KANLURANG BUKAL
+            </h6>
+            <p class="text-justify">
+              A system that aims to provide a convenient way for the barangay officials to monitor the residents of the
+              barangay and to provide a convenient way for the residents to request barangay services.
+            </p>
+          </div>
+          <!-- Grid column -->
 
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Useful links
-          </h6>
-          <p>
-            <a href="index.php" class="text-reset">Home</a>
-          </p>
-          <p>
-            <a href="#announce" class="text-reset">Announcement</a>
-          </p>
-          <p>
-            <a href="officials.php" class="text-reset">Officials</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Help</a>
-          </p>
-        </div>
-        <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="index" class="text-reset">Home</a>
+            </p>
+            <p>
+              <a href="#announce" class="text-reset">Announcement</a>
+            </p>
+            <p>
+              <a href="officials" class="text-reset">Officials</a>
+            </p>
+            <p>
+              <a href="contact" class="text-reset">Contact</a>
+          </div>
+          <!-- Grid column -->
 
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-          <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
-          <p>
-            <i class="fas fa-envelope me-3"></i>
-            ebipmskanlurangbukal@gmail.com
-          </p>
-          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              ebipmskanlurangbukal@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          </div>
+          <!-- Grid column -->
         </div>
-        <!-- Grid column -->
+        <!-- Grid row -->
       </div>
-      <!-- Grid row -->
-    </div>
-  </section>
-  <!-- Section: Links  -->
+    </section>
+    <!-- Section: Links  -->
 
-  <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2023 Copyright
-  </div>
-  <!-- Copyright -->
-</footer>
-<!-- Footer -->
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2023 Copyright
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
   <!-- MDB -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <!-- Custom scripts -->
@@ -312,7 +330,7 @@
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        events: <?php echo json_encode($events); ?>, 
+        events: <?php echo json_encode($events); ?>,
         selectable: true,
         editable: false,
         nowIndicator: true,
@@ -335,6 +353,15 @@
       calendar.setOption('aspectRatio', 1.8);
       calendar.render();
     });
+  </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+      var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new mdb.Dropdown(dropdownToggleEl)
+      })
+    })
   </script>
 </body>
 

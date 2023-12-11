@@ -38,36 +38,51 @@ if (isset($_SESSION['user'])) {
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#myTable').DataTable({
-                dom: 'Bfrtip',
-                buttons: ['copy', 'csv', 'excel', 'pdf',
-                    {
-                        extend: 'print',
-                        title: '',
-                        messageTop: function () {
-                            return '<h2 style="text-align:center;color:black; margin-top:20px;">LIST OF RESIDENTS</h2>';
-                        },
-                        customize: function (win) {
-                            $(win.document.body)
-                                .css('font-size', '12pt')
-                                .prepend(
-                                    '<br><br><br>',
-                                    '<p style="position:absolute; margin-left: auto; margin-right: auto; margin-top: -60px; left: 0; right: 0; text-align: center; color:black; font-size: 10pt;">Republic of the Philippines<br><span style="font-weight: bold; font-size: 12pt;">BARANGAY KANLURANG BUKAL</span><br>Liliw, Laguna</p>',
-                                    '<img src="kanlurangbukal.png" style="position:absolute; top:10; left:100px; width:70px;" />',
-                                );
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', '14pt');
-                        },
-                        exportOptions: {
-                            columns: [2, 3, 4, 5, 6]
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+		$(document).ready(function () {
+			$('#myTable').DataTable({
+				dom: 'Blfrtip',
+				buttons: ['copy', 'csv',
+					{
+						extend: 'excel',
+						title: '',
+						messageTop: 'LIST OF RESIDENTS',
+						customize: function (xlsx) {
+							var sheet = xlsx.xl.worksheets['sheet1.xml'];
+							$('row c[r^="C"]', sheet).attr('s', '2');
+						},
+						exportOptions: {
+							columns: [2, 3, 4, 5, 6]
+						}
+					},
+					{
+						extend: 'print',
+						title: '',
+						messageTop: function () {
+							return '<h2 style="text-align:center;color:black; margin-top:20px;">LIST OF RESIDENTS</h2>';
+						},
+						customize: function (win) {
+							$(win.document.body)
+								.css('font-size', '12pt')
+								.prepend(
+									'<br><br><br>',
+									'<p style="position:absolute; margin-left: auto; margin-right: auto; margin-top: -60px; left: 0; right: 0; text-align: center; color:black; font-size: 10pt;">Republic of the Philippines<br><span style="font-weight: bold; font-size: 12pt;">BARANGAY KANLURANG BUKAL</span><br>Liliw, Laguna</p>',
+									'<img src="kanlurangbukal.png" style="position:absolute; top:10; left:100px; width:70px;" />',
+								);
+							$(win.document.body).find('table')
+								.addClass('compact')
+								.css('font-size', '14pt');
+						},
+						exportOptions: {
+							columns: [2, 3, 4, 5, 6]
+						}
+					}
+				],
+				columnDefs: [
+					{ targets: [0, 1, 2, 3, 4, 5, 6], searchable: true }
+				]
+			});
+		});
+	</script>
     <script src="https://unpkg.com/feather-icons"></script>
     <style>
         button.dt-button,
@@ -98,11 +113,32 @@ if (isset($_SESSION['user'])) {
             background-color: black;
             color: white;
         }
+        div.dataTables_wrapper div.dataTables_length label{
+            margin-left: 15px;
+            margin-bottom: 10px;
+		}
+        div.dataTables_wrapper div.dataTables_length select {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+            margin-left: ;
+		}
 
+		div.dataTables_wrapper div.dataTables_length select:focus {
+			border-radius: 5px;
+			border: 1px solid #ffc107;
+            box-shadow: none;
+		}
+        .pagination .page-item.active .page-link {
+			background-color: #ffc107;
+			border-color: #ffc107;
+			color: black
+		}
+		.pagination .page-link {
+			margin-bottom: 10px;
+		}
         .checkbox {
             width: 17px;
             height: 17px;
-
             margin-left: -20px;
         }
 
@@ -314,6 +350,7 @@ if (isset($_SESSION['user'])) {
                                                         style="width: 40px;"><i class="bi bi-trash"></i>
                                                     </button> -->
                                                         </div>
+                                                    </td>
                                                         <!-- View Modal -->
                                                         <div class="modal fade" id="viewModal<?= $items['id']; ?>" tabindex="-1"
                                                             aria-labelledby="viewModalLabel" aria-hidden="true">

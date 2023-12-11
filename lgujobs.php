@@ -277,23 +277,22 @@ $result = mysqli_query($conn, $query);
                     $query_run = mysqli_query($conn, $query);
                     while ($items = mysqli_fetch_array($query_run)) {
                         if ($items['image']) {
-							// Display the profile picture
-							$picture = $items['image'];
-						} else {
-							// Use a default profile picture
-							$picture = 'default-profile-pic.jpg';
-						}
+                            // Display the profile picture
+                            $picture = $items['image'];
+                        } else {
+                            // Use a default profile picture
+                            $picture = 'default-profile-pic.jpg';
+                        }
                         echo '<div class="col-auto">';
                         echo '<div class="card text-dark animate__animated animate__fadeInUp" style="width: 22rem;">';
                         echo '<div class="card-header">';
                         echo 'Featured'; // Added quotes around Featured
                         echo '</div>';
                         echo '<div class="card-body">';
-                        echo '<h5 class="card-title" style="text-transform: uppercase;">'. $items['jobtitle'] .'</h5>';
-                        echo '<p class="card-text" style="margin-top:-5px"><b>'. $items['companyname'] .'</b> <br>'. $items['joblocation'] .'</p>';
+                        echo '<h5 class="card-title" style="text-transform: uppercase;">' . $items['jobtitle'] . '</h5>';
+                        echo '<p class="card-text" style="margin-top:-5px"><b>' . $items['companyname'] . '</b> <br>' . $items['joblocation'] . '</p>';
                         echo '<p class="card-text"><b>Job Requirements</b><br><hr style="margin-top: -15px;"></p>';
-                        echo '<p class="card-text" style="margin-top: -10px">'. $items['jobrequirements'] .'</p>';
-                        echo '<a href="" class="btn btn-warning" style="margin-left: -30px"><i class="bi bi-briefcase-fill"></i> Apply Now</a>';
+                        echo '<p class="card-text" style="margin-top: -10px">' . $items['jobrequirements'] . '</p>';
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';

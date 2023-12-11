@@ -40,13 +40,32 @@
                 <div class="collapse navbar-collapse" id="navbarExample01">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="index.php">Home</a>
+                            <a class="nav-link font-weight-bold" href="index">Home</a>
                         </li>
                         <li class="nav-item active">
-              <a class="nav-link font-weight-bold" href="index.php#announce">Announcement</a>
-            </li>
+                            <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
+                        </li>
                         <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
+                            <a class="nav-link font-weight-bold" href="officials">Officials</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link font-weight-bold" href="contact">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Login
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="userlogin"><i class="fa fa-user"></i> Login as
+                                        User</a></li>
+                                <li><a class="dropdown-item" href="adminlogin"><i class="fa fa-user"></i> Login as
+                                        Admin</a></li>
+                                <li><a class="dropdown-item" href="lgulogin"><i class="fa fa-user"></i> Login as LGU</a>
+                                </li>
+                                <li><a class="dropdown-item" href="bhwlogin"><i class="fa fa-user"></i> Login as BHW</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -85,7 +104,7 @@
                         echo '</div>';
                         echo '<h3 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['middleName'] . '<br>' . $items['lastName'] . '</strong>' . '</h3>';
                         echo '<h4 class="text-center mt-0" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
-                        echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">'. '<strong>' . $items['termStartYear'] . ' - '  . $items['termEndYear'] . '</strong>' .'</h5>';
+                        echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">' . '<strong>' . $items['termStartYear'] . ' - ' . $items['termEndYear'] . '</strong>' . '</h5>';
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';
@@ -95,7 +114,7 @@
                 <div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
                     <?php
                     include 'conn.php';
-                    $query = "SELECT * FROM officials WHERE position='Barangay Councilor'";
+                    $query = "SELECT * FROM officials WHERE position='Barangay Councilor' OR position='SK Chairperson'";
                     $query_run = mysqli_query($conn, $query);
                     while ($items = mysqli_fetch_array($query_run)) {
                         if ($items['picture']) {
@@ -118,7 +137,7 @@
                         echo '</div>';
                         echo '<h4 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['middleName'] . '<br>' . $items['lastName'] . '</strong>' . '</h4>';
                         echo '<h4 class="text-center mt-0 text-secondary" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
-                        echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">'. '<strong>' . $items['termStartYear'] . ' - '  . $items['termEndYear'] . '</strong>' .'</h5>';
+                        echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">' . '<strong>' . $items['termStartYear'] . ' - ' . $items['termEndYear'] . '</strong>' . '</h5>';
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';
@@ -164,18 +183,88 @@
     </main>
     <!--Main layout-->
 
-    <!--Footer-->
-    <footer class="bg-warning text-lg-start">
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-dark text-light pt-1">
+
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <img src="kanlurangbukal.png" width="50" />
+                            E-BIPMS KANLURANG BUKAL
+                        </h6>
+                        <p class="text-justify">
+                            A system that aims to provide a convenient way for the barangay officials to monitor the
+                            residents of the barangay and to provide a convenient way for the residents to request
+                            barangay services.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Useful links
+                        </h6>
+                        <p>
+                            <a href="index" class="text-reset">Home</a>
+                        </p>
+                        <p>
+                            <a href="index#announce" class="text-reset">Announcement</a>
+                        </p>
+                        <p>
+                            <a href="officials" class="text-reset">Officials</a>
+                        </p>
+                        <p>
+                            <a href="contact" class="text-reset">Contact</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            ebipmskanlurangbukal@gmail.com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
         <!-- Copyright -->
-        <div class="text-center text-light p-3">
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
             © 2023 Copyright
         </div>
         <!-- Copyright -->
     </footer>
+    <!-- Footer -->
     <!-- MDB -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <!-- Custom scripts -->
     <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new mdb.Dropdown(dropdownToggleEl)
+            })
+        })
+    </script>
 </body>
 
 </html>

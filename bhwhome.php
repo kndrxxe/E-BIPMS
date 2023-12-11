@@ -270,23 +270,53 @@ $result = $stmt->get_result();
 							</div>
 						</div>
 					</div>
+					<div class="col-auto">
+						<div class="card text-center text-dark animate__animated animate__fadeInUp"
+							style="width: 21rem;">
+							<div class="card-icon d-flex align-items-center justify-content-start"
+								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+								<i class="fa-sharp fa-regular fa-person-pregnant"
+									style="font-size: 3.5rem; margin-right: 150px;"></i>
+								<div class="text-left ml-auto">
+									<h5 class="card-title fs-5 text-end"><b>Pregnant</b></h5>
+									<p class="card-text">
+										<?php
+										include 'conn.php';
+										$specialgroup = 'Pregnant';
+										$query = "SELECT id FROM users WHERE specialgroup = ?";
+										$stmt = $conn->prepare($query);
+										$stmt->bind_param("s", $specialgroup);
+										$stmt->execute();
+										$result = $stmt->get_result();
+										$row = $result->num_rows;
+										echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
+										?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div
 					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">
-					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3 animate__animated animate__fadeInUp"
-						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 350px; margin-left:auto; margin-right:auto;">
-						<canvas id="populationPerPurok"></canvas>
+					<div class="col-auto col-sm-6 col-md-5 pb-2 rounded p-3 animate__animated animate__fadeInUp"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 400px; margin-left:auto; margin-right:auto;">
+						<canvas id="populationPerPurok" width="500" height="300"></canvas>
 					</div>
 					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3 animate__animated animate__fadeInUp"
-						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 700px; margin-left:auto; margin-right:auto;">
-						<canvas id="voterPerPurok"></canvas>
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 800px; margin-left:auto; margin-right:auto;">
+						<canvas id="voterPerPurok" width="500" height="250"></canvas>
 					</div>
 				</div>
 				<div
 					class="d-flex justify-content-center flex-wrap row g-3 mb-3 gx-3 animate__animated animate__fadeInUp">
 					<div class="col-auto col-sm-6 col-md-4 pb-2 rounded p-3 animate__animated animate__fadeInUp"
+						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width: 100%; max-width: 600px; margin-left:auto; margin-right:auto;">
+						<canvas id="ageGroup" width="400" height="200"></canvas>
+					</div>
+					<div class="col-auto col-sm-6 col-lg-7 pt-4 rounded p-3 animate__animated animate__fadeInUp"
 						style="box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1); width:100%; max-width: 600px; margin-left:auto; margin-right:auto;">
-						<canvas id="ageGroup"></canvas>
+						<canvas id="employmentStatusPerPurok" width="400" height="200"></canvas>
 					</div>
 				</div>
 				<h2>NEWLY ADDED RESIDENT</h2>
@@ -311,7 +341,7 @@ $result = $stmt->get_result();
 
 							if ($result->num_rows > 0) {
 								while ($items = $result->fetch_assoc()) {
-							?>
+									?>
 									<tr>
 										<td>
 											<?= $items['id']; ?>
@@ -329,14 +359,14 @@ $result = $stmt->get_result();
 											<?= $items['sex']; ?>
 										</td>
 									</tr>
-							<?php
+									<?php
 								}
 							} else {
-							?>
+								?>
 								<tr>
 									<td colspan="4">No Records Found</td>
 								</tr>
-							<?php
+								<?php
 							}
 							?>
 						</tbody>
@@ -398,14 +428,30 @@ $result = $stmt->get_result();
 		} elseif ($row['age'] >= 61 && $row['age'] <= 70) {
 			$dataList['61-70'] += $row['count'];
 		} elseif ($row['age'] >= 71 && $row['age'] <= 80) {
-            $dataList['71-80'] += $row['count'];
-        } elseif ($row['age'] >= 81 && $row['age'] <= 90) {
-            $dataList['81-90'] += $row['count'];
-        } elseif ($row['age'] >= 91 && $row['age'] <= 100) {
-            $dataList['91-100'] += $row['count'];
-        }
+			$dataList['71-80'] += $row['count'];
+		} elseif ($row['age'] >= 81 && $row['age'] <= 90) {
+			$dataList['81-90'] += $row['count'];
+		} elseif ($row['age'] >= 91 && $row['age'] <= 100) {
+			$dataList['91-100'] += $row['count'];
+		}
 	}
 	$data_values = array_values($dataList);
+	?>
+	<?php
+	include 'conn.php';
+	$query = "SELECT purok, employmentstatus, COUNT(*) as count FROM users WHERE employmentstatus IN ('Employed', 'Unemployed') GROUP BY purok, employmentstatus";
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$employed = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	$unemployed = array_fill_keys(['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'], 0);
+	while ($row = $result->fetch_assoc()) {
+		if ($row['employmentstatus'] === 'Employed') {
+			$employed[$row['purok']] = $row['count'];
+		} else {
+			$unemployed[$row['purok']] = $row['count'];
+		}
+	}
 	?>
 	<script>feather.replace()</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
@@ -478,6 +524,31 @@ $result = $stmt->get_result();
 					title: {
 						display: true,
 						text: 'Age Group',
+					}
+				}
+			}
+		});
+		var ctx4 = document.getElementById('employmentStatusPerPurok').getContext('2d');
+		const myChart4 = new Chart(ctx4, {
+			type: 'bar',
+			data: {
+				labels: ['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4', 'Purok 5', 'Purok 6', 'Purok 7'],
+				datasets: [{
+					label: 'Employed',
+					data: <?php echo json_encode($employed); ?>, // Use different PHP variable for 'Yes' data
+					borderWidth: 2
+				}, {
+					label: 'Unemployed',
+					data: <?php echo json_encode($unemployed); ?>, // Use different PHP variable for 'No' data
+					borderWidth: 2
+				}]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					title: {
+						display: true,
+						text: 'Employment Status per Purok',
 					}
 				}
 			}

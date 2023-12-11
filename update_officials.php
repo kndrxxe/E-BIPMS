@@ -104,7 +104,7 @@ if (isset($_FILES['picture'])) {
         $file_info = getimagesize($_FILES['picture']['tmp_name']);
         if ($file_info !== false) {
             // The file is an image, so move it to the uploads directory
-            $upload_dir = 'officials/';
+            $upload_dir = 'officials_picture/';
             $upload_file = $upload_dir . basename($_FILES['picture']['name']);
 
             // Check if the upload directory exists and is writable

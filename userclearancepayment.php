@@ -4,6 +4,7 @@ include 'conn.php';
 
 $update_id = $_POST['id'];
 $isPaid = $_POST['isPaid'];
+$paymentmethod = $_POST['paymentmethod'];
 $upload_file = ''; // Initialize the variable
 
 // Handle the profile picture upload
@@ -19,7 +20,7 @@ if (isset($_FILES['proof'])) {
                 echo 'Upload directory does not exist or is not writable.';
             } else {
                 if (move_uploaded_file($_FILES['proof']['tmp_name'], $upload_file)) {
-                    $query = "UPDATE documents SET isPaid = '$isPaid', proof = '$upload_file' WHERE id = '$update_id'";
+                    $query = "UPDATE documents SET isPaid = '$isPaid', proof = '$upload_file', paymentmethod = '$paymentmethod' WHERE id = '$update_id'";
                     if (!mysqli_query($conn, $query)) {
                         echo 'Error updating database: ' . mysqli_error($conn);
                     } else {

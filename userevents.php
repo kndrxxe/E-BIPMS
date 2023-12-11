@@ -71,7 +71,7 @@ if (isset($_SESSION['user'])) {
         <a class="navbar-brand px-2 fs-6 text-dark">
             <img src="kanlurangbukal.png" width="40">
             <b>E-BIPMS KANLURANG BUKAL</b></a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -106,7 +106,7 @@ if (isset($_SESSION['user'])) {
                             </span>
                         </a>
                         <li class="nav-item fs-7">
-                            <a class="nav-link" href="userhome.php">
+                            <a class="nav-link" href="userhome">
                                 <span data-feather="user" class="align-text-bottom feather-48"></span>
                                 User Profile
                             </a>
@@ -130,7 +130,7 @@ if (isset($_SESSION['user'])) {
                                             <ul class="nav flex-column pt-4">
                                                 <li class="nav-item fs-7" style="margin-left: -20px;">
                                                     <a class="nav-link" style="margin-top: -40px"
-                                                        href="userdocument.php">
+                                                        href="userdocument">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
                                                         Brgy. Clearance
@@ -186,7 +186,7 @@ if (isset($_SESSION['user'])) {
                         </li>
                         <hr class="mt-0 mb-0">
                         <li class="nav-item fs-7">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="reportincident">
                                 <span data-feather="message-circle" class="align-text-bottom feather-48"></span>
                                 Report Incident
                             </a>

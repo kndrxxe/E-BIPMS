@@ -72,7 +72,7 @@ ob_end_flush();
             }
 
             #message p {
-                padding: -20px 20px;
+                margin: 5px 0 0 0;
                 font-size: 15px;
             }
 
@@ -197,7 +197,20 @@ ob_end_flush();
                                     id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
                                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 up to more characters"
                                     maxlength="32" required />
-                                <label class="form-label" for="password"><i class="bi bi-lock-fill"></i>Password</label>
+                                <label class="form-label" for="password">Password</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <div class="form-outline">
+                                <input type="password" class="form-control form-control-lg" name="confirm_password"
+                                    id="confirm_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 up to more characters"
+                                    maxlength="32" required />
+                                <label class="form-label" for="confirm_password">Confirm Password</label>
+                                <div class="invalid-feedback">
+                                    Passwords do not match
+                                </div>
                             </div>
                         </div>
                         <div class="col d-flex justify-content-start">
@@ -215,7 +228,7 @@ ob_end_flush();
                             <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
                             <p id="number" class="invalid">A <b>number</b></p>
                         </div>
-                        <button type="submit" name="reset" class="btn btn-warning btn-block mt-3">RESET
+                        <button type="submit" id="submitBtn" name="reset" class="btn btn-warning btn-block mt-3">RESET
                             PASSWORD</button>
                 </div>
             </div>
@@ -234,8 +247,27 @@ ob_end_flush();
     <script>
         (() => {
             'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
             const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
             Array.from(forms).forEach(form => {
+                const password = form.querySelector('input[name="password"]');
+                const confirmPassword = form.querySelector('input[name="confirm_password"]');
+
+                // Add event listener to input event of password and confirm password fields
+                password.addEventListener('input', validatePasswords);
+                confirmPassword.addEventListener('input', validatePasswords);
+
+                function validatePasswords() {
+                    if (password.value !== confirmPassword.value) {
+                        confirmPassword.setCustomValidity('Passwords do not match');
+                    } else {
+                        confirmPassword.setCustomValidity('');
+                    }
+                }
+
                 form.addEventListener('submit', event => {
                     if (!form.checkValidity()) {
                         event.preventDefault()
@@ -248,14 +280,25 @@ ob_end_flush();
         })()
     </script>
     <script>
-        function myFunction() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
+        document.addEventListener('DOMContentLoaded', function () {
+            var password = document.getElementById('password');
+            var confirmPassword = document.getElementById('confirm_password');
+            var submitBtn = document.getElementById('submitBtn');
+
+            function validateForm() {
+                if (password.value !== '' && confirmPassword.value !== '') {
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.disabled = true;
+                }
             }
-        }
+
+            password.addEventListener('input', validateForm);
+            confirmPassword.addEventListener('input', validateForm);
+
+            // Initially disable the button
+            submitBtn.disabled = true;
+        });
     </script>
     <script>
         var myInput = document.getElementById("password");
@@ -317,8 +360,20 @@ ob_end_flush();
         }
     </script>
     <script>
-        var x = document.getElementById("password").maxLength;
-        document.getElementById("demo").innerHTML = x;
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            var y = document.getElementById("confirm_password");
+            if (y.type === "password") {
+                y.type = "text";
+            } else {
+                y.type = "password";
+            }
+        }
     </script>
 </body>
 

@@ -72,6 +72,14 @@ if (isset($_SESSION['user'])) {
 			border: 1px solid #ffc107;
 			box-shadow: none;
 		}
+		.pagination .page-item.active .page-link {
+			background-color: #ffc107;
+			border-color: #ffc107;
+			color: black
+		}
+		.pagination .page-link {
+			margin-bottom: 10px;
+		}
 	</style>
 </head>
 
@@ -293,6 +301,30 @@ if (isset($_SESSION['user'])) {
 					unset($_SESSION['deletesuccess']);
 				}
 				?>
+				<?php
+				if (isset($_SESSION['sendsmserror'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['sendsmserror']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['sendsmserror']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['sendsms'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['sendsms']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['sendsms']);
+				}
+				?>
 				<div class="table-responsive">
 					<table id="myTable" class="table table-md" style="width:100%">
 						<thead>
@@ -305,6 +337,7 @@ if (isset($_SESSION['user'])) {
 								<th scope="col">Date of Issuance</th>
 								<th scope="col">Date Requested</th>
 								<th scope="col">Status</th>
+								<th scope="col">Payment Method</th>
 								<th scope="col">Payment Status</th>
 								<th scope="col">Actions</th>
 							</tr>
@@ -355,6 +388,19 @@ if (isset($_SESSION['user'])) {
 											?>
 										</td>
 										<td>
+											<?php if ($items['paymentmethod'] == 'GCASH'):
+												?>
+												<span class="badge bg-primary">
+													GCASH
+											<?php elseif ($items['paymentmethod'] == 'MAYA'): ?>
+												<span class="badge bg-success">
+													MAYA
+											<?php elseif ($items['paymentmethod'] == ''): ?>
+												<span class="badge bg-danger">
+													NO PAYMENT
+											<?php endif; ?>
+										</td>
+										<td>
 											<?php if ($items['isPaid'] == 0):
 												?>
 												<span class="badge bg-danger">
@@ -388,6 +434,12 @@ if (isset($_SESSION['user'])) {
 													<a href="sendemailnotification.php?id=<?php echo $items['id']; ?>"
 														class="btn btn-warning" style="width: 40px;">
 														<i class="bi bi-bell"></i></a>
+												<?php endif; ?>
+												<?php if ($items['status'] == 1):
+													?>
+													<a href="sendtextmessage.php?id=<?php echo $items['id']; ?>"
+														class="btn btn-primary" style="width: 40px;">
+														<i class="bi bi-phone"></i></a>
 												<?php endif; ?>
 											</div>
 											<!-- View Modal -->

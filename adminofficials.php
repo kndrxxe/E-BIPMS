@@ -196,7 +196,7 @@ if (isset($_SESSION['user'])) {
 					$row = mysqli_fetch_assoc($result);
 					$count = $row['count'];
 
-					if ($count < 14) {
+					if ($count < 10) {
 						?>
 						<div class="btn-toolbar mb-2 mb-md-0">
 							<div class="btn-group me-1">

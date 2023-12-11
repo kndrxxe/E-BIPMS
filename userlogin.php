@@ -89,13 +89,6 @@ if (isset($_SESSION['id'])) {
       .checkbox-label {
         font-size: 17px;
       }
-
-      footer.bg-warning {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-      }
     </style>
 
     <!-- Navbar -->
@@ -113,7 +106,26 @@ if (isset($_SESSION['id'])) {
         <div class="collapse navbar-collapse" id="navbarExample01">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-              <a class="nav-link font-weight-bold" href="index.php">Home</a>
+              <a class="nav-link font-weight-bold" href="index">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="officials">Officials</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="contact">Contact</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                Login
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="adminlogin"><i class="fa fa-user"></i> Login as Admin</a></li>
+                <li><a class="dropdown-item" href="lgulogin"><i class="fa fa-user"></i> Login as LGU</a></li>
+                <li><a class="dropdown-item" href="bhwlogin"><i class="fa fa-user"></i> Login as BHW</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -199,17 +211,13 @@ if (isset($_SESSION['id'])) {
 
               <div class="col">
                 <!-- Simple link -->
-                <a class="text-warning float-end" style="font-size: 10pt" href="forgotpassword.php">Forgot password?</a>
+                <a class="text-warning float-end" style="font-size: 10pt" href="forgotpassword">Forgot password?</a>
               </div>
             </div>
             <!-- Submit button -->
             <button type="submit" class="btn btn-warning btn-block">LOG IN</button>
             <div class="col mt-3">
-              <a class="btn btn-warning btn-block" href="adminlogin.php"><i class="bi bi-arrow-right-circle"></i>
-                LOG IN AS ADMIN</a>
-            </div>
-            <div class="col mt-3">
-              Not yet registered? <a class="text-warning" href="userregister.php"><b>Register</b></a>
+              Not yet registered? <a class="text-warning" href="userregister"><b>Register</b></a>
             </div>
         </div>
         </form>
@@ -217,12 +225,74 @@ if (isset($_SESSION['id'])) {
     </div>
     </div>
   </header>
-  <!--Main Navigation-->
-  <footer class="bg-warning text-lg-start">
-    <div class="text-center p-3 text-light">
-      © 2023 Copyright
+      <!-- Footer -->
+      <footer class="text-center text-lg-start bg-dark text-light pt-1">
+
+<!-- Section: Links  -->
+<section class="">
+    <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <!-- Content -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                    <img src="kanlurangbukal.png" width="50" />
+                    E-BIPMS KANLURANG BUKAL
+                </h6>
+                <p class="text-justify">
+                    A system that aims to provide a convenient way for the barangay officials to monitor the
+                    residents of the barangay and to provide a convenient way for the residents to request
+                    barangay services.
+                </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                    Useful links
+                </h6>
+                <p>
+                    <a href="index" class="text-reset">Home</a>
+                </p>
+                <p>
+                    <a href="index#announce" class="text-reset">Announcement</a>
+                </p>
+                <p>
+                    <a href="officials" class="text-reset">Officials</a>
+                </p>
+                <p>
+                    <a href="contact" class="text-reset">Contact</a>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+                <p>
+                    <i class="fas fa-envelope me-3"></i>
+                    ebipmskanlurangbukal@gmail.com
+                </p>
+                <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
     </div>
-  </footer>
+</section>
+<!-- Section: Links  -->
+
+<!-- Copyright -->
+<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright
+</div>
+<!-- Copyright -->
+</footer>
+<!-- Footer -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <script>
     function myFunction() {

@@ -3,7 +3,7 @@ session_start();
 
 if (empty($_POST['firstname']) || empty($_POST['middlename']) || empty($_POST['lastname'])) {
   $_SESSION['erroraddresident'] = "Unable to add resident, Please try again.";
-  header('Location: lguresidents.php');
+  header('Location: adminresidents.php');
 } else {
   $uid = md5(uniqid(rand()));
   $firstname = $_POST['firstname'];

@@ -122,6 +122,24 @@ if (isset($_SESSION['id'])) {
                         <li class="nav-item active">
                             <a class="nav-link font-weight-bold" href="index.php">Home</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                Login
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="adminlogin"><i class="fa fa-user"></i> Login as
+                                        Admin</a></li>
+                                <li><a class="dropdown-item" href="lgulogin"><i class="fa fa-user"></i> Login as LGU</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -187,14 +205,8 @@ if (isset($_SESSION['id'])) {
                                             </div>
                                         </div>
                                     </div>
-
                                     <!-- Submit button -->
                                     <button type="submit" class="btn btn-warning btn-block mt-3">LOG IN</button>
-                                    <div class="col mt-3">
-                                        <a class="btn btn-warning btn-block" href="userlogin.php"><i
-                                                class="bi bi-arrow-left-circle"></i>
-                                            LOG IN AS USER</a>
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -207,7 +219,7 @@ if (isset($_SESSION['id'])) {
     <!--Main Navigation-->
 
     <!--Footer-->
-    <footer class="bg-warning text-lg-start">
+    <footer class="bg-dark text-lg-start">
         <!-- Copyright -->
         <div class="text-center p-3 text-light">
             © 2023 Copyright

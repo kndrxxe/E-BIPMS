@@ -16,7 +16,7 @@ if (isset($_SESSION['user'])) {
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-BIPMS</title>
+	<title>User Home | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +25,7 @@ if (isset($_SESSION['user'])) {
 	<link href="dashboard.css" rel="stylesheet">
 	<!--Load the AJAX API-->
 	<script src="https://unpkg.com/feather-icons"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 	<style>
 		.accordion {
@@ -45,12 +46,12 @@ if (isset($_SESSION['user'])) {
 </head>
 
 <body>
-	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0 ">
+	<header class="navbar navbar-light sticky-top bg-warning flex-md-nowrap p-0">
 		<a class="navbar-brand px-2 fs-6 text-dark">
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b></a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button"
+			data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -107,8 +108,7 @@ if (isset($_SESSION['user'])) {
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link" style="margin-top: -40px"
-														href="userdocument.php">
+													<a class="nav-link" style="margin-top: -40px" href="userdocument">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
@@ -164,13 +164,13 @@ if (isset($_SESSION['user'])) {
 						</li>
 						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="">
+							<a class="nav-link" href="reportincident">
 								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
 								Report Incident
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="userevents.php">
+							<a class="nav-link" href="userevents">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 								<?php
@@ -191,6 +191,12 @@ if (isset($_SESSION['user'])) {
 						</li>
 						<hr class="mt-5 mb-1">
 						<li class="nav-item fs-7">
+							<a class="nav-link" href="">
+								<span data-feather="settings" class="align-text-bottom feather-48"></span>
+								Account Settings
+							</a>
+						</li>
+						<li class="nav-item fs-7">
 							<a class="nav-link" href="userlogout.php">
 								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
 								Logout
@@ -208,11 +214,13 @@ if (isset($_SESSION['user'])) {
 					$id = $_SESSION['id'];
 					$query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
 					$row = mysqli_fetch_array($query);
+					$uid = $row['id'];
+					$hash = hash('sha256', $uid);
 					?>
 					<h1 style="text-transform: uppercase;" class="h2">Profile</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
-							<a href="edituserprofile.php?id=<?= $row['id']; ?>" class="btn btn-md btn-warning"><i
+							<a href="edituserprofile.php?id=<?php echo $hash; ?>" class="btn btn-md btn-warning"><i
 									class="bi bi-pencil-square"> </i>Edit Profile</a>
 						</div>
 					</div>
@@ -265,7 +273,7 @@ if (isset($_SESSION['user'])) {
 					<!-- This empty column will push the information to the right on large screens -->
 					<div class="col-lg-7">
 						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1 style="text-transform: uppercase; font-size: 25pt;"><b>
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 25pt;"><b>
 									<?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
 								</b>
 								<hr class="mt-2 mb-0 text-secondary">
@@ -288,6 +296,119 @@ if (isset($_SESSION['user'])) {
 					</div>
 				</div>
 				<hr class="mt-0 mb-0 text-secondary">
+				<div class="row mt-4">
+					<!-- This empty column will push the information to the right on large screens -->
+					<div class="col-lg-4">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Civil Status
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['civilstatus']; ?>
+							</h4>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Registered Voter
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['voter']; ?>
+							</h4>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Special Group
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php
+								if (!empty($row['specialgroup'])) {
+									echo $row['specialgroup'];
+								} else {
+									echo "N/A";
+								}
+								?>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-2">
+					<!-- This empty column will push the information to the right on large screens -->
+					<div class="col-lg-4">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									No. of Family Members
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['members']; ?>
+							</h4>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Housing Status
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['housingstatus']; ?>
+							</h4>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Employment Status
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['employmentstatus']; ?>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-2 justify-content-center">
+					<!-- This empty column will push the information to the right on large screens -->
+					<div class="col-lg-4">
+						<div
+							class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center justify-content-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Phone Number
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['phonenumber']; ?>
+							</h4>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div
+							class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center justify-content-center">
+							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
+									Email Address
+								</b>
+								<hr class="mt-2 mb-0 text-secondary">
+							</h1>
+							<h4 class="mt-0" style="text-transform: uppercase;">
+								<?php echo $row['email']; ?>
+							</h4>
+						</div>
+					</div>
+				</div>
 			</main>
 		</div>
 	</div>
@@ -299,21 +420,27 @@ if (isset($_SESSION['user'])) {
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
 		integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous">
 		</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
 		$(document).ready(function () {
-			$('#counterBadge').on('click', function () {
-				$.ajax({
-					url: 'reset_counter.php',
-					type: 'POST',
-					success: function () {
-						$('#counterBadge').text('1');
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.error(textStatus, errorThrown);
-					}
+			if ($('#counterBadge').length) {
+				$('#counterBadge').on('click', function () {
+					// Remove the element when clicked
+					$('#counterBadge').remove();
+
+					$.ajax({
+						url: 'reset_counter.php',
+						type: 'POST',
+						success: function () {
+							// No need to change the text as the element is removed
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							console.error(textStatus, errorThrown);
+						}
+					});
 				});
-			});
+			} else {
+				console.error('Element with ID "counterBadge" does not exist');
+			}
 		});
 	</script>
 </body>
