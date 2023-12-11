@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2023 at 02:38 AM
+-- Generation Time: Dec 11, 2023 at 06:21 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -72,6 +72,7 @@ CREATE TABLE `documents` (
   `middlename` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `phonenumber` varchar(100) NOT NULL,
   `birthday` varchar(100) NOT NULL,
   `civilstatus` varchar(100) NOT NULL,
   `sex` varchar(100) NOT NULL,
@@ -81,15 +82,9 @@ CREATE TABLE `documents` (
   `date_requested` varchar(100) NOT NULL,
   `status` int(11) NOT NULL,
   `isPaid` int(11) NOT NULL,
+  `paymentmethod` varchar(100) NOT NULL,
   `proof` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `documents`
---
-
-INSERT INTO `documents` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `birthday`, `civilstatus`, `sex`, `purok`, `purpose`, `issue_date`, `date_requested`, `status`, `isPaid`, `proof`) VALUES
-(1, '0c90d6f1ed7fdce9a4a06accd1384150', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Employment', '2023-12-13', '2023-12-08', 1, 1, 'proof_of_payment/370346024_850477970109676_4144084443042587058_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -115,11 +110,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `eventname`, `eventdatestart`, `eventdateend`, `eventtimestart`, `eventtimeend`, `eventlocation`, `eventdescription`, `eventcolor`, `status`) VALUES
-(3, 'Anti Rabies Vaccination', '2023-12-06', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#000000', 0),
-(4, 'Implantation', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Implantation', '#00ffbf', 0),
-(5, 'Flu Vaccination', '2023-12-07', '2023-12-08', '08:00:00', '17:00:00', 'Liliw Town Plaza', 'Flu Vaccination', '#ffd500', 0),
-(6, 'Anti Rabies Vaccination', '2023-12-11', '2023-12-15', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#ffa200', 0),
-(7, 'Flu Vaccination', '2023-12-13', '2023-12-16', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Flu Vaccination', '#ff4d00', 0);
+(1, 'Implantation', '2023-12-11', '2023-12-11', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Implantation    ', '#ffc800', 1),
+(2, 'Anti Rabies Vaccination', '2023-12-13', '2023-12-15', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#66ff00', 1);
 
 -- --------------------------------------------------------
 
@@ -188,7 +180,7 @@ CREATE TABLE `officials` (
 --
 
 INSERT INTO `officials` (`id`, `firstName`, `middleName`, `lastName`, `position`, `committee`, `termStartYear`, `termEndYear`, `type`, `picture`) VALUES
-(1, 'Henry', 'O.', 'Duller', 'Barangay Chairperson', '', 2023, 2025, 'Barangay', 'officials/1661497184343.jfif'),
+(1, 'Henry', 'O.', 'Duller', 'Barangay Chairperson', '', 2023, 2025, 'Barangay', ''),
 (2, 'Almer', 'A.', 'Britiller', 'Barangay Councilor', 'Infrastracture', 2023, 2025, 'Barangay', ''),
 (3, 'Ronald', 'B.', 'Britiller', 'Barangay Councilor', 'Agriculture', 2023, 2025, 'Barangay', ''),
 (4, 'Jerome', 'M.', 'Borgonia', 'Barangay Councilor', 'Health', 2023, 2025, 'Barangay', ''),
@@ -259,8 +251,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `employmentstatus`, `yearsliving`, `phonenumber`, `email`, `username`, `password`, `profile_picture`, `proof`, `status`, `isEditable`) VALUES
-(1, '0c90d6f1ed7fdce9a4a06accd1384150', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 1, 'Solo Parent', 5, 'Owned', 'Student', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', 'user_profile_pic/1661497184343.jfif', '', '1', 0),
-(2, 'dc55ec844fa5c6e3cb3873c9452875d1', 'Marie', 'Jose', 'Chan', 'Female', '1977-05-04', 46, '002', 'Purok 3', 'Widowed', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639567855411', '', '', '', '', '', '', 1);
+(5, '499156d1cdc17570d398c84e136a6e8e', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 0, '', 5, 'Owned', 'Employed', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', '', '', '1', 0),
+(6, '709952d92683212899be32c29fa7c75a', 'Joselyn', 'Britiller', 'Brosas', 'Female', '1977-04-27', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 4, 'Owned', 'Self-Employed', '', '+639213023468', '', '', '', '', '', '', 1),
+(7, 'cbb03857b58b5fbba6658994468f12ed', 'Alvin', 'Borlaza', 'Brosas', 'Male', '1977-02-01', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 4, 'Owned', 'Unemployed', '', '+639558403607', '', '', '', '', '', '', 1),
+(8, 'c4160a1011d03eab54393f8130ef5aea', 'Evelyn', 'Silva', 'Britiller', 'Female', '1949-09-05', 74, '001', 'Purok 1', 'Widowed', 'Yes', 0, 'Senior Citizen', 5, 'Owned', 'Retired', '', '+639664179718', '', '', '', '', '', '', 1),
+(9, '0328893455a76621029b8ea1620d3ec6', 'Clarissa', 'Silva', 'Britiller', 'Female', '1979-05-04', 44, '001', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', 'Self-Employed', '', '+639664179718', '', '', '', '', '', '', 1),
+(10, '765507b482b325ccfd7fa617099462e4', 'Lyn Mae', 'Britiller', 'Brosas', 'Male', '1998-05-08', 25, '050', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639665272626', '', '', '', '', '', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -347,7 +343,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -377,7 +373,7 @@ ALTER TABLE `residents`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
