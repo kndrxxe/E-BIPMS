@@ -189,9 +189,9 @@ if (isset($_SESSION['user'])) {
 								?>
 							</a>
 						</li>
-						<hr class="mt-5 mb-1">
+						<hr class="mt-5 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="">
+							<a class="nav-link" href="useraccount.php">
 								<span data-feather="settings" class="align-text-bottom feather-48"></span>
 								Account Settings
 							</a>

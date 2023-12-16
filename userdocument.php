@@ -187,7 +187,13 @@ if (isset($_SESSION['user'])) {
 								?>
 							</a>
 						</li>
-						<hr class="mt-5 mb-1">
+						<hr class="mt-5 mb-0">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="useraccount.php">
+								<span data-feather="settings" class="align-text-bottom feather-48"></span>
+								Account Settings
+							</a>
+						</li>
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="userlogout.php">
 								<span data-feather="log-out" class="align-text-bottom feather-48"></span>
@@ -467,9 +473,12 @@ if (isset($_SESSION['user'])) {
 																	<div class="card">
 																		<div
 																			class="card-body d-flex justify-content-center align-items-center flex-column p-0">
-																			<img class="pt-4" src="gcash_logo.png" width="100px" alt="">
-																			<p style="font-size: 20px; margin-bottom:2px">09664179718</p>
-																			<input class="mb-2" type="radio" name="paymentmethod" value="GCASH" required>
+																			<img class="pt-4" src="gcash_logo.png" width="100px"
+																				alt="">
+																			<p style="font-size: 20px; margin-bottom:2px">
+																				09664179718</p>
+																			<input class="mb-2" type="radio"
+																				name="paymentmethod" value="GCASH" required>
 																		</div>
 																	</div>
 																</div>
@@ -477,9 +486,12 @@ if (isset($_SESSION['user'])) {
 																	<div class="card">
 																		<div
 																			class="card-body d-flex justify-content-center align-items-center flex-column p-0">
-																			<img class="pt-4" src="maya_logo.png" width="80px" alt="">
-																			<p style="font-size: 20px; margin-bottom:2px">09664179718</p>
-																			<input class="mb-2" type="radio" name="paymentmethod" value="MAYA" required>
+																			<img class="pt-4" src="maya_logo.png" width="80px"
+																				alt="">
+																			<p style="font-size: 20px; margin-bottom:2px">
+																				09664179718</p>
+																			<input class="mb-2" type="radio"
+																				name="paymentmethod" value="MAYA" required>
 																		</div>
 																	</div>
 																</div>

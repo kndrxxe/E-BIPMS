@@ -16,9 +16,9 @@ if (isset($_SESSION['user'])) {
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>User Home | E-BIPMS</title>
+	<title>Account Settings | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	<!-- Custom styles for this template -->
@@ -41,6 +41,59 @@ if (isset($_SESSION['user'])) {
 
 		.accordion-button:not(.collapsed)::after {
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+		}
+
+		#message {
+			display: none;
+			position: relative;
+		}
+
+		#message p {
+			margin: 5px 0 0 0;
+			font-size: 15px;
+		}
+
+		/* Add a green text color and a checkmark when the requirements are right */
+		.valid {
+			color: green;
+		}
+
+		.valid:before {
+			position: relative;
+			padding-left: 10px;
+			left: -10px;
+			content: "✔";
+		}
+
+		/* Add a red text color and an "x" icon when the requirements are wrong */
+		.invalid {
+			color: red;
+		}
+
+		.invalid:before {
+			position: relative;
+			padding-left: 10px;
+			left: -10px;
+			content: "✖";
+		}
+
+		.checkbox {
+			width: 17px;
+			height: 17px;
+			margin-left: -20px;
+		}
+
+		.checkbox:checked {
+			accent-color: orange;
+			!important;
+		}
+
+		.checkbox-label {
+			font-size: 17px;
+		}
+
+		.invalid-password {
+			border: 1px solid red;
 		}
 	</style>
 </head>
@@ -85,7 +138,7 @@ if (isset($_SESSION['user'])) {
 							</span>
 						</a>
 						<li class="nav-item fs-7">
-							<a class="nav-link bg-warning active shadow text-dark">
+							<a class="nav-link" href="userhome.php">
 								<span data-feather="user" class="align-text-bottom feather-48"></span>
 								User Profile
 							</a>
@@ -108,8 +161,7 @@ if (isset($_SESSION['user'])) {
 										<div class="accordion-body">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link" style="margin-top: -40px"
-														href="userdocument">
+													<a class="nav-link" style="margin-top: -40px" href="userdocument">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
@@ -189,9 +241,9 @@ if (isset($_SESSION['user'])) {
 								?>
 							</a>
 						</li>
-						<hr class="mt-5 mb-1">
+						<hr class="mt-5 mb-0">
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="">
+							<a class="nav-link bg-warning active shadow text-dark">
 								<span data-feather="settings" class="align-text-bottom feather-48"></span>
 								Account Settings
 							</a>
@@ -214,201 +266,226 @@ if (isset($_SESSION['user'])) {
 					$id = $_SESSION['id'];
 					$query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
 					$row = mysqli_fetch_array($query);
-					$uid = $row['id'];
-					$hash = hash('sha256', $uid);
 					?>
-					<h1 style="text-transform: uppercase;" class="h2">Profile</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-2">
-							<a href="edituserprofile.php?id=<?php echo $hash; ?>" class="btn btn-md btn-warning"><i
-									class="bi bi-pencil-square"> </i>Edit Profile</a>
-						</div>
-					</div>
+					<h1 style="text-transform: uppercase;" class="h2">Account Settings</h1>
 				</div>
 				<?php
-				if (isset($_SESSION['erroruserupdate'])) {
+				if (isset($_SESSION['updateerror'])) {
 					?>
 					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
-						<?= $_SESSION['erroruserupdate']; ?>
+						<?= $_SESSION['updateerror']; ?>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 					<?php
-					unset($_SESSION['erroruserupdate']);
+					unset($_SESSION['updateerror']);
 				}
 				?>
 				<?php
-				if (isset($_SESSION['saveuserupdate'])) {
+				if (isset($_SESSION['updatesuccess'])) {
 					?>
 					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
 						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
-						<?= $_SESSION['saveuserupdate']; ?>
+						<?= $_SESSION['updatesuccess']; ?>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 					<?php
-					unset($_SESSION['saveuserupdate']);
+					unset($_SESSION['updatesuccess']);
 				}
 				?>
-				<?php
-				include 'conn.php';
-				$id = $_SESSION['id'];
-				$query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
-				$row = mysqli_fetch_array($query);
+				<div class="card mb-2">
+					<div class="card-header fw-bold">
+						<i class="bi bi-person-gear"></i> Change Username
+					</div>
+					<div class="card-body fs-5 fw-bold mb-0 d-flex justify-content-between align-items-center">
+						<p style="margin-bottom: 0px;">Username:
+							<?php echo $row['username'] ?><br><span style="font-size: 15px;"
+								class="text-secondary fw-normal fst-italic">
+								<?php
+								$lastUsernameChange = new DateTime($row['last_username_change']);
+								$now = new DateTime();
 
-				if ($row['profile_picture']) {
-					// Display the profile picture
-					$profile_picture = $row['profile_picture'];
-				} else {
-					// Use a default profile picture
-					$profile_picture = 'default-profile-pic.jpg';
-				}
-				?>
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="text-center mb-3">
-							<img class="rounded-circle border border-2 border-warning"
-								src="<?php echo $profile_picture ?>" width="200">
-						</div>
-					</div>
-					<!-- This empty column will push the information to the right on large screens -->
-					<div class="col-lg-7">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1 class="text-warning" style="text-transform: uppercase; font-size: 25pt;"><b>
-									<?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;"><b>ADDRESS:</b>
-								<?php echo $row['house_no'] . ', ' . $row['purok'] . ' ' . 'KANLURANG BUKAL'; ?>
-							</h4>
-							<h4 class="mt-0" style="text-transform: uppercase;"><b>Sex: </b>
-								<?php echo $row['sex']; ?>
-							</h4>
-							<h4 class="mt-0" style="text-transform: uppercase;"><b>BIRTHDAY:</b>
-								<?php
-								$newDate = date("F d, Y", strtotime($row['birthday']));
-								echo $newDate; ?>
-							</h4>
-							<h4 class="mt-0" style="text-transform: uppercase;"><b>AGE:</b>
-								<?php echo $row['age']; ?>
-							</h4>
-						</div>
-					</div>
-				</div>
-				<hr class="mt-0 mb-0 text-secondary">
-				<div class="row mt-4">
-					<!-- This empty column will push the information to the right on large screens -->
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1  class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Civil Status
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-								<?php echo $row['civilstatus']; ?>
-							</h4>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1  class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Registered Voter
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-								<?php echo $row['voter']; ?>
-							</h4>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Special Group
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-								<?php
-								if (!empty($row['specialgroup'])) {
-									echo $row['specialgroup'];
+								$interval = $lastUsernameChange->diff($now);
+								if ($interval->y > 0) {
+									if ($interval->y == 1) {
+										echo "You changed your username " . $interval->format('%y year') . " ago.";
+									} else {
+										echo "You changed your username " . $interval->format('%y years') . " ago.";
+									}
+								} elseif ($interval->m > 0) {
+									if ($interval->m == 1) {
+										echo "You changed your username " . $interval->format('%m month') . " ago.";
+									} else {
+										echo "You changed your username " . $interval->format('%m months') . " ago.";
+									}
+								} elseif ($interval->d > 0) {
+									if ($interval->d == 1) {
+										echo "You changed your username " . $interval->format('%d day') . " ago.";
+									} else {
+										echo "You changed your username " . $interval->format('%d days') . " ago.";
+									}
+								} elseif ($interval->h > 0) {
+									if ($interval->h == 1) {
+										echo "You changed your username " . $interval->format('%h hour') . " ago.";
+									} else {
+										echo "You changed your username " . $interval->format('%h hours') . " ago.";
+									}
+								} elseif ($interval->i > 0) {
+									if ($interval->i == 1) {
+										echo "You changed your username " . $interval->format('%i minute') . " ago.";
+									} else {
+										echo "You changed your username " . $interval->format('%i minutes') . " ago.";
+									}
 								} else {
-									echo "N/A";
-								}
-								?>
-							</h4>
+									if ($interval->s == 1) {
+										echo "You changed your username " . $interval->format('%s second') . " ago.";
+									} else {
+										echo "You changed your username " . $interval->format('%s seconds') . " ago.";
+									}
+								}?>
+						</p>
+						<button type="button" class="btn btn-warning editbtn" data-bs-toggle="modal"
+							data-bs-target="#editUsernameModal">
+							<i class="bi bi-person-gear"></i> Edit
+						</button>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header fw-bold">
+						<i class="bi bi-key-fill"></i> Change Password
+					</div>
+					<div class="card-body fs-5 fw-bold mb-0 d-flex justify-content-between align-items-center">
+						<p style="margin-bottom: 0px;">Password
+							<br><span style="font-size: 15px;" class="text-secondary fw-normal fst-italic">
+								<?php
+								$lastPasswordChange = new DateTime($row['last_password_change']);
+								$now = new DateTime();
+
+								$interval = $lastPasswordChange->diff($now);
+								if ($interval->y > 0) {
+									if ($interval->y == 1) {
+										echo "You changed your password " . $interval->format('%y year') . " ago.";
+									} else {
+										echo "You changed your password " . $interval->format('%y years') . " ago.";
+									}
+								} elseif ($interval->m > 0) {
+									if ($interval->m == 1) {
+										echo "You changed your password " . $interval->format('%m month') . " ago.";
+									} else {
+										echo "You changed your password " . $interval->format('%m months') . " ago.";
+									}
+								} elseif ($interval->d > 0) {
+									if ($interval->d == 1) {
+										echo "You changed your password " . $interval->format('%d day') . " ago.";
+									} else {
+										echo "You changed your password " . $interval->format('%d days') . " ago.";
+									}
+								} elseif ($interval->h > 0) {
+									if ($interval->h == 1) {
+										echo "You changed your password " . $interval->format('%h hour') . " ago.";
+									} else {
+										echo "You changed your password " . $interval->format('%h hours') . " ago.";
+									}
+								} elseif ($interval->i > 0) {
+									if ($interval->i == 1) {
+										echo "You changed your password " . $interval->format('%i minute') . " ago.";
+									} else {
+										echo "You changed your password " . $interval->format('%i minutes') . " ago.";
+									}
+								} else {
+									if ($interval->s == 1) {
+										echo "You changed your password " . $interval->format('%s second') . " ago.";
+									} else {
+										echo "You changed your password " . $interval->format('%s seconds') . " ago.";
+									}
+								} ?>
+						</p>
+						<button type="button" class="btn btn-warning editpassbtn" data-bs-toggle="modal"
+							data-bs-target="#editPasswordModal">
+							<i class="bi bi-key-fill"></i> Edit
+						</button>
+					</div>
+				</div>
+				<!-- Edit Username Modal -->
+				<div class="modal fade" id="editUsernameModal" tabindex="-1" aria-labelledby="editUsernameModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editUsernameModalLabel"><i
+										class="bi bi-person-fill-gear"></i> Change Username</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form class="forms needs-validation" method="POST" action="changeusername.php"
+									novalidate="">
+									<input type="hidden" name="update_id" value="<?php echo $row['id']; ?>">
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" value="<?php echo $row['username']; ?>"
+											name="username" id="editUsername" required>
+										<label for="username" class="form-label">Username</label>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" name="updateusername" class="btn btn-warning"><i
+										class="bi bi-person-fill-gear"></i> Change Username</button>
+							</div>
+							</form>
 						</div>
 					</div>
 				</div>
-				<div class="row mt-2">
-					<!-- This empty column will push the information to the right on large screens -->
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									No. of Family Members
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-								<?php echo $row['members']; ?>
-							</h4>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Housing Status
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-								<?php echo $row['housingstatus']; ?>
-							</h4>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center">
-							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Employment Status
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-							<?php echo $row['employmentstatus']; ?>
-							</h4>
-						</div>
-					</div>
-				</div>
-				<div class="row mt-2 justify-content-center">
-					<!-- This empty column will push the information to the right on large screens -->
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center justify-content-center">
-							<h1 class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Phone Number
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4  class="mt-0" style="text-transform: uppercase;">
-								<?php echo $row['phonenumber']; ?>
-							</h4>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="d-flex flex-wrap row g-4 mb-3 gx-1 text-lg-start text-center justify-content-center">
-							<h1  class="text-warning" style="text-transform: uppercase; font-size: 20pt;"><b>
-									Email Address
-								</b>
-								<hr class="mt-2 mb-0 text-secondary">
-							</h1>
-							<h4 class="mt-0" style="text-transform: uppercase;">
-								<?php echo $row['email']; ?>
-							</h4>
+				<!-- Edit Password Modal -->
+				<div class="modal fade" id="editPasswordModal" tabindex="-1" aria-labelledby="editPasswordModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editPasswordModalLabel"><i class="bi bi-key-fill"></i>
+									Change Password</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form class="forms needs-validation" method="POST" action="changepassword.php"
+									novalidate="">
+									<input type="hidden" value="<?php echo $row['id']; ?>" name="updatepassword_id"
+										id="updatepassword_id">
+									<div class="form-floating mb-2">
+										<input type="password" class="form-control" name="password" id="editPassword"
+											required>
+										<label for="password" class="form-label">Password</label>
+									</div>
+									<div class="col d-flex justify-content-start mb-2">
+										<div class="form-check d-flex align-items-center">
+											<input class="checkbox" type="checkbox" onclick="myFunction()" />
+											<label class="checkbox-label" style="font-size: 10pt; margin-left:5px;">
+												Show Password
+											</label>
+										</div>
+									</div>
+									<div class="text-start" id="message">
+										<p><b>Password must contain the following:</b></p>
+										<p id="length" class="invalid"><b>8</b> up to <b>32</b> characters</b>
+										</p>
+										<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+										<p id="capital" class="invalid">A <b>uppercase</b> letter</p>
+										<p id="number" class="invalid">A <b>number</b></p>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" name="updatepassword" class="btn btn-warning">
+									<i class="bi bi-key-fill"></i> Change Password</button>
+							</div>
+							</form>
 						</div>
 					</div>
 				</div>
-			</main>
 		</div>
+		</main>
+	</div>
 	</div>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script>feather.replace()</script>
@@ -437,7 +514,150 @@ if (isset($_SESSION['user'])) {
 				});
 			});
 		});
-        </script>
-</body >
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.editbtn').on('click', function () {
 
-</html >
+				$('#editUsernameModal').modal('show');
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.editpassbtn').on('click', function () {
+
+				$('#editPasswordModal').modal('show');
+			});
+		});
+	</script>
+	<style>
+
+	</style>
+
+	<script>
+		(() => {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			const forms = document.querySelectorAll('.needs-validation')
+
+			// Password validation function
+			function validatePassword(password) {
+				// Validate lowercase letters
+				var lowerCaseLetters = /[a-z]/g;
+				if (!password.match(lowerCaseLetters)) {
+					return false;
+				}
+
+				// Validate capital letters
+				var upperCaseLetters = /[A-Z]/g;
+				if (!password.match(upperCaseLetters)) {
+					return false;
+				}
+
+				// Validate numbers
+				var numbers = /[0-9]/g;
+				if (!password.match(numbers)) {
+					return false;
+				}
+
+				// Validate length
+				if (password.length < 8) {
+					return false;
+				}
+
+				return true;
+			}
+
+			// Loop over them and prevent submission
+			Array.from(forms).forEach(form => {
+				form.addEventListener('submit', event => {
+					const passwordField = form.elements["editPassword"]; // Replace "editPassword" with the name of your password field
+					const password = passwordField.value;
+
+					if (!form.checkValidity() || !validatePassword(password)) {
+						event.preventDefault()
+						event.stopPropagation()
+						passwordField.classList.add('invalid-password');
+					} else {
+						passwordField.classList.remove('invalid-password');
+					}
+
+					form.classList.add('was-validated')
+				}, false)
+			})
+		})()
+	</script>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("editPassword");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
+	<script>
+		var myInput = document.getElementById("editPassword");
+		var letter = document.getElementById("letter");
+		var capital = document.getElementById("capital");
+		var number = document.getElementById("number");
+		var length = document.getElementById("length");
+
+		// When the user clicks on the password field, show the message box
+		myInput.onfocus = function () {
+			document.getElementById("message").style.display = "block";
+		}
+
+		// When the user clicks outside of the password field, hide the message box
+		myInput.onblur = function () {
+			document.getElementById("message").style.display = "none";
+		}
+
+		// When the user starts to type something inside the password field
+		myInput.onkeyup = function () {
+			// Validate lowercase letters
+			var lowerCaseLetters = /[a-z]/g;
+			if (myInput.value.match(lowerCaseLetters)) {
+				letter.classList.remove("invalid");
+				letter.classList.add("valid");
+			} else {
+				letter.classList.remove("valid");
+				letter.classList.add("invalid");
+			}
+
+			// Validate capital letters
+			var upperCaseLetters = /[A-Z]/g;
+			if (myInput.value.match(upperCaseLetters)) {
+				capital.classList.remove("invalid");
+				capital.classList.add("valid");
+			} else {
+				capital.classList.remove("valid");
+				capital.classList.add("invalid");
+			}
+
+			// Validate numbers
+			var numbers = /[0-9]/g;
+			if (myInput.value.match(numbers)) {
+				number.classList.remove("invalid");
+				number.classList.add("valid");
+			} else {
+				number.classList.remove("valid");
+				number.classList.add("invalid");
+			}
+
+			// Validate length
+			if (myInput.value.length >= 8) {
+				length.classList.remove("invalid");
+				length.classList.add("valid");
+			} else {
+				length.classList.remove("valid");
+				length.classList.add("invalid");
+			}
+		}
+	</script>
+</body>
+
+</html>

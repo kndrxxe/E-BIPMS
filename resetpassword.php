@@ -5,6 +5,7 @@ ob_start();
 if (isset($_POST["reset"])) {
     include 'conn.php';
     $password = md5($_POST["password"]);
+    $last_password_change = date("Y-m-d H:i:s");
 
     $token = $_SESSION['token'];
     $email = $_SESSION['email'];
@@ -14,7 +15,7 @@ if (isset($_POST["reset"])) {
     $fetch = mysqli_fetch_assoc($sql);
 
     if ($query > 0) {
-        mysqli_query($conn, "UPDATE users SET password='$password' WHERE email='$email'");
+        mysqli_query($conn, "UPDATE users SET password='$password', last_password_change='$last_password_change' WHERE email='$email'");
         $_SESSION['forgotstatussuccess'] = "Password successfully changed.";
         header('Location: userlogin.php');
         exit();
