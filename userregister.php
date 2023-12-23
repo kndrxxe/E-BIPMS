@@ -123,6 +123,9 @@ session_start();
               <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
             </li>
             <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="jobs.php">Jobs</a>
+            </li>
+            <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="officials">Officials</a>
             </li>
             <li class="nav-item active">
@@ -243,8 +246,8 @@ session_start();
                 </select>
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="voter" id="voter" placeholder="Registered Voter"
-                  required>
+                <select class="form-select form-select-lg rounded-2" name="voter" id="voter"
+                  placeholder="Registered Voter" required>
                   <option selected disabled>Registered Voter</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
@@ -275,13 +278,14 @@ session_start();
               </div>
               <div class="col-6 mb-2">
                 <div class="form-outline">
-                  <input type="text" class="form-control form-control-lg" name="members" id="members" maxlength="2" required />
+                  <input type="text" class="form-control form-control-lg" name="members" id="members" maxlength="2"
+                    required />
                   <label class="form-label" for="members">No. of Family Members</label>
                 </div>
               </div>
               <div class="col-6 mb-2">
-                <select class="form-select form-select-lg rounded-2" name="housingstatus" id="housingstatus" placeholder="housingstatus"
-                  required>
+                <select class="form-select form-select-lg rounded-2" name="housingstatus" id="housingstatus"
+                  placeholder="housingstatus" required>
                   <option selected disabled>Housing Status</option>
                   <option value="Owned">Owned</option>
                   <option value="Rented">Rented</option>
@@ -408,6 +412,9 @@ session_start();
             </p>
             <p>
               <a href="index#announce" class="text-reset">Announcement</a>
+            </p>
+            <p>
+              <a href="jobs" class="text-reset">Jobs</a>
             </p>
             <p>
               <a href="officials" class="text-reset">Officials</a>
@@ -579,45 +586,45 @@ session_start();
     });
   </script>
   <script>
-  window.onload = function () {
-			var specialGroupDiv = document.getElementById('specialGroupDiv');
-			var specialGroupLabel = document.getElementById('specialGroupLabel');
-			var specialGroupCheckbox = document.getElementById('specialGroupCheckbox');
+    window.onload = function () {
+      var specialGroupDiv = document.getElementById('specialGroupDiv');
+      var specialGroupLabel = document.getElementById('specialGroupLabel');
+      var specialGroupCheckbox = document.getElementById('specialGroupCheckbox');
 
-			// Check the status of the checkbox on page load
-			if (specialGroupCheckbox.checked) {
-				specialGroupDiv.style.display = 'block';
-				specialGroupLabel.style.color = '#212529';
-			} else {
-				specialGroupDiv.style.display = 'none';
-				specialGroupLabel.style.color = '#6c757d';
-			}
+      // Check the status of the checkbox on page load
+      if (specialGroupCheckbox.checked) {
+        specialGroupDiv.style.display = 'block';
+        specialGroupLabel.style.color = '#212529';
+      } else {
+        specialGroupDiv.style.display = 'none';
+        specialGroupLabel.style.color = '#6c757d';
+      }
 
-			specialGroupCheckbox.addEventListener('change', function () {
-				if (this.checked) {
-					specialGroupDiv.style.display = 'block';
-					specialGroupLabel.style.color = '#212529';
-				} else {
-					specialGroupDiv.style.display = 'none';
-					specialGroupLabel.style.color = '#6c757d';
+      specialGroupCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+          specialGroupDiv.style.display = 'block';
+          specialGroupLabel.style.color = '#212529';
+        } else {
+          specialGroupDiv.style.display = 'none';
+          specialGroupLabel.style.color = '#6c757d';
 
-					// Send AJAX request to remove the selected option from the database
-					$.ajax({
-						url: 'remove_specialgroup.php', // The URL of the PHP script that updates the database
-						type: 'POST',
-						data: {
-							id: $('#id').val() // The ID of the record to update
-						},
-						success: function (data) {
-							console.log('Special group removed successfully');
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							console.log('Error removing special group: ' + textStatus + ' ' + errorThrown);
-						}
-					});
-				}
-			});
-		};	</script>
+          // Send AJAX request to remove the selected option from the database
+          $.ajax({
+            url: 'remove_specialgroup.php', // The URL of the PHP script that updates the database
+            type: 'POST',
+            data: {
+              id: $('#id').val() // The ID of the record to update
+            },
+            success: function (data) {
+              console.log('Special group removed successfully');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.log('Error removing special group: ' + textStatus + ' ' + errorThrown);
+            }
+          });
+        }
+      });
+    };	</script>
   <script>
     $(document).ready(function () {
       $('#submitBtn').attr('disabled', 'disabled'); // Initially disable the button
@@ -640,22 +647,22 @@ session_start();
     });
   </script>
   <script>
-		document.querySelector('[name="firstname"]').addEventListener('input', function (e) {
-			this.value = this.value.replace(/[0-9]/g, '');
-		});
-		document.querySelector('[name="middlename"]').addEventListener('input', function (e) {
-			this.value = this.value.replace(/[0-9]/g, '');
-		});
-		document.querySelector('[name="lastname"]').addEventListener('input', function (e) {
-			this.value = this.value.replace(/[0-9]/g, '');
-		});
-		document.querySelector('[name="house_no"]').addEventListener('input', function (e) {
-			this.value = this.value.replace(/[^0-9]/g, '');
-		});
-		document.querySelector('[name="members"]').addEventListener('input', function (e) {
-			this.value = this.value.replace(/[^0-9]/g, '');
-		});
-	</script>
+    document.querySelector('[name="firstname"]').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[0-9]/g, '');
+    });
+    document.querySelector('[name="middlename"]').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[0-9]/g, '');
+    });
+    document.querySelector('[name="lastname"]').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[0-9]/g, '');
+    });
+    document.querySelector('[name="house_no"]').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    document.querySelector('[name="members"]').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  </script>
 
 </body>
 

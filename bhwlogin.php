@@ -154,7 +154,7 @@ if (isset($_SESSION['id'])) {
                         <div class="col-xl-5 col-md-8">
                             <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center"
                                 action="bhwlogin.php" method="POST" novalidate="">
-                                <h3 class="mb-3 fw-normal display-5">LOGIN</h3>
+                                <h3 class="mb-3 fw-normal display-5">BHW LOGIN</h3>
                                 <?php
                                 if (isset($_SESSION['loginstatus'])) {
                                     ?>

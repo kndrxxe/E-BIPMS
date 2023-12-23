@@ -2,9 +2,16 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: login.php');
+	header('location: index.php');
 }
 ?>
 
@@ -26,7 +33,6 @@ if (isset($_SESSION['user'])) {
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
 	<!-- Custom styles for this template -->
 	<link href="dashboard.css" rel="stylesheet">
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
@@ -103,9 +109,9 @@ if (isset($_SESSION['user'])) {
 		}
 
 		#message p {
-                margin: 5px 0 0 0;
-                font-size: 15px;
-            }
+			margin: 5px 0 0 0;
+			font-size: 15px;
+		}
 
 		/* Add a green text color and a checkmark when the requirements are right */
 		.valid {
@@ -262,6 +268,12 @@ if (isset($_SESSION['user'])) {
 						</li>
 						<hr class="mt-0 mb-0">
 						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminincidentreport">
+								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+								Incident Report
+							</a>
+						</li>
+						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
 								Barangay Officials
@@ -322,13 +334,14 @@ if (isset($_SESSION['user'])) {
 				?>
 				<div class="table-responsive">
 					<div class="data_table">
-						<table id="myTable" class="table table-striped table-hover" style="width:100%">
+						<table id="myTable" class="table" style="width:100%">
 							<thead>
 								<tr>
 									<th scope="col">Photo</th>
 									<th scope="col">ID</th>
 									<th scope="col">Full Name</th>
 									<th scope="col">Username</th>
+									<th scope="col">Status</th>
 									<th scope="col">Actions</th>
 								</tr>
 							</thead>
@@ -359,6 +372,15 @@ if (isset($_SESSION['user'])) {
 										<td>
 											<?php echo $row['username']; ?>
 										</td>
+										<td>
+											<?php
+											if ($row['status'] == 1) {
+												echo '<span class="badge rounded-pill bg-success">ACTIVATED</span>';
+											} else {
+												echo '<span class="badge rounded-pill bg-danger">DEACTIVATED</span>';
+											}
+											?>
+										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
 												<button type="button" class="btn btn-success btn-sm editbtn"
@@ -367,6 +389,7 @@ if (isset($_SESSION['user'])) {
 												<button type="button" class="btn btn-primary btn-sm editpassbtn"
 													data-bs-target="#editPasswordModal" style="width: 40px;"><i
 														class="bi bi-key-fill"></i></button>
+												
 											</div>
 										</td>
 									</tr>

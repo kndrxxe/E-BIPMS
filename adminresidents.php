@@ -2,9 +2,16 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: login.php');
+	header('location: index.php');
 }
 ?>
 
@@ -45,11 +52,7 @@ if (isset($_SESSION['user'])) {
 					{
 						extend: 'excel',
 						title: '',
-						messageTop: 'LIST OF RESIDENTS',
-						customize: function (xlsx) {
-							var sheet = xlsx.xl.worksheets['sheet1.xml'];
-							$('row c[r^="C"]', sheet).attr('s', '2');
-						},
+						messageTop: 'LIST OF RESIDENTS - BARANGAY KANLURANG BUKAL',
 						exportOptions: {
 							columns: [2, 3, 4, 5, 6]
 						}
@@ -78,7 +81,7 @@ if (isset($_SESSION['user'])) {
 					}
 				],
 				columnDefs: [
-					{ targets: [0, 1, 2, 3, 4, 5, 6], searchable: true }
+					{ targets: [0, 1, 2, 3, 4, 5, 6] }
 				]
 			});
 		});
@@ -111,7 +114,7 @@ if (isset($_SESSION['user'])) {
 			background-color: #ffc107;
 			border: 1px solid #ffc107;
 			transition: 0.2s;
-		}	
+		}
 
 		div.dataTables_wrapper div.dataTables_filter input {
 			border-radius: 5px;
@@ -154,6 +157,7 @@ if (isset($_SESSION['user'])) {
 			border-color: #ffc107;
 			color: black
 		}
+
 		.pagination .page-link {
 			margin-bottom: 10px;
 		}
@@ -291,7 +295,13 @@ if (isset($_SESSION['user'])) {
 									</div>
 								</div>
 						</li>
-						<hr class="mt-0 mb-1">
+						<hr class="mt-0 mb-0">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminincidentreport">
+								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+								Incident Report
+							</a>
+						</li>
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -406,7 +416,7 @@ if (isset($_SESSION['user'])) {
 				?>
 				<div class="table-responsive">
 					<div class="data_table">
-						<table id="myTable" class="table" style="width:100%">
+						<table id="myTable" class="table table-bordered" style="width:100%">
 							<thead>
 								<tr>
 									<th scope="col">Photo</th>

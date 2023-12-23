@@ -3,8 +3,15 @@ session_start();
 
 include 'conn.php';
 if (isset($_SESSION['user'])) {
+	if (time() - $_SESSION["login_time_stamp"] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: login.php');
+	header('location: index.php');
 }
 ?>
 
@@ -168,7 +175,7 @@ if (isset($_SESSION['user'])) {
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="userevents.php">
+							<a class="nav-link" href="userevents.php" id="resetEvent">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 								<?php
@@ -177,9 +184,9 @@ if (isset($_SESSION['user'])) {
 								$query = "SELECT * FROM events where status='1'";
 								$query_run = mysqli_query($conn, $query);
 								$items = mysqli_num_rows($query_run);
-								if ($row > 0) {
+								if ($items > 0) {
 									?>
-									<span class="badge rounded-pill text-bg-warning text-end">
+									<span class="badge rounded-pill text-bg-warning text-end" id="counterBadge">
 										<?php echo $items ?>
 									</span>
 									<?php
@@ -515,6 +522,14 @@ if (isset($_SESSION['user'])) {
 									</tr>
 									<?php
 								}
+							} else {
+								?>
+								<tr>
+									<td colspan="8">
+										<p class="text-center">No barangay clearance request yet.</p>
+									</td>
+								</tr>
+								<?php
 							}
 							?>
 						</tbody>
@@ -603,6 +618,25 @@ if (isset($_SESSION['user'])) {
 
 				$('#update_id').val(data[0]);
 				$('#isPaid').val(1);
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('#resetEvent').on('click', function () {
+				// Remove the badge immediately when clicked
+				$('#counterBadge').remove();
+
+				$.ajax({
+					url: 'reset_counter.php',
+					type: 'POST',
+					success: function () {
+						// No need to do anything as the badge is already removed
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.error(textStatus, errorThrown);
+					}
+				});
 			});
 		});
 	</script>

@@ -2,9 +2,16 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: login.php');
+	header('location: index.php');
 }
 ?>
 
@@ -32,7 +39,11 @@ if (isset($_SESSION['user'])) {
 	<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			$('#myTable').DataTable();
+			$('#myTable').DataTable({
+				language: {
+                    emptyTable: "No requests for barangay clearance yet."
+                }
+			});
 		});
 	</script>
 	<style>
@@ -72,11 +83,13 @@ if (isset($_SESSION['user'])) {
 			border: 1px solid #ffc107;
 			box-shadow: none;
 		}
+
 		.pagination .page-item.active .page-link {
 			background-color: #ffc107;
 			border-color: #ffc107;
 			color: black
 		}
+
 		.pagination .page-link {
 			margin-bottom: 10px;
 		}
@@ -89,8 +102,8 @@ if (isset($_SESSION['user'])) {
 			<img src="kanlurangbukal.png" width="40">
 			<b>E-BIPMS KANLURANG BUKAL</b>
 		</a>
-		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
-			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+		<button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button"
+			data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -196,6 +209,12 @@ if (isset($_SESSION['user'])) {
 								</div>
 						</li>
 						<hr class="mt-0 mb-0">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminincidentreport">
+								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+								Incident Report
+							</a>
+						</li>
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -392,13 +411,13 @@ if (isset($_SESSION['user'])) {
 												?>
 												<span class="badge bg-primary">
 													GCASH
-											<?php elseif ($items['paymentmethod'] == 'MAYA'): ?>
-												<span class="badge bg-success">
-													MAYA
-											<?php elseif ($items['paymentmethod'] == ''): ?>
-												<span class="badge bg-danger">
-													NO PAYMENT
-											<?php endif; ?>
+												<?php elseif ($items['paymentmethod'] == 'MAYA'): ?>
+													<span class="badge bg-success">
+														MAYA
+													<?php elseif ($items['paymentmethod'] == ''): ?>
+														<span class="badge bg-danger">
+															NO PAYMENT
+														<?php endif; ?>
 										</td>
 										<td>
 											<?php if ($items['isPaid'] == 0):
@@ -442,134 +461,143 @@ if (isset($_SESSION['user'])) {
 														<i class="bi bi-phone"></i></a>
 												<?php endif; ?>
 											</div>
-											<!-- View Modal -->
-											<div class="modal fade" id="viewPaymentModal" tabindex="-1"
-												aria-labelledby="viewPaymentModalLabel" aria-hidden="true">
-												<div class="modal-dialog modal-dialog-centered modal-md">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="viewPaymentModalLabel">Proof of Payment
-															</h5>
-															<button type="button" class="btn-close" data-bs-dismiss="modal"
-																aria-label="Close"></button>
-														</div>
-														<div class="modal-body">
-															<img id="paymentProofImage" src="" alt="Proof of Payment"
-																class="img-fluid">
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- Edit Modal -->
-											<div class="modal fade" id="editmodal" data-bs-backdrop="static"
-												data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-												aria-hidden="true">
-												<div class="modal-dialog modal-dialog-centered">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h1 class="modal-title fs-5" id="staticBackdropLabel">
-																<i class="bi bi-pencil-square"></i>
-																Update Data
-															</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal"
-																aria-label="Close"></button>
-														</div>
-
-														<form action="updatebarangayclearance.php" method="post">
-
-															<div class="modal-body">
-																<input type="hidden" name="update_id" id="update_id">
-
-																<div class="form-floating mb-2">
-																	<input type="text" name="firstname" id="firstname"
-																		class="form-control" readonly>
-																	<label for="firstname" class="form-label">First Name</label>
-																</div>
-
-																<div class="form-floating mb-2">
-																	<input type="text" name="middlename" id="middlename"
-																		class="form-control" readonly>
-																	<label for="middlename" class="form-label">Middle
-																		Name</label>
-																</div>
-
-																<div class="form-floating mb-2">
-																	<input type="text" name="lastname" id="lastname"
-																		class="form-control" readonly>
-																	<label for="lastname" class="form-label">Last Name</label>
-																</div>
-
-																<div class="form-floating mb-2">
-																	<input type="text" name="purpose" id="purpose"
-																		class="form-control" readonly>
-																	<label for="purpose" class="form-label">Purpose</label>
-																</div>
-																<div class="form-floating mb-2">
-																	<input type="text" name="issue_date" id="issueDate"
-																		class="form-control" readonly>
-																	<label for="issue_date" class="form-label">Date of
-																		Issuance</label>
-																</div>
-																<div class="form-floating mb-2">
-																	<input type="text" name="date_requested" id="dateRequested"
-																		class="form-control" readonly>
-																	<label for="date_requested" class="form-label">Date
-																		Requested</label>
-																</div>
-																<div class="form-floating mb-2">
-																	<select class="form-select form-select-md" name="status"
-																		placeholder="Status" id="viewStatus" required>
-																		<option selected disabled>Choose from options</option>
-																		<option value="0">Pending</option>
-																		<option value="1">Approve</option>
-																	</select>
-																	<label for="status">Status</label>
-																</div>
-
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">Cancel</button>
-																<button type="submit" name="updatedata"
-																	class="btn btn-warning"><i class="bi bi-pencil-square"></i>
-																	Update Data</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-											<!-- DELETE Modal -->
-											<div class="modal fade" id="deletemodal" data-bs-backdrop="static"
-												data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-												aria-hidden="true">
-												<div class="modal-dialog modal-dialog-centered">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h1 class="modal-title fs-5" id="staticBackdropLabel">
-																<i class="bi bi-exclamation-triangle-fill text-danger"
-																	width="24" height="24"></i>
-																Warning
-															</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal"
-																aria-label="Close"></button>
-														</div>
-														<form action="admindropdocument.php" method="post">
-															<div class="modal-body">
-																<input type="hidden" name="delete_id" id="delete_id">
-
-																<h5>Are you sure, you want to delete this request?</h5>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary"
-																	data-bs-dismiss="modal">Cancel</button>
-																<button type="submit" name="deletedata"
-																	class="btn btn-danger">Delete</button>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
 										</td>
+										<!-- View Modal -->
+										<div class="modal fade" id="viewPaymentModal" tabindex="-1"
+											aria-labelledby="viewPaymentModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered modal-md">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="viewPaymentModalLabel">Proof of Payment
+														</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<img id="paymentProofImage" src="" alt="Proof of Payment"
+															class="img-fluid">
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Edit Modal -->
+										<div class="modal fade" id="editmodal" data-bs-backdrop="static"
+											data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="staticBackdropLabel">
+															<i class="bi bi-pencil-square"></i>
+															Update Data
+														</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+
+													<form action="updatebarangayclearance.php" method="post">
+
+														<div class="modal-body">
+															<input type="hidden" name="update_id" id="update_id">
+
+															<div class="form-floating mb-2">
+																<input type="text" name="firstname" id="firstname"
+																	class="form-control" readonly>
+																<label for="firstname" class="form-label">First Name</label>
+															</div>
+
+															<div class="form-floating mb-2">
+																<input type="text" name="middlename" id="middlename"
+																	class="form-control" readonly>
+																<label for="middlename" class="form-label">Middle
+																	Name</label>
+															</div>
+
+															<div class="form-floating mb-2">
+																<input type="text" name="lastname" id="lastname"
+																	class="form-control" readonly>
+																<label for="lastname" class="form-label">Last Name</label>
+															</div>
+
+															<div class="form-floating mb-2">
+																<input type="text" name="purpose" id="purpose"
+																	class="form-control" readonly>
+																<label for="purpose" class="form-label">Purpose</label>
+															</div>
+															<div class="form-floating mb-2">
+																<input type="text" name="issue_date" id="issueDate"
+																	class="form-control" readonly>
+																<label for="issue_date" class="form-label">Date of
+																	Issuance</label>
+															</div>
+															<div class="form-floating mb-2">
+																<input type="text" name="date_requested" id="dateRequested"
+																	class="form-control" readonly>
+																<label for="date_requested" class="form-label">Date
+																	Requested</label>
+															</div>
+															<div class="form-floating mb-2">
+																<select class="form-select form-select-md"
+																	value="<?php echo $items['status'] ?>" name="status"
+																	placeholder="Status" required>
+																	<option selected disabled>Choose from options</option>
+																	<option value="0" <?php
+																	if ($items['status'] == '0') {
+																		echo "selected";
+																	}
+																	?>>Pending</option>
+																	<option value="1" <?php
+																	if ($items['status'] == '1') {
+																		echo "selected";
+																	}
+																	?>>Approve</option>
+																</select>
+																<label for="status">Status</label>
+															</div>
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Cancel</button>
+															<button type="submit" name="updatedata" class="btn btn-warning"><i
+																	class="bi bi-pencil-square"></i>
+																Update Data</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<!-- DELETE Modal -->
+										<div class="modal fade" id="deletemodal" data-bs-backdrop="static"
+											data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="staticBackdropLabel">
+															<i class="bi bi-exclamation-triangle-fill text-danger" width="24"
+																height="24"></i>
+															Warning
+														</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<form action="admindropdocument.php" method="post">
+														<div class="modal-body">
+															<input type="hidden" name="delete_id" id="delete_id">
+
+															<h5>Are you sure, you want to delete this request?</h5>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Cancel</button>
+															<button type="submit" name="deletedata"
+																class="btn btn-danger">Delete</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
 									</tr>
 									<?php
 								}

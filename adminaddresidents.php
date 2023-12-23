@@ -2,9 +2,16 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: login.php');
+	header('location: index.php');
 }
 ?>
 
@@ -193,7 +200,13 @@ if (isset($_SESSION['user'])) {
 									</div>
 								</div>
 						</li>
-						<hr class="mt-0 mb-1">
+						<hr class="mt-0 mb-0">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminincidentreport">
+								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+								Incident Report
+							</a>
+						</li>
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
 								<span data-feather="users" class="align-text-bottom feather-48"></span>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon" />
-    <title>Officials | EBIPMS</title>
+    <title>Contact | EBIPMS</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" />
     <!-- MDB -->
@@ -28,7 +28,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark sticky bg-dark" style="z-index: 2000">
             <div class="container-fluid">
                 <!-- Navbar brand -->
-                <a class="navbar-brand nav-link" href="index.php">
+                <a class="navbar-brand nav-link" href="index">
                     <img src="kanlurangbukal.png" width="30" />
                     <b>E-BIPMS</b>
                 </a>
@@ -79,106 +79,40 @@
     <main class="mt-5">
         <div class="container">
             <section class="mb-5">
-                <h1 class="mb-5 text-center text-warning"><strong>BARANGAY OFFICIALS</strong></h1>
-
+                <h1 class="mb-3 text-center text-warning"><strong>JOBS</strong></h1>
                 <div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
-                    <?php
-                    include 'conn.php';
-                    $query = "SELECT * FROM officials WHERE position='Barangay Chairperson'";
-                    $query_run = mysqli_query($conn, $query);
-                    while ($items = mysqli_fetch_array($query_run)) {
-                        if ($items['picture']) {
-                            // Display the profile picture
-                            $picture = $items['picture'];
+                    <div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
+                        <?php
+                        include 'conn.php';
+                        $query = "SELECT * FROM jobs WHERE isFeatured = 1";
+                        $query_run = mysqli_query($conn, $query);
+                        if (mysqli_num_rows($query_run) > 0) {
+                            while ($items = mysqli_fetch_array($query_run)) {
+                                echo '<div class="col-lg-4 col-md-6 col-sm-12 mb-4">'; // Responsive grid column
+                                echo '<a href="jobdetails.php?id=' . $items['id'] . '" style="text-decoration: none; color: inherit;">'; // Start of <a> tag
+                                echo '<div class="card text-dark animate__animated animate__fadeInUp">';
+                                echo '<div class="card-header">';
+                                echo 'Featured'; // Added quotes around Featured
+                                echo '</div>';
+                                echo '<div class="card-body">';
+                                echo '<h5 class="card-title" style="text-transform: uppercase;">' . $items['jobtitle'] . '</h5>';
+                                echo '<p class="card-text" style="margin-top:-5px"><b>' . $items['companyname'] . '</b> <br>' . $items['joblocation'] . '</p>';
+                                echo '<p class="card-text"><b>Job Requirements</b><br><hr style="margin-top: -15px;"></p>';
+                                echo '<p class="card-text" style="margin-top: -10px">' . $items['jobrequirements'] . '</p>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</a>'; // End of <a> tag
+                                echo '</div>';
+                            }
                         } else {
-                            // Use a default profile picture
-                            $picture = 'default-profile-pic.jpg';
+                            echo '<div class="card text-center">';
+                            echo '<div class="card-body">';
+                            echo '<h4>No jobs available at the moment.</h4>';
+                            echo '</div>';
+                            echo '</div>';
                         }
-                        echo '<div class="col-auto">';
-                        echo '<div class="card" style="width: 21rem;">';
-                        echo '<div class="card-body">';
-                        echo '<div class="col text-center">';
-                        if (!empty($picture)) {
-                            echo '<img class="rounded-circle border border-warning mb-2" src="' . $picture . '" alt="Profile Picture" width="150">';
-                        } else {
-                            echo '<img class="rounded-circle border border-warning mb-2" src="default-profile-pic.jpg" alt="Profile Picture" width="150">';
-                        }
-                        $id = $items['id'];
-                        echo '</div>';
-                        echo '<h3 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['middleName'] . '<br>' . $items['lastName'] . '</strong>' . '</h3>';
-                        echo '<h4 class="text-center mt-0" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
-                        echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">' . '<strong>' . $items['termStartYear'] . ' - ' . $items['termEndYear'] . '</strong>' . '</h5>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                    ?>
-                </div>
-                <div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
-                    <?php
-                    include 'conn.php';
-                    $query = "SELECT * FROM officials WHERE position='Barangay Councilor' OR position='SK Chairperson'";
-                    $query_run = mysqli_query($conn, $query);
-                    while ($items = mysqli_fetch_array($query_run)) {
-                        if ($items['picture']) {
-                            // Display the profile picture
-                            $picture = $items['picture'];
-                        } else {
-                            // Use a default profile picture
-                            $picture = 'default-profile-pic.jpg';
-                        }
-                        echo '<div class="col-auto">';
-                        echo '<div class="card" style="width: 21rem;">';
-                        echo '<div class="card-body">';
-                        echo '<div class="col text-center">';
-                        if (!empty($picture)) {
-                            echo '<img class="rounded-circle border border-warning mb-2" src="' . $picture . '" alt="Picture" width="150">';
-                        } else {
-                            echo '<img class="rounded-circle border border-warning mb-2" src="default-profile-pic.jpg" alt="Profile Picture" width="150">';
-                        }
-                        $id = $items['id'];
-                        echo '</div>';
-                        echo '<h4 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['middleName'] . '<br>' . $items['lastName'] . '</strong>' . '</h4>';
-                        echo '<h4 class="text-center mt-0 text-secondary" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
-                        echo '<h5 class="text-center mt-0" style="text-transform: uppercase;">' . '<strong>' . $items['termStartYear'] . ' - ' . $items['termEndYear'] . '</strong>' . '</h5>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                    ?>
-                </div>
-                <div class="d-flex flex-wrap mb-3 row g-3 justify-content-center">
-                    <?php
-                    include 'conn.php';
-                    $query = "SELECT * FROM officials WHERE position='Barangay Secretary' OR position='Barangay Treasurer'";
-                    $query_run = mysqli_query($conn, $query);
-                    while ($items = mysqli_fetch_array($query_run)) {
-                        if ($items['picture']) {
-                            // Display the profile picture
-                            $picture = $items['picture'];
-                        } else {
-                            // Use a default profile picture
-                            $picture = 'default-profile-pic.jpg';
-                        }
-                        echo '<div class="col-auto">';
-                        echo '<div class="card" style="width: 21rem;">';
-                        echo '<div class="card-body">';
-                        echo '<div class="col text-center">';
-                        if (!empty($picture)) {
-                            echo '<img class="rounded-circle border border-warning mb-2" src="' . $picture . '" alt="Profile Picture" width="150">';
-                        } else {
-                            echo '<img class="rounded-circle border border-warning mb-2" src="default-profile-pic.jpg" alt="Profile Picture" width="150">';
-                        }
-                        $id = $items['id'];
-                        echo '</div>';
-                        echo '<h4 class="text-center" style="text-transform: uppercase;">' . '<strong>' . $items['firstName'] . ' ' . $items['middleName'] . '<br>' . $items['lastName'] . '</strong>' . '</h4>';
-                        echo '<h5 class="text-center text-secondary" style="text-transform: uppercase;">' . $items['committee'] . '</h5>';
-                        echo '<h4 class="text-center mt-0" style="text-transform: uppercase;">' . $items['position'] . '</h4>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </section>
             <!--Section: Content-->

@@ -2,7 +2,7 @@
 session_start();
 
 include_once 'conn.php';
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'user') {
   header("Location: userhome.php");
   exit();
 } else {
@@ -18,18 +18,21 @@ if (isset($_SESSION['id'])) {
     $username = validate($_POST['username']);
     $password = validate($_POST['password']);
     $password = md5($password);
-    $sql = "SELECT * FROM users WHERE username='$username' AND password ='$password' AND status = 1";
+    $sql = "SELECT * FROM users WHERE username='$username' AND password ='$password'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       // output data of each row
       $row = $result->fetch_assoc();
       if ($row['status'] == 0) {
-        $_SESSION['loginstatus'] = "Your account is not yet verified. Please contact the admin.";
+        $_SESSION['loginstatus'] = "Your account is verified but not yet approved by the admin. Please wait for the admin to approve your account.";
+        header("Location:userlogin.php");
       } else {
         $_SESSION['id'] = $row['id'];
         $_SESSION['uid'] = $row['userID'];
         $_SESSION['user'] = $row['username'];
         $_SESSION['name'] = $row['firstname'];
+        $_SESSION['user_type'] = 'user';
+        $_SESSION["login_time_stamp"] = time();
         header("Location:userhome.php");
         exit();
       }
@@ -112,13 +115,17 @@ if (isset($_SESSION['id'])) {
               <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
             </li>
             <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="jobs.php">Jobs</a>
+            </li>
+            <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="contact">Contact</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+                aria-expanded="false">
                 Login
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -225,74 +232,78 @@ if (isset($_SESSION['id'])) {
     </div>
     </div>
   </header>
-      <!-- Footer -->
-      <footer class="text-center text-lg-start bg-dark text-light pt-1">
+  <!-- Footer -->
+  <footer class="text-center text-lg-start bg-dark text-light pt-1">
 
-<!-- Section: Links  -->
-<section class="">
-    <div class="container text-center text-md-start mt-5">
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
         <!-- Grid row -->
         <div class="row mt-3">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                <!-- Content -->
-                <h6 class="text-uppercase fw-bold mb-4">
-                    <img src="kanlurangbukal.png" width="50" />
-                    E-BIPMS KANLURANG BUKAL
-                </h6>
-                <p class="text-justify">
-                    A system that aims to provide a convenient way for the barangay officials to monitor the
-                    residents of the barangay and to provide a convenient way for the residents to request
-                    barangay services.
-                </p>
-            </div>
-            <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <img src="kanlurangbukal.png" width="50" />
+              E-BIPMS KANLURANG BUKAL
+            </h6>
+            <p class="text-justify">
+              A system that aims to provide a convenient way for the barangay officials to monitor the
+              residents of the barangay and to provide a convenient way for the residents to request
+              barangay services.
+            </p>
+          </div>
+          <!-- Grid column -->
 
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase fw-bold mb-4">
-                    Useful links
-                </h6>
-                <p>
-                    <a href="index" class="text-reset">Home</a>
-                </p>
-                <p>
-                    <a href="index#announce" class="text-reset">Announcement</a>
-                </p>
-                <p>
-                    <a href="officials.php" class="text-reset">Officials</a>
-                </p>
-                <p>
-                    <a href="contact" class="text-reset">Contact</a>
-            </div>
-            <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="index" class="text-reset">Home</a>
+            </p>
+            <p>
+              <a href="index#announce" class="text-reset">Announcement</a>
+            </p>
+            <p>
+              <a href="jobs.php" class="text-reset">Jobs</a>
+            </p>
+            <p>
+              <a href="officials.php" class="text-reset">Officials</a>
+            </p>
+            <p>
+              <a href="contact" class="text-reset">Contact</a>
+            </p>
+          </div>
+          <!-- Grid column -->
 
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
-                <p>
-                    <i class="fas fa-envelope me-3"></i>
-                    ebipmskanlurangbukal@gmail.com
-                </p>
-                <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-            </div>
-            <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              ebipmskanlurangbukal@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          </div>
+          <!-- Grid column -->
         </div>
         <!-- Grid row -->
-    </div>
-</section>
-<!-- Section: Links  -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
 
-<!-- Copyright -->
-<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2023 Copyright
-</div>
-<!-- Copyright -->
-</footer>
-<!-- Footer -->
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2023 Copyright
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <script>
     function myFunction() {

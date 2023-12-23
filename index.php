@@ -85,13 +85,17 @@
               <a class="nav-link font-weight-bold" href="#announce">Announcement</a>
             </li>
             <li class="nav-item active">
+              <a class="nav-link font-weight-bold" href="jobs.php">Jobs</a>
+            </li>
+            <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link font-weight-bold" href="contact">Contact</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+                aria-expanded="false">
                 Login
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -280,10 +284,14 @@
               <a href="#announce" class="text-reset">Announcement</a>
             </p>
             <p>
+              <a href="jobs.php" class="text-reset">Jobs</a>
+            </p>
+            <p>
               <a href="officials.php" class="text-reset">Officials</a>
             </p>
             <p>
               <a href="contact" class="text-reset">Contact</a>
+            </p>
           </div>
           <!-- Grid column -->
 

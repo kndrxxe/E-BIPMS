@@ -46,6 +46,9 @@
                             <a class="nav-link font-weight-bold" href="index#announce">Announcement</a>
                         </li>
                         <li class="nav-item active">
+                            <a class="nav-link font-weight-bold" href="jobs.php">Jobs</a>
+                        </li>
+                        <li class="nav-item active">
                             <a class="nav-link font-weight-bold" href="officials.php">Officials</a>
                         </li>
                         <li class="nav-item active">
@@ -171,10 +174,13 @@
                             <a href="index#announce" class="text-reset">Announcement</a>
                         </p>
                         <p>
+                            <a href="jobs.php" class="text-reset">Jobs</a>
+                        <p>
                             <a href="officials.php" class="text-reset">Officials</a>
                         </p>
                         <p>
                             <a href="contact" class="text-reset">Contact</a>
+                        </p>
                     </div>
                     <!-- Grid column -->
 

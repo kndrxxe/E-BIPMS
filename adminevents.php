@@ -2,9 +2,16 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-    header('location: login.php');
+	header('location: index.php');
 }
 ?>
 <?php
@@ -53,7 +60,7 @@ $result = mysqli_query($conn, $query);
         $(document).ready(function () {
             $('#myTable').DataTable({
                 language: {
-                    emptyTable: "No events available in table"
+                    emptyTable: "No events added yet."
                 }
             });
         });
@@ -214,7 +221,13 @@ $result = mysqli_query($conn, $query);
                                     </div>
                                 </div>
                         </li>
-
+                        <hr class="mt-0 mb-0">
+                        <li class="nav-item fs-7">
+							<a class="nav-link" href="adminincidentreport">
+								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+								Incident Report
+							</a>
+						</li>
                         <li class="nav-item fs-7">
                             <a class="nav-link" href="adminofficials.php">
                                 <span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -306,7 +319,7 @@ $result = mysqli_query($conn, $query);
                                                 required></textarea>
                                             <span class="text-secondary float-end" style="font-size: 10pt;"
                                                 id="charCountModal">0</span>
-                                            <label for="eventlocation" class="form-label">Event Description</label>
+                                            <label for="eventdescription" class="form-label">Event Description</label>
                                         </div>
                                         <div class="form-floating mt-2">
                                             <input type="color" class="form-control" name="eventcolor" id="eventcolor"

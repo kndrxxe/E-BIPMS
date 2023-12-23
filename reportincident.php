@@ -3,8 +3,15 @@ session_start();
 
 include 'conn.php';
 if (isset($_SESSION['user'])) {
+	if (time() - $_SESSION["login_time_stamp"] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: login.php');
+	header('location: index.php');
 }
 ?>
 
@@ -167,7 +174,7 @@ if (isset($_SESSION['user'])) {
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="userevents">
+							<a class="nav-link" href="userevents" id="resetEvent">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 								<?php
@@ -176,9 +183,9 @@ if (isset($_SESSION['user'])) {
 								$query = "SELECT * FROM events where status='1'";
 								$query_run = mysqli_query($conn, $query);
 								$items = mysqli_num_rows($query_run);
-								if ($row > 0) {
+								if ($items > 0) {
 									?>
-									<span class="badge rounded-pill text-bg-warning text-end">
+									<span class="badge rounded-pill text-bg-warning text-end" id="counterBadge">
 										<?php echo $items ?>
 									</span>
 									<?php
@@ -220,82 +227,61 @@ if (isset($_SESSION['user'])) {
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="requestBarangayClearanceLabel">Request Barangay
-										Clearance (₱50.00)</h5>
+									<h5 class="modal-title" id="requestBarangayClearanceLabel"><i
+											class="bi bi-flag-fill">
+										</i>Report Incident</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
-									<form class="forms needs-validation" method="POST" action="userprocessdocument.php"
+									<form class="forms needs-validation" method="POST" action="userprocessincident.php"
 										novalidate="">
-										<div class="form-floating">
-											<input type="hidden" class="form-control" name="userID"
-												value="<?php echo $row['userID'] ?>" />
+										<input type="hidden" class="form-control" name="userID"
+											value="<?php echo $row['userID'] ?>" />
+										<input type="hidden" class="form-control rounded" name="contact"
+											value="<?php echo $row['phonenumber'] ?>" readonly />
+										<input type="hidden" class="form-control rounded" name="email"
+											value="<?php echo $row['email'] ?>" readonly />
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control rounded" name="incident"
+												placeholder="Type of Incident" required />
+											<label for="incident">Type of Incident</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control" name="status" value="0" />
+											<input type="date" class="form-control rounded" name="date"
+												placeholder="Date of Incident" required />
+											<label for="date">Date of Incident</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control rounded" name="firstname"
-												placeholder="First Name" value="<?php echo $row['firstname'] ?>"
-												readonly />
-											<label for="firstname">First Name</label>
+											<input type="time" class="form-control rounded" name="time"
+												placeholder="Time of Incident" required />
+											<label for="time">Time of Incident</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control rounded" name="middlename"
-												placeholder="Middle Name" value="<?php echo $row['middlename'] ?>"
-												readonly />
-											<label for="middlename">Middle Name</label>
+											<input type="text" class="form-control rounded" name="location"
+												placeholder="Exact Location" required />
+											<label for="location">Exact Location</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control rounded" name="lastname"
-												placeholder="Last Name" value="<?php echo $row['lastname'] ?>"
-												readonly />
-											<label for="lastname">Last Name</label>
+											<input type="text" class="form-control rounded" name="person"
+												placeholder="Person Involved" required />
+											<label for="person">Person Involved</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="email"
-												value="<?php echo $row['email'] ?>" readonly />
+											<textarea class="form-control" class="form-control rounded"
+												name="description" maxlength="300" placeholder="Description"
+												style="resize: none;" id="description" required></textarea>
+											<span class="text-secondary float-end" style="font-size: 10pt;"
+												id="charCountModal">0</span>
+											<label for="description">Description</label>
 										</div>
-										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="phonenumber"
-												value="<?php echo $row['phonenumber'] ?>" readonly />
-										</div>
-										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="birthday"
-												value="<?php echo $row['birthday'] ?>" readonly />
-										</div>
-										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="civilstatus"
-												value="<?php echo $row['civilstatus'] ?>" readonly />
-										</div>
-										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="sex"
-												value="<?php echo $row['sex'] ?>" readonly />
-										</div>
-										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="purok"
-												value="<?php echo $row['purok'] ?>" readonly />
-										</div>
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control rounded" name="purpose"
-												placeholder="Purpose" required />
-											<label for="lastname">Purpose</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="date" class="form-control rounded" name="issue_date"
-												placeholder="Issuance Date" required />
-											<label for="date">Issuance Date</label>
-										</div>
-										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control" name="isPaid" value="0" />
-										</div>
+										<input type="hidden" class="form-control" name="status" value="0" />
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-warning"> <i class="bi bi-check2-circle">
-										</i>Request</button>
+									<button type="submit" class="btn btn-warning"> <i class="bi bi-flag-fill">
+										</i>Report Incident</button>
 								</div>
 								</form>
 							</div>
@@ -350,41 +336,17 @@ if (isset($_SESSION['user'])) {
 					unset($_SESSION['deletesuccess']);
 				}
 				?>
-				<?php
-				if (isset($_SESSION['paymenterror'])) {
-					?>
-					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
-						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
-						<?= $_SESSION['paymenterror']; ?>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-					<?php
-					unset($_SESSION['paymenterror']);
-				}
-				?>
-				<?php
-				if (isset($_SESSION['paymentsuccessfull'])) {
-					?>
-					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
-						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
-						<?= $_SESSION['paymentsuccessfull']; ?>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-					<?php
-					unset($_SESSION['paymentsuccessfull']);
-				}
-				?>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover table-md" style="width:100%">
 						<thead>
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Name</th>
-								<th scope="col">Issuance Date</th>
-								<th scope="col">Purpose</th>
-								<th scope="col">Date Requested</th>
+								<th scope="col">Type of Incident</th>
+								<th scope="col">Date of Incident</th>
+								<th scope="col">Time of Incident</th>
+								<th scope="col">Exact Location</th>
+								<th scope="col">Person Involved</th>
 								<th scope="col">Status</th>
-								<th scope="col">Payment Status</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -393,7 +355,7 @@ if (isset($_SESSION['user'])) {
 							error_reporting(0);
 							include 'conn.php';
 							$uid = $_SESSION['uid'];
-							$query = "SELECT * FROM documents WHERE userID='$uid' ";
+							$query = "SELECT * FROM incidentreport WHERE userID='$uid' ";
 							$query_run = mysqli_query($conn, $query);
 
 							if (mysqli_num_rows($query_run) > 0) {
@@ -404,16 +366,18 @@ if (isset($_SESSION['user'])) {
 											<?= $items['id']; ?>
 										</td>
 										<td>
-											<?= $items['firstname'] . " " . $items['middlename'] . " " . $items['lastname']; ?>
+											<?= $items['incident']; ?>
+										<td>
+											<?= $items['date']; ?>
 										</td>
 										<td>
-											<?= $items['issue_date']; ?>
+											<?= $items['time']; ?>
 										</td>
 										<td>
-											<?= $items['purpose']; ?>
+											<?= $items['location']; ?>
 										</td>
 										<td>
-											<?= $items['date_requested']; ?>
+											<?= $items['person']; ?>
 										</td>
 										<td>
 											<?php
@@ -424,34 +388,32 @@ if (isset($_SESSION['user'])) {
 												<?php
 											} else if ($items['status'] == 1) {
 												?>
-													<span class="badge bg-success">APPROVED
+													<span class="badge bg-primary">RECEIVED
 													</span>
+												<?php
+											} else if ($items['status'] == 2) {
+												?>
+														<span class="badge bg-success">ACTION MADE
+														</span>
 												<?php
 											}
 											?>
 										</td>
 										<td>
-											<?php if ($items['isPaid'] == 0):
-												?>
-												<button type="button" data-bs-target="#updatePayment" class="btn btn-danger editbtn"
-													style="width: 90px; font-size:10pt">
-													PAY NOW</button>
-											<?php elseif ($items['isPaid'] == 1): ?>
-												<span class="badge bg-success">PAID
-												</span>
-											<?php endif; ?>
-										</td>
-										<td class="text-right">
-											<?php if ($items['isPaid'] == 0): ?>
-												<div class="btn-group me-2">
-													<button type="button" class="btn btn-danger btn-sm deletebtn"
-														style="width: 40px;"><i class="bi bi-trash"></i></button>
-												</div>
-											<?php endif; ?>
+											<button type="button" class="btn btn-danger deletebtn"><i
+													class="bi bi-trash"></i></button>
 										</td>
 									</tr>
 									<?php
 								}
+							} else {
+								?>
+								<tr>
+									<td colspan="8">
+										<p class="text-center">No incident report yet.</p>
+									</td>
+								</tr>
+								<?php
 							}
 							?>
 						</tbody>
@@ -470,10 +432,10 @@ if (isset($_SESSION['user'])) {
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
 								</div>
-								<form action="userdropdocument.php" method="post">
+								<form action="userdropincident.php" method="post">
 									<div class="modal-body">
 										<input type="hidden" name="delete_id" id="delete_id">
-										<h5>Are you sure you want to delete this request?</h5>
+										<h5>Are you sure you want to delete this incident report?</h5>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
@@ -527,19 +489,37 @@ if (isset($_SESSION['user'])) {
 	</script>
 	<script>
 		$(document).ready(function () {
-			$('.editbtn').on('click', function () {
+			$('#resetEvent').on('click', function () {
+				// Remove the badge immediately when clicked
+				$('#counterBadge').remove();
 
-				$('#updatePayment').modal('show');
+				$.ajax({
+					url: 'reset_counter.php',
+					type: 'POST',
+					success: function () {
+						// No need to do anything as the badge is already removed
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.error(textStatus, errorThrown);
+					}
+				});
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.addbtn').on('click', function () {
+				var charCount = $('#description').val().length;
+				var charLeft = 300 - charCount;
+				$('#charCountModal').text(charLeft + '/300');
+			});
+			$('#description').on('input', function () {
+				this.style.height = 'auto';
+				this.style.height = (this.scrollHeight) + 'px';
 
-				$tr = $(this).closest('tr');
-				var data = $tr.children("td").map(function () {
-					return $(this).text().trim();
-				}).get();
-
-				console.log(data);
-
-				$('#update_id').val(data[0]);
-				$('#isPaid').val(1);
+				var charCount = this.value.length;
+				var charLeft = 300 - charCount;
+				$('#charCountModal').text(charLeft + '/300');
 			});
 		});
 	</script>

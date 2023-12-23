@@ -2,9 +2,16 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-	header('location: userlogin.php');
+	header('location: index.php');
 }
 
 $query = "SELECT purok, count(*) as number FROM users GROUP BY purok";
@@ -171,6 +178,13 @@ $result = $stmt->get_result();
 										</div>
 									</div>
 								</div>
+						</li>
+						<hr class="mt-0 mb-0">
+						<li class="nav-item fs-7">
+							<a class="nav-link" href="adminincidentreport">
+								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+								Incident Report
+							</a>
 						</li>
 						<li class="nav-item fs-7">
 							<a class="nav-link" href="adminofficials.php">
@@ -437,7 +451,7 @@ $result = $stmt->get_result();
 
 							if ($result->num_rows > 0) {
 								while ($items = $result->fetch_assoc()) {
-							?>
+									?>
 									<tr>
 										<td>
 											<?= $items['firstname']; ?>
@@ -454,14 +468,14 @@ $result = $stmt->get_result();
 											<?= $items['sex']; ?>
 										</td>
 									</tr>
-							<?php
+									<?php
 								}
 							} else {
-							?>
+								?>
 								<tr>
 									<td colspan="4">No Records Found</td>
 								</tr>
-							<?php
+								<?php
 							}
 							?>
 						</tbody>
@@ -560,7 +574,7 @@ $result = $stmt->get_result();
 			type: 'doughnut',
 			data: {
 				labels: <?php echo json_encode($labels); ?>,
-				datasets: [{
+				datasets: [{	
 					label: 'Population',
 					data: <?php echo json_encode($data); ?>,
 					borderWidth: 2
@@ -568,6 +582,7 @@ $result = $stmt->get_result();
 			},
 			options: {
 				responsive: true,
+				maintainAspectRatio: true,
 				plugins: {
 					title: {
 						display: true,
@@ -593,6 +608,7 @@ $result = $stmt->get_result();
 			},
 			options: {
 				responsive: true,
+				maintainAspectRatio: true,
 				plugins: {
 					title: {
 						display: true,
@@ -615,6 +631,7 @@ $result = $stmt->get_result();
 			options: {
 				indexAxis: 'y',
 				responsive: true,
+				maintainAspectRatio: true,
 				plugins: {
 					title: {
 						display: true,
@@ -640,6 +657,7 @@ $result = $stmt->get_result();
 			},
 			options: {
 				responsive: true,
+				maintainAspectRatio: true,
 				plugins: {
 					title: {
 						display: true,

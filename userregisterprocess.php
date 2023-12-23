@@ -82,7 +82,7 @@ if (isset($_POST["register"])) {
       <p style="font-family: Arial, Helvetica, sans-serif">Dear ' . $firstname . ',</p>
     </h1>
     <p style="font-family: Arial, Helvetica, sans-serif">
-      Your OTP is ' . $otp . '.
+      Your OTP is <b>' . $otp . '.</b>
     </p>
     <h1 style="font-family: Arial, Helvetica, sans-serif; margin: 10px 0; font-size: 18px">Best regards,</h1>
     <h1 style="font-family: Arial, Helvetica, sans-serif; margin: 10px 0; font-size: 18px">

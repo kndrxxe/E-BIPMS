@@ -2,9 +2,17 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'user') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
 	header("Location: index.php");
+	exit();
 }
 ?>
 
@@ -170,7 +178,7 @@ if (isset($_SESSION['user'])) {
 							</a>
 						</li>
 						<li class="nav-item fs-7">
-							<a class="nav-link" href="userevents">
+							<a class="nav-link" href="userevents" id="resetEvent">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
 								<?php
@@ -422,25 +430,21 @@ if (isset($_SESSION['user'])) {
 		</script>
 	<script>
 		$(document).ready(function () {
-			if ($('#counterBadge').length) {
-				$('#counterBadge').on('click', function () {
-					// Remove the element when clicked
-					$('#counterBadge').remove();
+			$('#resetEvent').on('click', function () {
+				// Remove the badge immediately when clicked
+				$('#counterBadge').remove();
 
-					$.ajax({
-						url: 'reset_counter.php',
-						type: 'POST',
-						success: function () {
-							// No need to change the text as the element is removed
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							console.error(textStatus, errorThrown);
-						}
-					});
+				$.ajax({
+					url: 'reset_counter.php',
+					type: 'POST',
+					success: function () {
+						// No need to do anything as the badge is already removed
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.error(textStatus, errorThrown);
+					}
 				});
-			} else {
-				console.error('Element with ID "counterBadge" does not exist');
-			}
+			});
 		});
 	</script>
 </body>

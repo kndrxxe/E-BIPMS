@@ -58,8 +58,7 @@ $result = mysqli_query($conn, $query);
             });
         });
     </script>
-    <script src="https://cdn.tiny.cloud/1/r9n2435p9uyodoyyrepwi6t74sgc0brvm00fyqgbifcp0g24/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.0.0/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: '#jobdescription',
@@ -195,30 +194,6 @@ $result = mysqli_query($conn, $query);
                             </button>
                         </div>
                     </div>
-                    <?php
-                    if (isset($_SESSION['joberror'])) {
-                        ?>
-                        <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
-                            <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
-                            <?= $_SESSION['joberror']; ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        <?php
-                        unset($_SESSION['joberror']);
-                    }
-                    ?>
-                    <?php
-                    if (isset($_SESSION['jobsuccess'])) {
-                        ?>
-                        <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
-                            <i class="bi bi-check-circle-fill" width="24" height="24"></i>
-                            <?= $_SESSION['jobsuccess']; ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        <?php
-                        unset($_SESSION['jobsuccess']);
-                    }
-                    ?>
                     <div class="modal fade" id="addJobsModal" tabindex="-1" aria-labelledby="addJobsModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
@@ -244,7 +219,6 @@ $result = mysqli_query($conn, $query);
                                             <label for="eventname" class="form-label">Job Title</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <label for="eventname" class="form-label">Job Description</label>
                                             <textarea class="form-control" name="jobdescription" id="jobdescription"
                                                 placeholder="Job Description" required></textarea>
                                         </div>
@@ -254,7 +228,6 @@ $result = mysqli_query($conn, $query);
                                             <label for="eventname" class="form-label">Job Location</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <label for="eventname" class="form-label">Job Requirements</label>
                                             <textarea class="form-control" name="jobrequirements" id="jobrequirements"
                                                 placeholder="Job Requirements" required></textarea>
                                         </div>
@@ -270,19 +243,36 @@ $result = mysqli_query($conn, $query);
                         </div>
                     </div>
                 </div>
+                <?php
+                if (isset($_SESSION['joberror'])) {
+                    ?>
+                    <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+                        <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+                        <?= $_SESSION['joberror']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                    unset($_SESSION['joberror']);
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['jobsuccess'])) {
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+                        <i class="bi bi-check-circle-fill" width="24" height="24"></i>
+                        <?= $_SESSION['jobsuccess']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                    unset($_SESSION['jobsuccess']);
+                }
+                ?>
                 <div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
                     <?php
                     include 'conn.php';
                     $query = "SELECT * FROM jobs WHERE isFeatured = 1";
                     $query_run = mysqli_query($conn, $query);
                     while ($items = mysqli_fetch_array($query_run)) {
-                        if ($items['image']) {
-                            // Display the profile picture
-                            $picture = $items['image'];
-                        } else {
-                            // Use a default profile picture
-                            $picture = 'default-profile-pic.jpg';
-                        }
                         echo '<div class="col-auto">';
                         echo '<div class="card text-dark animate__animated animate__fadeInUp" style="width: 22rem;">';
                         echo '<div class="card-header">';
@@ -302,7 +292,6 @@ $result = mysqli_query($conn, $query);
             </main>
         </div>
     </div>
-
     <script>feather.replace()</script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"

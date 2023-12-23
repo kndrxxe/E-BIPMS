@@ -3,6 +3,13 @@ session_start();
 
 include 'conn.php';
 if (isset($_SESSION['user'])) {
+    if (time() - $_SESSION["login_time_stamp"] > 600) {
+        session_unset();
+        session_destroy();
+        header("Location: userlogin.php");
+    } else {
+        $_SESSION['login_time_stamp'] = time();
+    }
 } else {
     header("Location: index.php");
 }
@@ -13,7 +20,7 @@ if (isset($_SESSION['user'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-BIPMS</title>
+    <title>Events | E-BIPMS</title>
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -71,8 +78,8 @@ if (isset($_SESSION['user'])) {
         <a class="navbar-brand px-2 fs-6 text-dark">
             <img src="kanlurangbukal.png" width="40">
             <b>E-BIPMS KANLURANG BUKAL</b></a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
-            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -129,8 +136,7 @@ if (isset($_SESSION['user'])) {
                                         <div class="accordion-body">
                                             <ul class="nav flex-column pt-4">
                                                 <li class="nav-item fs-7" style="margin-left: -20px;">
-                                                    <a class="nav-link" style="margin-top: -40px"
-                                                        href="userdocument">
+                                                    <a class="nav-link" style="margin-top: -40px" href="userdocument">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
                                                         Brgy. Clearance
@@ -199,11 +205,11 @@ if (isset($_SESSION['user'])) {
                         </li>
                         <hr class="mt-5 mb-0">
                         <li class="nav-item fs-7">
-							<a class="nav-link" href="useraccount.php">
-								<span data-feather="settings" class="align-text-bottom feather-48"></span>
-								Account Settings
-							</a>
-						</li>
+                            <a class="nav-link" href="useraccount.php">
+                                <span data-feather="settings" class="align-text-bottom feather-48"></span>
+                                Account Settings
+                            </a>
+                        </li>
                         <li class="nav-item fs-7">
                             <a class="nav-link" href="userlogout.php">
                                 <span data-feather="log-out" class="align-text-bottom feather-48"></span>

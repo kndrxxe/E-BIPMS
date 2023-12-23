@@ -14,7 +14,7 @@ if (isset($_POST["verify"])) {
         if (mysqli_error($conn)) {
             die(mysqli_error($conn));
         }
-        $_SESSION['registerverified'] = "Account successfully verified.";
+        $_SESSION['registerverified'] = "Account successfully verified. Please wait for the admin to approve your account.";
         header('Location: userlogin.php');
     }
 }

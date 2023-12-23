@@ -2,7 +2,7 @@
 session_start();
 
 include_once 'conn.php';
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
   header("Location: adminhome.php");
   exit();
 } else {
@@ -28,9 +28,10 @@ if (isset($_SESSION['id'])) {
     if ($result->num_rows > 0) {
       // output data of each row
       $row = $result->fetch_assoc();
-      $_SESSION['id'] = $row['id'];
+      $_SESSION['uid'] = $row['id'];
       $_SESSION['user'] = $row['username'];
-      $_SESSION['name'] = $row['firstname'];
+      $_SESSION['user_type'] = 'admin';
+      $_SESSION["login_time_stamp"] = time();
       header("Location:adminhome.php");
       exit();
     } else {
