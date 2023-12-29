@@ -157,7 +157,7 @@
                     </p>
                     <?php
                     if ($row['status'] != '0') {
-                        echo '<a href="' . $row['joblink'] . '" target="_blank" class="btn btn-warning me-2 col-5"><i class="bi bi-box-arrow-up-right"></i> Apply</a>'; // Added "Apply" button
+                        echo '<a href="' . $row['joblink'] . '" target="_blank" class="btn btn-warning ms-2 col-4 col-sm-1"><i class="bi bi-box-arrow-up-right"></i> Apply</a>'; // Added "Apply" button
                     }
                     ?>
                     <h1 class="text-start text-dark mb-0"><strong>About the Job</strong></h1>
