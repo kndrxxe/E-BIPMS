@@ -324,8 +324,8 @@ if (isset($_SESSION['user'])) {
 							</div>
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="middlename"
-									value="<?php echo $row['middlename'] ?>" placeholder="Middle Name" required />
-								<label for="middlename">Middle Name</label>
+									value="<?php echo $row['middlename'] ?>" placeholder="Middle Name" />
+								<label for="middlename">Middle Name (optional)</label>
 							</div>
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="lastname"
@@ -368,9 +368,9 @@ if (isset($_SESSION['user'])) {
 						<div class="row g-2">
 							<div class="form-floating col">
 								<input type="text" class="form-control rounded" name="house_no" maxlength="4"
-									placeholder="House No. (optional)" value="<?php echo $row['house_no'] ?>"
-									required />
-								<label for="house_no">House No.</label>
+									placeholder="House No." value="<?php echo $row['house_no'] ?>"
+									 />
+								<label for="house_no">House No. (optional)</label>
 							</div>
 							<div class="form-floating col">
 								<select class="form-select form-select" name="purok" value="<?php echo $row['purok'] ?>"

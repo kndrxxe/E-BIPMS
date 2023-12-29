@@ -21,13 +21,48 @@ if (isset($_POST["register"])) {
   $specialgroup = $is_special_group == '1' ? $_POST['specialgroup'] : NULL;
   $members = $_POST['members'];
   $housingstatus = $_POST['housingstatus'];
+  $yearsliving = $_POST['yearsliving'];
   $employmentstatus = $_POST['employmentstatus'];
   $phonenumber = $_POST['phonenumber'];
   $email = $_POST['email'];
   $username = $_POST['username'];
   $password = md5($_POST['password']);
   $status = $_POST['status'];
+  $upload_file = ''; // Initialize the variable
 
+  if (isset($_FILES['proof']) && $_FILES['proof']['error'] === UPLOAD_ERR_OK) {
+    // Get the file name
+    $file_name = $_FILES['proof']['name'];
+
+    // Add a timestamp to the file name to prevent conflicts
+    $file_name = time() . '_' . $file_name;
+
+    // Specify the upload directory
+    $upload_dir = 'proof/';
+
+    // Make sure the upload directory exists
+    if (!is_dir($upload_dir)) {
+      if (!mkdir($upload_dir, 0777, true)) {
+        // Handle error
+        $_SESSION['registerstatus'] = "Failed to create upload directory.";
+        return;
+      }
+    }
+
+    // Move the uploaded file to the upload directory
+    if (move_uploaded_file($_FILES['proof']['tmp_name'], $upload_dir . $file_name)) {
+      $upload_file = $upload_dir . $file_name;
+    } else {
+      // Handle error
+      $_SESSION['registerstatus'] = "File upload failed.";
+      return;
+    }
+  } else {
+    // Handle file upload errors
+    $error_code = $_FILES['proof']['error'];
+    $_SESSION['registerstatus'] = "File upload error: $error_code";
+    return;
+  }
   $check_query = mysqli_query($conn, "SELECT * FROM users where email ='$email'");
   $rowCount = mysqli_num_rows($check_query);
 
@@ -45,7 +80,7 @@ if (isset($_POST["register"])) {
         $_SESSION['registerstatus'] = "Username already exists.";
       }
     }
-    $result = mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, is_special_group, specialgroup, members, housingstatus, employmentstatus, phonenumber, email, username, password, status)VALUES('$uid', '$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$is_special_group', '$specialgroup', '$members', '$housingstatus', '$employmentstatus', '$phonenumber', '$email', '$username', '$password', '$status')");
+    $result = mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, is_special_group, specialgroup, members, housingstatus, yearsliving, employmentstatus, phonenumber, email, username, password, status, proof)VALUES('$uid', '$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$is_special_group', '$specialgroup', '$members', '$housingstatus', '$yearsliving', '$employmentstatus', '$phonenumber', '$email', '$username', '$password', '$status', '$upload_file')");
 
     if ($result) {
       $otp = rand(100000, 999999);

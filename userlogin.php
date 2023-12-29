@@ -24,8 +24,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
       // output data of each row
       $row = $result->fetch_assoc();
       if ($row['status'] == 0) {
-        $_SESSION['loginstatus'] = "Your account is verified but not yet approved by the admin. Please wait for the admin to approve your account.";
-        header("Location:userlogin.php");
+        $_SESSION['loginstatus'] = "Your account is not yet verified. Please wait for the admin to approve your account.";
       } else {
         $_SESSION['id'] = $row['id'];
         $_SESSION['uid'] = $row['userID'];

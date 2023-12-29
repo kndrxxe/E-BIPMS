@@ -10,7 +10,7 @@ if (isset($_POST["verify"])) {
         $_SESSION['registerfailed'] = "Invalid OTP Code.";
         header('Location: verification.php');
     } else {
-        mysqli_query($conn, "UPDATE users SET status = 1 WHERE email = '$email'");
+        mysqli_query($conn, "UPDATE users SET status = 0 WHERE email = '$email'");
         if (mysqli_error($conn)) {
             die(mysqli_error($conn));
         }

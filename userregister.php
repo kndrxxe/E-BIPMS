@@ -153,7 +153,8 @@ session_start();
       <div class="row justify-content-center">
         <div class="col-xl-7 col-md-7 mt-5 mb-5">
           <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center" autocomplete="off"
-            action="userregisterprocess.php" method="POST" novalidate="">
+              action="userregisterprocess.php" method="POST" enctype="multipart/form-data" novalidate>
+
             <h3 class="mb-3 fw-normal display-5">REGISTER</h3>
             <?php
             if (isset($_SESSION['registrationerror'])) {
@@ -293,6 +294,18 @@ session_start();
                   <option value="Living with Friends">Living with Friends</option>
                   <option value="Living with Others">Living with Others</option>
                 </select>
+              </div>
+              <div class="col-12 mb-2">
+                <select class="form-select form-select-lg rounded-2" name="yearsliving" id="yearsliving"
+                  placeholder="yearsliving" required>
+                  <option selected disabled>Years Living</option>
+                  <option value="6 months below">6 months below</option>
+                  <option value="6 months and above">6 months and above</option>
+                </select>
+              </div>
+              <div class="col-12 mb-2 text-start" id="uploadDiv" style="display: none;">
+                <label id="uploadLabel"></label>
+                <input type="file" class="form-control form-control-lg" id="fileUpload" name="proof" accept="image/*" required>
               </div>
               <div class="col-12 mb-2">
                 <select class="form-select form-select-lg rounded-2" id="employmentstatus" name="employmentstatus"
@@ -629,10 +642,10 @@ session_start();
     $(document).ready(function () {
       $('#submitBtn').attr('disabled', 'disabled'); // Initially disable the button
 
-      $('#firstname, #middlename, #lastname, #sex, #birthday, #age, #purok, #civilstatus, #voter, #members, #housingstatus, #employmentstatus, #phonenumber, #emailaddress, #username, #password, #confirm_password').on('keyup', function () {
+      $('#firstname, #lastname, #sex, #birthday, #age, #purok, #civilstatus, #voter, #members, #housingstatus, #employmentstatus, #phonenumber, #emailaddress, #username, #password, #confirm_password').on('keyup', function () {
         let empty = false;
 
-        $('#firstname, #middlename, #lastname, #sex, #birthday, #age, #purok, #civilstatus, #voter, #members, #housingstatus, #employmentstatus, #phonenumber, #emailaddress, #username, #password, #confirm_password').each(function () {
+        $('#firstname, #lastname, #sex, #birthday, #age, #purok, #civilstatus, #voter, #members, #housingstatus, #employmentstatus, #phonenumber, #emailaddress, #username, #password, #confirm_password').each(function () {
           if ($(this).val() == '') {
             empty = true;
           }
@@ -661,6 +674,20 @@ session_start();
     });
     document.querySelector('[name="members"]').addEventListener('input', function (e) {
       this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  </script>
+
+  <script>
+    document.getElementById('yearsliving').addEventListener('change', function () {
+      if (this.value === '6 months and above') {
+        document.getElementById('uploadDiv').style.display = 'block';
+        document.getElementById('uploadLabel').textContent = 'Upload Proof of Residency';
+      } else if (this.value === '6 months below') {
+        document.getElementById('uploadDiv').style.display = 'block';
+        document.getElementById('uploadLabel').textContent = 'Upload Barangay Clearance';
+      } else {
+        document.getElementById('uploadDiv').style.display = 'none';
+      }
     });
   </script>
 

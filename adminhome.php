@@ -227,6 +227,7 @@ $result = $stmt->get_result();
 				</div>
 				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
 					<div class="col-auto">
+					<a href="adminresidents.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -249,8 +250,10 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 					<div class="col-auto">
+					<a href="adminresidentsmale.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -275,8 +278,10 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 					<div class="col-auto">
+					<a href="adminresidentsfemale.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -301,8 +306,10 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 					<div class="col-auto">
+					<a href="adminresidentssenior.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -327,8 +334,10 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 					<div class="col-auto">
+					<a href="adminresidentspwd.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -353,8 +362,10 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 					<div class="col-auto">
+					<a href="adminresidentssoloparent.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -379,8 +390,10 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 					<div class="col-auto">
+					<a href="adminresidentspregnant.php" style="text-decoration: none; color: inherit;">
 						<div class="card text-center text-dark animate__animated animate__fadeInUp"
 							style="width: 21rem;">
 							<div class="card-icon d-flex align-items-center justify-content-start"
@@ -405,6 +418,7 @@ $result = $stmt->get_result();
 								</div>
 							</div>
 						</div>
+					</a>
 					</div>
 				</div>
 				<div

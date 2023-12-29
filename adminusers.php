@@ -383,13 +383,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
+												<?php $imagePath = $row['proof']; ?>
+												<a class="btn btn-secondary viewbtn" data-proof="<?= $imagePath; ?>"
+													style="width: 40px;"><i class="bi bi-eye"></i></a>
+												<button type="button" class="btn btn-success btn-sm editstatusbtn"
+													data-bs-target="#editStatusModal" style="width: 40px;"><i
+														class="bi bi-gear"></i></button>
 												<button type="button" class="btn btn-success btn-sm editbtn"
 													data-bs-target="#editUsernameModal" style="width: 40px;"><i
 														class="bi bi-person-fill-gear"></i></button>
 												<button type="button" class="btn btn-primary btn-sm editpassbtn"
 													data-bs-target="#editPasswordModal" style="width: 40px;"><i
 														class="bi bi-key-fill"></i></button>
-												
+
 											</div>
 										</td>
 									</tr>
@@ -398,6 +404,77 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 								?>
 							</tbody>
 						</table>
+						<!-- View Modal -->
+						<div class="modal fade" id="viewProofModal" tabindex="-1" aria-labelledby="viewProofModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered modal-md">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="viewProofModalLabel">Proof
+										</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<img id="proofImage" src="" alt="Proof" class="img-fluid">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Edit Status Modal -->
+						<div class="modal fade" id="editStatusModal" tabindex="-1"
+							aria-labelledby="editStatusModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="editStatusModalLabel"><i class="bi bi-gear"></i>
+											Approve Account</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form class="forms needs-validation" method="POST" action="updateuserstatus.php"
+											novalidate="">
+											<input type="hidden" name="updatestatus_id" id="updatestatus_id">
+											<div class="form-floating mb-3">
+												<?php
+												include 'conn.php';
+												$query = 'SELECT * FROM users WHERE username IS NOT NULL AND username <> ""';
+												$result = mysqli_query($conn, $query);
+												while ($row = mysqli_fetch_array($result)) {
+													$id = $row['id'];
+													$hash = hash('sha256', $id);
+													?>
+													<select class="form-select" name="status"
+														value="<?php echo $items['status'] ?>" id="editStatus" required>
+														<option disabled selected>Select Status</option>
+														<option value="1" <?php
+														if ($row['status'] == '1') {
+															echo "selected";
+														}
+														?>>Activate</option>
+														<option value="0" <?php
+														if ($row['status'] == '0') {
+															echo "selected";
+														}
+														?>>Deactivate</option>
+													</select>
+													<label for="updatestatus_id" class="form-label">Username</label>
+												</div>
+												<?php
+												}
+												?>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="submit" name="updateuserstatus" class="btn btn-warning"><i
+												class="bi bi-gear"></i> Update Status</button>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
 						<!-- Edit Username Modal -->
 						<div class="modal fade" id="editUsernameModal" tabindex="-1"
 							aria-labelledby="editUsernameModalLabel" aria-hidden="true">
@@ -528,6 +605,23 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 		});
 	</script>
 	<script>
+		$(document).ready(function () {
+			$('.editstatusbtn').on('click', function () {
+
+				$('#editStatusModal').modal('show');
+
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function () {
+					return $(this).text().trim();
+				}).get();
+
+				console.log(data);
+
+				$('#updatestatus_id').val(data[1]);
+			});
+		});
+	</script>
+	<script>
 		function myFunction() {
 			var x = document.getElementById("editPassword");
 			if (x.type === "password") {
@@ -615,6 +709,20 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 				length.classList.add("invalid");
 			}
 		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.viewbtn').on('click', function () {
+				// Get the image path from the data-proof attribute
+				var proof = $(this).data('proof');
+
+				// Set the src attribute of the proofImage to the image path
+				$('#proofImage').attr('src', proof);
+
+				// Show the viewProofModal
+				$('#viewProofModal').modal('show');
+			});
+		});
 	</script>
 </body>
 
