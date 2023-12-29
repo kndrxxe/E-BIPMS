@@ -554,7 +554,6 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 																</select>
 																<label for="status">Status</label>
 															</div>
-
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary"

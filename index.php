@@ -55,6 +55,10 @@
         }
       }
 
+      .text-justify {
+        text-align: justify;
+      }
+
       .navbar .nav-link {
         color: #fff !important;
       }
@@ -144,7 +148,7 @@
             style="background: linear-gradient(45deg, rgba(29, 236, 197, 0.7),rgba(91, 14, 214, 0.7) 100%);">
             <div class="d-flex justify-content-center align-items-center h-100">
               <div class="text-white text-center">
-                <h1>GET TO KNOW MORE ABOUT BARANGAY KANLURANG BUKAL</h2>
+                <h1>GET TO KNOW MORE ABOUT OUR BARANGAY</h2>
                   <a class="btn btn-outline-light btn-lg m-2" href="#" role="button">About</a>
               </div>
             </div>
@@ -168,70 +172,90 @@
   <main class="mt-5">
     <div class="container">
       <!--Section: Content-->
-      <section class="text-center">
-        <div class="row">
-          <div class="col-lg-4 col-md-12 mb-4">
+      <section class="text-center mb-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
+              <div class="bg-image hover-overlay ripple pt-5 pb-2" data-mdb-ripple-color="light">
+                <i class="fa-sharp fa-solid fa-rocket fa-5x" style="color: #e4a11b;"></i>
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h3 class="card-title">MISSION</h3>
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the
                   card's content.
                 </p>
-                <a href="#!" class="btn btn-primary">Button</a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://mdbootstrap.com/img/new/standard/nature/023.jpg" class="img-fluid" />
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
+              <div class="bg-image hover-overlay ripple pt-5 pb-2" data-mdb-ripple-color="light">
+                <i class="fa-sharp fa-regular fa-eye fa-5x" style="color: #e4a11b;"></i>
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h3 class="card-title">VISION</h3>
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the
                   card's content.
                 </p>
-                <a href="#!" class="btn btn-primary">Button</a>
               </div>
             </div>
           </div>
-
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" class="img-fluid" />
-                <a href="#!">
-                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                </a>
+              <div class="bg-image hover-overlay ripple pt-5 pb-2" data-mdb-ripple-color="light">
+                <i class="fa-sharp fa-regular fa-gem fa-5x" style="color: #e4a11b;"></i>
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h3 class="card-title">GOALS</h3>
                 <p class="card-text">
                   Some quick example text to build on the card title and make up the bulk of the
                   card's content.
                 </p>
-                <a href="#!" class="btn btn-primary">Button</a>
               </div>
             </div>
           </div>
         </div>
-        <hr class="my-5" />
-        <h1 class="mb-5 text-warning" id="announce"><strong>BARANGAY ANNOUNCEMENTS</strong></h1>
-        <div class="mb-5" id='calendar'></div>
+      </section>
+      <hr class="my-5" />
+      <h1 class="mb-5 text-warning text-center" id="announce"><strong>BARANGAY UPDATES</strong></h1>
+      <section class="text-center">
+        <div class="row justify-content-center mb-4">
+          <?php
+          include 'conn.php';
+          $query = "SELECT * FROM jobs WHERE isFeatured = 1";
+          $query_run = mysqli_query($conn, $query);
+          if (mysqli_num_rows($query_run) > 0) {
+            while ($items = mysqli_fetch_array($query_run)) {
+              echo '<div class="col-lg-4 col-md-6 mb-4">'; // Responsive grid column
+              echo '<a href="#" style="text-decoration: none; color: inherit;">'; // Start of <a> tag
+              echo '<div class="card text-dark">';
+              echo '<div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">';
+              echo '<img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />';
+              echo '<div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>';
+              echo '</div>';
+              echo '<div class="card-body">';
+              echo '<h4 class="card-title mb-4" style="text-transform: uppercase;">' . $items['jobtitle'] . '</h4>';
+              echo '<a href="#!" class="btn btn-warning">Read More</a>';
+              echo '</div>';
+              echo '</div>';
+              echo '</a>'; // End of <a> tag
+              echo '</div>';
+            }
+          }
+          ?>
+        </div>
+        <a href="#!" class="btn btn-warning">See More Updates</a>
       </section>
       <!--Section: Content-->
+      <hr class="my-5" />
+      <h1 class="mb-5 text-warning text-center" id="announce"><strong>BARANGAY ANNOUNCEMENTS</strong></h1>
+      <div class="mb-5" id='calendar'></div>
       <hr class="my-5" />
       <!--Section: Content-->
       <section class="mb-5">
@@ -260,10 +284,9 @@
           <!-- Grid column -->
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              <img src="kanlurangbukal.png" width="50" />
+            <h4 class="text-uppercase fw-bold mb-4">
               E-BIPMS KANLURANG BUKAL
-            </h6>
+            </h4>
             <p class="text-justify">
               A system that aims to provide a convenient way for the barangay officials to monitor the residents of the
               barangay and to provide a convenient way for the residents to request barangay services.
@@ -299,8 +322,8 @@
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-            <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
-            <p>
+            <p class="text-break"><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+            <p class="text-break">
               <i class="fas fa-envelope me-3"></i>
               ebipmskanlurangbukal@gmail.com
             </p>

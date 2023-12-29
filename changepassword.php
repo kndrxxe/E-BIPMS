@@ -7,17 +7,17 @@ if (isset($_POST['updatepassword'])) {
     $password = md5($_POST['password']);
     $last_password_change = date("Y-m-d H:i:s");
 
-    // Get the last username change date from the database
-    $user_query = "SELECT last_username_change FROM users WHERE id = '$id'";
+    // Get the last password change date from the database
+    $user_query = "SELECT last_password_change FROM users WHERE id = '$id'";
     $user_result = mysqli_query($conn, $user_query);
     $user_row = mysqli_fetch_array($user_result);
-    $lastUsernameChange = new DateTime($user_row['last_username_change']);
+    $lastPasswordChange = new DateTime($user_row['last_password_change']);
     $now = new DateTime();
 
-    $interval = $lastUsernameChange->diff($now);
+    $interval = $lastPasswordChange->diff($now);
 
     if ($interval->d < 60) {
-        $_SESSION['updateerror'] = "You can only change your username 60 days after the last change.";
+        $_SESSION['updateerror'] = "You can only change your password 60 days after the last change.";
         header('Location: useraccount.php');
         exit();
     }

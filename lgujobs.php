@@ -41,19 +41,13 @@ $result = mysqli_query($conn, $query);
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- FullCalendar scripts -->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.8/index.global.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#myTable').DataTable({
                 language: {
-                    emptyTable: "No events available in table"
+                    emptyTable: "No jobs available",
                 }
             });
         });
@@ -115,6 +109,26 @@ $result = mysqli_query($conn, $query);
             border-radius: 5px;
             border: 1px solid #ffc107;
             box-shadow: none;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: black
+        }
+
+        .pagination .page-link {
+            margin-bottom: 10px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: black
+        }
+
+        .pagination .page-link {
+            margin-bottom: 10px;
         }
 
         textarea {
@@ -208,28 +222,54 @@ $result = mysqli_query($conn, $query);
                                     <form class="forms needs-validation" method="POST" action="handle_jobs.php"
                                         novalidate="">
                                         <input type="hidden" class="form-control" name="isFeatured" value="1">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" name="companyname" id="companyname"
-                                                placeholder="Company Name" required>
-                                            <label for="eventname" class="form-label">Company Name</label>
-                                        </div>
+                                        <input type="hidden" class="form-control" name="status" value="1">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" name="jobtitle" id="jobtitle"
                                                 placeholder="Job Title" required>
-                                            <label for="eventname" class="form-label">Job Title</label>
+                                            <label for="jobtitle" class="form-label">Job Title</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" name="companyname" id="companyname"
+                                                placeholder="Company Name" required>
+                                            <label for="companyname" class="form-label">Company Name</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" name="applicants" maxlength="3"
+                                                id="applicants" placeholder="Number of Applicants" required>
+                                            <label for="applicants" class="form-label">Number of Applicants</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select name="region" class="form-control form-control-md"
+                                                id="region"></select>
+                                            <input type="hidden" class="form-control form-control-md" name="region_text"
+                                                id="region-text" required>
+                                            <label class="form-label">Region</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select name="province" class="form-control form-control-md"
+                                                id="province"></select>
+                                            <input type="hidden" class="form-control form-control-md"
+                                                name="province_text" id="province-text" required>
+                                            <label class="form-label">Province</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select name="city" class="form-control form-control-md" id="city"></select>
+                                            <input type="hidden" class="form-control form-control-md" name="city_text"
+                                                id="city-text" required>
+                                            <label class="form-label">City / Municipality</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <textarea class="form-control" name="jobdescription" id="jobdescription"
                                                 placeholder="Job Description" required></textarea>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" name="joblocation" id="joblocation"
-                                                placeholder="Job Location" required>
-                                            <label for="eventname" class="form-label">Job Location</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
                                             <textarea class="form-control" name="jobrequirements" id="jobrequirements"
                                                 placeholder="Job Requirements" required></textarea>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" name="joblink" id="joblink"
+                                                placeholder="Job Link" required>
+                                            <label for="joblink" class="form-label">Job Link</label>
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -267,27 +307,284 @@ $result = mysqli_query($conn, $query);
                     unset($_SESSION['jobsuccess']);
                 }
                 ?>
-                <div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
-                    <?php
-                    include 'conn.php';
-                    $query = "SELECT * FROM jobs WHERE isFeatured = 1";
-                    $query_run = mysqli_query($conn, $query);
-                    while ($items = mysqli_fetch_array($query_run)) {
-                        echo '<div class="col-auto">';
-                        echo '<div class="card text-dark animate__animated animate__fadeInUp" style="width: 22rem;">';
-                        echo '<div class="card-header">';
-                        echo 'Featured'; // Added quotes around Featured
-                        echo '</div>';
-                        echo '<div class="card-body">';
-                        echo '<h5 class="card-title" style="text-transform: uppercase;">' . $items['jobtitle'] . '</h5>';
-                        echo '<p class="card-text" style="margin-top:-5px"><b>' . $items['companyname'] . '</b> <br>' . $items['joblocation'] . '</p>';
-                        echo '<p class="card-text"><b>Job Requirements</b><br><hr style="margin-top: -15px;"></p>';
-                        echo '<p class="card-text" style="margin-top: -10px">' . $items['jobrequirements'] . '</p>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+                <?php
+                if (isset($_SESSION['updateerror'])) {
                     ?>
+                    <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+                        <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+                        <?= $_SESSION['updateerror']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                    unset($_SESSION['updateerror']);
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['updatesuccess'])) {
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+                        <i class="bi bi-check-circle-fill" width="24" height="24"></i>
+                        <?= $_SESSION['updatesuccess']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                    unset($_SESSION['updatesuccess']);
+                }
+                ?>
+                <div class="table-responsive mb-3 mt-0">
+                    <div class="data_table">
+                        <table id="myTable" class="table table-striped table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Job Title</th>
+                                    <th scope="col">Company Name</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Date Posted</th>
+                                    <th scope="col">Number of Applicants</th>
+                                    <th scope="col">Featured</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                include 'conn.php';
+                                $query = 'SELECT * FROM jobs';
+                                $result = mysqli_query($conn, $query);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    $id = $row['id'];
+                                    $hash = hash('sha256', $id);
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $row['id']; ?>
+                                        </td>
+                                        <td class="fw-bold">
+                                            <?php echo $row['jobtitle']; ?>
+                                        </td>
+                                        <td class="fw-bold">
+                                            <?php echo $row['companyname']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['city']; ?>,
+                                            <?php echo $row['region']; ?>, Philippines
+                                        </td>
+                                        <td>
+                                            <?php echo date('F d, Y', strtotime($row['date_posted'])); ?>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success"><?php echo $row['applicants']; ?></span>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if ($row['isFeatured'] == 1) {
+                                                echo '<span class="badge bg-success">FEATURED</span>';
+                                            } else {
+                                                echo '<span class="badge bg-danger">NOT FEATURED</span>';
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            if ($row['status'] == 1) {
+                                                echo '<span class="badge bg-success">OPEN</span>';
+                                            } else {
+                                                echo '<span class="badge bg-danger">CLOSED</span>';
+                                            }
+                                            ?>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group me-2">
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                    data-bs-target="#viewModal<?= $row['id']; ?>">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-warning editbtn" data-bs-toggle="modal"
+                                                    data-bs-target="#editJobs">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <div class="modal fade" id="viewModal<?= $row['id']; ?>" tabindex="-1"
+                                        aria-labelledby="viewModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="viewModalLabel">Job Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4 class="text-start text-dark mb-0"><strong>
+                                                            <?php echo $row['jobtitle'] ?>
+                                                        </strong>
+                                                    </h4>
+                                                    <hr class="my-1" />
+                                                    <p class="text-start text-dark mt-0 fs-6"><strong>
+                                                            <?php echo $row['companyname'] ?> ·
+                                                        </strong>
+                                                        <?php echo $row['city'] ?>,
+                                                        <?php echo $row['region'] ?>, Philippines <b>·</b>
+                                                        <span class="fst-italic text-secondary">
+                                                            <?php
+                                                            $datePosted = new DateTime($row['date_posted']);
+                                                            $now = new DateTime();
+
+                                                            $interval = $datePosted->diff($now);
+                                                            if ($interval->y > 0) {
+                                                                if ($interval->y == 1) {
+                                                                    echo $interval->format('%y year') . " ago.";
+                                                                } else {
+                                                                    echo $interval->format('%y years') . " ago.";
+                                                                }
+                                                            } elseif ($interval->m > 0) {
+                                                                if ($interval->m == 1) {
+                                                                    echo $interval->format('%m month') . " ago.";
+                                                                } else {
+                                                                    echo $interval->format('%m months') . " ago.";
+                                                                }
+                                                            } elseif ($interval->d > 0) {
+                                                                if ($interval->d == 1) {
+                                                                    echo $interval->format('%d day') . " ago.";
+                                                                } else {
+                                                                    echo $interval->format('%d days') . " ago.";
+                                                                }
+                                                            } elseif ($interval->h > 0) {
+                                                                if ($interval->h == 1) {
+                                                                    echo $interval->format('%h hour') . " ago.";
+                                                                } else {
+                                                                    echo $interval->format('%h hours') . " ago.";
+                                                                }
+                                                            } elseif ($interval->i > 0) {
+                                                                if ($interval->i == 1) {
+                                                                    echo $interval->format('%i minute') . " ago.";
+                                                                } else {
+                                                                    echo $interval->format('%i minutes') . " ago.";
+                                                                }
+                                                            } else {
+                                                                if ($interval->s == 1) {
+                                                                    echo $interval->format('%s second') . " ago.";
+                                                                } else {
+                                                                    echo $interval->format('%s seconds') . " ago.";
+                                                                }
+                                                            } ?>
+                                                        </span>
+                                                    </p>
+                                                    <h4 class="text-start text-dark mb-0"><strong>About the Job</strong>
+                                                    </h4>
+                                                    <hr class="my-1" />
+                                                    <h6 class="text-start mt-0">
+                                                        <?php echo $row['jobdescription'] ?>
+                                                    </h6>
+                                                    <h4 class="text-start text-dark mb-0"><strong>Job
+                                                            Requirements</strong></h4>
+                                                    <hr class="my-1" />
+                                                    <h6 class="text-start mt-0">
+                                                        <?php echo $row['jobrequirements'] ?>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                        <!-- Modal -->
+                        <div class="modal fade" id="editJobs" tabindex="-1" aria-labelledby="editJobsModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editJobsModalLabel"><i
+                                                class="bi bi-briefcase-fill"></i> Edit Job Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php
+                                        include 'conn.php';
+                                        $query = "SELECT * FROM jobs";
+                                        $query_run = mysqli_query($conn, $query);
+                                        if (mysqli_num_rows($query_run) > 0) {
+                                            foreach ($query_run as $items) {
+                                                ?>
+                                                <form class="forms needs-validation" method="POST" action="updatejobs.php"
+                                                    novalidate="">
+                                                    <input type="hidden" name="update_id" id="update_id">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control" name="jobtitle"
+                                                            id="updatejobtitle" placeholder="Job Title" required>
+                                                        <label for="eventname" class="form-label">Job Title</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control" name="companyname"
+                                                            id="updatecompanyname" placeholder="Company Name" required>
+                                                        <label for="eventname" class="form-label">Company Name</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control" name="applicants" maxlength="3"
+                                                            id="updateapplicants" placeholder="Number of Applicants" required>
+                                                        <label for="applicants" class="form-label">Number of Applicants</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <select class="form-select form-select-md"
+                                                            value="<?php echo $items['isFeatured'] ?>" name="isFeatured"
+                                                            placeholder="Featured" required>
+                                                            <option selected disabled>Choose from options</option>
+                                                            <option value="0" <?php
+                                                            if ($items['isFeatured'] == '0') {
+                                                                echo "selected";
+                                                            }
+                                                            ?>>Not Featured</option>
+                                                            <option value="1" <?php
+                                                            if ($items['isFeatured'] == '1') {
+                                                                echo "selected";
+                                                            }
+                                                            ?>>Featured</option>
+                                                        </select>
+                                                        <label for="status">Status</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <select class="form-select form-select-md"
+                                                            value="<?php echo $items['status'] ?>" name="status"
+                                                            placeholder="Status" required>
+                                                            <option selected disabled>Choose from options</option>
+                                                            <option value="0" <?php
+                                                            if ($items['status'] == '0') {
+                                                                echo "selected";
+                                                            }
+                                                            ?>>Closed</option>
+                                                            <option value="1" <?php
+                                                            if ($items['status'] == '1') {
+                                                                echo "selected";
+                                                            }
+                                                            ?>>Open</option>
+                                                        </select>
+                                                        <label for="status">Status</label>
+                                                    </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" name="updateevent" class="btn btn-warning"><i
+                                                        class="bi bi-briefcase-fill"></i> Update Job</button>
+                                            </div>
+                                            </form>
+                                            <?php
+                                            }
+                                        }
+                                        ?>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--Section: Content-->
+                    </div>
                 </div>
             </main>
         </div>
@@ -322,6 +619,32 @@ $result = mysqli_query($conn, $query);
             if (e.target.closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
                 e.stopImmediatePropagation();
             }
+        });
+    </script>
+    <script src="js/ph-address-selector.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.editbtn').on('click', function () {
+
+                $('#editJobsModal').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text().trim();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[0]);
+                $('#updatejobtitle').val(data[1]);
+                $('#updatecompanyname').val(data[2]);
+                $('#updateapplicants').val(data[5]);
+            });
+        });
+    </script>
+    <script>
+        document.querySelector('[name="applicants"]').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     </script>
 </body>

@@ -243,14 +243,12 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
           <!-- Grid column -->
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
             <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              <img src="kanlurangbukal.png" width="50" />
+            <h4 class="text-uppercase fw-bold mb-4">
               E-BIPMS KANLURANG BUKAL
-            </h6>
+            </h4>
             <p class="text-justify">
-              A system that aims to provide a convenient way for the barangay officials to monitor the
-              residents of the barangay and to provide a convenient way for the residents to request
-              barangay services.
+              A system that aims to provide a convenient way for the barangay officials to monitor the residents of the
+              barangay and to provide a convenient way for the residents to request barangay services.
             </p>
           </div>
           <!-- Grid column -->
@@ -265,7 +263,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
               <a href="index" class="text-reset">Home</a>
             </p>
             <p>
-              <a href="index#announce" class="text-reset">Announcement</a>
+              <a href="#announce" class="text-reset">Announcement</a>
             </p>
             <p>
               <a href="jobs.php" class="text-reset">Jobs</a>
@@ -283,8 +281,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-            <p><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
-            <p>
+            <p class="text-break"><i class="fas fa-home me-3"></i> Brgy. Kanlurang Bukal<br>Liliw, Laguna</p>
+            <p class="text-break">
               <i class="fas fa-envelope me-3"></i>
               ebipmskanlurangbukal@gmail.com
             </p>
@@ -303,6 +301,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
     </div>
     <!-- Copyright -->
   </footer>
+  <!-- Footer -->
   <!-- Footer -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <script>
