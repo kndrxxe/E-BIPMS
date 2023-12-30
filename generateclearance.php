@@ -3,9 +3,16 @@ session_start();
 error_reporting(0);
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-    header('location: login.php');
+	header('location: index.php');
 }
 
 require('fpdf/fpdf.php');
@@ -141,28 +148,28 @@ if ($stmt->execute()) {
             $this->Cell(70, 0, "TO WHOM IT MAY CONCERN:", 0, 'J');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(75, 80);
-            $this->Cell(70, 0, "This is to certify that ______________________________________,", 0, 'J');
+            $this->Cell(70, 0, "This is to certify that ______________________________________", 0, 'J');
             $this->SetXY(120, 79);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(80, 0, strtoupper($data["firstname"] . " " . $data["middlename"] . " " . $data["lastname"]), 0, 'C');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 85);
-            $this->MultiCell(0, 8, 'is a resident of _________', 0, 'J');
+            $this->MultiCell(0, 8, 'a resident of __________,', 0, 'J');
             $this->SetXY(70.5, 88);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(80, 0, strtoupper($data["purok"]), 0, 'C');
             $this->SetXY(70, 93);
             $this->SetFont('Arial', '', 12);
-            $this->MultiCell(0, 8, 'is known to me to be a person of Good Moral Character and Law abiding citizen.', 0, 'J');
-            $this->SetXY(121.7, 85);
+            $this->MultiCell(0, 8, 'is known to me to be a person of good moral character and a law-abiding citizen.', 0, 'J');
+            $this->SetXY(120, 85);
             $this->SetFont('Arial', 'B', 12);
-            $this->MultiCell(0, 8, 'Barangay Kanlurang Bukal Liliw, Laguna', 0, 'J');
+            $this->MultiCell(0, 8, 'Barangay Kanlurang Bukal Liliw, Laguna,', 0, 'J');
             $this->SetXY(75, 115);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(70, 0, "Subject has no criminal record nor any pending case filed against him", 0, 'J');
+            $this->Cell(70, 0, "The subject has neither a criminal record nor any pending case filed", 0, 'J');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 123);
-            $this->MultiCell(70, 0, '/ her barangay record.', 0, 'J');
+            $this->MultiCell(70, 0, 'against him or her barangay record.', 0, 'J');
             $this->SetFont('Arial', 'B', 12);
             $this->SetXY(70, 130);
             $this->MultiCell(0, 8, 'Date of Birth:________________________________________', 0, '');
@@ -179,12 +186,12 @@ if ($stmt->execute()) {
             $this->SetXY(130, 143);
             $this->SetFont('Arial', 'B', 15);
             $this->MultiCell(80, 0, strtoupper($data["sex"]), 0, 'C');
-            $this->SetXY(70, 155);
+            $this->SetXY(75, 155);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(70, 0, "Issued upon request of the above subject person in connection to his/her", 0, 'J');
+            $this->Cell(70, 0, "Issued upon request of the above subject person in connection with", 0, 'J');
             $this->SetXY(70, 163);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(70, 0, "application for:", 0, 'J');
+            $this->Cell(70, 0, "his or her application for:", 0, 'J');
             $this->SetXY(70, 170);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(0, 8, 'Purpose: _______________________________________________', 0, '');

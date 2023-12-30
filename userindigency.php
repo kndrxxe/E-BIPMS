@@ -2,8 +2,8 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
-	if (time() - $_SESSION["login_time_stamp"] > 600) {
+if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'user') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
 		session_unset();
 		session_destroy();
 		header("Location: userlogin.php");
@@ -11,7 +11,8 @@ if (isset($_SESSION['user'])) {
 		$_SESSION['login_time_stamp'] = time();
 	}
 } else {
-	header('location: index.php');
+	header("Location: index.php");
+	exit();
 }
 ?>
 

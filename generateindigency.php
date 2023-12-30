@@ -3,9 +3,16 @@ session_start();
 error_reporting(0);
 
 include 'conn.php';
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
+	if (time() - $_SESSION['login_time_stamp'] > 600) {
+		session_unset();
+		session_destroy();
+		header("Location: userlogin.php");
+	} else {
+		$_SESSION['login_time_stamp'] = time();
+	}
 } else {
-    header('location: login.php');
+	header('location: index.php');
 }
 
 require('fpdf/fpdf.php');
@@ -61,7 +68,7 @@ if ($stmt->execute()) {
             $this->Cell(70, 0, "TO WHOM IT MAY CONCERN:", 0, 'J');
             $this->SetFont('Arial', '', 12);
             $this->SetXY(40, 80);
-            $this->Cell(70, 0, "This is to certify that MR./MRS./MS._____________________________________,", 0, 'J');
+            $this->Cell(70, 0, "This is to certify that MR./MRS./MS. ____________________________________,", 0, 'J');
             $this->SetXY(110, 79);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(80, 0, strtoupper($data["firstname"] . " " . $data["middlename"] . " " . $data["lastname"]), 0, 'C');
@@ -82,19 +89,19 @@ if ($stmt->execute()) {
             $this->MultiCell(0, 8, 'and belongs to', 0, 'J');
             $this->SetXY(20, 110);
             $this->SetFont('Arial', 'B', 12);
-            $this->Cell(70, 0, "PURPOSE:_________________________________________________________________", 0, 'J');
+            $this->Cell(70, 0, "PURPOSE: ________________________________________________________________", 0, 'J');
             $this->SetXY(40, 125);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(70, 0, "Certificate was issued at", 0, 'J');
-            $this->SetXY(87, 125);
-            $this->SetFont('Arial', 'B', 12);
-            $this->Cell(70, 0, "Barangay Kanlurang Bukal Liliw, Laguna", 0, 'J');
-            $this->SetXY(171, 125);
+            $this->Cell(70, 0, "Issued this ______ day of ________________", 0, 'J');
+            $this->SetXY(20, 134.5);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(70, 0, "this _______", 0, 'J');
+            $this->Cell(70, 0, "Kanlurang Bukal Liliw, Laguna.", 0, 'J');
+            $this->SetXY(140, 125);
+            $this->SetFont('Arial', '', 12);
+            $this->Cell(70, 0, "at the Office of the Barangay", 0, 'J');
             $this->SetXY(20, 135);
             $this->SetFont('Arial', '', 12);
-            $this->Cell(70, 0, "day of __________________,", 0, 'J');
+            $this->Cell(70, 0, "", 0, 'J');
             $this->SetXY(80, 109);
             $this->SetFont('Arial', 'B', 15);
             $this->MultiCell(80, 0, strtoupper($data["purpose"]), 0, 'J');
@@ -107,17 +114,17 @@ if ($stmt->execute()) {
                     return $number . $ends[$number % 10];
             }
             $this->SetFont('Arial', 'B', 12);
-            $this->SetXY(182, 124);
+            $this->SetXY(65, 124);
             $dayOfIssuance = date('j', strtotime($data["issue_date"]));
             $this->Cell(70, 0, ordinal($dayOfIssuance), 0, 'J');
             $this->SetFont('Arial', 'B', 12);
-            $this->SetXY(45, 134);
+            $this->SetXY(98.5, 124);
             $monthOfIssuance = date('F', strtotime($data["issue_date"]));
             $this->Cell(70, 0, $monthOfIssuance, 0, 'J');
             $this->SetFont('Arial', 'B', 12);
-            $this->SetXY(77, 135);
+            $this->SetXY(129, 125);
             $yearOfIssuance = date('Y', strtotime($data["issue_date"]));
-            $this->Cell(70, 0, $yearOfIssuance. ".", 0, 'J');
+            $this->Cell(70, 0, $yearOfIssuance, 0, 'J');
             $this->SetFont('Arial', 'BU', 15);
             $this->SetXY(75, 170);
             $this->Cell(0, 8, 'HON. HENRY O. DULLER', 0, '');
