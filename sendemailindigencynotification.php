@@ -21,7 +21,7 @@ error_reporting(0);
 
 include 'conn.php';
 $id = $_GET['id'];
-$query = "SELECT * FROM documents WHERE id='$id'";
+$query = "SELECT * FROM indigency WHERE id='$id'";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 if ($result) {
     $row = mysqli_fetch_assoc($result);
@@ -42,7 +42,7 @@ if ($result) {
     //Set who the message is to be sent to
     $mail->addAddress($row['email'], $row['firstname'] . ' ' . $row['lastname']);
     //Set the subject line
-    $mail->Subject = 'Your barangay clearance request has been approved!';
+    $mail->Subject = 'Your certificate of indigency request has been approved!';
 
     $name = $row['firstname'];
     $mail->Body = '
@@ -59,7 +59,7 @@ if ($result) {
       <p style="font-family: Arial, Helvetica, sans-serif">Dear '.$name.',</p>
     </h1>
     <p style="font-family: Arial, Helvetica, sans-serif">
-      We are pleased to inform you that your Barangay Clearance is now ready for
+      We are pleased to inform you that your Certificate of Indigency is now ready for
       pick up. Please visit the Barangay Hall at your earliest convenience to
       collect it.
     </p>
@@ -81,10 +81,10 @@ if ($result) {
     //send the message, check for errors
     if (!$mail->send()) {
         $_SESSION['emailerror'] = "Email not sent. Please try again.";
-        header('Location: admindocument.php');
+        header('Location: adminindigency.php');
     } else {
         $_SESSION['emailsent'] = "Email sent successfully!";
-        header('Location: admindocument.php');
+        header('Location: adminindigency.php');
     }
 }
 ob_end_flush();

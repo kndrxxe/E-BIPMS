@@ -144,7 +144,7 @@ $result = $stmt->get_result();
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Indigency
@@ -152,7 +152,7 @@ $result = $stmt->get_result();
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Residency
@@ -160,7 +160,7 @@ $result = $stmt->get_result();
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+														href=" adminbusinesspermit.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Business Permit
@@ -168,7 +168,7 @@ $result = $stmt->get_result();
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
+														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula

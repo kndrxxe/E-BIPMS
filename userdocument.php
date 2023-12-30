@@ -134,21 +134,21 @@ if (isset($_SESSION['user'])) {
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px" href=" ">
+													<a class="nav-link" style="margin-top: -15px" href="userindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px" href="">
+													<a class="nav-link" style="margin-top: -15px" href="userresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px" href="">
+													<a class="nav-link" style="margin-top: -15px" href="userbusinesspermit.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Business Permit
@@ -156,7 +156,7 @@ if (isset($_SESSION['user'])) {
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href="">
+														href="usercedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula
@@ -218,7 +218,7 @@ if (isset($_SESSION['user'])) {
 						<div class="btn-group me-2">
 							<button type="button" class="btn btn-md btn-warning addbtn" data-bs-toggle="modal"
 								data-bs-target="#requestBarangayClearance"><i class="bi bi-file-earmark-text">
-								</i>Request Document
+								</i>Request Clearance
 							</button>
 						</div>
 					</div>

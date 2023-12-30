@@ -31,15 +31,15 @@ if ($stmt->execute()) {
             // Title
             $this->Cell(0, 15, 'Republic of the Philippines', 0, 1, 'C');
             $this->Ln(-10);
-            $this->SetFont('Arial', 'B', 12);
+            $this->SetFont('Arial', '', 12);
             $this->Cell(0, 15, 'Province of Laguna', 0, 1, 'C');
             $this->Ln(-10);
-            $this->SetFont('Arial', 'B', 12);
+            $this->SetFont('Arial', '', 12);
             $this->Cell(0, 15, 'Municipality of Liliw', 0, 1, 'C');
             $this->Ln(-5);
             $this->SetTextColor(255, 192, 0);
             $this->SetFont('Arial', 'B', 15);
-            $this->Cell(0, 15, 'BARANGAY KANLURANG BUKAL', 0, 1, 'C');
+            $this->Cell(0, 15, 'BARANGAY KANLURAN BUKAL', 0, 1, 'C');
             $this->SetFont('BrushScriptRegularSWFTE', '', 20);
             $this->Ln(-8);
             $this->SetTextColor(0, 0, 0);

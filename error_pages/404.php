@@ -41,7 +41,7 @@ http_response_code(404);
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 2000">
             <div class="container-fluid">
                 <!-- Navbar brand -->
-                <a href="index.php" class="navbar-brand nav-link">
+                <a class="navbar-brand nav-link">
                     <img src="kanlurangbukal.png" width="30" />
                     <b>E-BIPMS</b>
                 </a>
@@ -50,13 +50,6 @@ http_response_code(404);
                     aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarExample01">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="index.php">Home</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </nav>
         <!-- Navbar -->

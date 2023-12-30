@@ -48,7 +48,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 		$(document).ready(function () {
 			$('#myTable').DataTable({
 				dom: 'Blfrtip',
-				buttons: ['copy', 'csv',
+				buttons: ['copy',
+					{
+						extend: 'csv',
+						title: '',
+						messageTop: 'LIST OF RESIDENTS - BARANGAY KANLURANG BUKAL',
+						exportOptions: {
+							columns: [2, 3, 4, 5, 6]
+						}
+					},
 					{
 						extend: 'excel',
 						title: '',
@@ -260,7 +268,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Indigency
@@ -268,7 +276,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Residency
@@ -276,7 +284,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" admindocument.php">
+														href=" adminbusinesspermit.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Business Permit
@@ -284,7 +292,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-														href=" admindocument.php">
+														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula

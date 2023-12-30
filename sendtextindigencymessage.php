@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 
 // Query to fetch data
 $id = $_GET['id'];
-$query = "SELECT * FROM documents WHERE id = '$id'";
+$query = "SELECT * FROM indigency WHERE id = '$id'";
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
             'x-api-key' => $apiKey,
         ],
         'json' => [
-            'content' => "Dear $name,\n\nWe are pleased to inform you that your Barangay Clearance is now ready for pick up. \n\nPlease visit the Barangay Hall at your earliest convenience to collect it.\n\nBest regards,\nBrgy. Kanlurang Bukal",
+            'content' => "Dear $name,\n\nWe are pleased to inform you that your Certificate of Indigency is now ready for pick up. \n\nPlease visit the Barangay Hall at your earliest convenience to collect it.\n\nBest regards,\nBrgy. Kanlurang Bukal",
             'from' => '+639664179718',
             'to' => $to
         ]
@@ -46,11 +46,11 @@ if ($result->num_rows > 0) {
     if ($res->getStatusCode() == 200) {
         // If the SMS was sent successfully
         $_SESSION['sendsms'] = "SMS sent successfully";
-        header('Location: admindocument.php');
+        header('Location: adminindigency.php');
     } else {
         // If the SMS was not sent successfully
         $_SESSION['sendsmserror'] = "SMS not sent";
-        header('Location: admindocument.php');
+        header('Location: adminindigency.php');
     }
 }
 $conn->close();

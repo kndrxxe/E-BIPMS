@@ -164,37 +164,37 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px"
-                                                        href=" admindocument.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Brgy. Indigency
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px"
-                                                        href=" admindocument.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Brgy. Residency
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px"
-                                                        href=" admindocument.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Business Permit
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-                                                        href=" admindocument.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Cedula
-                                                    </a>
-                                                </li>
+													<a class="nav-link" style="margin-top: -15px"
+														href="adminindigency.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Indigency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href="adminresidency.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Brgy. Residency
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px"
+														href=" adminbusinesspermit.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Business Permit
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+														href=" admincedula.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Cedula
+													</a>
+												</li>
                                             </ul>
                                         </div>
                                     </div>
