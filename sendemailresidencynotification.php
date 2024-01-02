@@ -21,7 +21,7 @@ error_reporting(0);
 
 include 'conn.php';
 $id = $_GET['id'];
-$query = "SELECT * FROM indigency WHERE id='$id'";
+$query = "SELECT * FROM residency WHERE id='$id'";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 if ($result) {
     $row = mysqli_fetch_assoc($result);
@@ -42,7 +42,7 @@ if ($result) {
     //Set who the message is to be sent to
     $mail->addAddress($row['email'], $row['firstname'] . ' ' . $row['lastname']);
     //Set the subject line
-    $mail->Subject = 'Your certificate of indigency request has been approved!';
+    $mail->Subject = 'Your certificate of residency request has been approved!';
 
     $name = $row['firstname'];
     $mail->Body = '
@@ -59,7 +59,7 @@ if ($result) {
       <p style="font-family: Arial, Helvetica, sans-serif">Dear '.$name.',</p>
     </h1>
     <p style="font-family: Arial, Helvetica, sans-serif">
-      We are pleased to inform you that your Certificate of Indigency is now ready for
+      We are pleased to inform you that your Certificate of Residency is now ready for
       pick up. Please visit the Barangay Hall at your earliest convenience to
       collect it.
     </p>
@@ -76,15 +76,15 @@ if ($result) {
   </body>
 </html>';
     $mail->isHTML(true);
-    $mail->AltBody = "Dear Resident,\n\nWe are pleased to inform you that your Certificate of Indigency is now ready for pick up. Please visit the Barangay Hall at your earliest convenience to collect it.\n\nDon't forget to bring a valid ID for verification purposes.\n\nThank you for your patience and understanding.\n\nBest regards,\nBrgy. Kanlurang Bukal";
+    $mail->AltBody = "Dear Resident,\n\nWe are pleased to inform you that your Certificate of Residency is now ready for pick up. Please visit the Barangay Hall at your earliest convenience to collect it.\n\nDon't forget to bring a valid ID for verification purposes.\n\nThank you for your patience and understanding.\n\nBest regards,\nBrgy. Kanlurang Bukal";
 
     //send the message, check for errors
     if (!$mail->send()) {
         $_SESSION['emailerror'] = "Email not sent. Please try again.";
-        header('Location: adminindigency.php');
+        header('Location: adminresidency.php');
     } else {
         $_SESSION['emailsent'] = "Email sent successfully!";
-        header('Location: adminindigency.php');
+        header('Location: adminresidency.php');
     }
 }
 ob_end_flush();

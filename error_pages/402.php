@@ -1,6 +1,5 @@
 <?php
-http_response_code(404);
-
+http_response_code(402);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,13 +8,12 @@ http_response_code(404);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Error 404 Not Found | EBIPMS</title>
+    <title>Error 402 Payment Required</title>
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- MDB -->
     <link rel="stylesheet" href="css/mdb.min.css" />
     <!-- Custom styles -->
@@ -54,16 +52,14 @@ http_response_code(404);
             </div>
         </nav>
         <!-- Navbar -->
-        <div class="container animate__animated animate__bounceIn">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-5 col-md-7 mt-5 mb-5">
                     <div class="bg-white rounded shadow-5-strong p-4 mt-5 text-center">
-                        <h1 class="text-warning animate__animated animate__tada" style="font-size: 120px">404</h1>
-                        <h2>Page Not Found</h2>
-                        <p>The page you are looking for might have been removed, had its name changed or is temporarily
-                            unavailable.</p>
-                        <button onclick="goBack()" class="btn btn-warning">Back to Previous Page</button>
-
+                        <h1 class="text-warning" style="font-size: 120px">402</h1>
+                        <h1 class="text-warning">Payment Required</h1>
+                        <p class="lead mb-4">You need to pay the required amount to access this page.</p>
+                        <button onclick="goBack()" class="btn btn-warning btn-lg">Back to Home</button>
                     </div>
                 </div>
             </div>

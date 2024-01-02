@@ -18,7 +18,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 require('fpdf/fpdf.php');
 
 $id = $_GET['id'];
-$query = "SELECT * FROM indigency WHERE id=?";
+$query = "SELECT * FROM residency WHERE id=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id); // "i" indicates that $id is an integer
 
@@ -72,7 +72,7 @@ if ($stmt->execute()) {
             $this->SetFont('Arial', '', 12);
             $this->SetXY(20, 85);
             $this->MultiCell(0, 8, 'a resident of _______________,', 0, 'J');
-            $this->SetXY(26, 88);
+            $this->SetXY(23, 88);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(80, 0, strtoupper($data["purok"]), 0, 'C');
             $this->SetXY(20, 95);

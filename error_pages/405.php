@@ -1,6 +1,5 @@
 <?php
-http_response_code(404);
-
+http_response_code(405);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +8,7 @@ http_response_code(404);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Error 404 Not Found | EBIPMS</title>
+    <title>Error 405 Method Not Allowed</title>
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
@@ -58,12 +57,10 @@ http_response_code(404);
             <div class="row justify-content-center">
                 <div class="col-xl-5 col-md-7 mt-5 mb-5">
                     <div class="bg-white rounded shadow-5-strong p-4 mt-5 text-center">
-                        <h1 class="text-warning animate__animated animate__tada" style="font-size: 120px">404</h1>
-                        <h2>Page Not Found</h2>
-                        <p>The page you are looking for might have been removed, had its name changed or is temporarily
-                            unavailable.</p>
-                        <button onclick="goBack()" class="btn btn-warning">Back to Previous Page</button>
-
+                        <h1 class="text-warning animate__animated animate__tada" style="font-size: 120px">405</h1>
+                        <h1 class="text-warning">Method Not Allowed</h1>
+                        <p class="lead mb-4">The method specified in the request is not allowed for the resource identified by the request URI.</p>
+                        <button onclick="goBack()" class="btn btn-warning btn-lg">Back to Home</button>
                     </div>
                 </div>
             </div>

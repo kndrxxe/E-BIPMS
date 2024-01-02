@@ -143,7 +143,7 @@ $result = mysqli_query($conn, $query);
         <a class="navbar-brand px-2 fs-6 text-dark">
             <img src="kanlurangbukal.png" width="40">
             <b>E-BIPMS KANLURANG BUKAL</b></a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -151,8 +151,8 @@ $result = mysqli_query($conn, $query);
     </header>
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-                <div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+                <div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
                     <ul class="nav flex-column">
                         <a class="navbar-brand px-2 fs-6 bg-warning">
                             <img class="float-start" src="kanlurangbukal.png" width="60">

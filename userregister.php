@@ -153,7 +153,7 @@ session_start();
       <div class="row justify-content-center">
         <div class="col-xl-7 col-md-7 mt-5 mb-5">
           <form class="forms needs-validation bg-white rounded shadow-5-strong p-4 text-center" autocomplete="off"
-              action="userregisterprocess.php" method="POST" enctype="multipart/form-data" novalidate>
+            action="userregisterprocess.php" method="POST" enctype="multipart/form-data" novalidate>
 
             <h3 class="mb-3 fw-normal display-5">REGISTER</h3>
             <?php
@@ -305,7 +305,8 @@ session_start();
               </div>
               <div class="col-12 mb-2 text-start" id="uploadDiv" style="display: none;">
                 <label id="uploadLabel"></label>
-                <input type="file" class="form-control form-control-lg" id="fileUpload" name="proof" accept="image/*" required>
+                <input type="file" class="form-control form-control-lg" id="fileUpload" name="proof" accept="image/*"
+                  required>
               </div>
               <div class="col-12 mb-2">
                 <select class="form-select form-select-lg rounded-2" id="employmentstatus" name="employmentstatus"
@@ -690,7 +691,20 @@ session_start();
       }
     });
   </script>
-
+  <script>
+    $(function () {
+      var dtToday = new Date();
+      var month = dtToday.getMonth() + 1;
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+      if (month < 10)
+        month = '0' + month.toString();
+      if (day < 10)
+        day = '0' + day.toString();
+      var maxDate = year + '-' + month + '-' + day;
+      $('#birthday').attr('max', maxDate);
+    });
+  </script>
 </body>
 
 </html>

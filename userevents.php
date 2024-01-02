@@ -33,28 +33,8 @@ if (isset($_SESSION['user'])) {
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.8/index.global.min.js'></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                selectable: true,
-                editable: false,
-                headerToolbar: {
-                    start: 'title', // will normally be on the left. if RTL, will be on the right
-                    center: '',
-                    end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
-                }
-            });
-            calendar.setOption('height', 600);
-            calendar.setOption('aspectRatio', 1.8);
-            calendar.render();
-        });
-
-    </script>
     <style>
         .accordion {
             --bs-accordion-active-bg: #ffc107;
@@ -70,6 +50,7 @@ if (isset($_SESSION['user'])) {
         .accordion-button:not(.collapsed)::after {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
         }
+        
     </style>
 </head>
 
@@ -100,8 +81,8 @@ if (isset($_SESSION['user'])) {
     ?>
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-                <div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+                <div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
                     <ul class="nav flex-column">
                         <a class="navbar-brand px-2 fs-6 bg-warning">
                             <img class="float-start rounded-circle border border-2 border-dark"
@@ -133,13 +114,13 @@ if (isset($_SESSION['user'])) {
                                     <hr class="mt-0 mb-0">
                                     <div id="flush-collapseOne" class="accordion-collapse collapse"
                                         data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
+                                        <div class="accordion-body" style="margin-right: -20px">
                                             <ul class="nav flex-column pt-4">
                                                 <li class="nav-item fs-7" style="margin-left: -20px;">
-                                                    <a class="nav-link" style="margin-top: -40px" href="userdocument">
+                                                    <a class="nav-link bg-light" style="margin-top: -40px" href="userdocument">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
-                                                        Brgy. Clearance
+                                                        Barangay Clearance
                                                         <?php
                                                         include 'conn.php';
                                                         $uid = $_SESSION['uid'];
@@ -157,29 +138,32 @@ if (isset($_SESSION['user'])) {
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px" href=" ">
+                                                    <a class="nav-link bg-light" style="margin-top: -15px"
+                                                        href="userindigency.php">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
-                                                        Brgy. Indigency
+                                                        Barangay Indigency
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px" href="">
+                                                    <a class="nav-link bg-light" style="margin-top: -15px"
+                                                        href="userresidency.php">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
-                                                        Brgy. Residency
+                                                        Barangay Residency
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px" href="">
+                                                    <a class="nav-link bg-light" style="margin-top: -15px"
+                                                        href="userbusinesspermit.php">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
                                                         Business Permit
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
-                                                        href="">
+                                                    <a class="nav-link bg-light" style="margin-top: -15px; margin-bottom: -15px"
+                                                        href="usercedula.php">
                                                         <span data-feather="file" style="width: 28px; height: 28px;"
                                                             class="align-text-bottom"></span>
                                                         Cedula
@@ -257,9 +241,9 @@ if (isset($_SESSION['user'])) {
                     next: 'Next'
                 },
                 headerToolbar: {
-                    start: 'dayGridMonth', // will normally be on the left. if RTL, will be on the right
-                    center: 'title',
-                    end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+                    start: 'title', // will normally be on the left. if RTL, will be on the right
+                    center: '',
+                    end: 'today,prev,next' // will normally be on the right. if RTL, will be on the left
                 },
             });
             calendar.setOption('height', 600);

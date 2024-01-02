@@ -44,8 +44,6 @@ $result = mysqli_query($conn, $query);
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.8/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/list@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.8/index.global.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
@@ -108,7 +106,7 @@ $result = mysqli_query($conn, $query);
         <a class="navbar-brand px-2 fs-6 text-dark">
             <img src="kanlurangbukal.png" width="40">
             <b>E-BIPMS KANLURANG BUKAL</b></a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -116,8 +114,8 @@ $result = mysqli_query($conn, $query);
     </header>
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-                <div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+                <div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
                     <ul class="nav flex-column">
                         <a class="navbar-brand px-2 fs-6 bg-warning">
                             <img class="float-start" src="kanlurangbukal.png" width="60">
@@ -193,9 +191,9 @@ $result = mysqli_query($conn, $query);
                     next: 'Next'
                 },
                 headerToolbar: {
-                    start: 'dayGridMonth,timeGridWeek', // will normally be on the left. if RTL, will be on the right
-                    center: 'title',
-                    end: 'prev,next' // will normally be on the right. if RTL, will be on the left
+                    start: 'title', // will normally be on the left. if RTL, will be on the right
+                    center: '',
+                    end: 'today,prev,next' // will normally be on the right. if RTL, will be on the left
                 },
             });
             calendar.setOption('height', 600);
@@ -211,4 +209,4 @@ $result = mysqli_query($conn, $query);
         </script>
 </body>
 
-</html> 
+</html>

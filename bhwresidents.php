@@ -166,8 +166,8 @@ if (isset($_SESSION['user'])) {
     </header>
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-                <div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+                <div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
                     <ul class="nav flex-column">
                         <a class="navbar-brand px-2 fs-6 bg-warning">
                             <img class="float-start" src="kanlurangbukal.png" width="60">
