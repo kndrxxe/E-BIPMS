@@ -143,8 +143,8 @@ $result = mysqli_query($conn, $query);
         <a class="navbar-brand px-2 fs-6 text-dark">
             <img src="kanlurangbukal.png" width="40">
             <b>E-BIPMS KANLURANG BUKAL</b></a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button" data-bs-toggle="collapse"
-            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+        <button class="navbar-toggler position-absolute d-md-none collapsed mt-2" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -374,7 +374,9 @@ $result = mysqli_query($conn, $query);
                                             <?php echo date('F d, Y', strtotime($row['date_posted'])); ?>
                                         </td>
                                         <td>
-                                            <span class="badge bg-success"><?php echo $row['applicants']; ?></span>
+                                            <span class="badge bg-success">
+                                                <?php echo $row['applicants']; ?>
+                                            </span>
                                         </td>
                                         <td>
                                             <?php
@@ -518,12 +520,12 @@ $result = mysqli_query($conn, $query);
                                                     <div class="form-floating mb-3">
                                                         <input type="text" class="form-control" name="jobtitle"
                                                             id="updatejobtitle" placeholder="Job Title" required>
-                                                        <label for="eventname" class="form-label">Job Title</label>
+                                                        <label for="jobtitle" class="form-label">Job Title</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
                                                         <input type="text" class="form-control" name="companyname"
                                                             id="updatecompanyname" placeholder="Company Name" required>
-                                                        <label for="eventname" class="form-label">Company Name</label>
+                                                        <label for="companyname" class="form-label">Company Name</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
                                                         <input type="text" class="form-control" name="applicants" maxlength="3"
@@ -566,20 +568,18 @@ $result = mysqli_query($conn, $query);
                                                         </select>
                                                         <label for="status">Status</label>
                                                     </div>
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" name="updateevent" class="btn btn-warning"><i
-                                                        class="bi bi-briefcase-fill"></i> Update Job</button>
-                                            </div>
-                                            </form>
-                                            <?php
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-warning"><i
+                                                                class="bi bi-briefcase-fill"></i> Update Job</button>
+                                                    </div>
+                                                </form>
+                                                <?php
                                             }
                                         }
                                         ?>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>

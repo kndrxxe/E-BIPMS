@@ -7,6 +7,7 @@ if (empty($_POST['companyname'])) {
 } else {
   $hash_id = md5(uniqid(rand()));
   $jobtitle = $_POST['jobtitle'];
+  $applicants = $_POST['applicants'];
   $companyname = $_POST['companyname'];
   $region = $_POST['region_text'];
   $province = $_POST['province_text'];
@@ -20,8 +21,8 @@ if (empty($_POST['companyname'])) {
 
   include 'conn.php';
   
-  $stmt = $conn->prepare("INSERT INTO jobs (hash_id, jobtitle, companyname, region, province, city, jobdescription, jobrequirements, joblink, date_posted, isFeatured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssssssssss", $hash_id, $jobtitle, $companyname, $region, $province, $city, $jobdescription, $jobrequirements, $joblink, $date_posted, $isFeatured, $status);
+  $stmt = $conn->prepare("INSERT INTO jobs (hash_id, jobtitle, applicants, companyname, region, province, city, jobdescription, jobrequirements, joblink, date_posted, isFeatured, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssssssssssss", $hash_id, $jobtitle, $applicants, $companyname, $region, $province, $city, $jobdescription, $jobrequirements, $joblink, $date_posted, $isFeatured, $status);
 
   $stmt->execute();
 
