@@ -21,6 +21,7 @@ if (isset($_POST["register"])) {
   $specialgroup = $is_special_group == '1' ? $_POST['specialgroup'] : NULL;
   $members = $_POST['members'];
   $housingstatus = $_POST['housingstatus'];
+  $residencystatus = $_POST['residencystatus'];
   $yearsliving = $_POST['yearsliving'];
   $employmentstatus = $_POST['employmentstatus'];
   $phonenumber = $_POST['phonenumber'];
@@ -80,7 +81,7 @@ if (isset($_POST["register"])) {
         $_SESSION['registerstatus'] = "Username already exists.";
       }
     }
-    $result = mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, is_special_group, specialgroup, members, housingstatus, yearsliving, employmentstatus, phonenumber, email, username, password, status, proof)VALUES('$uid', '$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$is_special_group', '$specialgroup', '$members', '$housingstatus', '$yearsliving', '$employmentstatus', '$phonenumber', '$email', '$username', '$password', '$status', '$upload_file')");
+    $result = mysqli_query($conn, "INSERT INTO users(userID, firstname, middlename, lastname, sex, birthday, age, house_no, purok, civilstatus, voter, is_special_group, specialgroup, members, housingstatus, residencystatus, yearsliving, employmentstatus, phonenumber, email, username, password, status, proof)VALUES('$uid', '$firstname', '$middlename', '$lastname', '$sex', '$birthday', '$age', '$house_no', '$purok', '$civilstatus', '$voter', '$is_special_group', '$specialgroup', '$members', '$housingstatus', '$residencystatus', '$yearsliving', '$employmentstatus', '$phonenumber', '$email', '$username', '$password', '$status', '$upload_file')");
 
     if ($result) {
       $otp = rand(100000, 999999);

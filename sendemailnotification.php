@@ -64,7 +64,7 @@ if ($result) {
       collect it.
     </p>
     <p style="font-family: Arial, Helvetica, sans-serif">
-      Bring your valid ID for verification purposes.
+    Please bring your valid ID for verification purposes. If you are acting as a representative, kindly bring your valid ID and the valid ID of the person making the request.
     </p>
     <p style="font-family: Arial, Helvetica, sans-serif">
       Thank you for your patience and understanding.
@@ -76,7 +76,8 @@ if ($result) {
   </body>
 </html>';
     $mail->isHTML(true);
-    $mail->AltBody = "Dear Resident,\n\nWe are pleased to inform you that your Barangay Clearance is now ready for pick up. Please visit the Barangay Hall at your earliest convenience to collect it.\n\nDon't forget to bring a valid ID for verification purposes.\n\nThank you for your patience and understanding.\n\nBest regards,\nBrgy. Kanlurang Bukal";
+    $mail->AltBody = "Dear Resident,\n\nWe are pleased to inform you that your Barangay Clearance is now ready for pick up. Please visit the Barangay Hall at your earliest convenience to collect it.\n\nPlease bring your valid ID for verification purposes. If you are acting as a representative, kindly bring your valid ID and the valid ID of the person making the request.
+    \n\nThank you for your patience and understanding.\n\nBest regards,\nBrgy. Kanlurang Bukal";
 
     //send the message, check for errors
     if (!$mail->send()) {

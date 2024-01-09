@@ -26,7 +26,7 @@ $result = mysqli_query($conn, $query);
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-BIPMS</title>
+    <title>Events | E-BIPMS</title>
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -339,7 +339,7 @@ $result = mysqli_query($conn, $query);
                         </div>
                     </div>
                 </div>
-                <?php
+                <?php   
                 if (isset($_SESSION['eventerror'])) {
                     ?>
                     <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">

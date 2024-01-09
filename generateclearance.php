@@ -155,7 +155,7 @@ if ($stmt->execute()) {
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 85);
             $this->MultiCell(0, 8, 'a resident of __________,', 0, 'J');
-            $this->SetXY(70.5, 88);
+            $this->SetXY(67, 88);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(80, 0, strtoupper($data["purok"]), 0, 'C');
             $this->SetXY(70, 93);

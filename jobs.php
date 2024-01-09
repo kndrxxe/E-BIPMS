@@ -148,7 +148,7 @@
                     <div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
                         <?php
                         include 'conn.php';
-                        $query = "SELECT * FROM jobs WHERE isFeatured = 1 LIMIT 5 ";
+                        $query = "SELECT * FROM jobs WHERE isFeatured = 1 LIMIT 3 ";
                         $query_run = mysqli_query($conn, $query);
                         if (mysqli_num_rows($query_run) > 0) {
                             while ($items = mysqli_fetch_array($query_run)) {
@@ -160,7 +160,7 @@
                                 echo '</div>';
                                 echo '<div class="card-body">';
                                 echo '<h5 class="card-title" style="text-transform: uppercase;">' . $items['jobtitle'] . '</h5>';
-                                echo '<p class="card-text" style="margin-top:-5px"><b>' . $items['companyname'] . '</b>'. " " . '<span class="badge badge-success">'. $items['applicants'] . " applicants" .'</span>' . '<br>' . $items['city'] . ", " . $items['region'] . '</p>';
+                                echo '<p class="card-text" style="margin-top:-5px"><b>' . $items['companyname'] . '</b>' . " " . '<span class="badge badge-success">' . $items['applicants'] . " applicants" . '</span>' . '<br>' . $items['city'] . ", " . $items['region'] . '</p>';
                                 echo '<p class="card-text"><b>Job Requirements</b><br><hr style="margin-top: -15px;"></p>';
                                 echo '<p class="card-text" style="margin-top: -10px">' . substr($items['jobrequirements'], 0, 200) . '...</p>'; // Shorten the job requirements text
                                 echo '</div>';
@@ -191,6 +191,7 @@
                                 <th class="fw-bold" scope="col">Job Title</th>
                                 <th class="fw-bold" scope="col">Company Name</th>
                                 <th class="fw-bold" scope="col">Location</th>
+                                <th class="fw-bold" scope="col">Applicants</th>
                                 <th class="fw-bold" scope="col">Date Posted</th>
                                 <th class="fw-bold" scope="col">Status</th>
                                 <th class="fw-bold" scope="col">Action</th>
@@ -216,6 +217,11 @@
                                     <td>
                                         <?php echo $row['city']; ?>,
                                         <?php echo $row['region']; ?>, Philippines
+                                    </td>
+                                    <td class="fw-bold">
+                                        <span class="badge bg-success">
+                                            <?php echo $row['applicants']; ?> applicants
+                                        </span>
                                     </td>
                                     <td>
                                         <?php echo date('F d, Y', strtotime($row['date_posted'])); ?>

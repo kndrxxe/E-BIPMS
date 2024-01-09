@@ -180,6 +180,7 @@ session_start();
             ?>
             <!-- 2 column grid layout for inline styling -->
             <div class="row g-2 mb-4">
+              <input type="hidden" class="form-control form-control-lg" name="status" id="status" />
               <div class="col-4 mb-2">
                 <div class="form-outline">
                   <input type="text" class="form-control form-control-lg" name="firstname" id="firstname" required />
@@ -295,20 +296,31 @@ session_start();
                   <option value="Living with Others">Living with Others</option>
                 </select>
               </div>
+              <div class="col-12 mb-2 text-start">
+                <select class="form-select form-select-lg rounded-2" id="residencystatus" name="residencystatus"
+                  placeholder="residencystatus" required>
+                  <option selected disabled>Residency Status</option>
+                  <option value="Old Resident">Old Resident</option>
+                  <option value="Transferred Resident">Transferred Resident</option>
+                </select>
+                <small class="mb-0 text-danger fst-italic" id="residencyStatusNote"
+                  style="margin-top: -10px;"></small>
+              </div>
               <div class="col-12 mb-2">
                 <select class="form-select form-select-lg rounded-2" name="yearsliving" id="yearsliving"
                   placeholder="yearsliving" required>
-                  <option selected disabled>Years Living</option>
+                  <option selected disabled>Tenure of Living</option>
                   <option value="6 months below">6 months below</option>
                   <option value="6 months and above">6 months and above</option>
                 </select>
               </div>
-              <div class="col-12 mb-2 text-start" id="uploadDiv" style="display: none;">
+              <div class="col-12 mt-0 mb-2 text-start" id="uploadDiv" style="display: none;">
                 <label id="uploadLabel"></label>
                 <input type="file" class="form-control form-control-lg" id="fileUpload" name="proof" accept="image/*"
                   required>
+                <small class="mb-0 text-danger fst-italic" id="uploadLabelHint"></small>
               </div>
-              <div class="col-12 mb-2">
+              <div class="col-12 mt-2 mb-2">
                 <select class="form-select form-select-lg rounded-2" id="employmentstatus" name="employmentstatus"
                   placeholder="employmentstatus" required>
                   <option selected disabled>Employment Status</option>
@@ -682,12 +694,25 @@ session_start();
     document.getElementById('yearsliving').addEventListener('change', function () {
       if (this.value === '6 months and above') {
         document.getElementById('uploadDiv').style.display = 'block';
-        document.getElementById('uploadLabel').textContent = 'Upload Proof of Residency';
+        document.getElementById('uploadLabel').textContent = 'Upload Proof of Residency / Valid ID';
+        document.getElementById('uploadLabelHint').textContent = '* If you are a new resident / use your current barangay clearance';
       } else if (this.value === '6 months below') {
         document.getElementById('uploadDiv').style.display = 'block';
         document.getElementById('uploadLabel').textContent = 'Upload Barangay Clearance';
+        document.getElementById('uploadLabelHint').textContent = '* If you are a transferred resident / use your barangay clearance from your previous barangay';
       } else {
         document.getElementById('uploadDiv').style.display = 'none';
+      }
+    });
+  </script>
+  <script>
+    document.getElementById('residencystatus').addEventListener('change', function () {
+      if (this.value === 'Old Resident') {
+        document.getElementById('residencyStatusNote').textContent = '* If you are an old resident choose 6 months and above';
+      } else if (this.value === 'Transferred Resident') {
+        document.getElementById('residencyStatusNote').textContent = '* If you are a new resident or transferred resident choose 6 months below';
+      } else {
+        document.getElementById('residencyStatusNote').style.display = 'none';
       }
     });
   </script>

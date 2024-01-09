@@ -5,7 +5,7 @@ error_reporting(0);
 include 'conn.php';
 if (isset($_SESSION['user'])) {
 } else {
-    header('location: login.php');
+  header('location: login.php');
 }
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -24,28 +24,28 @@ $id = $_GET['id'];
 $query = "SELECT * FROM residency WHERE id='$id'";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 if ($result) {
-    $row = mysqli_fetch_assoc($result);
+  $row = mysqli_fetch_assoc($result);
 
-    $mail = new PHPMailer();
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->Port = 587;
-    $mail->SMTPDebug = 2;
-    $mail->SMTPSecure = 'tls';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'ebipmskanlurangbukal@gmail.com';
-    $mail->Password = 'siuc vmrq comb wdtf';
-    //Set who the message is to be sent from
-    $mail->setFrom('ebipmskanlurangbukal@gmail.com', 'EBIPMS Kanlurang Bukal');
-    //Set an alternative reply-to address
-    $mail->addReplyTo($row['email'], $row['firstname'] . ' ' . $row['lastname']);
-    //Set who the message is to be sent to
-    $mail->addAddress($row['email'], $row['firstname'] . ' ' . $row['lastname']);
-    //Set the subject line
-    $mail->Subject = 'Your certificate of residency request has been approved!';
+  $mail = new PHPMailer();
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->Port = 587;
+  $mail->SMTPDebug = 2;
+  $mail->SMTPSecure = 'tls';
+  $mail->SMTPAuth = true;
+  $mail->Username = 'ebipmskanlurangbukal@gmail.com';
+  $mail->Password = 'siuc vmrq comb wdtf';
+  //Set who the message is to be sent from
+  $mail->setFrom('ebipmskanlurangbukal@gmail.com', 'EBIPMS Kanlurang Bukal');
+  //Set an alternative reply-to address
+  $mail->addReplyTo($row['email'], $row['firstname'] . ' ' . $row['lastname']);
+  //Set who the message is to be sent to
+  $mail->addAddress($row['email'], $row['firstname'] . ' ' . $row['lastname']);
+  //Set the subject line
+  $mail->Subject = 'Your certificate of residency request has been approved!';
 
-    $name = $row['firstname'];
-    $mail->Body = '
+  $name = $row['firstname'];
+  $mail->Body = '
 <html>
   <head> </head>
   <body>
@@ -56,7 +56,7 @@ if ($result) {
       </a>
     </header>
     <h1 style="margin: 10px 0; font-size: 18px">
-      <p style="font-family: Arial, Helvetica, sans-serif">Dear '.$name.',</p>
+      <p style="font-family: Arial, Helvetica, sans-serif">Dear ' . $name . ',</p>
     </h1>
     <p style="font-family: Arial, Helvetica, sans-serif">
       We are pleased to inform you that your Certificate of Residency is now ready for
@@ -64,7 +64,8 @@ if ($result) {
       collect it.
     </p>
     <p style="font-family: Arial, Helvetica, sans-serif">
-      Bring your valid ID for verification purposes.
+    Please bring your valid ID for verification purposes. If you are acting as a representative, kindly bring your valid ID and the valid ID of the person making the request.
+   
     </p>
     <p style="font-family: Arial, Helvetica, sans-serif">
       Thank you for your patience and understanding.
@@ -75,17 +76,18 @@ if ($result) {
     </h1>
   </body>
 </html>';
-    $mail->isHTML(true);
-    $mail->AltBody = "Dear Resident,\n\nWe are pleased to inform you that your Certificate of Residency is now ready for pick up. Please visit the Barangay Hall at your earliest convenience to collect it.\n\nDon't forget to bring a valid ID for verification purposes.\n\nThank you for your patience and understanding.\n\nBest regards,\nBrgy. Kanlurang Bukal";
+  $mail->isHTML(true);
+  $mail->AltBody = "Dear Resident,\n\nWe are pleased to inform you that your Certificate of Residency is now ready for pick up. Please visit the Barangay Hall at your earliest convenience to collect it.\n\nPlease bring your valid ID for verification purposes. If you are acting as a representative, kindly bring your valid ID and the valid ID of the person making the request.
+  \n\nThank you for your patience and understanding.\n\nBest regards,\nBrgy. Kanlurang Bukal";
 
-    //send the message, check for errors
-    if (!$mail->send()) {
-        $_SESSION['emailerror'] = "Email not sent. Please try again.";
-        header('Location: adminresidency.php');
-    } else {
-        $_SESSION['emailsent'] = "Email sent successfully!";
-        header('Location: adminresidency.php');
-    }
+  //send the message, check for errors
+  if (!$mail->send()) {
+    $_SESSION['emailerror'] = "Email not sent. Please try again.";
+    header('Location: adminresidency.php');
+  } else {
+    $_SESSION['emailsent'] = "Email sent successfully!";
+    header('Location: adminresidency.php');
+  }
 }
 ob_end_flush();
 ?>

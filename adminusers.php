@@ -332,6 +332,30 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 					unset($_SESSION['updatesuccess']);
 				}
 				?>
+				<?php
+				if (isset($_SESSION['emailerror'])) {
+					?>
+					<div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+						<?= $_SESSION['emailerror']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['emailerror']);
+				}
+				?>
+				<?php
+				if (isset($_SESSION['emailsent'])) {
+					?>
+					<div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+						<i class="bi bi-check-circle-fill" width="24" height="24"></i>
+						<?= $_SESSION['emailsent']; ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<?php
+					unset($_SESSION['emailsent']);
+				}
+				?>
 				<div class="table-responsive">
 					<div class="data_table">
 						<table id="myTable" class="table" style="width:100%">
@@ -341,6 +365,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 									<th scope="col">ID</th>
 									<th scope="col">Full Name</th>
 									<th scope="col">Username</th>
+									<th scope="col">Residency Status</th>
 									<th scope="col">Status</th>
 									<th scope="col">Actions</th>
 								</tr>
@@ -381,6 +406,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 											}
 											?>
 										</td>
+										<td>
+											<?php
+											if ($row['residencystatus'] == 'Old Resident') {
+												echo '<span class="badge rounded-pill bg-success">OLD RESIDENT</span>';
+											} else {
+												echo '<span class="badge rounded-pill bg-danger">TRANSFERRED / NEW RESIDENT</span>';
+											}
+											?>
+										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
 												<?php $imagePath = $row['proof']; ?>
@@ -395,7 +429,12 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 												<button type="button" class="btn btn-primary btn-sm editpassbtn"
 													data-bs-target="#editPasswordModal" style="width: 40px;"><i
 														class="bi bi-key-fill"></i></button>
-
+												<?php if ($row['status'] == 1):
+													?>
+													<a href="sendverifiedemail.php?id=<?php echo $row['id']; ?>"
+														class="btn btn-warning" style="width: 40px;">
+														<i class="bi bi-bell"></i></a>
+												<?php endif; ?>
 											</div>
 										</td>
 									</tr>

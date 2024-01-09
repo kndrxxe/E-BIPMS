@@ -37,7 +37,8 @@ if ($result->num_rows > 0) {
             'x-api-key' => $apiKey,
         ],
         'json' => [
-            'content' => "Dear $name,\n\nWe are pleased to inform you that your Certificate of Indigency is now ready for pick up. \n\nPlease visit the Barangay Hall at your earliest convenience to collect it.\n\nBest regards,\nBrgy. Kanlurang Bukal",
+            'content' => "Dear $name,\n\nWe are pleased to inform you that your Certificate of Indigency is now ready for pick up. \n\nPlease visit the Barangay Hall at your earliest convenience to collect it.\n\nPlease bring your valid ID for verification purposes. If you are acting as a representative, kindly bring your valid ID and the valid ID of the person making the request.
+            \n\nBest regards,\nBrgy. Kanlurang Bukal",
             'from' => '+639664179718',
             'to' => $to
         ]

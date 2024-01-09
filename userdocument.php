@@ -248,50 +248,74 @@ if (isset($_SESSION['user'])) {
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="firstname"
-												placeholder="First Name" value="<?php echo $row['firstname'] ?>"
-												readonly />
+												placeholder="First Name" required />
 											<label for="firstname">First Name</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="middlename"
-												placeholder="Middle Name" value="<?php echo $row['middlename'] ?>"
-												readonly />
+												placeholder="Middle Name" required />
 											<label for="middlename">Middle Name</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="lastname"
-												placeholder="Last Name" value="<?php echo $row['lastname'] ?>"
-												readonly />
+												placeholder="Last Name" required />
 											<label for="lastname">Last Name</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="email"
-												value="<?php echo $row['email'] ?>" readonly />
+											<input type="text" class="form-control rounded" name="email"
+												placeholder="Email Address" required />
+											<label for="email">Email Address</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="phonenumber"
-												value="<?php echo $row['phonenumber'] ?>" readonly />
+											<input type="text" class="form-control " name="phonenumber" id="phonenumber"
+												pattern="\+63[0-9]{10}" maxlength="13" value="+63" required
+												oninput="this.value = this.value.replace(/[^0-9+]/g, ''); if (this.value.length < 3) this.value = '+63';"
+												onfocus="if(this.value === '') { this.value = '+63'; }" />
+											<label for="phonenumber">Phone Number</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="birthday"
-												value="<?php echo $row['birthday'] ?>" readonly />
+											<input type="date" class="form-control rounded" name="birthday"
+												placeholder="Birthday" required />
+											<label for="birthday">Birthday</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="civilstatus"
-												value="<?php echo $row['civilstatus'] ?>" readonly />
+											<select class="form-select rounded-2" name="civilstatus"
+												placeholder="Civil Status" required>
+												<option selected disabled>Choose from options</option>
+												<option value="Single">Single</option>
+												<option value="Married">Married</option>
+												<option value="Widowed">Widowed</option>
+												<option value="Separated">Separated</option>
+												<option value="Divorced">Divorced</option>
+											</select>
+											<label for="civilstatus">Civil Status</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="sex"
-												value="<?php echo $row['sex'] ?>" readonly />
+											<select class="form-select rounded-2" name="sex" placeholder="Sex" required>
+												<option selected disabled>Choose from options</option>
+												<option value="Male">Male</option>
+												<option value="Female">Female</option>
+											</select>
+											<label for="sex">Sex</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input type="hidden" class="form-control rounded" name="purok"
-												value="<?php echo $row['purok'] ?>" readonly />
+											<select class="form-select rounded-2" name="purok" placeholder="Purok"
+												required>
+												<option selected disabled>Choose from options</option>
+												<option value="Purok 1">Purok 1</option>
+												<option value="Purok 2">Purok 2</option>
+												<option value="Purok 3">Purok 3</option>
+												<option value="Purok 4">Purok 4</option>
+												<option value="Purok 5">Purok 5</option>
+												<option value="Purok 6">Purok 6</option>
+												<option value="Purok 7">Purok 7</option>
+											</select>
+											<label for="purok">Purok</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control rounded" name="purpose"
 												placeholder="Purpose" required />
-											<label for="lastname">Purpose</label>
+											<label for="purpose">Purpose</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input type="date" class="form-control rounded" id="issue_date"

@@ -308,6 +308,30 @@ $result = mysqli_query($conn, $query);
                 }
                 ?>
                 <?php
+                if (isset($_SESSION['errorupdate'])) {
+                    ?>
+                    <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
+                        <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
+                        <?= $_SESSION['errorupdate']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                    unset($_SESSION['errorupdate']);
+                }
+                ?>
+                <?php
+                if (isset($_SESSION['saveupdate'])) {
+                    ?>
+                    <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
+                        <i class="bi bi-check-circle-fill" width="24" height="24"></i>
+                        <?= $_SESSION['saveupdate']; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <?php
+                    unset($_SESSION['saveupdate']);
+                }
+                ?>
+                <?php
                 if (isset($_SESSION['updateerror'])) {
                     ?>
                     <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
@@ -408,6 +432,71 @@ $result = mysqli_query($conn, $query);
                                                 </button>
                                             </div>
                                         </td>
+                                        <div class="modal fade" id="editmodal" data-bs-backdrop="static"
+                                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                            Update Data
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form action="updatejobs.php" method="post">
+
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="update_id" id="update_id">
+
+                                                            <div class="form-floating mb-2">
+                                                                <input type="text" name="jobtitle" id="updatejobtitle"
+                                                                    class="form-control" readonly>
+                                                                <label for="jobtitle" class="form-label">Job Title</label>
+                                                            </div>
+                                                            <div class="form-floating mb-2">
+                                                                <input type="text" name="companyname" id="updatecompanyname"
+                                                                    class="form-control" readonly>
+                                                                <label for="companyname" class="form-label">Company Name</label>
+                                                            </div>
+                                                            <div class="form-floating mb-2">
+                                                                <input type="text" name="applicants" id="updateapplicants"
+                                                                    class="form-control" required>
+                                                                <label for="applicants" class="form-label">Applicants</label>
+                                                            </div>
+                                                            <div class="form-floating mb-2">
+                                                                <select class="form-select form-select-md"
+                                                                    name="isFeatured" placeholder="Featured" required>
+                                                                    <option selected disabled>Choose from options</option>
+                                                                    <option value="1">Featured</option>
+                                                                    <option value="0">Not Featured</option>
+                                                                </select>
+                                                                <label for="isFeatured">Featured</label>
+                                                            </div>
+                                                            <div class="form-floating mb-2">
+                                                                <select class="form-select form-select-md"
+                                                                    name="status"
+                                                                    placeholder="Status" required>
+                                                                    <option selected disabled>Choose from options</option>
+                                                                    <option value="1">Open</option>
+                                                                    <option value="0">Closed</option>
+                                                                </select>
+                                                                <label for="status">Status</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="submit" name="updatedata"
+                                                                class="btn btn-warning"><i class="bi bi-pencil-square"></i>
+                                                                Update Data</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     <div class="modal fade" id="viewModal<?= $row['id']; ?>" tabindex="-1"
                                         aria-labelledby="viewModalLabel" aria-hidden="true">
@@ -495,95 +584,7 @@ $result = mysqli_query($conn, $query);
                                 ?>
                             </tbody>
                         </table>
-                        <!-- Modal -->
-                        <div class="modal fade" id="editJobs" tabindex="-1" aria-labelledby="editJobsModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editJobsModalLabel"><i
-                                                class="bi bi-briefcase-fill"></i> Edit Job Details</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <?php
-                                        include 'conn.php';
-                                        $query = "SELECT * FROM jobs";
-                                        $query_run = mysqli_query($conn, $query);
-                                        if (mysqli_num_rows($query_run) > 0) {
-                                            foreach ($query_run as $items) {
-                                                ?>
-                                                <form class="forms needs-validation" method="POST" action="updatejobs.php"
-                                                    novalidate="">
-                                                    <input type="hidden" name="update_id" id="update_id">
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control" name="jobtitle"
-                                                            id="updatejobtitle" placeholder="Job Title" required>
-                                                        <label for="jobtitle" class="form-label">Job Title</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control" name="companyname"
-                                                            id="updatecompanyname" placeholder="Company Name" required>
-                                                        <label for="companyname" class="form-label">Company Name</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control" name="applicants" maxlength="3"
-                                                            id="updateapplicants" placeholder="Number of Applicants" required>
-                                                        <label for="applicants" class="form-label">Number of Applicants</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <select class="form-select form-select-md"
-                                                            value="<?php echo $items['isFeatured'] ?>" name="isFeatured"
-                                                            placeholder="Featured" required>
-                                                            <option selected disabled>Choose from options</option>
-                                                            <option value="0" <?php
-                                                            if ($items['isFeatured'] == '0') {
-                                                                echo "selected";
-                                                            }
-                                                            ?>>Not Featured</option>
-                                                            <option value="1" <?php
-                                                            if ($items['isFeatured'] == '1') {
-                                                                echo "selected";
-                                                            }
-                                                            ?>>Featured</option>
-                                                        </select>
-                                                        <label for="status">Status</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <select class="form-select form-select-md"
-                                                            value="<?php echo $items['status'] ?>" name="status"
-                                                            placeholder="Status" required>
-                                                            <option selected disabled>Choose from options</option>
-                                                            <option value="0" <?php
-                                                            if ($items['status'] == '0') {
-                                                                echo "selected";
-                                                            }
-                                                            ?>>Closed</option>
-                                                            <option value="1" <?php
-                                                            if ($items['status'] == '1') {
-                                                                echo "selected";
-                                                            }
-                                                            ?>>Open</option>
-                                                        </select>
-                                                        <label for="status">Status</label>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-warning"><i
-                                                                class="bi bi-briefcase-fill"></i> Update Job</button>
-                                                    </div>
-                                                </form>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Section: Content-->
+
                     </div>
                 </div>
             </main>
@@ -626,7 +627,7 @@ $result = mysqli_query($conn, $query);
         $(document).ready(function () {
             $('.editbtn').on('click', function () {
 
-                $('#editJobsModal').modal('show');
+                $('#editmodal').modal('show');
 
                 $tr = $(this).closest('tr');
                 var data = $tr.children("td").map(function () {
