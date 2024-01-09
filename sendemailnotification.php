@@ -51,7 +51,7 @@ if ($result) {
   <body>
     <header style="background-color: #ffc107; padding: 10px">
       <a style="font-size: 20px; color: black; font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: column; align-items: center;">
-        <img src="https://previews.dropbox.com/p/thumb/ACGuII26Bp-Xxdz0LP4khNeu7xffZLmmNhpj2iYZyLokBK9ir2oNaDrWNo06kBldZMEIDfbfXoKCG0hiAvwIC4-7AzaWHHB0ygHzQFAIj6mUbZcvejHmAn53EF3jvLc8-skuCf-IQaW5C_2wcXmj7mIaob4JBRFSVM04wL-uETHRZ9F4UOxerrsKY4KlYpWIjeR6GngoUxax-gT4JW94NbIlMHw1TevSDdFAQJY3l2Q-af93IG32L2A_EoXoLxlYn1zm1DHLHP5vum_y5UJA2jzvYDySszmSay3jNODiWfEG-FBkKGVK350FtHWjXboleDydSvZMp11CbvZi9JXJjO0C/p.png" width="50"/>
+        <img src="https://lh3.googleusercontent.com/pw/ABLVV87QgQDmpIDhlUgw8IforjhqBlDrpUDASK9f0NBgwvj8j3T77FlFdTpxXW4VxvBWIx5yhc_lYdNngWq6VKJinm5WA_hn7aAwvUgU-gqJj4CJA6NjZQ=w2400" width="50"/>
         <b>E-BIPMS KANLURANG BUKAL</b>
       </a>
     </header>
