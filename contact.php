@@ -167,7 +167,7 @@
                             residents of the
                             barangay and to provide a convenient way for the residents to request barangay services.
                         </p>
-                    </div>
+                    </div> 
                     <!-- Grid column -->
 
                     <!-- Grid column -->

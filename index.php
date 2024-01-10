@@ -183,8 +183,8 @@
               <div class="card-body">
                 <h3 class="card-title">MISSION</h3>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
+                  "Empower Brgy. Kanlurang Bukal with EBIPMS: Seamless integration, efficient profiling, real-time
+                  monitoring, fostering community engagement, and ensuring data security for sustainable development."
                 </p>
               </div>
             </div>
@@ -199,8 +199,8 @@
               <div class="card-body">
                 <h3 class="card-title">VISION</h3>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
+                  "EBIPMS envisions a digitally connected Brgy. Kanlurang Bukal, fostering transparency, citizen
+                  well-being, and sustainable development through advanced profiling and monitoring systems."
                 </p>
               </div>
             </div>
@@ -214,8 +214,8 @@
               <div class="card-body">
                 <h3 class="card-title">GOALS</h3>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
+                  "Achieve seamless integration, enhance governance, promote community engagement, ensure data security,
+                  and propel sustainable development for Brgy. Kanlurang Bukal."
                 </p>
               </div>
             </div>
