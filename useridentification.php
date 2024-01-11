@@ -2,8 +2,8 @@
 session_start();
 
 include 'conn.php';
-if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'user') {
-    if (time() - $_SESSION['login_time_stamp'] > 600) {
+if (isset($_SESSION['user'])) {
+    if (time() - $_SESSION["login_time_stamp"] > 600) {
         session_unset();
         session_destroy();
         header("Location: userlogin.php");
@@ -11,8 +11,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
         $_SESSION['login_time_stamp'] = time();
     }
 } else {
-    header("Location: index.php");
-    exit();
+    header('location: index.php');
 }
 ?>
 
@@ -22,7 +21,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Request Certificate of Residency | E-BIPMS</title>
+    <title>Request Barangay Identification | E-BIPMS</title>
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -204,28 +203,28 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">REQUEST CERTIFICATE OF RESIDENCY</h1>
+                    <h1 class="h2">REQUEST BARANGAY IDENTIFICATION</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-md btn-warning addbtn" data-bs-toggle="modal"
-                                data-bs-target="#requestBarangayClearance"><i class="bi bi-file-earmark-text">
+                                data-bs-target="#requestBarangayIdentification"><i class="bi bi-file-earmark-text">
                                 </i>Request
                             </button>
                         </div>
                     </div>
-                    <div class="modal fade" id="requestBarangayClearance" tabindex="-1"
-                        aria-labelledby="requestBarangayClearanceLabel" aria-hidden="true">
+                    <div class="modal fade" id="requestBarangayIdentification" tabindex="-1"
+                        aria-labelledby="requestBarangayIdentificationLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="requestBarangayClearanceLabel">Request Certificate of
-                                        Residency</h5>
+                                    <h5 class="modal-title" id="requestBarangayIdentificationLabel">Request Barangay
+                                        Identification (₱50.00)</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="forms needs-validation" method="POST" action="userprocessresidency.php"
-                                        novalidate="">
+                                    <form class="forms needs-validation" method="POST"
+                                        action="userprocessidentification.php" novalidate="">
                                         <div class="form-floating">
                                             <input type="hidden" class="form-control" name="userID"
                                                 value="<?php echo $row['userID'] ?>" />
@@ -261,23 +260,57 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                                             <label for="phonenumber">Phone Number</label>
                                         </div>
                                         <div class="form-floating mb-3">
-											<select class="form-select rounded-2" name="purok" placeholder="Purok"
-												required>
-												<option selected disabled>Choose from options</option>
-												<option value="Purok 1">Purok 1</option>
-												<option value="Purok 2">Purok 2</option>
-												<option value="Purok 3">Purok 3</option>
-												<option value="Purok 4">Purok 4</option>
-												<option value="Purok 5">Purok 5</option>
-												<option value="Purok 6">Purok 6</option>
-												<option value="Purok 7">Purok 7</option>
-											</select>
-											<label for="purok">Purok</label>
-										</div>
+                                            <input type="date" class="form-control rounded" name="birthday"
+                                                placeholder="Birthday" required />
+                                            <label for="birthday">Birthday</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded" name="placeofbirth"
+                                                placeholder="Place of Birth" required />
+                                            <label for="placeofbirth">Place of Birth</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select rounded-2" name="civilstatus"
+                                                placeholder="Civil Status" required>
+                                                <option selected disabled>Choose from options</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Widowed">Widowed</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Divorced">Divorced</option>
+                                            </select>
+                                            <label for="civilstatus">Civil Status</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select rounded-2" name="sex" placeholder="Sex" required>
+                                                <option selected disabled>Choose from options</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <label for="sex">Sex</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select rounded-2" name="purok" placeholder="Purok"
+                                                required>
+                                                <option selected disabled>Choose from options</option>
+                                                <option value="Purok 1">Purok 1</option>
+                                                <option value="Purok 2">Purok 2</option>
+                                                <option value="Purok 3">Purok 3</option>
+                                                <option value="Purok 4">Purok 4</option>
+                                                <option value="Purok 5">Purok 5</option>
+                                                <option value="Purok 6">Purok 6</option>
+                                                <option value="Purok 7">Purok 7</option>
+                                            </select>
+                                            <label for="purok">Purok</label>
+                                        </div>
+
                                         <div class="form-floating mb-3">
                                             <input type="date" class="form-control rounded" id="issue_date"
                                                 name="issue_date" placeholder="Issuance Date" required />
                                             <label for="date">Issuance Date</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="hidden" class="form-control" name="isPaid" value="0" />
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -372,6 +405,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                                 <th scope="col">Issuance Date</th>
                                 <th scope="col">Date Requested</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Payment Status</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -380,7 +414,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                             error_reporting(0);
                             include 'conn.php';
                             $uid = $_SESSION['uid'];
-                            $query = "SELECT * FROM residency WHERE userID='$uid' ";
+                            $query = "SELECT * FROM identification WHERE userID='$uid' ";
                             $query_run = mysqli_query($conn, $query);
 
                             if (mysqli_num_rows($query_run) > 0) {
@@ -414,14 +448,89 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                                             }
                                             ?>
                                         </td>
-                                        <td class="text-right">
-                                            <?php if ($items['status'] == 0): ?>
+                                        <td>
+                                            <?php if ($items['isPaid'] == 0):
+                                                ?>
+                                                <button type="button" data-bs-target="#updatePayment" class="btn btn-danger editbtn"
+                                                    style="width: 90px; font-size:10pt">
+                                                    PAY NOW</button>
+                                            <?php elseif ($items['isPaid'] == 1): ?>
+                                                <span class="badge bg-success">PAID
+                                                </span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($items['isPaid'] == 0): ?>
                                                 <div class="btn-group me-2">
                                                     <button type="button" class="btn btn-danger btn-sm deletebtn"
                                                         style="width: 40px;"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             <?php endif; ?>
                                         </td>
+
+
+                                        <!-- UPDATE Modal -->
+                                        <div class="modal fade" id="updatePayment" tabindex="-1"
+                                            aria-labelledby="updatePaymentModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="updatePaymentModalLabel"><i
+                                                                class="bi bi-cash"></i> Mode of Payment</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="forms needs-validation" method="POST"
+                                                            action="useridentificationpayment.php" enctype="multipart/form-data"
+                                                            novalidate="">
+                                                            <input type="hidden" name="id" value="<?php echo $items['id'] ?>"
+                                                                id="update_id">
+                                                            <input type="hidden" name="isPaid" id="isPaid">
+                                                            <div class="row g-2">
+                                                                <div class="col">
+                                                                    <div class="card">
+                                                                        <div
+                                                                            class="card-body d-flex justify-content-center align-items-center flex-column p-0">
+                                                                            <img class="pt-4" src="gcash_logo.png" width="100px"
+                                                                                alt="">
+                                                                            <p style="font-size: 20px; margin-bottom:2px">
+                                                                                09664179718</p>
+                                                                            <input class="mb-2" type="radio"
+                                                                                name="paymentmethod" value="GCASH" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="card">
+                                                                        <div
+                                                                            class="card-body d-flex justify-content-center align-items-center flex-column p-0">
+                                                                            <img class="pt-4" src="maya_logo.png" width="80px"
+                                                                                alt="">
+                                                                            <p style="font-size: 20px; margin-bottom:2px">
+                                                                                09664179718</p>
+                                                                            <input class="mb-2" type="radio"
+                                                                                name="paymentmethod" value="MAYA" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-floating mt-1">
+                                                                <input type="file" class="form-control" id="paymentProof"
+                                                                    name="proof" required>
+                                                                <label for="proof">Proof of Payment</label>
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" name="updateevent" class="btn btn-warning"><i
+                                                                class="bi bi-cash"></i> Pay Now</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     <?php
                                 }
@@ -429,7 +538,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                                 ?>
                                 <tr>
                                     <td colspan="8">
-                                        <p class="text-center">No certificate of residency request yet.</p>
+                                        <p class="text-center">No barangay clearance request yet.</p>
                                     </td>
                                 </tr>
                                 <?php
@@ -451,7 +560,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form action="userdropresidency.php" method="post">
+                                <form action="userdropidentification.php" method="post">
                                     <div class="modal-body">
                                         <input type="hidden" name="delete_id" id="delete_id">
                                         <h5>Are you sure you want to delete this request?</h5>
@@ -507,9 +616,26 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
         });
     </script>
     <script>
+        $(document).ready(function () {
+            $('.editbtn').on('click', function () {
+
+                $('#updatePayment').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text().trim();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[0]);
+                $('#isPaid').val(1);
+            });
+        });
+    </script>
+    <script>
         $(function () {
             var dtToday = new Date();
-
             var month = dtToday.getMonth() + 1;
             var day = dtToday.getDate();
             var year = dtToday.getFullYear();

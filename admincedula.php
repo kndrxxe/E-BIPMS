@@ -21,7 +21,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Request for Certificate of Residency | E-BIPMS</title>
+	<title>Request for Cedula | E-BIPMS</title>
 	<link rel="icon" href="kanlurangbukal.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 		$(document).ready(function () {
 			$('#myTable').DataTable({
 				language: {
-					emptyTable: "No requests for certificate of residency yet."
+					emptyTable: "No requests for barangay identification yet.",
 				}
 			});
 		});
@@ -234,7 +234,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">REQUESTS FOR CERTIFICATE OF RESIDENCY</h1>
+					<h1 class="h2">REQUESTS FOR CEDULA</h1>
 				</div>
 				<?php
 				if (isset($_SESSION['emailerror'])) {
@@ -343,13 +343,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 								<th scope="col">Date of Issuance</th>
 								<th scope="col">Date Requested</th>
 								<th scope="col">Status</th>
+								<th scope="col">Payment Method</th>
+								<th scope="col">Payment Status</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
 							include 'conn.php';
-							$query = "SELECT * FROM residency";
+							$query = "SELECT * FROM cedula";
 							$query_run = mysqli_query($conn, $query);
 							if (mysqli_num_rows($query_run) > 0) {
 								foreach ($query_run as $items) {
@@ -367,6 +369,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 										<td>
 											<?= $items['lastname']; ?>
 										</td>
+										
 										<td>
 											<?= $items['issue_date']; ?>
 										</td>
@@ -388,32 +391,74 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 											}
 											?>
 										</td>
+										<td>
+											<?php if ($items['paymentmethod'] == 'GCASH'):
+												?>
+												<span class="badge bg-primary">
+													GCASH
+												<?php elseif ($items['paymentmethod'] == 'MAYA'): ?>
+													<span class="badge bg-success">
+														MAYA
+													<?php elseif ($items['paymentmethod'] == ''): ?>
+														<span class="badge bg-danger">
+															NO PAYMENT
+														<?php endif; ?>
+										</td>
+										<td>
+											<?php if ($items['isPaid'] == 0):
+												?>
+												<span class="badge bg-danger">
+													NOT PAID
+												</span>
+											<?php elseif ($items['isPaid'] == 1): ?>
+												<span class="badge bg-success">
+													PAID
+												</span>
+											<?php endif; ?>
+										</td>
 										<td class="text-right">
 											<div class="btn-group me-2">
 												<button type="button" class="btn btn-warning btn-sm editbtn"
 													style="width: 40px;"><i class="bi bi-pencil-square"></i></button>
 												<button type="button" class="btn btn-danger btn-sm deletebtn"
 													style="width: 40px;"><i class="bi bi-trash"></i></button>
-												<?php if ($items['status'] == 1):
-													?>
-													<a href="generateresidency.php?id=<?php echo $items['id']; ?>" target="_blank"
-														class="btn btn-primary" style="width: 40px;">
-														<i class="bi bi-printer"></i></a>
+												<?php if ($items['isPaid'] == 1): ?>
+													<?php $imagePath = $items['proof']; ?>
+													<a class="btn btn-success viewbtn" data-proof="<?= $imagePath; ?>"
+														style="width: 40px;"><i class="bi bi-eye"></i></a>
 												<?php endif; ?>
 												<?php if ($items['status'] == 1):
 													?>
-													<a href="sendemailresidencynotification.php?id=<?php echo $items['id']; ?>"
+													<a href="sendemailcedulanotification.php?id=<?php echo $items['id']; ?>"
 														class="btn btn-warning" style="width: 40px;">
 														<i class="bi bi-bell"></i></a>
 												<?php endif; ?>
 												<?php if ($items['status'] == 1):
 													?>
-													<a href="sendtextresidencymessage.php?id=<?php echo $items['id']; ?>"
+													<a href="sendtextcedulamessage.php?id=<?php echo $items['id']; ?>"
 														class="btn btn-primary" style="width: 40px;">
 														<i class="bi bi-phone"></i></a>
 												<?php endif; ?>
 											</div>
 										</td>
+										<!-- View Modal -->
+										<div class="modal fade" id="viewPaymentModal" tabindex="-1"
+											aria-labelledby="viewPaymentModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered modal-md">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="viewPaymentModalLabel">Proof of Payment
+														</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<img id="paymentProofImage" src="" alt="Proof of Payment"
+															class="img-fluid">
+													</div>
+												</div>
+											</div>
+										</div>
 										<!-- Edit Modal -->
 										<div class="modal fade" id="editmodal" data-bs-backdrop="static"
 											data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -429,7 +474,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 															aria-label="Close"></button>
 													</div>
 
-													<form action="updateresidency.php" method="post">
+													<form action="updatecedula.php" method="post">
+
 														<div class="modal-body">
 															<input type="hidden" name="update_id" id="update_id">
 
@@ -445,6 +491,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 																<label for="middlename" class="form-label">Middle
 																	Name</label>
 															</div>
+
 															<div class="form-floating mb-2">
 																<input type="text" name="lastname" id="lastname"
 																	class="form-control" readonly>
@@ -507,7 +554,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														<button type="button" class="btn-close" data-bs-dismiss="modal"
 															aria-label="Close"></button>
 													</div>
-													<form action="admindropresidency.php" method="post">
+													<form action="admindropcedula.php" method="post">
 														<div class="modal-body">
 															<input type="hidden" name="delete_id" id="delete_id">
 
@@ -580,10 +627,25 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 				$('#lastname').val(data[3]);
 				$('#issueDate').val(data[4]);
 				$('#dateRequested').val(data[5]);
-				$('#viewStatus').val(data[7]);
+				$('#viewStatus').val(data[6]);
 			});
 		});
 	</script>
+	<script>
+		$(document).ready(function () {
+			$('.viewbtn').on('click', function () {
+				// Get the image path from the data-proof attribute
+				var proof = $(this).data('proof');
+
+				// Set the src attribute of the paymentProofImage to the image path
+				$('#paymentProofImage').attr('src', proof);
+
+				// Show the viewPaymentModal
+				$('#viewPaymentModal').modal('show');
+			});
+		});
+	</script>
+
 </body>
 
 </html>

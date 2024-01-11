@@ -7,18 +7,17 @@ if (isset($_POST['updatedata'])) {
   $firstname = $_POST['firstname'];
   $middlename = $_POST['middlename'];
   $lastname = $_POST['lastname'];
-  $purpose = $_POST['purpose'];
   $status = $_POST['status'];
 
   if (!empty($id)) {
-    $query = "UPDATE documents SET firstname='$firstname', middlename='$middlename', lastname='$lastname', purpose='$purpose', status='$status' WHERE id='$id'";
+    $query = "UPDATE identification SET firstname='$firstname', middlename='$middlename', lastname='$lastname', status='$status' WHERE id='$id'";
     $query_run = mysqli_query($conn, $query);
     if ($query_run) {
-      $_SESSION['saveupdate'] = "Barangay Clearance Request Updated Successfully";
-      header('Location: admindocument.php');
+      $_SESSION['saveupdate'] = "Identification Request Updated Successfully";
+      header('Location: adminidentification.php');
     } else {
       $_SESSION['errorupdate'] = "Update Error";
-      header('Location: admindocument.php');
+      header('Location: adminidentification.php');
     }
   }
 }

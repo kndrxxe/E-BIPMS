@@ -32,6 +32,21 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 	<script src="https://unpkg.com/feather-icons"></script>
 </head>
 <style>
+	.accordion {
+		--bs-accordion-active-bg: #ffc107;
+		--bs-accordion-active-color: #212529;
+		--bs-accordion-btn-focus-box-shadow: none;
+	}
+
+	.accordion-button::after {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+		transition: all 0.5s;
+	}
+
+	.accordion-button:not(.collapsed)::after {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+	}
+
 	#message {
 		display: none;
 		position: relative;
@@ -98,8 +113,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 
 	<div class="container-fluid">
 		<div class="row">
-			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+				<div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
 							<img class="float-start" src="kanlurangbukal.png" width="60">
@@ -136,31 +151,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 									<hr class="mt-0 mb-0">
 									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
+										<div class="accordion-body" style="margin-right: -20px;">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
 													<a class="nav-link" style="margin-top: -40px"
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Clearance
-														<?php
-														include 'conn.php';
-														$status = 0;
-														$query = "SELECT id FROM documents WHERE status = ?";
-														$stmt = $conn->prepare($query);
-														$stmt->bind_param("i", $status);
-														$stmt->execute();
-														$result = $stmt->get_result();
-														$row = $result->num_rows;
-														if ($row > 0) {
-															?>
-															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
-															</span>
-															<?php
-														}
-														?>
+														Barangay Clearance
+													
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -168,7 +167,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Indigency
+														Barangay Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -176,19 +175,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Residency
+														Barangay Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" adminbusinesspermit.php">
+														href=" adminidentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
 														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
@@ -325,8 +324,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 						</div>
 						<div class="row g-2">
 							<div class="form-floating col">
-								<select class="form-select form-select" name="civilstatus"
-									placeholder="Civil Status" required>
+								<select class="form-select form-select" name="civilstatus" placeholder="Civil Status"
+									required>
 									<option selected disabled>Choose from options</option>
 									<option value="Single"> Single</option>
 									<option value="Married"> Married</option>
@@ -601,7 +600,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 			});
 		};
 	</script>
-		  <script>
+	<script>
 		document.querySelector('[name="firstname"]').addEventListener('input', function (e) {
 			this.value = this.value.replace(/[0-9]/g, '');
 		});

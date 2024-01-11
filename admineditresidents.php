@@ -3,15 +3,15 @@ session_start();
 
 include 'conn.php';
 if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
-	if (time() - $_SESSION['login_time_stamp'] > 600) {
-		session_unset();
-		session_destroy();
-		header("Location: userlogin.php");
-	} else {
-		$_SESSION['login_time_stamp'] = time();
-	}
+    if (time() - $_SESSION['login_time_stamp'] > 600) {
+        session_unset();
+        session_destroy();
+        header("Location: userlogin.php");
+    } else {
+        $_SESSION['login_time_stamp'] = time();
+    }
 } else {
-	header('location: index.php');
+    header('location: index.php');
 }
 ?>
 
@@ -32,6 +32,21 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <style>
+    .accordion {
+        --bs-accordion-active-bg: #ffc107;
+        --bs-accordion-active-color: #212529;
+        --bs-accordion-btn-focus-box-shadow: none;
+    }
+
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+        transition: all 0.5s;
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+    }
+
     #message {
         display: none;
         position: relative;
@@ -98,8 +113,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-                <div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+                <div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
                     <ul class="nav flex-column">
                         <a class="navbar-brand px-2 fs-6 bg-warning">
                             <img class="float-start" src="kanlurangbukal.png" width="60">
@@ -123,52 +138,36 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                         </li>
                         <hr class="mt-0 mb-0">
                         <li class="nav-item fs-7">
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header fs-7">
-                                        <button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
-                                            style="font-size:11pt;" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                            aria-controls="flush-collapseOne">
-                                            Document Requests
-                                        </button>
-                                    </h2>
-                                    <hr class="mt-0 mb-0">
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <ul class="nav flex-column pt-4">
-                                                <li class="nav-item fs-7" style="margin-left: -20px;">
-                                                    <a class="nav-link" style="margin-top: -40px"
-                                                        href="admindocument.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Brgy. Clearance
-                                                        <?php
-                                                        include 'conn.php';
-                                                        $status = 0;
-                                                        $query = "SELECT id FROM documents WHERE status = ?";
-                                                        $stmt = $conn->prepare($query);
-                                                        $stmt->bind_param("i", $status);
-                                                        $stmt->execute();
-                                                        $result = $stmt->get_result();
-                                                        $row = $result->num_rows;
-                                                        if($row > 0) {
-                                                            ?>
-                                                            <span class="badge rounded-pill text-bg-warning text-end">
-                                                                <?php echo $row ?>
-                                                            </span>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+							<div class="accordion accordion-flush" id="accordionFlushExample">
+								<div class="accordion-item">
+									<h2 class="accordion-header fs-7">
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
+											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+											data-bs-target="#flush-collapseOne" aria-expanded="false"
+											aria-controls="flush-collapseOne">
+											Document Requests
+										</button>
+									</h2>
+									<hr class="mt-0 mb-0">
+									<div id="flush-collapseOne" class="accordion-collapse collapse"
+										data-bs-parent="#accordionFlushExample">
+										<div class="accordion-body" style="margin-right: -20px;">
+											<ul class="nav flex-column pt-4">
+												<li class="nav-item fs-7" style="margin-left: -20px;">
+													<a class="nav-link" style="margin-top: -40px"
+														href="admindocument.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Barangay Clearance
+														
+													</a>
+												</li>
+												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
 														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Indigency
+														Barangay Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -176,37 +175,37 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Residency
+														Barangay Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" adminbusinesspermit.php">
+														href=" adminidentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
 														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Cedula
 													</a>
 												</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                        </li>
+											</ul>
+										</div>
+									</div>
+								</div>
+						</li>
                         <hr class="mt-0 mb-0">
                         <li class="nav-item fs-7">
-							<a class="nav-link" href="adminincidentreport">
-								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
-								Incident Report
-							</a>
-						</li>
+                            <a class="nav-link" href="adminincidentreport">
+                                <span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+                                Incident Report
+                            </a>
+                        </li>
                         <li class="nav-item fs-7">
                             <a class="nav-link" href="adminofficials.php">
                                 <span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -247,7 +246,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                         $query = mysqli_query($conn, "SELECT * FROM users where id='$id'") or die(mysqli_error());
                         $row = mysqli_fetch_array($query);
 
-                        if($row['profile_picture']) {
+                        if ($row['profile_picture']) {
                             // Display the profile picture
                             $profile_picture = $row['profile_picture'];
                         } else {
@@ -308,13 +307,13 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                 <select class="form-select form-select" name="sex" placeholder="Sex" required>
                                     <option selected disabled> Choose from options</option>
                                     <option value="Male" <?php
-                                    if($row['sex'] == 'Male') {
+                                    if ($row['sex'] == 'Male') {
                                         echo "selected";
                                     }
                                     ?>>Male
                                     </option>
                                     <option value="Female" <?php
-                                    if($row['sex'] == 'Female') {
+                                    if ($row['sex'] == 'Female') {
                                         echo "selected";
                                     }
                                     ?>>
@@ -346,43 +345,43 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                     placeholder="Purok" required />
                                 <option selected disabled> Choose from options </option>
                                 <option value="Purok 1" <?php
-                                if($row['purok'] == 'Purok 1') {
+                                if ($row['purok'] == 'Purok 1') {
                                     echo "selected";
                                 }
                                 ?>>
                                     Purok 1</option>
                                 <option value="Purok 2" <?php
-                                if($row['purok'] == 'Purok 2') {
+                                if ($row['purok'] == 'Purok 2') {
                                     echo "selected";
                                 }
                                 ?>>
                                     Purok 2</option>
                                 <option value="Purok 3" <?php
-                                if($row['purok'] == 'Purok 3') {
+                                if ($row['purok'] == 'Purok 3') {
                                     echo "selected";
                                 }
                                 ?>>
                                     Purok 3</option>
                                 <option value="Purok 4" <?php
-                                if($row['purok'] == 'Purok 4') {
+                                if ($row['purok'] == 'Purok 4') {
                                     echo "selected";
                                 }
                                 ?>>
                                     Purok 4</option>
                                 <option value="Purok 5" <?php
-                                if($row['purok'] == 'Purok 5') {
+                                if ($row['purok'] == 'Purok 5') {
                                     echo "selected";
                                 }
                                 ?>>
                                     Purok 5</option>
                                 <option value="Purok 6" <?php
-                                if($row['purok'] == 'Purok 6') {
+                                if ($row['purok'] == 'Purok 6') {
                                     echo "selected";
                                 }
                                 ?>>
                                     Purok 6</option>
                                 <option value="Purok 7" <?php
-                                if($row['purok'] == 'Purok 7') {
+                                if ($row['purok'] == 'Purok 7') {
                                     echo "selected";
                                 }
                                 ?>>
@@ -397,17 +396,17 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                     value="<?php echo $row['civilstatus'] ?>" placeholder="Civil Status" required>
                                     <option selected disabled>Choose from options</option>
                                     <option value="Single" <?php
-                                    if($row['civilstatus'] == 'Single') {
+                                    if ($row['civilstatus'] == 'Single') {
                                         echo "selected";
                                     }
                                     ?>> Single</option>
                                     <option value="Married" <?php
-                                    if($row['civilstatus'] == 'Married') {
+                                    if ($row['civilstatus'] == 'Married') {
                                         echo "selected";
                                     }
                                     ?>> Married</option>
                                     <option value="Widowed" <?php
-                                    if($row['civilstatus'] == 'Widowed') {
+                                    if ($row['civilstatus'] == 'Widowed') {
                                         echo "selected";
                                     }
                                     ?>> Widowed</option>
@@ -419,12 +418,12 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                     placeholder="Registered Voter" required>
                                     <option selected disabled>Choose from options</option>
                                     <option value="Yes" <?php
-                                    if($row['voter'] == 'Yes') {
+                                    if ($row['voter'] == 'Yes') {
                                         echo "selected";
                                     }
                                     ?>>Yes</option>
                                     <option value="No" <?php
-                                    if($row['voter'] == 'No') {
+                                    if ($row['voter'] == 'No') {
                                         echo "selected";
                                     }
                                     ?>>No</option>
@@ -433,40 +432,40 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                             </div>
                         </div>
                         <div class="row g-2">
-							<div class="col d-flex justify-content-start mt-0 mb-0">
-								<div class="form-check d-flex align-items-center">
-									<input class="checkbox" type="checkbox" id="specialGroupCheckbox"
-										name="is_special_group" value="1" <?php if ($row['is_special_group'] == '1')
-											echo 'checked'; ?> />
-									<label class="checkbox-label text-start" id="specialGroupLabel"
-										style="font-size: 12pt; margin-left:5px; color:#6c757d;">
-										Are you belong to a special group?
-									</label>
-								</div>
-							</div>
-							<div class="form-floating col" id="specialGroupDiv">
-								<select class="form-select form-select" id="specialGroup" name="specialgroup"
-									placeholder="specialgroup">
-									<option selected disabled>Choose from options</option>
-									<option value="PWD" <?php if ($row['specialgroup'] == 'PWD')
-										echo 'selected'; ?>>PWD
-									</option>
-									<option value="Senior Citizen" <?php if ($row['specialgroup'] == 'Senior Citizen')
-										echo 'selected'; ?>>Senior Citizen</option>
-									<option value="Solo Parent" <?php if ($row['specialgroup'] == 'Solo Parent')
-										echo 'selected'; ?>>Solo Parent</option>
-									<option value="Indigenous People" <?php if ($row['specialgroup'] == 'Indigenous People')
-										echo 'selected'; ?>>Indigenous People</option>
-									<option value="Out of School Youth" <?php if ($row['specialgroup'] == 'Out of School Youth')
-										echo 'selected'; ?>>Out of School Youth</option>
-									<option value="Pregnant" <?php if ($row['specialgroup'] == 'Pregnant')
-										echo 'selected'; ?>>Pregnant</option>
-									<option value="Lactating" <?php if ($row['specialgroup'] == 'Lactating')
-										echo 'selected'; ?>>Lactating</option>
-								</select>
-								<label for="specialGroup">Special Group</label>
-							</div>
-						</div>
+                            <div class="col d-flex justify-content-start mt-0 mb-0">
+                                <div class="form-check d-flex align-items-center">
+                                    <input class="checkbox" type="checkbox" id="specialGroupCheckbox"
+                                        name="is_special_group" value="1" <?php if ($row['is_special_group'] == '1')
+                                            echo 'checked'; ?> />
+                                    <label class="checkbox-label text-start" id="specialGroupLabel"
+                                        style="font-size: 12pt; margin-left:5px; color:#6c757d;">
+                                        Are you belong to a special group?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-floating col" id="specialGroupDiv">
+                                <select class="form-select form-select" id="specialGroup" name="specialgroup"
+                                    placeholder="specialgroup">
+                                    <option selected disabled>Choose from options</option>
+                                    <option value="PWD" <?php if ($row['specialgroup'] == 'PWD')
+                                        echo 'selected'; ?>>PWD
+                                    </option>
+                                    <option value="Senior Citizen" <?php if ($row['specialgroup'] == 'Senior Citizen')
+                                        echo 'selected'; ?>>Senior Citizen</option>
+                                    <option value="Solo Parent" <?php if ($row['specialgroup'] == 'Solo Parent')
+                                        echo 'selected'; ?>>Solo Parent</option>
+                                    <option value="Indigenous People" <?php if ($row['specialgroup'] == 'Indigenous People')
+                                        echo 'selected'; ?>>Indigenous People</option>
+                                    <option value="Out of School Youth" <?php if ($row['specialgroup'] == 'Out of School Youth')
+                                        echo 'selected'; ?>>Out of School Youth</option>
+                                    <option value="Pregnant" <?php if ($row['specialgroup'] == 'Pregnant')
+                                        echo 'selected'; ?>>Pregnant</option>
+                                    <option value="Lactating" <?php if ($row['specialgroup'] == 'Lactating')
+                                        echo 'selected'; ?>>Lactating</option>
+                                </select>
+                                <label for="specialGroup">Special Group</label>
+                            </div>
+                        </div>
                         <div class="row g-2">
                             <div class="form-floating col">
                                 <input type="number" class="form-control" name="members" id="members" min="0" max="99"
@@ -478,19 +477,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                 <select class="form-select form-select" name="housingstatus"
                                     value="<?php echo $row['housingstatus'] ?>" placeholder="housingstatus">
                                     <option selected disabled>Choose from options</option>
-                                    <option value="Owned" <?php if($row['housingstatus'] == 'Owned')
+                                    <option value="Owned" <?php if ($row['housingstatus'] == 'Owned')
                                         echo 'selected'; ?>>
                                         Owned</option>
-                                    <option value="Rented" <?php if($row['housingstatus'] == 'Rented')
+                                    <option value="Rented" <?php if ($row['housingstatus'] == 'Rented')
                                         echo 'selected'; ?>>
                                         Rented
                                     </option>
-                                    <option value="Living with Relatives" <?php if($row['housingstatus'] == 'Living with Relatives')
+                                    <option value="Living with Relatives" <?php if ($row['housingstatus'] == 'Living with Relatives')
                                         echo 'selected'; ?>>Living with Relatives
                                     </option>
-                                    <option value="Living with Friends" <?php if($row['housingstatus'] == 'Living with Friends')
+                                    <option value="Living with Friends" <?php if ($row['housingstatus'] == 'Living with Friends')
                                         echo 'selected'; ?>>Living with Friends</option>
-                                    <option value="Living with Others" <?php if($row['housingstatus'] == 'Living with Others')
+                                    <option value="Living with Others" <?php if ($row['housingstatus'] == 'Living with Others')
                                         echo 'selected'; ?>>Living with Others</option>
                                 </select>
                                 <label for="housingstatus">Housing Status</label>
@@ -502,19 +501,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
                                     value="<?php echo $row['employmentstatus'] ?>" placeholder="employmentstatus"
                                     required>
                                     <option selected disabled>Choose from options</option>
-                                    <option value="Employed" <?php if($row['employmentstatus'] == 'Employed')
+                                    <option value="Employed" <?php if ($row['employmentstatus'] == 'Employed')
                                         echo 'selected'; ?>>Employed
                                     </option>
-                                    <option value="Unemployed" <?php if($row['employmentstatus'] == 'Unemployed')
+                                    <option value="Unemployed" <?php if ($row['employmentstatus'] == 'Unemployed')
                                         echo 'selected'; ?>>Unemployed
                                     </option>
-                                    <option value="Self-Employed" <?php if($row['employmentstatus'] == 'Self-Employed')
+                                    <option value="Self-Employed" <?php if ($row['employmentstatus'] == 'Self-Employed')
                                         echo 'selected'; ?>>Self-Employed
                                     </option>
-                                    <option value="Retired" <?php if($row['employmentstatus'] == 'Retired')
+                                    <option value="Retired" <?php if ($row['employmentstatus'] == 'Retired')
                                         echo 'selected'; ?>>Retired
                                     </option>
-                                    <option value="Student" <?php if($row['employmentstatus'] == 'Student')
+                                    <option value="Student" <?php if ($row['employmentstatus'] == 'Student')
                                         echo 'selected'; ?>>Student
                                     </option>
                                 </select>
@@ -677,45 +676,45 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
         });
     </script>
     <script>
-		window.onload = function () {
-			var specialGroupDiv = document.getElementById('specialGroupDiv');
-			var specialGroupLabel = document.getElementById('specialGroupLabel');
-			var specialGroupCheckbox = document.getElementById('specialGroupCheckbox');
+        window.onload = function () {
+            var specialGroupDiv = document.getElementById('specialGroupDiv');
+            var specialGroupLabel = document.getElementById('specialGroupLabel');
+            var specialGroupCheckbox = document.getElementById('specialGroupCheckbox');
 
-			// Check the status of the checkbox on page load
-			if (specialGroupCheckbox.checked) {
-				specialGroupDiv.style.display = 'block';
-				specialGroupLabel.style.color = '#212529';
-			} else {
-				specialGroupDiv.style.display = 'none';
-				specialGroupLabel.style.color = '#6c757d';
-			}
+            // Check the status of the checkbox on page load
+            if (specialGroupCheckbox.checked) {
+                specialGroupDiv.style.display = 'block';
+                specialGroupLabel.style.color = '#212529';
+            } else {
+                specialGroupDiv.style.display = 'none';
+                specialGroupLabel.style.color = '#6c757d';
+            }
 
-			specialGroupCheckbox.addEventListener('change', function () {
-				if (this.checked) {
-					specialGroupDiv.style.display = 'block';
-					specialGroupLabel.style.color = '#212529';
-				} else {
-					specialGroupDiv.style.display = 'none';
-					specialGroupLabel.style.color = '#6c757d';
+            specialGroupCheckbox.addEventListener('change', function () {
+                if (this.checked) {
+                    specialGroupDiv.style.display = 'block';
+                    specialGroupLabel.style.color = '#212529';
+                } else {
+                    specialGroupDiv.style.display = 'none';
+                    specialGroupLabel.style.color = '#6c757d';
 
-					// Send AJAX request to remove the selected option from the database
-					$.ajax({
-						url: 'remove_specialgroup.php', // The URL of the PHP script that updates the database
-						type: 'POST',
-						data: {
-							id: $('#id').val() // The ID of the record to update
-						},
-						success: function (data) {
-							console.log('Special group removed successfully');
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							console.log('Error removing special group: ' + textStatus + ' ' + errorThrown);
-						}
-					});
-				}
-			});
-		};	</script>
+                    // Send AJAX request to remove the selected option from the database
+                    $.ajax({
+                        url: 'remove_specialgroup.php', // The URL of the PHP script that updates the database
+                        type: 'POST',
+                        data: {
+                            id: $('#id').val() // The ID of the record to update
+                        },
+                        success: function (data) {
+                            console.log('Special group removed successfully');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('Error removing special group: ' + textStatus + ' ' + errorThrown);
+                        }
+                    });
+                }
+            });
+        };	</script>
 </body>
 
 </html>

@@ -64,8 +64,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 
 	<div class="container-fluid">
 		<div class="row">
-			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+				<div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
 							<img class="float-start" src="kanlurangbukal.png" width="60">
@@ -92,7 +92,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 							<div class="accordion accordion-flush" id="accordionFlushExample">
 								<div class="accordion-item">
 									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pb-2 nav-link"
+										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
 											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
 											data-bs-target="#flush-collapseOne" aria-expanded="false"
 											aria-controls="flush-collapseOne">
@@ -102,27 +102,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 									<hr class="mt-0 mb-0">
 									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
+										<div class="accordion-body" style="margin-right: -20px;">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
 													<a class="nav-link" style="margin-top: -40px"
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Clearance
-														<?php
-														include 'conn.php';
-														$query = "SELECT id FROM documents WHERE status = 0";
-														$query_run = mysqli_query($conn, $query);
-														$row = mysqli_num_rows($query_run);
-														if ($row > 0) {
-															?>
-															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
-															</span>
-															<?php
-														}
-														?>
+														Barangay Clearance
+														
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -130,7 +118,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Indigency
+														Barangay Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -138,19 +126,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Residency
+														Barangay Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" adminbusinesspermit.php">
+														href=" adminidentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
 														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
@@ -438,7 +426,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="editModalLabel"><i class="bi bi-person-fill-gear"></i> Edit Official</h5>
+								<h5 class="modal-title" id="editModalLabel"><i class="bi bi-person-fill-gear"></i> Edit
+									Official</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
@@ -515,7 +504,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-								<button type="submit" form="editForm" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Update</button>
+								<button type="submit" form="editForm" class="btn btn-warning"><i
+										class="bi bi-pencil-square"></i> Update</button>
 							</div>
 						</div>
 					</div>

@@ -201,8 +201,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 	</header>
 	<div class="container-fluid">
 		<div class="row">
-			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+				<div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
 							<img class="float-start" src="kanlurangbukal.png" width="60">
@@ -239,31 +239,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 									<hr class="mt-0 mb-0">
 									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
+										<div class="accordion-body" style="margin-right: -20px;">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
 													<a class="nav-link" style="margin-top: -40px"
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Clearance
-														<?php
-														include 'conn.php';
-														$status = 0;
-														$query = "SELECT id FROM documents WHERE status = ?";
-														$stmt = $conn->prepare($query);
-														$stmt->bind_param("i", $status);
-														$stmt->execute();
-														$result = $stmt->get_result();
-														$row = $result->num_rows;
-														if ($row > 0) {
-															?>
-															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
-															</span>
-															<?php
-														}
-														?>
+														Barangay Clearance
+														
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -271,7 +255,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Indigency
+														Barangay Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -279,19 +263,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Residency
+														Barangay Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" adminbusinesspermit.php">
+														href=" adminidentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
 														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>

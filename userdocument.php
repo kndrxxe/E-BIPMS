@@ -208,7 +208,7 @@ if (isset($_SESSION['user'])) {
 						<div class="btn-group me-2">
 							<button type="button" class="btn btn-md btn-warning addbtn" data-bs-toggle="modal"
 								data-bs-target="#requestBarangayClearance"><i class="bi bi-file-earmark-text">
-								</i>Request Clearance
+								</i>Request
 							</button>
 						</div>
 					</div>
@@ -463,14 +463,6 @@ if (isset($_SESSION['user'])) {
 											<?php endif; ?>
 										</td>
 										<td>
-											<?php if ($items['status'] == 1): ?>
-												<div class="btn-group me-2">
-													<button type="button" class="btn btn-success btn-sm viewbtn"
-														style="width: 40px;"><i class="bi bi-eye"></i></button>
-												</div>
-											<?php endif; ?>
-										</td>
-										<td>
 											<?php if ($items['isPaid'] == 0): ?>
 												<div class="btn-group me-2">
 													<button type="button" class="btn btn-danger btn-sm deletebtn"
@@ -586,39 +578,6 @@ if (isset($_SESSION['user'])) {
 							</div>
 						</div>
 					</div>
-					<!-- VIEW Modal -->
-					<div class="modal fade" id="viewmodal" data-bs-backdrop="static" data-bs-keyboard="false"
-						tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h1 class="modal-title fs-5" id="staticBackdropLabel">
-										<i class="bi bi-file-earmark-text"></i> Barangay Clearance
-									</h1>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-									<?php
-									include 'conn.php';
-									$query = "SELECT * FROM documents WHERE userID='$uid'";
-									$query_run = mysqli_query($conn, $query);
-									if (mysqli_num_rows($query_run) > 0) {
-										foreach ($query_run as $items) {
-											?>
-											<iframe src="generateclearance.php?id=<?php echo $items['id']; ?>#toolbar=0"
-												frameborder="0" width="100%" height="1000px"></iframe>
-											<?php
-											break;
-										}
-									} else {
-										echo "No Record Found";
-									}
-									?>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</main>
 		</div>
@@ -656,19 +615,6 @@ if (isset($_SESSION['user'])) {
 				}).get();
 				console.log(data);
 				$('#delete_id').val(data[0]);
-			});
-		});
-	</script>
-	<script>
-		$(document).ready(function () {
-			$('.viewbtn').on('click', function () {
-				$('#viewmodal').modal('show');
-				$tr = $(this).closest('tr');
-				var data = $tr.children("td").map(function () {
-					return $(this).text();
-				}).get();
-				console.log(data);
-				$('#view_id').val(data[0]);
 			});
 		});
 	</script>

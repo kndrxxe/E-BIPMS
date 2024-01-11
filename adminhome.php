@@ -77,8 +77,8 @@ $result = $stmt->get_result();
 	</header>
 	<div class="container-fluid">
 		<div class="row">
-			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+				<div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
 							<img class="float-start" src="kanlurangbukal.png" width="60">
@@ -115,31 +115,15 @@ $result = $stmt->get_result();
 									<hr class="mt-0 mb-0">
 									<div id="flush-collapseOne" class="accordion-collapse collapse"
 										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
+										<div class="accordion-body" style="margin-right: -20px;">
 											<ul class="nav flex-column pt-4">
 												<li class="nav-item fs-7" style="margin-left: -20px;">
 													<a class="nav-link" style="margin-top: -40px"
 														href="admindocument.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Clearance
-														<?php
-														include 'conn.php';
-														$status = 0;
-														$query = "SELECT id FROM documents WHERE status = ?";
-														$stmt = $conn->prepare($query);
-														$stmt->bind_param("i", $status);
-														$stmt->execute();
-														$result = $stmt->get_result();
-														$row = $result->num_rows;
-														if ($row > 0) {
-															?>
-															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
-															</span>
-															<?php
-														}
-														?>
+														Barangay Clearance
+													
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -147,7 +131,7 @@ $result = $stmt->get_result();
 														href="adminindigency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Indigency
+														Barangay Indigency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -155,19 +139,19 @@ $result = $stmt->get_result();
 														href="adminresidency.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Brgy. Residency
+														Barangay Residency
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link" style="margin-top: -15px"
-														href=" adminbusinesspermit.php">
+														href=" adminidentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -20px"
+													<a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
 														href=" admincedula.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
@@ -219,206 +203,202 @@ $result = $stmt->get_result();
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">DASHBOARD</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-1">
-							<button type="button" class="btn btn-md btn-outline-warning">Export</button>
-						</div>
-					</div>
+					
 				</div>
 				<div class="d-flex justify-content-center flex-wrap row g-4 mb-3 gx-1">
 					<div class="col-auto">
-					<a href="adminresidents.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-people"
-									style="font-size: 3.5rem; margin-right: 50px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5"><b>Total Population</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$query = "SELECT id FROM users";
-										$stmt = $conn->prepare($query);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidents.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-people"
+										style="font-size: 3.5rem; margin-right: 50px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5"><b>Total Population</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$query = "SELECT id FROM users";
+											$stmt = $conn->prepare($query);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 					<div class="col-auto">
-					<a href="adminresidentsmale.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-mars"
-									style="font-size: 3.5rem; margin-right: 75px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5 text-end"><b>Male Population</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$sex = 'Male';
-										$query = "SELECT id FROM users WHERE sex = ?";
-										$stmt = $conn->prepare($query);
-										$stmt->bind_param("s", $sex);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidentsmale.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-mars"
+										style="font-size: 3.5rem; margin-right: 75px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5 text-end"><b>Male Population</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$sex = 'Male';
+											$query = "SELECT id FROM users WHERE sex = ?";
+											$stmt = $conn->prepare($query);
+											$stmt->bind_param("s", $sex);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 					<div class="col-auto">
-					<a href="adminresidentsfemale.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-venus"
-									style="font-size: 3.5rem; margin-right: 55px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5 text-end "><b>Female Population</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$sex = 'Female';
-										$query = "SELECT id FROM users WHERE sex = ?";
-										$stmt = $conn->prepare($query);
-										$stmt->bind_param("s", $sex);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidentsfemale.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-venus"
+										style="font-size: 3.5rem; margin-right: 55px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5 text-end "><b>Female Population</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$sex = 'Female';
+											$query = "SELECT id FROM users WHERE sex = ?";
+											$stmt = $conn->prepare($query);
+											$stmt->bind_param("s", $sex);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 					<div class="col-auto">
-					<a href="adminresidentssenior.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-person-cane"
-									style="font-size: 3.5rem; margin-right: 90px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5 text-end"><b>Senior Citizens</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$specialgroup = 'Senior Citizen';
-										$query = "SELECT id FROM users WHERE specialgroup = ?";
-										$stmt = $conn->prepare($query);
-										$stmt->bind_param("s", $specialgroup);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidentssenior.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-person-cane"
+										style="font-size: 3.5rem; margin-right: 90px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5 text-end"><b>Senior Citizens</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$specialgroup = 'Senior Citizen';
+											$query = "SELECT id FROM users WHERE specialgroup = ?";
+											$stmt = $conn->prepare($query);
+											$stmt->bind_param("s", $specialgroup);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 					<div class="col-auto">
-					<a href="adminresidentspwd.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-wheelchair"
-									style="font-size: 3.5rem; margin-right: 190px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5 text-end"><b>PWD</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$specialgroup = 'PWD';
-										$query = "SELECT id FROM users WHERE specialgroup = ?";
-										$stmt = $conn->prepare($query);
-										$stmt->bind_param("s", $specialgroup);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidentspwd.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-wheelchair"
+										style="font-size: 3.5rem; margin-right: 190px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5 text-end"><b>PWD</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$specialgroup = 'PWD';
+											$query = "SELECT id FROM users WHERE specialgroup = ?";
+											$stmt = $conn->prepare($query);
+											$stmt->bind_param("s", $specialgroup);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 					<div class="col-auto">
-					<a href="adminresidentssoloparent.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-person-breastfeeding"
-									style="font-size: 3.5rem; margin-right: 128px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5 text-end"><b>Solo Parent</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$specialgroup = 'Solo Parent';
-										$query = "SELECT id FROM users WHERE specialgroup = ?";
-										$stmt = $conn->prepare($query);
-										$stmt->bind_param("s", $specialgroup);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidentssoloparent.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-person-breastfeeding"
+										style="font-size: 3.5rem; margin-right: 128px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5 text-end"><b>Solo Parent</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$specialgroup = 'Solo Parent';
+											$query = "SELECT id FROM users WHERE specialgroup = ?";
+											$stmt = $conn->prepare($query);
+											$stmt->bind_param("s", $specialgroup);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 					<div class="col-auto">
-					<a href="adminresidentspregnant.php" style="text-decoration: none; color: inherit;">
-						<div class="card text-center text-dark animate__animated animate__fadeInUp"
-							style="width: 21rem;">
-							<div class="card-icon d-flex align-items-center justify-content-start"
-								style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
-								<i class="fa-sharp fa-regular fa-person-pregnant"
-									style="font-size: 3.5rem; margin-right: 158px;"></i>
-								<div class="text-left ml-auto">
-									<h5 class="card-title fs-5 text-end"><b>Pregnant</b></h5>
-									<p class="card-text">
-										<?php
-										include 'conn.php';
-										$specialgroup = 'Pregnant';
-										$query = "SELECT id FROM users WHERE specialgroup = ?";
-										$stmt = $conn->prepare($query);
-										$stmt->bind_param("s", $specialgroup);
-										$stmt->execute();
-										$result = $stmt->get_result();
-										$row = $result->num_rows;
-										echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
-										?>
-									</p>
+						<a href="adminresidentspregnant.php" style="text-decoration: none; color: inherit;">
+							<div class="card text-center text-dark animate__animated animate__fadeInUp"
+								style="width: 21rem;">
+								<div class="card-icon d-flex align-items-center justify-content-start"
+									style="background-image: linear-gradient(to right, #f9cb9c, #f6bc0a); padding: 20px; border-radius: 5px;">
+									<i class="fa-sharp fa-regular fa-person-pregnant"
+										style="font-size: 3.5rem; margin-right: 158px;"></i>
+									<div class="text-left ml-auto">
+										<h5 class="card-title fs-5 text-end"><b>Pregnant</b></h5>
+										<p class="card-text">
+											<?php
+											include 'conn.php';
+											$specialgroup = 'Pregnant';
+											$query = "SELECT id FROM users WHERE specialgroup = ?";
+											$stmt = $conn->prepare($query);
+											$stmt->bind_param("s", $specialgroup);
+											$stmt->execute();
+											$result = $stmt->get_result();
+											$row = $result->num_rows;
+											echo '<h2 class="fs-1 text-end float-end"> ' . $row . '</h2>';
+											?>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					</a>
+						</a>
 					</div>
 				</div>
 				<div
@@ -588,7 +568,7 @@ $result = $stmt->get_result();
 			type: 'doughnut',
 			data: {
 				labels: <?php echo json_encode($labels); ?>,
-				datasets: [{	
+				datasets: [{
 					label: 'Population',
 					data: <?php echo json_encode($data); ?>,
 					borderWidth: 2

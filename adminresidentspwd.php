@@ -201,8 +201,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 	</header>
 	<div class="container-fluid">
 		<div class="row">
-			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body-tertiary sidebar collapse">
-				<div class="position-sticky pt-2 mt-2 sidebar-sticky bg-light">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-warning sidebar collapse">
+				<div class="position-sticky pt-0 mt-2 sidebar-sticky bg-light">
 					<ul class="nav flex-column">
 						<a class="navbar-brand px-2 fs-6 bg-warning">
 							<img class="float-start" src="kanlurangbukal.png" width="60">
@@ -247,23 +247,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
 														Brgy. Clearance
-														<?php
-														include 'conn.php';
-														$status = 0;
-														$query = "SELECT id FROM documents WHERE status = ?";
-														$stmt = $conn->prepare($query);
-														$stmt->bind_param("i", $status);
-														$stmt->execute();
-														$result = $stmt->get_result();
-														$row = $result->num_rows;
-														if ($row > 0) {
-															?>
-															<span class="badge rounded-pill text-bg-warning text-end">
-																<?php echo $row ?>
-															</span>
-															<?php
-														}
-														?>
+														
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">

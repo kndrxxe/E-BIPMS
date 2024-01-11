@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])) {
 require('fpdf/fpdf.php');
 
 $id = $_GET['id'];
-$query = "SELECT * FROM documents WHERE id=?";
+$query = "SELECT * FROM identification WHERE id=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id); // "i" indicates that $id is an integer
 
@@ -39,7 +39,7 @@ if ($stmt->execute()) {
             $this->Ln(-5);
             $this->SetTextColor(255, 192, 0);
             $this->SetFont('Arial', 'B', 15);
-            $this->Cell(0, 15, 'BARANGAY KANLURAN BUKAL', 0, 1, 'C');
+            $this->Cell(0, 15, 'BARANGAY KANLURANG BUKAL', 0, 1, 'C');
             $this->SetFont('BrushScriptRegularSWFTE', '', 20);
             $this->Ln(-8);
             $this->SetTextColor(0, 0, 0);
@@ -135,7 +135,7 @@ if ($stmt->execute()) {
             // Clearance details
             $this->SetFont('Arial', 'B', 23);
             $this->SetXY(70, 43);
-            $this->MultiCell(0, 30, 'BARANGAY CLEARANCE', 0, 'C');
+            $this->MultiCell(0, 30, 'BARANGAY IDENTIFICATION', 0, 'C');
             $this->SetFont('Arial', 'B', 12);
             $this->SetXY(70, 70);
             $this->Cell(70, 0, "TO WHOM IT MAY CONCERN:", 0, 'J');
@@ -163,21 +163,26 @@ if ($stmt->execute()) {
             $this->SetFont('Arial', '', 12);
             $this->SetXY(70, 123);
             $this->MultiCell(70, 0, '/ her barangay record.', 0, 'J');
-            $this->SetFont('Arial', 'B', 12);
+            $this->SetFont('Arial', 'B', 10 );
             $this->SetXY(70, 130);
-            $this->MultiCell(0, 8, 'Date of Birth:________________________________________', 0, '');
-            $this->SetXY(100, 132);
-            $this->SetFont('Arial', 'B', 15);
+            $this->MultiCell(0, 8, 'Date of Birth:_______________________', 0, '');
+            $this->SetXY(140, 130);
+            $this->MultiCell(0, 8, 'Place of Birth:____________________', 0, '');
+            $this->SetXY(76, 133);
+            $this->SetFont('Arial', 'B', 10);
             $birthday = date('F d, Y', strtotime($data["birthday"]));
             $this->MultiCell(80, 0, strtoupper($birthday), 0, 'C');
+            $this->SetXY(145, 133);
+            $this->SetFont('Arial', 'B', 10);
+            $this->MultiCell(80, 0, strtoupper($data["placeofbirth"]), 0, 'C');
             $this->SetXY(70, 140);
-            $this->SetFont('Arial', 'B', 12);
-            $this->MultiCell(0, 8, 'Civil Status: __________________    Sex: ________________', 0, '');
-            $this->SetXY(78, 143);
-            $this->SetFont('Arial', 'B', 15);
+            $this->SetFont('Arial', 'B', 10);
+            $this->MultiCell(0, 8, 'Civil Status: ________________________  Sex: ___________________', 0, '');
+            $this->SetXY(75, 143);
+            $this->SetFont('Arial', 'B', 10);
             $this->MultiCell(80, 0, strtoupper($data["civilstatus"]), 0, 'C');
-            $this->SetXY(130, 143);
-            $this->SetFont('Arial', 'B', 15);
+            $this->SetXY(128, 143);
+            $this->SetFont('Arial', 'B', 10);
             $this->MultiCell(80, 0, strtoupper($data["sex"]), 0, 'C');
             $this->SetXY(70, 155);
             $this->SetFont('Arial', '', 12);
@@ -190,7 +195,7 @@ if ($stmt->execute()) {
             $this->MultiCell(0, 8, 'Purpose: _______________________________________________', 0, '');
             $this->SetXY(100, 172);
             $this->SetFont('Arial', 'B', 15);
-            $this->MultiCell(80, 0, strtoupper($data["purpose"]), 0, 'C');
+            $this->MultiCell(80, 0, strtoupper("For Identification"), 0, 'C');
             $this->SetXY(70, 190);
             $this->SetFont('Arial', 'B', 12);
             $this->MultiCell(0, 8, '_________________________', 0, '');
@@ -248,7 +253,7 @@ if ($stmt->execute()) {
 
 // Usage example
 $pdf = new BarangayClearancePDF('P', 'mm', 'Letter');
-$title = $data["firstname"] . " " . $data["lastname"] . " | " . " Barangay Clearance";
+$title = $data["firstname"] . " " . $data["lastname"] . " | " . " Barangay Identification";
 $pdf->SetTitle($title);
 $pdf->AddFont('BrushScriptRegularSWFTE', '', 'brtswfte.php');
 $pdf->AliasNbPages();
