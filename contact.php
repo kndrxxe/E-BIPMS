@@ -22,6 +22,9 @@
             .navbar .nav-link {
                 color: #fff !important;
             }
+            .text-justify {
+        text-align: justify;
+      }
         </style>
 
         <!-- Navbar -->

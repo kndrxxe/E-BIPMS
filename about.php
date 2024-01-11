@@ -6,21 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <link rel="icon" href="kanlurangbukal.png" type="image/x-icon" />
-    <title>Job Details | EBIPMS</title>
+    <title>Contact | EBIPMS</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <!-- MDB -->
     <link rel="stylesheet" href="css/mdb.min.css" />
     <!-- Custom styles -->
     <link rel="stylesheet" href="css/style.css" />
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MmUjv89qIO9qjsa6v+4L0K+4FSAF1h9OtbxM0vUSz8iZAD4C2B4ToAtE1wsIzOSF"
-        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -91,93 +83,56 @@
     <main class="mt-5">
         <div class="container">
             <section class="mb-5">
-                <a class="btn btn-warning btn-floating mb-4" href="jobs.php" role="button"><i
-                        class="fas fa-arrow-left"></i></a>
-                <?php
-                include 'conn.php';
-                $id = $_GET['job_id'];
-                $query = mysqli_query($conn, "SELECT * FROM jobs where hash_id='$id'") or die(mysqli_error());
-                $row = mysqli_fetch_array($query);
-                ?>
-                <div class="d-flex flex-wrap mb-3 row g-3">
-                    <h1 class="text-start text-dark mb-0"><strong>
-                            <?php echo $row['jobtitle'] ?>
-                        </strong>
-                    </h1>
-                    <hr class="my-1" />
-                    <p class="text-start text-dark mt-0"><strong>
-                            <?php echo $row['companyname'] ?> ·
-                        </strong>
-                        <?php echo $row['city'] ?>,
-                        <?php echo $row['region'] ?>, Philippines <b>·</b>
-                        <td class="fw-bold">
-                            <span class="badge bg-success">
-                                <?php echo $row['applicants']; ?> APPLICANTS
-                            </span>
-                        </td>
-                        <b>·</b>
-                        <span class="fst-italic text-secondary">
-                            <?php
-                            $datePosted = new DateTime($row['date_posted']);
-                            $now = new DateTime();
-
-                            $interval = $datePosted->diff($now);
-                            if ($interval->y > 0) {
-                                if ($interval->y == 1) {
-                                    echo $interval->format('%y year') . " ago.";
-                                } else {
-                                    echo $interval->format('%y years') . " ago.";
-                                }
-                            } elseif ($interval->m > 0) {
-                                if ($interval->m == 1) {
-                                    echo $interval->format('%m month') . " ago.";
-                                } else {
-                                    echo $interval->format('%m months') . " ago.";
-                                }
-                            } elseif ($interval->d > 0) {
-                                if ($interval->d == 1) {
-                                    echo $interval->format('%d day') . " ago.";
-                                } else {
-                                    echo $interval->format('%d days') . " ago.";
-                                }
-                            } elseif ($interval->h > 0) {
-                                if ($interval->h == 1) {
-                                    echo $interval->format('%h hour') . " ago.";
-                                } else {
-                                    echo $interval->format('%h hours') . " ago.";
-                                }
-                            } elseif ($interval->i > 0) {
-                                if ($interval->i == 1) {
-                                    echo $interval->format('%i minute') . " ago.";
-                                } else {
-                                    echo $interval->format('%i minutes') . " ago.";
-                                }
-                            } else {
-                                if ($interval->s == 1) {
-                                    echo $interval->format('%s second') . " ago.";
-                                } else {
-                                    echo $interval->format('%s seconds') . " ago.";
-                                }
-                            } ?>
-                        </span>
-                    </p>
-                    <?php
-                    if ($row['status'] != '0') {
-                        echo '<a href="' . $row['joblink'] . '" target="_blank" class="btn btn-warning ms-2 col-4 col-sm-1"><i class="bi bi-box-arrow-up-right"></i> Apply</a>'; // Added "Apply" button
-                    }
-                    ?>
-                    <h1 class="text-start text-dark mb-0"><strong>About the Job</strong></h1>
-                    <hr class="my-1" />
-                    <h6 class="text-start mt-0">
-                        <?php echo $row['jobdescription'] ?>
-                    </h6>
-                    <h1 class="text-start text-dark mb-0"><strong>Job Requirements</strong></h1>
-                    <hr class="my-1" />
-                    <h6 class="text-start mt-0">
-                        <?php echo $row['jobrequirements'] ?>
-                    </h6>
+                <h1 class="mb-5 text-center text-warning"><strong>ABOUT OUR BARANGAY</strong></h1>
+                <div class="mb-3">
+                <div class="mb-5" style="display: flex; justify-content: center;">
+                    <img src="kanlurangbukal.png" alt="" width="250">
                 </div>
-
+                    <h5 class="text-justify">
+                        Barangay Kanlurang Bukal, embedded in the soul of Liliw, Laguna, holds a historical narrative
+                        intricately woven into the Filipino past. The name "Kanlurang Bukal" echoes the barangay's
+                        genesis,
+                        where "kanluran" reflects the west and "bukal" signifies a life-sustaining spring. This
+                        nomenclature
+                        hints at a settlement to the west of a vital water source, shaping the early community’s
+                        identity.
+                        <br><br>
+                        In the Spanish colonial era, the Philippines underwent transformative changes in governance and
+                        land
+                        administration. Barangay Kanlurang Bukal likely emerged during this period, evolving into a
+                        community centered around a dependable water source crucial for agriculture and daily life.
+                        <br><br>
+                        The late 19th and early 20th centuries witnessed heightened economic activities and the rise of
+                        local industries in Liliw. Barangay Kanlurang Bukal, mirroring counterparts, played a pivotal
+                        role
+                        in the agricultural and craft-based economy, benefiting from the proximity to Lake Sampaloc and
+                        other natural resources.
+                        <br><br>
+                        The Japanese occupation during World War II left an indelible mark on the Philippines, and
+                        Barangay
+                        Kanlurang Bukal was not exempt. The post-war period ushered in a phase of reconstruction, with
+                        communities diligently working to recover from the ravages of war.
+                        <br><br>
+                        Post-1946, as the Philippines gained independence, Barangay Kanlurang Bukal seamlessly
+                        integrated
+                        into the fabric of Liliw. Contributing to local governance, the barangay witnessed economic
+                        developments, infrastructure improvements, and advancements in education and healthcare.
+                        <br><br>
+                        In the present day, Barangay Kanlurang Bukal stands as a vibrant community, harmonizing
+                        historical
+                        roots with modern influences. Known for the resilience and unity of its residents, the barangay
+                        actively participates in local affairs, contributing to the cultural and economic vibrancy of
+                        Liliw,
+                        Laguna. Through local events, festivals, and traditions, the barangay preserves its heritage,
+                        honoring the legacy of the past while embracing the opportunities of the present.
+                        <br><br>
+                        For precise historical details about Barangay Kanlurang Bukal, consult local archives,
+                        historical
+                        records, or reach out to local historians, municipal offices, or cultural institutions in Liliw,
+                        Laguna. They provide accurate information based on official records and research, unraveling the
+                        nuanced layers of the barangay's rich history.
+                    </h5>
+                </div>
             </section>
             <!--Section: Content-->
         </div>

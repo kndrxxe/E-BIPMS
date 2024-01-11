@@ -154,13 +154,13 @@ if (isset($_SESSION['user'])) {
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link bg-light" style="margin-top: -15px"
-                                                        href="userbusinesspermit.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Business Permit
-                                                    </a>
-                                                </li>
+													<a class="nav-link bg-light" style="margin-top: -15px"
+														href="useridentification.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Barangay Identification
+													</a>
+												</li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
                                                     <a class="nav-link bg-light" style="margin-top: -15px; margin-bottom: -15px"
                                                         href="usercedula.php">

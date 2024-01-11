@@ -151,10 +151,10 @@ if (isset($_SESSION['user'])) {
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link bg-light" style="margin-top: -15px"
-														href="userbusinesspermit.php">
+														href="useridentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -182,20 +182,6 @@ if (isset($_SESSION['user'])) {
 							<a class="nav-link" href="userevents.php" id="resetEvent">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
-								<?php
-								include 'conn.php';
-								$uid = $_SESSION['uid'];
-								$query = "SELECT * FROM events where status='1'";
-								$query_run = mysqli_query($conn, $query);
-								$items = mysqli_num_rows($query_run);
-								if ($items > 0) {
-									?>
-									<span class="badge rounded-pill text-bg-warning text-end" id="counterBadge">
-										<?php echo $items ?>
-									</span>
-									<?php
-								}
-								?>
 							</a>
 						</li>
 						<hr class="mt-5 mb-0">
@@ -476,7 +462,15 @@ if (isset($_SESSION['user'])) {
 												</span>
 											<?php endif; ?>
 										</td>
-										<td class="text-right">
+										<td>
+											<?php if ($items['status'] == 1): ?>
+												<div class="btn-group me-2">
+													<button type="button" class="btn btn-success btn-sm viewbtn"
+														style="width: 40px;"><i class="bi bi-eye"></i></button>
+												</div>
+											<?php endif; ?>
+										</td>
+										<td>
 											<?php if ($items['isPaid'] == 0): ?>
 												<div class="btn-group me-2">
 													<button type="button" class="btn btn-danger btn-sm deletebtn"
@@ -484,6 +478,7 @@ if (isset($_SESSION['user'])) {
 												</div>
 											<?php endif; ?>
 										</td>
+
 
 										<!-- UPDATE Modal -->
 										<div class="modal fade" id="updatePayment" tabindex="-1"
@@ -591,6 +586,39 @@ if (isset($_SESSION['user'])) {
 							</div>
 						</div>
 					</div>
+					<!-- VIEW Modal -->
+					<div class="modal fade" id="viewmodal" data-bs-backdrop="static" data-bs-keyboard="false"
+						tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="staticBackdropLabel">
+										<i class="bi bi-file-earmark-text"></i> Barangay Clearance
+									</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<?php
+									include 'conn.php';
+									$query = "SELECT * FROM documents WHERE userID='$uid'";
+									$query_run = mysqli_query($conn, $query);
+									if (mysqli_num_rows($query_run) > 0) {
+										foreach ($query_run as $items) {
+											?>
+											<iframe src="generateclearance.php?id=<?php echo $items['id']; ?>#toolbar=0"
+												frameborder="0" width="100%" height="1000px"></iframe>
+											<?php
+											break;
+										}
+									} else {
+										echo "No Record Found";
+									}
+									?>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</main>
 		</div>
@@ -633,6 +661,19 @@ if (isset($_SESSION['user'])) {
 	</script>
 	<script>
 		$(document).ready(function () {
+			$('.viewbtn').on('click', function () {
+				$('#viewmodal').modal('show');
+				$tr = $(this).closest('tr');
+				var data = $tr.children("td").map(function () {
+					return $(this).text();
+				}).get();
+				console.log(data);
+				$('#view_id').val(data[0]);
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
 			$('.editbtn').on('click', function () {
 
 				$('#updatePayment').modal('show');
@@ -646,25 +687,6 @@ if (isset($_SESSION['user'])) {
 
 				$('#update_id').val(data[0]);
 				$('#isPaid').val(1);
-			});
-		});
-	</script>
-	<script>
-		$(document).ready(function () {
-			$('#resetEvent').on('click', function () {
-				// Remove the badge immediately when clicked
-				$('#counterBadge').remove();
-
-				$.ajax({
-					url: 'reset_counter.php',
-					type: 'POST',
-					success: function () {
-						// No need to do anything as the badge is already removed
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.error(textStatus, errorThrown);
-					}
-				});
 			});
 		});
 	</script>

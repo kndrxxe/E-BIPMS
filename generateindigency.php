@@ -3,17 +3,6 @@ session_start();
 error_reporting(0);
 
 include 'conn.php';
-if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
-	if (time() - $_SESSION['login_time_stamp'] > 600) {
-		session_unset();
-		session_destroy();
-		header("Location: userlogin.php");
-	} else {
-		$_SESSION['login_time_stamp'] = time();
-	}
-} else {
-	header('location: index.php');
-}
 
 require('fpdf/fpdf.php');
 

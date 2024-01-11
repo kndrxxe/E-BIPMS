@@ -151,13 +151,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                                                     </a>
                                                 </li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-                                                    <a class="nav-link bg-light" style="margin-top: -15px"
-                                                        href="userbusinesspermit.php">
-                                                        <span data-feather="file" style="width: 28px; height: 28px;"
-                                                            class="align-text-bottom"></span>
-                                                        Business Permit
-                                                    </a>
-                                                </li>
+													<a class="nav-link bg-light" style="margin-top: -15px"
+														href="useridentification.php">
+														<span data-feather="file" style="width: 28px; height: 28px;"
+															class="align-text-bottom"></span>
+														Barangay Identification
+													</a>
+												</li>
                                                 <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
                                                     <a class="nav-link bg-light"
                                                         style="margin-top: -15px; margin-bottom: -15px"
@@ -183,20 +183,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                             <a class="nav-link" href="userevents.php" id="resetEvent">
                                 <span data-feather="calendar" class="align-text-bottom feather-48"></span>
                                 Events
-                                <?php
-                                include 'conn.php';
-                                $uid = $_SESSION['uid'];
-                                $query = "SELECT * FROM events where status='1'";
-                                $query_run = mysqli_query($conn, $query);
-                                $items = mysqli_num_rows($query_run);
-                                if ($items > 0) {
-                                    ?>
-                                    <span class="badge rounded-pill text-bg-warning text-end" id="counterBadge">
-                                        <?php echo $items ?>
-                                    </span>
-                                    <?php
-                                }
-                                ?>
                             </a>
                         </li>
                         <hr class="mt-5 mb-0">
@@ -506,25 +492,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
                 }).get();
                 console.log(data);
                 $('#delete_id').val(data[0]);
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#resetEvent').on('click', function () {
-                // Remove the badge immediately when clicked
-                $('#counterBadge').remove();
-
-                $.ajax({
-                    url: 'reset_counter.php',
-                    type: 'POST',
-                    success: function () {
-                        // No need to do anything as the badge is already removed
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error(textStatus, errorThrown);
-                    }
-                });
             });
         });
     </script>

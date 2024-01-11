@@ -91,6 +91,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
       .checkbox-label {
         font-size: 17px;
       }
+      .text-justify {
+        text-align: justify;
+      }
     </style>
 
     <!-- Navbar -->

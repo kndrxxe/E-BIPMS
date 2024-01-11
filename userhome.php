@@ -155,10 +155,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
 													<a class="nav-link bg-light" style="margin-top: -15px"
-														href="userbusinesspermit.php">
+														href="useridentification.php">
 														<span data-feather="file" style="width: 28px; height: 28px;"
 															class="align-text-bottom"></span>
-														Business Permit
+														Barangay Identification
 													</a>
 												</li>
 												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
@@ -186,20 +186,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
 							<a class="nav-link" href="userevents" id="resetEvent">
 								<span data-feather="calendar" class="align-text-bottom feather-48"></span>
 								Events
-								<?php
-								include 'conn.php';
-								$uid = $_SESSION['uid'];
-								$query = "SELECT * FROM events where status='1'";
-								$query_run = mysqli_query($conn, $query);
-								$row = mysqli_num_rows($query_run);
-								if ($row > 0) {
-									?>
-									<span class="badge rounded-pill text-bg-warning text-end" id="counterBadge">
-										<?php echo $row ?>
-									</span>
-									<?php
-								}
-								?>
 							</a>
 						</li>
 						<hr class="mt-5 mb-0">
@@ -433,25 +419,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['user_
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
 		integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous">
 		</script>
-	<script>
-		$(document).ready(function () {
-			$('#resetEvent').on('click', function () {
-				// Remove the badge immediately when clicked
-				$('#counterBadge').remove();
-
-				$.ajax({
-					url: 'reset_counter.php',
-					type: 'POST',
-					success: function () {
-						// No need to do anything as the badge is already removed
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.error(textStatus, errorThrown);
-					}
-				});
-			});
-		});
-	</script>
 </body>
 
 </html>

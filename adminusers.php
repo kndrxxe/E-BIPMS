@@ -476,33 +476,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 											novalidate="">
 											<input type="hidden" name="updatestatus_id" id="updatestatus_id">
 											<div class="form-floating mb-3">
-												<?php
-												include 'conn.php';
-												$query = 'SELECT * FROM users WHERE username IS NOT NULL AND username <> ""';
-												$result = mysqli_query($conn, $query);
-												while ($row = mysqli_fetch_array($result)) {
-													$id = $row['id'];
-													$hash = hash('sha256', $id);
-													?>
-													<select class="form-select" name="status"
-														value="<?php echo $items['status'] ?>" id="editStatus" required>
-														<option disabled selected>Select Status</option>
-														<option value="1" <?php
-														if ($row['status'] == '1') {
-															echo "selected";
-														}
-														?>>Activate</option>
-														<option value="0" <?php
-														if ($row['status'] == '0') {
-															echo "selected";
-														}
-														?>>Deactivate</option>
-													</select>
-													<label for="updatestatus_id" class="form-label">Username</label>
-												</div>
-												<?php
-												}
-												?>
+												<select class="form-select" name="status" id="editStatus" required>
+													<option disabled selected>Select Status</option>
+													<option value="1">Activate</option>
+													<option value="0">Deactivate</option>
+												</select>
+												<label for="updatestatus_id" class="form-label">Activation</label>
+											</div>
+
+
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
@@ -552,7 +534,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="editPasswordModalLabel"><i
-												class="bi bi-key-fill"></i> Change Password</h5>
+												class="bi bi-key-fill"></i>
+											Change Password</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="modal"
 											aria-label="Close"></button>
 									</div>

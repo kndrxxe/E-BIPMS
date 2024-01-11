@@ -149,7 +149,7 @@
             <div class="d-flex justify-content-center align-items-center h-100">
               <div class="text-white text-center">
                 <h1>GET TO KNOW MORE ABOUT OUR BARANGAY</h2>
-                  <a class="btn btn-outline-light btn-lg m-2" href="#" role="button">About</a>
+                  <a class="btn btn-outline-light btn-lg m-2" href="about.php" role="button">About</a>
               </div>
             </div>
           </div>
