@@ -631,10 +631,9 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 				$('#firstname').val(data[1]);
 				$('#middlename').val(data[2]);
 				$('#lastname').val(data[3]);
-				$('#purpose').val(data[4]);
-				$('#issueDate').val(data[5]);
-				$('#dateRequested').val(data[6]);
-				$('#viewStatus').val(data[7]);
+				$('#issueDate').val(data[4]);
+				$('#dateRequested').val(data[5]);
+				$('#viewStatus').val(data[6]);
 			});
 		});
 	</script>

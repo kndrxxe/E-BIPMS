@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 04, 2024 at 11:19 PM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 22, 2024 at 02:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,6 +62,40 @@ INSERT INTO `bhw` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cedula`
+--
+
+CREATE TABLE `cedula` (
+  `id` int(11) NOT NULL,
+  `userID` varchar(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phonenumber` varchar(100) NOT NULL,
+  `birthday` varchar(100) NOT NULL,
+  `civilstatus` varchar(100) NOT NULL,
+  `sex` varchar(100) NOT NULL,
+  `purok` varchar(100) NOT NULL,
+  `placeofbirth` varchar(100) NOT NULL,
+  `issue_date` varchar(100) NOT NULL,
+  `date_requested` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL,
+  `isPaid` int(11) NOT NULL,
+  `paymentmethod` varchar(100) NOT NULL,
+  `proof` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cedula`
+--
+
+INSERT INTO `cedula` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `phonenumber`, `birthday`, `civilstatus`, `sex`, `purok`, `placeofbirth`, `issue_date`, `date_requested`, `status`, `isPaid`, `paymentmethod`, `proof`) VALUES
+(1, '499156d1cdc17570d398c84e136a6e8e', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '+639664179718', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Liliw, Laguna', '2024-01-23', '2024-01-22', 1, 1, 'GCASH', 'proof_of_payment/FLOWCHART E-BIPMS (5).png');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `documents`
 --
 
@@ -112,6 +146,40 @@ CREATE TABLE `events` (
 INSERT INTO `events` (`id`, `eventname`, `eventdatestart`, `eventdateend`, `eventtimestart`, `eventtimeend`, `eventlocation`, `eventdescription`, `eventcolor`, `status`) VALUES
 (1, 'Implantation', '2023-12-11', '2023-12-11', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Implantation    ', '#ffc800', 0),
 (2, 'Anti Rabies Vaccination', '2023-12-13', '2023-12-15', '08:00:00', '17:00:00', 'Liliw Covered Court', 'Anti Rabies Vaccination', '#66ff00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `identification`
+--
+
+CREATE TABLE `identification` (
+  `id` int(11) NOT NULL,
+  `userID` varchar(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `middlename` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phonenumber` varchar(100) NOT NULL,
+  `birthday` varchar(100) NOT NULL,
+  `civilstatus` varchar(100) NOT NULL,
+  `sex` varchar(100) NOT NULL,
+  `purok` varchar(100) NOT NULL,
+  `placeofbirth` varchar(100) NOT NULL,
+  `issue_date` varchar(100) NOT NULL,
+  `date_requested` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL,
+  `isPaid` int(11) NOT NULL,
+  `paymentmethod` varchar(100) NOT NULL,
+  `proof` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `identification`
+--
+
+INSERT INTO `identification` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `email`, `phonenumber`, `birthday`, `civilstatus`, `sex`, `purok`, `placeofbirth`, `issue_date`, `date_requested`, `status`, `isPaid`, `paymentmethod`, `proof`) VALUES
+(1, '499156d1cdc17570d398c84e136a6e8e', 'Kendrix', 'Britiller', 'Brosas', 'brosaskndrx05@gmail.com', '+639664179718', '2001-05-05', 'Single', 'Male', 'Purok 1', 'Liliw, Laguna', '2024-01-23', '2024-01-22', 1, 1, 'GCASH', 'proof_of_payment/FLOWCHART E-BIPMS (5).png');
 
 -- --------------------------------------------------------
 
@@ -310,6 +378,7 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `profile_picture` varchar(255) NOT NULL,
+  `residencystatus` varchar(100) NOT NULL,
   `proof` varchar(255) NOT NULL,
   `status` text NOT NULL,
   `isEditable` tinyint(2) NOT NULL,
@@ -321,13 +390,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `employmentstatus`, `yearsliving`, `phonenumber`, `email`, `username`, `password`, `profile_picture`, `proof`, `status`, `isEditable`, `last_username_change`, `last_password_change`) VALUES
-(5, '499156d1cdc17570d398c84e136a6e8e', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 0, '', 5, 'Owned', 'Employed', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', '', '', '1', 0, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
-(6, '709952d92683212899be32c29fa7c75a', 'Joselyn', 'Britiller', 'Brosas', 'Female', '1977-04-27', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 4, 'Owned', 'Self-Employed', '', '+639213023468', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
-(7, 'cbb03857b58b5fbba6658994468f12ed', 'Alvin', 'Borlaza', 'Brosas', 'Male', '1977-02-01', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 4, 'Owned', 'Unemployed', '', '+639558403607', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
-(8, 'c4160a1011d03eab54393f8130ef5aea', 'Evelyn', 'Silva', 'Britiller', 'Female', '1949-09-05', 74, '001', 'Purok 1', 'Widowed', 'Yes', 0, 'Senior Citizen', 5, 'Owned', 'Retired', '', '+639664179718', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
-(9, '0328893455a76621029b8ea1620d3ec6', 'Clarissa', 'Silva', 'Britiller', 'Female', '1979-05-04', 44, '001', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', 'Self-Employed', '', '+639664179718', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
-(10, '765507b482b325ccfd7fa617099462e4', 'Lyn Mae', 'Britiller', 'Brosas', 'Male', '1998-05-08', 25, '050', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639665272626', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04');
+INSERT INTO `users` (`id`, `userID`, `firstname`, `middlename`, `lastname`, `sex`, `birthday`, `age`, `house_no`, `purok`, `civilstatus`, `voter`, `is_special_group`, `specialgroup`, `members`, `housingstatus`, `employmentstatus`, `yearsliving`, `phonenumber`, `email`, `username`, `password`, `profile_picture`, `residencystatus`, `proof`, `status`, `isEditable`, `last_username_change`, `last_password_change`) VALUES
+(5, '499156d1cdc17570d398c84e136a6e8e', 'Kendrix', 'Britiller', 'Brosas', 'Male', '2001-05-05', 22, '050', 'Purok 1', 'Single', 'Yes', 0, '', 5, 'Owned', 'Employed', '', '+639664179718', 'brosaskndrx05@gmail.com', 'kndrxxe', 'f31315b06fa7e2b2f3b3b91bf7bdfe8f', '', '', '', '1', 0, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
+(6, '709952d92683212899be32c29fa7c75a', 'Joselyn', 'Britiller', 'Brosas', 'Female', '1977-04-27', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 4, 'Owned', 'Self-Employed', '', '+639213023468', '', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
+(7, 'cbb03857b58b5fbba6658994468f12ed', 'Alvin', 'Borlaza', 'Brosas', 'Male', '1977-02-01', 46, '050', 'Purok 1', 'Married', 'Yes', 0, '', 4, 'Owned', 'Unemployed', '', '+639558403607', '', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
+(8, 'c4160a1011d03eab54393f8130ef5aea', 'Evelyn', 'Silva', 'Britiller', 'Female', '1949-09-05', 74, '001', 'Purok 1', 'Widowed', 'Yes', 0, 'Senior Citizen', 5, 'Owned', 'Retired', '', '+639664179718', '', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
+(9, '0328893455a76621029b8ea1620d3ec6', 'Clarissa', 'Silva', 'Britiller', 'Female', '1979-05-04', 44, '001', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', 'Self-Employed', '', '+639664179718', '', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04'),
+(10, '765507b482b325ccfd7fa617099462e4', 'Lyn Mae', 'Britiller', 'Brosas', 'Male', '1998-05-08', 25, '050', 'Purok 1', 'Single', 'Yes', 0, '', 4, 'Owned', 'Employed', '', '+639665272626', '', '', '', '', '', '', '', 1, '2024-01-03 02:13:04', '2024-01-03 02:13:04');
 
 --
 -- Indexes for dumped tables
@@ -346,6 +415,12 @@ ALTER TABLE `bhw`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cedula`
+--
+ALTER TABLE `cedula`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `documents`
 --
 ALTER TABLE `documents`
@@ -355,6 +430,12 @@ ALTER TABLE `documents`
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `identification`
+--
+ALTER TABLE `identification`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -423,6 +504,12 @@ ALTER TABLE `bhw`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `cedula`
+--
+ALTER TABLE `cedula`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
@@ -433,6 +520,12 @@ ALTER TABLE `documents`
 --
 ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `identification`
+--
+ALTER TABLE `identification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `incidentreport`

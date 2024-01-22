@@ -222,36 +222,6 @@
           </div>
         </div>
       </section>
-      <hr class="my-5" />
-      <h1 class="mb-5 text-warning text-center" id="announce"><strong>BARANGAY UPDATES</strong></h1>
-      <section class="text-center">
-        <div class="row justify-content-center mb-4">
-          <?php
-          include 'conn.php';
-          $query = "SELECT * FROM jobs WHERE isFeatured = 1";
-          $query_run = mysqli_query($conn, $query);
-          if (mysqli_num_rows($query_run) > 0) {
-            while ($items = mysqli_fetch_array($query_run)) {
-              echo '<div class="col-lg-4 col-md-6 mb-4">'; // Responsive grid column
-              echo '<a href="#" style="text-decoration: none; color: inherit;">'; // Start of <a> tag
-              echo '<div class="card text-dark">';
-              echo '<div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">';
-              echo '<img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />';
-              echo '<div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>';
-              echo '</div>';
-              echo '<div class="card-body">';
-              echo '<h4 class="card-title mb-4" style="text-transform: uppercase;">' . $items['jobtitle'] . '</h4>';
-              echo '<a href="#!" class="btn btn-warning">Read More</a>';
-              echo '</div>';
-              echo '</div>';
-              echo '</a>'; // End of <a> tag
-              echo '</div>';
-            }
-          }
-          ?>
-        </div>
-        <a href="#!" class="btn btn-warning">See More Updates</a>
-      </section>
       <!--Section: Content-->
       <hr class="my-5" />
       <h1 class="mb-5 text-warning text-center" id="announce"><strong>BARANGAY ANNOUNCEMENTS</strong></h1>
