@@ -1,9 +1,9 @@
 <h1>E-BIPMS (Electronic Barangay Integrated Profiling and Monitoring System for Brgy. Kanlurang Bukal)</h1>
 
-    <h2>Overview</h2>
-    <p>Welcome to the Electronic Barangay Integrated Profiling and Monitoring System (E-BIPMS) for Brgy. Kanlurang Bukal. This system is designed to streamline and enhance the management of barangay-related data and activities, ultimately improving the efficiency and effectiveness of local governance.</p>
+<h2>Overview</h2>
+<p>Welcome to the Electronic Barangay Integrated Profiling and Monitoring System (E-BIPMS) for Brgy. Kanlurang Bukal. This system is designed to streamline and enhance the management of barangay-related data and activities, ultimately improving the efficiency and effectiveness of local governance.</p>
 
-    <h2>Features</h2>
+<h2>Features</h2>
     <ul>
         <li><strong>Resident Profiling:</strong> Maintain comprehensive profiles of all residents including personal information, household details, and socio-economic data.</li>
         <li><strong>Activity Monitoring:</strong> Track barangay activities, events, and projects in real-time, allowing for better planning and coordination.</li>
@@ -13,7 +13,7 @@
         <li><strong>Security and Privacy:</strong> Ensure the security and privacy of resident data through robust encryption and access controls.</li>
     </ul>
 
-    <h2>Installation</h2>
+<h2>Installation</h2>
     <ol>
         <li>Clone the repository from <a href="#">GitHub link</a>.</li>
         <li>Install the necessary dependencies using <code>npm install</code>.</li>
@@ -22,10 +22,10 @@
         <li>Access the application through your web browser at the specified URL.</li>
     </ol>
 
-    <h2>Usage</h2>
+<h2>Usage</h2>
     <p>Once installed, users can access E-BIPMS through their web browser. The system provides intuitive navigation and instructions for performing various tasks such as adding new residents, updating information, and generating reports. Administrators have access to additional features such as managing activities and resources.</p>
 
-    <h2>Contributing</h2>
+<h2>Contributing</h2>
     <p>We welcome contributions from the community to improve and enhance E-BIPMS. If you're interested in contributing, please follow these guidelines:</p>
     <ol>
         <li>Fork the repository.</li>
@@ -35,5 +35,5 @@
         <li>Submit a pull request to the main repository.</li>
     </ol>
 
-    <h2>Support</h2>
+<h2>Support</h2>
     <p>For any questions, issues, or feedback regarding E-BIPMS, please contact <a href="mailto:brosaskndrx05@gmail.com">contact email</a>. We're here to help and improve the system together.</p>
