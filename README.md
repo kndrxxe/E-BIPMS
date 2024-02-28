@@ -1,7 +1,7 @@
-<h1>E-BIPMS (Electronic Barangay Integrated Profiling and Monitoring System for Brgy. Kanlurang Bukal)</h1>
+<h1>E-BIPMS (Electronic Barangay Integrated Profiling and Monitoring System for Brgy. Kanlurang Bukal) Liliw, Laguna</h1>
 
 <h2>Overview</h2>
-<p>Welcome to the Electronic Barangay Integrated Profiling and Monitoring System (E-BIPMS) for Brgy. Kanlurang Bukal. This system is designed to streamline and enhance the management of barangay-related data and activities, ultimately improving the efficiency and effectiveness of local governance.</p>
+<p>Welcome to the Electronic Barangay Integrated Profiling and Monitoring System (E-BIPMS) for Brgy. Kanlurang Bukal Liliw, Laguna. This system is designed to streamline and enhance the management of barangay-related data and activities, ultimately improving the efficiency and effectiveness of local governance.</p>
 
 <h2>Features</h2>
     <ul>
@@ -13,6 +13,7 @@
         <li><strong>Security and Privacy:</strong> Ensure the security and privacy of resident data through robust encryption and access controls.</li>
         <li><strong>Document Request:</strong> Allow residents to request various documents such as barangay clearances, certifications, and permits online.</li>
         <li><strong>Online Payment:</strong> Facilitate online payment for barangay services and fees, providing convenience and efficiency.</li>
+        li><strong>SMS and Email Notification:</strong> Send important announcements, reminders, and updates to residents via SMS messaging and email.</li>
     </ul>
 
 <h2>Installation</h2>
