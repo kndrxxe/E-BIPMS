@@ -17,7 +17,7 @@
 
 <h2>Installation</h2>
     <ol>
-        <li>Clone the repository from <a href="#">GitHub link</a>.</li>
+        <li>Clone the repository from <a href="https://github.com/kndrxxe/E-BIPMS">GitHub link</a>.</li>
         <li>Install the necessary dependencies using <code>npm install</code>.</li>
         <li>Configure the database settings in <code>config.js</code>.</li>
         <li>Run the application using <code>npm start</code>.</li>
