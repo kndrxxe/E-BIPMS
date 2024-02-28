@@ -11,6 +11,8 @@
         <li><strong>Complaints and Feedback:</strong> Provide a platform for residents to submit complaints, feedback, and suggestions, fostering community engagement.</li>
         <li><strong>Reporting and Analytics:</strong> Generate reports and analytics to gain insights into community demographics, trends, and needs.</li>
         <li><strong>Security and Privacy:</strong> Ensure the security and privacy of resident data through robust encryption and access controls.</li>
+        <li><strong>Document Request:</strong> Allow residents to request various documents such as barangay clearances, certifications, and permits online.</li>
+        <li><strong>Online Payment:</strong> Facilitate online payment for barangay services and fees, providing convenience and efficiency.</li>
     </ul>
 
 <h2>Installation</h2>
@@ -36,4 +38,4 @@
     </ol>
 
 <h2>Support</h2>
-    <p>For any questions, issues, or feedback regarding E-BIPMS, please contact <a href="mailto:brosaskndrx05@gmail.com">contact email</a>. We're here to help and improve the system together.</p>
+    <p>For any questions, issues, or feedback regarding E-BIPMS, please contact <a href="mailto:email">contact email</a>. We're here to help and improve the system together.</p>
