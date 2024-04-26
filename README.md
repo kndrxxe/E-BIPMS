@@ -16,15 +16,6 @@
         li><strong>SMS and Email Notification:</strong> Send important announcements, reminders, and updates to residents via SMS messaging and email.</li>
     </ul>
 
-<h2>Installation</h2>
-    <ol>
-        <li>Clone the repository from <a href="https://github.com/kndrxxe/E-BIPMS">GitHub link</a>.</li>
-        <li>Install the necessary dependencies using <code>npm install</code>.</li>
-        <li>Configure the database settings in <code>config.js</code>.</li>
-        <li>Run the application using <code>npm start</code>.</li>
-        <li>Access the application through your web browser at the specified URL.</li>
-    </ol>
-
 <h2>Usage</h2>
     <p>Once installed, users can access E-BIPMS through their web browser. The system provides intuitive navigation and instructions for performing various tasks such as adding new residents, updating information, and generating reports. Administrators have access to additional features such as managing activities and resources.</p>
 
