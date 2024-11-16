@@ -13,7 +13,7 @@
         <li><strong>Security and Privacy:</strong> Ensure the security and privacy of resident data through robust encryption and access controls.</li>
         <li><strong>Document Request:</strong> Allow residents to request various documents such as barangay clearances, certifications, and permits online.</li>
         <li><strong>Online Payment:</strong> Facilitate online payment for barangay services and fees, providing convenience and efficiency.</li>
-        li><strong>SMS and Email Notification:</strong> Send important announcements, reminders, and updates to residents via SMS messaging and email.</li>
+        <li><strong>SMS and Email Notification:</strong> Send important announcements, reminders, and updates to residents via SMS messaging and email.</li>
     </ul>
 
 <h2>Usage</h2>
