@@ -30,4 +30,4 @@
     </ol>
 
 <h2>Support</h2>
-    <p>For any questions, issues, or feedback regarding E-BIPMS, please contact <a href="mailto:brosaskndrx05@gmail.com">contact email</a>. We're here to help and improve the system together.</p>
+    <p>For any questions, issues, or feedback regarding E-BIPMS, please contact <a href="mailto:brosaskndrx05@gmail.com">brosaskndrx05@gmail.com</a>. We're here to help and improve the system together.</p>
