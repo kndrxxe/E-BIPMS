@@ -45,14 +45,15 @@ if ($result) {
   $mail->Subject = 'Your cedula request has been approved!';
 
   $name = $row['firstname'];
+  $cid = $mail->addEmbeddedImage('kanlurangbukal.png', 'image_cid');
   $mail->Body = '
 <html>
   <head> </head>
   <body>
     <header style="background-color: #ffc107; padding: 10px">
-      <a style="font-size: 20px; color: black; font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: column; align-items: center;">
-        <img src="https://lh3.googleusercontent.com/pw/ABLVV87QgQDmpIDhlUgw8IforjhqBlDrpUDASK9f0NBgwvj8j3T77FlFdTpxXW4VxvBWIx5yhc_lYdNngWq6VKJinm5WA_hn7aAwvUgU-gqJj4CJA6NjZQ=w2400" width="50"/>
-        <b>E-BIPMS KANLURANG BUKAL</b>
+      <a style="font-size: 20px; color: black; font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: row; align-items: center; text-decoration: none; /* Remove underline */">
+      <img src="cid:image_cid" width="50" style="margin-right: 10px;"/>
+      <b>E-BIPMS KANLURANG BUKAL</b>
       </a>
     </header>
     <h1 style="margin: 10px 0; font-size: 18px">
