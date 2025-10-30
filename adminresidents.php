@@ -47,7 +47,10 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#myTable').DataTable({
-				dom: 'Blfrtip',
+				dom: `<'d-flex justify-content-between mb-3 align-items-center'l<'d-flex align-items-center'<'d-none d-lg-block me-2'B>f>>
+                rt
+                <'d-flex justify-content-between align-items-center mt-3'ip>
+                `,
 				buttons: ['copy',
 					{
 						extend: 'csv',
