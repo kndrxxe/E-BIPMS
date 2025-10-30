@@ -27,6 +27,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/validate.css">
 	<link rel="stylesheet" href="DataTables/datatables.css" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
@@ -92,7 +93,6 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 			border: 1px solid #ffc107;
 			box-shadow: none;
 		}
-
 		.pagination .page-item.active .page-link {
 			background-color: #ffc107;
 			border-color: #ffc107;
@@ -464,10 +464,10 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 											novalidate="">
 											<input type="hidden" name="updatestatus_id" id="updatestatus_id">
 											<div class="form-floating mb-3">
-												<select class="form-select" name="status" id="editStatus" required>
+												<select class="form-select" name="status" id="editStatus" value="<?php echo $row['role'] ?>" required>
 													<option disabled selected>Select Status</option>
-													<option value="1">Activate</option>
-													<option value="0">Deactivate</option>
+													<option value="ACTIVATED">Activate</option>
+													<option value="DEACTIVATED">Deactivate</option>
 												</select>
 												<label for="updatestatus_id" class="form-label">Activation</label>
 											</div>
@@ -628,6 +628,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
 				console.log(data);
 
 				$('#updatestatus_id').val(data[1]);
+				$('#editStatus').val(data[4]);
 			});
 		});
 	</script>

@@ -1,0 +1,53 @@
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  background-image: none;
+  padding-right: 0.75rem;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+  background-image: none;
+  padding-right: 0.75rem;
+}
+
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus {
+  box-shadow: none !important;
+}
+
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus {
+  box-shadow: none !important;
+  border: 1px solid #ffc107;
+}
+
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  box-shadow: none !important;
+  border: 1px solid #ffc107;
+}
+
+.was-validated .form-select:valid:focus,
+.form-select.is-valid:focus {
+  box-shadow: none !important;
+  border: 1px solid #ffc107;
+    background-image: none;
+}
+
+.was-validated .form-select:valid,
+.form-select.is-valid {
+  box-shadow: none !important;
+  border: 1px solid #ffc107;
+    background-image: none;
+}
+
+.form-control:focus {
+  border: 1px solid #ffc107;
+  box-shadow: none;
+}
+
+.form-select:focus {
+  border: 1px solid #ffc107;
+  box-shadow: none !important;
+    background-image: none;
+}

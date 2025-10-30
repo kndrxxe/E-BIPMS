@@ -27,6 +27,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/validate.css">
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>

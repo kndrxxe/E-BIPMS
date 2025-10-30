@@ -3,15 +3,15 @@ session_start();
 
 include 'conn.php';
 if (isset($_SESSION['uid']) && isset($_SESSION['user']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'admin') {
-	if (time() - $_SESSION['login_time_stamp'] > 600) {
-		session_unset();
-		session_destroy();
-		header("Location: userlogin.php");
-	} else {
-		$_SESSION['login_time_stamp'] = time();
-	}
+    if (time() - $_SESSION['login_time_stamp'] > 600) {
+        session_unset();
+        session_destroy();
+        header("Location: userlogin.php");
+    } else {
+        $_SESSION['login_time_stamp'] = time();
+    }
 } else {
-	header('location: index.php');
+    header('location: index.php');
 }
 ?>
 <?php
@@ -32,6 +32,7 @@ $result = mysqli_query($conn, $query);
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/validate.css">
 
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
 
@@ -57,7 +58,7 @@ $result = mysqli_query($conn, $query);
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myTable').DataTable({
                 language: {
                     emptyTable: "No events added yet."
@@ -101,6 +102,16 @@ $result = mysqli_query($conn, $query);
             border-radius: 5px;
             border: 1px solid #ffc107;
             box-shadow: none;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: black
+        }
+
+        .pagination .page-link {
+            margin-bottom: 10px;
         }
 
         textarea {
@@ -148,74 +159,74 @@ $result = mysqli_query($conn, $query);
                         </li>
                         <hr class="mt-0 mb-0">
                         <li class="nav-item fs-7">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header fs-7">
-										<button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
-											style="font-size:11pt;" type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											Document Requests
-										</button>
-									</h2>
-									<hr class="mt-0 mb-0">
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body" style="margin-right: -20px;">
-											<ul class="nav flex-column pt-4">
-												<li class="nav-item fs-7" style="margin-left: -20px;">
-													<a class="nav-link" style="margin-top: -40px"
-														href="admindocument.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Barangay Clearance
-														
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href="adminindigency.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Barangay Indigency
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href="adminresidency.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Barangay Residency
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px"
-														href=" adminidentification.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Barangay Identification
-													</a>
-												</li>
-												<li class="nav-item fs-7 pt-2" style="margin-left: -20px">
-													<a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
-														href=" admincedula.php">
-														<span data-feather="file" style="width: 28px; height: 28px;"
-															class="align-text-bottom"></span>
-														Cedula
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-						</li>
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header fs-7">
+                                        <button class="accordion-button collapsed fs-7 pt-3 pb-2 nav-link"
+                                            style="font-size:11pt;" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                            aria-controls="flush-collapseOne">
+                                            Document Requests
+                                        </button>
+                                    </h2>
+                                    <hr class="mt-0 mb-0">
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body" style="margin-right: -20px;">
+                                            <ul class="nav flex-column pt-4">
+                                                <li class="nav-item fs-7" style="margin-left: -20px;">
+                                                    <a class="nav-link" style="margin-top: -40px"
+                                                        href="admindocument.php">
+                                                        <span data-feather="file" style="width: 28px; height: 28px;"
+                                                            class="align-text-bottom"></span>
+                                                        Barangay Clearance
+
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+                                                    <a class="nav-link" style="margin-top: -15px"
+                                                        href="adminindigency.php">
+                                                        <span data-feather="file" style="width: 28px; height: 28px;"
+                                                            class="align-text-bottom"></span>
+                                                        Barangay Indigency
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+                                                    <a class="nav-link" style="margin-top: -15px"
+                                                        href="adminresidency.php">
+                                                        <span data-feather="file" style="width: 28px; height: 28px;"
+                                                            class="align-text-bottom"></span>
+                                                        Barangay Residency
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+                                                    <a class="nav-link" style="margin-top: -15px"
+                                                        href=" adminidentification.php">
+                                                        <span data-feather="file" style="width: 28px; height: 28px;"
+                                                            class="align-text-bottom"></span>
+                                                        Barangay Identification
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item fs-7 pt-2" style="margin-left: -20px">
+                                                    <a class="nav-link" style="margin-top: -15px; margin-bottom: -15px"
+                                                        href=" admincedula.php">
+                                                        <span data-feather="file" style="width: 28px; height: 28px;"
+                                                            class="align-text-bottom"></span>
+                                                        Cedula
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </li>
                         <hr class="mt-0 mb-0">
                         <li class="nav-item fs-7">
-							<a class="nav-link" href="adminincidentreport">
-								<span data-feather="message-circle" class="align-text-bottom feather-48"></span>
-								Incident Report
-							</a>
-						</li>
+                            <a class="nav-link" href="adminincidentreport">
+                                <span data-feather="message-circle" class="align-text-bottom feather-48"></span>
+                                Incident Report
+                            </a>
+                        </li>
                         <li class="nav-item fs-7">
                             <a class="nav-link" href="adminofficials.php">
                                 <span data-feather="users" class="align-text-bottom feather-48"></span>
@@ -233,7 +244,7 @@ $result = mysqli_query($conn, $query);
                                 <span data-feather="calendar" class="align-text-bottom feather-48"></span>
                                 Events
                             </a>
-                        </li>   
+                        </li>
                         <hr class="mt-2 mb-1">
                         <li class="nav-item fs-7">
                             <a class="nav-link" href="adminlogout.php">
@@ -327,75 +338,75 @@ $result = mysqli_query($conn, $query);
                         </div>
                     </div>
                 </div>
-                <?php   
+                <?php
                 if (isset($_SESSION['eventerror'])) {
-                    ?>
+                ?>
                     <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
                         <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
                         <?= $_SESSION['eventerror']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['eventerror']);
                 }
                 ?>
                 <?php
                 if (isset($_SESSION['eventsuccess'])) {
-                    ?>
+                ?>
                     <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
                         <i class="bi bi-check-circle-fill" width="24" height="24"></i>
                         <?= $_SESSION['eventsuccess']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['eventsuccess']);
                 }
                 ?>
                 <?php
                 if (isset($_SESSION['deleteerror'])) {
-                    ?>
+                ?>
                     <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
                         <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
                         <?= $_SESSION['deleteerror']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['deleteerror']);
                 }
                 ?>
                 <?php
                 if (isset($_SESSION['deletesuccess'])) {
-                    ?>
+                ?>
                     <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
                         <i class="bi bi-check-circle-fill" width="24" height="24"></i>
                         <?= $_SESSION['deletesuccess']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['deletesuccess']);
                 }
                 ?>
                 <?php
                 if (isset($_SESSION['updateerror'])) {
-                    ?>
+                ?>
                     <div class="alert alert-warning alert-dismissible fade show text-start" role="alert">
                         <i class="bi bi bi-exclamation-triangle-fill" width="24" height="24"></i>
                         <?= $_SESSION['updateerror']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['updateerror']);
                 }
                 ?>
                 <?php
                 if (isset($_SESSION['updatesuccess'])) {
-                    ?>
+                ?>
                     <div class="alert alert-success alert-dismissible fade show text-start" role="alert">
                         <i class="bi bi-check-circle-fill" width="24" height="24"></i>
                         <?= $_SESSION['updatesuccess']; ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <?php
+                <?php
                     unset($_SESSION['updatesuccess']);
                 }
                 ?>
@@ -424,7 +435,7 @@ $result = mysqli_query($conn, $query);
                             $query_run = mysqli_query($conn, $query);
                             if (mysqli_num_rows($query_run) > 0) {
                                 foreach ($query_run as $items) {
-                                    ?>
+                            ?>
                                     <tr>
                                         <td>
                                             <?= $items['id']; ?>
@@ -463,7 +474,7 @@ $result = mysqli_query($conn, $query);
                                             </div>
                                         </td>
                                     </tr>
-                                    <?php
+                            <?php
                                 }
                             }
                             ?>
@@ -583,7 +594,7 @@ $result = mysqli_query($conn, $query);
     }
     ?>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
@@ -610,39 +621,40 @@ $result = mysqli_query($conn, $query);
             calendar.setOption('aspectRatio', 1.8);
             calendar.render();
         });
-
     </script>
-    <script>feather.replace()</script>
+    <script>
+        feather.replace()
+    </script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
-        </script>
-    <script>
-            (() => {
-                'use strict'
-
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                const forms = document.querySelectorAll('.needs-validation')
-
-                // Loop over them and prevent submission
-                Array.from(forms).forEach(form => {
-                    form.addEventListener('submit', event => {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-            })()
     </script>
     <script>
-        $(document).ready(function () {
-            $('.deletebtn').on('click', function () {
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.deletebtn').on('click', function() {
                 $('#deletemodal').modal('show');
                 $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function () {
+                var data = $tr.children("td").map(function() {
                     return $(this).text();
                 }).get();
                 console.log(data);
@@ -651,18 +663,18 @@ $result = mysqli_query($conn, $query);
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('.addbtn').on('click', function () {
+        $(document).ready(function() {
+            $('.addbtn').on('click', function() {
                 var charCount = $('#eventdescription').val().length;
                 var charLeft = 150 - charCount;
                 $('#charCountModal').text(charLeft + '/150');
             });
-            $('.editbtn').on('click', function () {
+            $('.editbtn').on('click', function() {
 
                 $('#editEventModal').modal('show');
 
                 $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function () {
+                var data = $tr.children("td").map(function() {
                     return $(this).text().trim();
                 }).get();
 
@@ -682,7 +694,7 @@ $result = mysqli_query($conn, $query);
                 var charLeft = 150 - charCount;
                 $('#charCount').text(charLeft + '/150');
             });
-            $('#eventdescription').on('input', function () {
+            $('#eventdescription').on('input', function() {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
 
@@ -690,7 +702,7 @@ $result = mysqli_query($conn, $query);
                 var charLeft = 150 - charCount;
                 $('#charCountModal').text(charLeft + '/150');
             });
-            $('#editDescription').on('input', function () {
+            $('#editDescription').on('input', function() {
                 // Existing code to auto-size the textarea...
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
